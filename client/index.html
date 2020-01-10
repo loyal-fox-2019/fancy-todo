@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Bootstrap CDN -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <!-- Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/custom-style.css" />
+    <title>Fancy Todo</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <a class="navbar-brand mr-auto" href="#">
+        <img src="https://image.flaticon.com/icons/png/512/46/46715.png" width="30" height="30" class="d-inline-block align-top" alt="">
+         Fancy Todo
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link btn btn-success mx-3 px-2" href="add-task.html">Add New Taks</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-success mx-3 px-2" href="login.html">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-success mx-3 px-2" href="#">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container main-container">
+      <div class="row">
+        <div class="col-md-12">
+          <section class="card tasks-widget">
+            <div class="card-body">
+              <div class="task-content">
+                <ul class="task-list">
+                  <li>
+                    <div class="task-title">
+                      <div class="row">
+                        <div class="col-md-1">
+                          <div class="task-checkbox text-center">
+                            <span class="h2">1</span>
+                          </div>
+                        </div>
+                        <div class="col-md-8">
+                          <div>
+                            <span class="h4">Flatlab is Modern Dashboard</span>
+                          </div>
+                          <div>
+                            <span class="badge badge-sm badge-success"
+                              >2 Days</span
+                            >
+                            <span class="badge badge-sm badge-success"
+                              >Urgent</span
+                            >
+                            <span class="badge badge-sm badge-success"
+                              >delayed</span
+                            >
+                          </div>
+                          <div>
+                            <p>description about the task bla bla bla</p>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="hidden-phone text-center p-1">
+                            <button class="btn btn-success btn-sm">
+                              <i class=" fa fa-check"></i> Done
+                            </button>
+                          </div>
+                          <div class="hidden-phone text-center p-1">
+                            <button class="btn btn-primary btn-sm">
+                              <i class="fa fa-pencil"></i> Edit
+                            </button>
+                          </div>
+                          <div class="hidden-phone text-center p-1">
+                            <button class="btn btn-danger btn-sm">
+                              <i class="fa fa-trash-o "></i> Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="task-title">
+                      <div class="row">
+                        <div class="col-md-1">
+                          <div class="task-checkbox text-center">
+                            <span class="h2">1</span>
+                          </div>
+                        </div>
+                        <div class="col-md-8">
+                          <div>
+                            <span class="h4">Flatlab is Modern Dashboard</span>
+                          </div>
+                          <div>
+                            <span class="badge badge-sm badge-success"
+                              >2 Days</span
+                            >
+                            <span class="badge badge-sm badge-success"
+                              >Urgent</span
+                            >
+                            <span class="badge badge-sm badge-success"
+                              >delayed</span
+                            >
+                          </div>
+                          <div>
+                            <p>description about the task bla bla bla</p>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="hidden-phone text-center p-1">
+                            <button class="btn btn-success btn-sm">
+                              <i class=" fa fa-check"></i> Done
+                            </button>
+                          </div>
+                          <div class="hidden-phone text-center p-1">
+                            <button class="btn btn-primary btn-sm">
+                              <i class="fa fa-pencil"></i> Edit
+                            </button>
+                          </div>
+                          <div class="hidden-phone text-center p-1">
+                            <button class="btn btn-danger btn-sm">
+                              <i class="fa fa-trash-o "></i> Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="task-title">
+                      <div class="row">
+                        <div class="col-md-1">
+                          <div class="task-checkbox text-center">
+                            <span class="h2">1</span>
+                          </div>
+                        </div>
+                        <div class="col-md-8">
+                          <div>
+                            <span class="h4">Flatlab is Modern Dashboard</span>
+                          </div>
+                          <div>
+                            <span class="badge badge-sm badge-success"
+                              >2 Days</span
+                            >
+                            <span class="badge badge-sm badge-success"
+                              >Urgent</span
+                            >
+                            <span class="badge badge-sm badge-success"
+                              >delayed</span
+                            >
+                          </div>
+                          <div>
+                            <p>description about the task bla bla bla</p>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="hidden-phone text-center p-1">
+                            <button class="btn btn-success btn-sm">
+                              <i class=" fa fa-check"></i> Done
+                            </button>
+                          </div>
+                          <div class="hidden-phone text-center p-1">
+                            <button class="btn btn-primary btn-sm">
+                              <i class="fa fa-pencil"></i> Edit
+                            </button>
+                          </div>
+                          <div class="hidden-phone text-center p-1">
+                            <button class="btn btn-danger btn-sm">
+                              <i class="fa fa-trash-o "></i> Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

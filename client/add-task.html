@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Bootstrap CDN -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <!-- Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/custom-style.css" />
+    <title>Fancy Todo</title>
+  </head>
+  <body class="login-body">
+    <div class="container">
+      <form class="form-signin" action="#">
+        <h2 class="form-signin-heading">Add task</h2>
+        <div class="login-wrap">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Task title"
+            autofocus=""
+          />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="tags separated by space"
+            autofocus=""
+          />
+          <textarea name="task-description" id="task-description" class="my-3" rows="5" placeholder="Task description"></textarea>
+          <button class="btn btn-lg btn-login btn-block" type="submit">
+            Add Task
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
