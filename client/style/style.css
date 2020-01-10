@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.form {
+  border: 2px solid black;
+  height: 100%;
+  padding: 5%;
+  box-shadow: 10px 10px 10px grey;
+
+}
+
+#loginregisterform {
+  justify-content: center;
+}
+
+#noToken {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 13%;
+  margin-bottom: 13%;
+}
+
+.button {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#something-you-cant-understand {
+  font-family: 'Pacifico', cursive;
+  font-size: 50px;
+}
+
+#this {
+  background-repeat: no-repeat;
+  margin-top: 5%;
+  background-image: url('https://pngriver.com/wp-content/uploads/2018/04/Download-Abstract-PNG.png');
+}
