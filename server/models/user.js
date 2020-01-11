@@ -20,7 +20,11 @@ const userSchema = new Schema({
     },
     avatar: {
         type: String
-    }
+    },
+    projects: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Project'
+    }]
 });
 
 userSchema.pre('save', function(next) {
@@ -28,7 +32,7 @@ userSchema.pre('save', function(next) {
     next();
 });
 
-const userModel = mongoose.model('user', userSchema);
+const userModel = mongoose.model('User', userSchema);
 
 module.exports = {
     userModel
