@@ -8,26 +8,101 @@
     <meta name="google-signin-client_id"
         content="122606219695-b7b5vkupuacgsm3ndk8gqrn3jk5jn5po.apps.googleusercontent.com">
     <title>Fancy Todo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <link href="index.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+
+    </style>
 </head>
 
 <body>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <a href="#" onclick="signOut();">Sign out</a>
+    <div class="container-fluid">
+        <div class="row no-gutters" id="loginPage">
+            <div class="col-md-6 no-gutters">
+                <div class="leftside d-flex justify-content-center align-self-center">
+                    <div class="col align-self-center containKeepLife">
+                        <div class="row align-self-center justify-content-start pl-5 pr-5 keep">
+                            <h2>
+                                Keep Track of your Activities
+                            </h2>
+                        </div>
+                        <div class="row align-self-center justify-content-start pl-5 pr-5 life">
+                            <h5>
+                                Life goes incredibly fast and waits for no one. We are here to help you organize them.
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 no-gutters">
+                <div class="rightside d-flex justify-content-center align-self-center">
+                    <div class="col align-self-center form-group">
+                        <div class="form-group row">
+                            <label for="username" class="col-sm-2 col-form-label">
+                                <h6>Username</h6>
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="text" name="username" class="form-control" id="username"
+                                    aria-describedby="usernameHelp" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-2 col-form-label">
+                                <h6>Email</h6>
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="email" name="email" class="form-control" id="email"
+                                    aria-describedby="emailHelp" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-2 col-form-label">
+                                <h6>Password</h6>
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="password" name="password" class="form-control" id="password"
+                                    aria-describedby="passwordHelp" required>
+                            </div>
+                        </div>
+                        <div class="row align-self-center justify-content-center pl-5 pr-5">
+
+                            <div class="g-signin2" data-onsuccess="onSignIn" data-longtitle="true"></div>
+                        </div>
+                        <div class="row align-self-center justify-content-center pl-5 pr-5">
+                            <a href="#" onclick="signOut();">Sign out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="h-100 row align-self-center vertical-center" id="pageNotFound" style="display: none">
+                <div class="col pageNotFoundContain">
+                    <div class="row d-flex justify-content-center pageNotFoundContent">
+                        <h2>Oops</h2>
+                    </div>
+                    <div class="row d-flex justify-content-center pageNotFoundContent">
+                        <h4>Looks Like You're Lost</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-    <script src="index.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="googleLogin.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+        <script src="index.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script src="googleLogin.js"></script>
 
 </body>
 

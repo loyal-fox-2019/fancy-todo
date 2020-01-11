@@ -1,0 +1,92 @@
+
+html, body{
+    height: 100%;
+}
+#loginPage{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.vertical-center{
+    min-height: 100%;  
+    min-height: 100vh;
+  
+    display: flex;
+    align-items: center;
+}
+
+#pageNotFound{
+    background-image: url("page-not-found-2.png");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.pageNotFoundContain{
+    background-color: white;
+    margin: 12em 14em;
+    padding: 4em;
+    border-radius: 1em;
+    opacity: 0.8;
+}
+
+.pageNotFoundContent h4{
+    font-weight: 700;
+}
+
+.pageNotFoundContent h2{
+    font-size: 4em
+}
+
+.leftside .keep h2{
+    font-weight: 900;
+    font-size: 3em;
+    color: #1d1f3b;
+    opacity:2;
+}
+
+.leftside .life h5{
+    font-weight: 800;
+    font-size: 1.6em;
+    color: #1d1f3b
+}
+
+#loginArea{
+    min-height: 100%;
+  background-color: blue
+}
+
+.leftside, .rightside{
+    height: 50vh;
+    width: 100%;
+}
+ 
+@media screen and (min-width: 768px){
+    .leftside, .rightside {
+        height: 100vh;
+    }
+}
+.leftside{
+    /* background-color: blueviolet; */
+    background-image: url("patternLoginPage2.png");
+    /* opacity: 0.7; */
+}
+
+.containKeepLife{
+    background-color: white;
+   margin: 5em;
+    border-radius: 1em;
+    opacity: 0.95;
+}
+
+
+.rightside{
+    background:#f5745d;
+}
+
+.form-group{
+    background-color: white;
+    margin: 2em;
+     border-radius: 1em;
+}
