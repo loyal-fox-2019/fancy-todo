@@ -1,11 +1,17 @@
 "use strict"
 
-const routes = require('express').Router()
+const express = require('express')
+const router = require('express').Router()
 const TodoController = require('../controllers/todo')
+const auth = require('../middleware/authentication')
 
-routes.get("/", TodoController.findAll)
-routes.post("/", TodoController.create)
-routes.patch("/:id", TodoController.update)
-routes.delete("/:id", TodoController.delete)
+router.use(express.json()) // for parsing application/json
+router.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+router.use(auth)
 
-module.exports = routes
+router.get("/", TodoController.findAll)
+router.post("/", TodoController.create)
+router.patch("/:id", TodoController.update)
+router.delete("/:id", TodoController.delete)
+
+module.exports = router

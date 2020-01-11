@@ -25,7 +25,7 @@ class UserController {
             email: req.body.email
         })
             .then(data => {
-                const { email, password, fullname } = data
+                const { email, password, fullname, _id } = data
                 if (data === null) {
                     next({
                         status: 400,
@@ -42,6 +42,7 @@ class UserController {
                     } else {
                         const token = jwt.sign({ id: data.id }, process.env.JWT_SECRET)
                         res.status(200).json({
+                            _id,
                             email,
                             password,
                             fullname,
