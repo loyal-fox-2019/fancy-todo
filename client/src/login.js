@@ -56,7 +56,7 @@ function onSuccess(googleUser) {
             localStorage.setItem('token', data.token);
             initLoginBtn();
         }).catch((err) => {
-            onfailure(err);
+            console.log(err);
             $('#user-page').show();
         });
 }
