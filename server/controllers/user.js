@@ -3,6 +3,8 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const { checkPassword } = require('../helpers/bcrypt')
+const { googleAuth } = require('google-auth-library')
+const client = new googleAuth(process.env.CLIENT_ID_GOOGLE)
 
 class UserController {
     static register(req, res, next) {
@@ -20,7 +22,6 @@ class UserController {
     }
 
     static login(req, res, next) {
-        console.log(req.body)
         User.findOne({
             email: req.body.email
         })
@@ -33,7 +34,6 @@ class UserController {
                     })
                 } else {
                     const checkPwd = checkPassword(req.body.password, data.password)
-                    console.log(checkPwd)
                     if (!checkPwd) {
                         next({
                             status: 400,
@@ -55,9 +55,43 @@ class UserController {
             });
     }
 
-    // static loginGoogle(req, res, next) {
-
-    // }
+    static loginGoogle(req, res, next) {
+        let payload = null
+        client.verifyIdToken({
+            idToken: req.body.token,
+            audience: process.env.CLIENT_ID_GOOGLE
+        })
+            .then((data) => {
+                payload = data.getPayload()
+                return User.findOne({
+                    email: payload.email
+                })
+            })
+            .then((user) => {
+                if (!user) {
+                    return User.create({
+                        email: payload.email,
+                        password: ~~(Math.random() * 99999) + 1,
+                        name: payload.name,
+                        picture: payload.picture
+                    })
+                } else {
+                    let accessToken = jwt.sign({
+                        email: payload.email
+                    }, process.env.JWT_SECRET)
+                    res.status(200).json({ accessToken, user })
+                }
+            })
+            .then((user) => {
+                let accessToken = jwt.sign({
+                    email: payload.email
+                }, process.env.JWT_SECRET)
+                res.status(200).json({ accessToken, user })
+            })
+            .catch((err) => {
+                next(err)
+            });
+    }
 }
 
 module.exports = UserController
