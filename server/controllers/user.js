@@ -7,7 +7,10 @@ class UserController {
     static login(req, res, next) {
         const {username, password} = req.body;
         userModel.findOne({
-            username
+            $or: [
+                { username: req.body.username }, 
+                { email: req.body.username } 
+            ]
         })
             .then((user) => {
                 if (!user) {

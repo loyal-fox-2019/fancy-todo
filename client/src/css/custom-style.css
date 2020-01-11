@@ -1,0 +1,11 @@
+.card-parent {
+    background-color: #F1F3F5;
+    /* border-top-left-radius: 20px;
+    border-top-right-radius: 20px; */
+}
+
+.body-parent {
+    max-height: 700px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

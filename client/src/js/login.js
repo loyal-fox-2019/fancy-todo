@@ -9,6 +9,12 @@ $(document).ready(function () {
     });
 });
 
+function nullifyForm() {
+    $('#username').val('');
+    $('#email').val('');
+    $('#password').val('');
+}
+
 function setToken(token){
     localStorage.setItem('token',token);
 }
@@ -53,8 +59,8 @@ function register() {
     if (!ValidateEmail(email)) {
         $('#email').addClass('is-invalid');
         $('#email').val('');
-        $('#email').focus();
         $('#password').val('');
+        $('#email').focus();
     } else {
         axios({
             method: 'POST',
@@ -67,6 +73,7 @@ function register() {
                 alert(data.msg);
                 showLogin();
             }).catch((err) => {
+                $('#email').removeClass('is-invalid');
                 console.log('INI ERROR=', err);
                 alert('ERROR WOY');
                 showRegister();
@@ -75,9 +82,9 @@ function register() {
 }
 
 function showLogin() {
-    $('#password').val('');
-    $('#login-title').html('Log in to Trello');
-    $('#login-btn').html('Log In');
+    nullifyForm();
+    $('#login-title').html('Sign in to Trello');
+    $('#login-btn').html('Sign In');
     $('#login-btn').attr('onclick', 'login()');
     $('#username').attr('placeholder', 'Email or Username');
     $('#register').show();
@@ -86,10 +93,9 @@ function showLogin() {
 }
 
 function showRegister() {
-    $('#password').val('');
-    $('#email').val('');
-    $('#login-title').html('Register to Trello');
-    $('#login-btn').html('Register');
+    nullifyForm();
+    $('#login-title').html('Sign up to Trello');
+    $('#login-btn').html('Sign Up');
     $('#login-btn').attr('onclick', 'register()');
     $('#username').attr('placeholder', 'Username');
     $('#email').show();    
@@ -114,6 +120,7 @@ function renderButton() {
 }
 
 function switchPage() {
+    nullifyForm();
     if (localStorage.getItem('token')) {
         $('#user-page').show();
         $('#login-page').hide();
