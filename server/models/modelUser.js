@@ -6,7 +6,7 @@ const userSchema = new Schema({
     username: {
         type: String,
         required: [true, 'please provide username'],
-        min: [6, "please provide username withing 6-10 characters"],
+        min: [2, "please provide username withing 6-10 characters"],
         max: [10, "please provide username withing 6-10 characters"]
     },
     password: {

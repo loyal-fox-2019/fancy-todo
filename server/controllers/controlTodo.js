@@ -1,6 +1,7 @@
 const modelTodo = require('../models/modelTodo')
-const ObjectId = require('mongoose').Types.ObjectId
+// const ObjectId = require('mongoose').Types.ObjectId
 const modelUser = require('../models/modelUser')
+const axios = require('axios')
 
 class ControlTodo {
     static createTodo(req, res, next) {
@@ -66,6 +67,25 @@ class ControlTodo {
             })
             .catch(err => {
                 res.status(500).json({ err, message: "Internal Server Error from deleteTodo" })
+            })
+    }
+
+    static getWeather(req, res, next) {
+        axios.get(`http://api.weatherstack.com/current`, {
+            params: {
+                access_key: process.env.WEATHER_APIKEY,
+                query: "Jakarta"
+            }
+        })
+            .then(response => {
+                if (response) {
+                    console.log(response.data.current.weather_icons, "weather icons", response.data.current.weather_descriptions)
+                } else {
+                    console.log("no response")
+                }
+            })
+            .catch(err => {
+                res.status(500).json({ err, message: "Internal Server error from getWeather Control" })
             })
     }
 

@@ -1,7 +1,7 @@
 const modelUser = require('../models/modelUser')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-
+const verifyToken = require('../helpers/verifyToken')
 
 class ControlUser {
     static register(req, res, next) {
@@ -57,6 +57,46 @@ class ControlUser {
             .catch(err => {
                 res.status(500).json({ err, message: "Internal Server Error from login" })
             })
+    }
+
+    static google(req, res, next) {
+        let email
+        let username
+        console.log("halo dari google controller")
+        // console.log(req.body.idtoken)
+        const tokenGoogle = req.body.idtoken
+        const payload = verifyToken(tokenGoogle)
+        console.log(payload)
+        payload.then(data => {
+            console.log('controller google')
+            // console.log(data)
+            email = data.email
+            username = data.name
+            return modelUser.findOne({
+                email
+            })
+        })
+            .then(result => {
+                if (result) {
+                    return result
+                } else {
+                    console.log("halo dari google controller setelah findUser")
+                    return modelUser.create({
+                        username: username,
+                        email,
+                        password: process.env.USER_PASSWORD
+                    })
+                }
+                // console.log(result)
+            })
+            .then(user => {
+                console.log(user, "ini usernya")
+                res.send(user)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
     }
 
 }
