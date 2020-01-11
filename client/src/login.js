@@ -13,9 +13,20 @@ function initLoginBtn() {
 }
 
 function onSignIn(googleUser) {
-    var id_token = googleUser.getAuthResponse().id_token;
-    localStorage.setItem('token', id_token);
-    initLoginBtn();
+    var idToken = googleUser.getAuthResponse().id_token;
+    axios({
+        method: 'POST',
+        url: 'http://localhost:3000/oauth/login',
+        data: {
+          idToken
+        }
+    })
+        .then(({data}) => {
+            localStorage.setItem('token', data.token);
+            initLoginBtn();
+        }).catch((err) => {
+            console.log(err);
+        });
 }
 
 function signOut() {
