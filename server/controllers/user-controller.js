@@ -110,14 +110,6 @@ class UserController {
       })
       .catch(next)
   }
-
-  static getAllUsers(req, res, next) {
-    User.find()
-      .then(users => {
-        res.json(users)
-      })
-      .catch(next)
-  }
 }
 
 module.exports = UserController
