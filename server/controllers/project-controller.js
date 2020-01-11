@@ -30,11 +30,26 @@ class ProjectController {
   }
 
   static editProject(req, res, next) {
-    res.json({ message: 'welcome to edit project route' })
+    if (!req.body.name) {
+      return next({ name: 'BadRequest', message: 'Project name is required' })
+    }
+
+    Project.findOneAndUpdate(
+      { _id: req.params.projectId },
+      { name: req.body.name },
+    )
+      .then(project => {
+        res.json({ message: 'Project name changed' })
+      })
+      .catch(next)
   }
 
   static deleteProject(req, res, next) {
-    res.json({ message: 'welcome to delete project route' })
+    Project.findByIdAndRemove(req.params.projectId)
+      .then(project => {
+        res.json({ message: 'Project deleted' })
+      })
+      .catch(next)
   }
 
   static addTodoProject(req, res, next) {
