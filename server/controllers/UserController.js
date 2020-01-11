@@ -23,7 +23,7 @@ class UserController {
         next({ status: 404, message: 'Invalid Email or Password' })
       } else {
         let token = generateToken({ id: user._id })
-        res.status(201).json({token})
+        res.status(200).json({token})
       }
     } catch (error) {
       next(error)

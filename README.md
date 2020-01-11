@@ -75,3 +75,62 @@ No  | Route               | HTTP | Authentication | Authorization
         console.log(error)
       })
   ```
+
+###2. POST /api/users/login
+  > Check users collections and return token when user found
+
+* **URL**
+
+  /api/users/login
+
+* **Method:**
+
+  `POST`
+
+* **Data Params**
+  email: [string] <_required_>
+  password: [string] <_required_>
+
+* **Success Response:**
+
+  * **Code:** 200 SUCCESS
+    **Content:** 
+    ```javascript
+    {
+      {
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRoaXMgdG9rZW4gaXMgZm9yIGFwaSBkb2N1bWVudCBvbmx5IiwiaWF0IjoxNTE2MjM5MDIyfQ.X5ErI_61TUnECess_qkg5T7fHZ8J547E20ftQY7qfsc"
+      }
+    }
+    ```
+ 
+* **Error Response:**
+
+  * **Code:** 404 BAD REQUEST
+    **Content:** 
+    ```javascript
+    {
+      {
+          "code": 404,
+          "message": "Invalid Email or Password"
+      }
+    }
+    ```
+
+* **Sample Call:**
+
+  ```javascript
+    axios({
+      url: "api/users/login",
+      type : "POST",
+      data: {
+        email: 'janedoe@mail.com',
+        password: '123456'
+      }
+    })
+      .then(result => {
+        console.log(result)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  ```
