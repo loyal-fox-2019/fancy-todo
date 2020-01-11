@@ -11,5 +11,9 @@ module.exports = function (err, req, res, next) {
         res.status(404).json({
             message: err.message
         })
+    } else if (err.message === "username/password wrong") {
+        res.status(err.status).json({
+            message: err.message
+        })
     }
 }
