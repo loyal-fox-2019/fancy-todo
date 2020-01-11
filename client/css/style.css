@@ -1,0 +1,45 @@
+#login-container {
+    width: 35%;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: white;
+}
+
+#login-message {
+    color: red;
+}
+
+#title{
+    width: 100%;
+    text-align: center;
+    margin: 25px;
+}
+
+.card{
+    margin: 25px;
+    background-color: antiquewhite;
+}
+
+#newTask-container{
+    width: 30%;
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+#logo{
+    font-weight: bold;
+    font-size: 25px;
+}
+
+#form-login{
+    margin-top: 20px;
+}
+
+.form-login-input{
+    font-size: 12px;
+}
