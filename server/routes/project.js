@@ -5,8 +5,8 @@ const authentication = require('../middlewares/authentication');
 const isMember = require('../middlewares/projectMember');
 const TodoController = require('../controllers/todo');
 
-route.get('/', controller.listProject);
 route.use(authentication);
+route.get('/', controller.listProject);
 route.post('/', controller.createProject);
 route.get('/:projectId', isMember, controller.viewProject);
 route.post('/:projectId/addtodo', isMember, TodoController.createTodo);

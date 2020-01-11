@@ -60,7 +60,8 @@ class TodoController {
     const filter = { _id: todoId };
     const update = { status: 1 };
     try {
-      const todo = await Todo.findOneAndUpdate(filter, update);
+      const todo = await Todo.updateOne(filter, update);
+      console.log(todo);
       res.status(200).json(todo);
     } catch (err) {
       next(err);

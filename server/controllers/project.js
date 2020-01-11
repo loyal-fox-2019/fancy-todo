@@ -56,8 +56,8 @@ class ProjectController {
         .catch(next);
     } else {
       Project
-        .find()
-        .populate({ path: 'members', select: '-password' })
+        .find({ members: { $in: [ req.decoded._id ] } })
+        .populate({ path: 'members', select: '-password -_id -email' })
         .then((projects) => {
           res.status(200).json(projects);
         })
