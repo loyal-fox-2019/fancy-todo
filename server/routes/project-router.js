@@ -15,5 +15,15 @@ router.delete(
   projectAuth,
   ProjectController.deleteTodoProject,
 )
+router.post(
+  '/:projectId/members',
+  projectOwnerAuth,
+  ProjectController.addMember,
+)
+router.delete(
+  '/:projectId/members/:memberId',
+  projectOwnerAuth,
+  ProjectController.kickMember,
+)
 
 module.exports = router

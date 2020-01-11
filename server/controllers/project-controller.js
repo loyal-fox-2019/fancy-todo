@@ -1,4 +1,5 @@
 const Project = require('../models/project')
+const User = require('../models/user')
 
 class ProjectController {
   static createProject(req, res, next) {
@@ -116,11 +117,45 @@ class ProjectController {
   }
 
   static addMember(req, res, next) {
-    res.json({ message: 'welcome to add member route' })
+    if (!req.body.email) {
+      return next({ name: 'BadRequest', message: 'User email is required' })
+    }
+
+    let userFound = null
+
+    User.findOne({ email: req.body.email })
+      .then(user => {
+        if (!user) throw { name: 'NotFound', message: 'User email not found' }
+
+        userFound = user
+        return Project.findOne({ _id: req.params.projectId })
+      })
+      .then(project => {
+        if (project.owner == userFound.id) {
+          throw {
+            name: 'Forbidden',
+            message: 'You are the owner of this project',
+          }
+        }
+
+        project.members.push(userFound.id)
+        return project.save()
+      })
+      .then(project => {
+        res.status(200).json({ message: 'Members added' })
+      })
+      .catch(next)
   }
 
   static kickMember(req, res, next) {
-    res.json({ message: 'welcome to kick member route' })
+    Project.findOneAndUpdate(
+      { _id: req.params.projectId },
+      { $pull: { members: req.params.memberId } },
+    )
+      .then(project => {
+        res.json({ message: 'Member kicked' })
+      })
+      .catch(next)
   }
 }
 

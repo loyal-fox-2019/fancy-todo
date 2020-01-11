@@ -1,4 +1,5 @@
 module.exports = function(err, req, res, next) {
+  console.log(err)
   switch (err.name) {
     case 'ValidationError':
       const errors = []
@@ -22,6 +23,14 @@ module.exports = function(err, req, res, next) {
 
     case 'NotAuthorized':
       res.status(401).json({ errors: err.message })
+      break
+
+    case 'Forbidden':
+      res.status(403).json({ errors: err.message })
+      break
+
+    case 'MemberAlreadyRegistered':
+      res.status(400).json({ errors: 'Member already registered' })
       break
 
     default:
