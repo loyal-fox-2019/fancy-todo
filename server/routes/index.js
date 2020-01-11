@@ -1,5 +1,5 @@
 const router = require('express').Router(),
-  { authenticate } = require('../middlewares/auth'),
+  { authenticate, authorize } = require('../middlewares/auth'),
   UserController = require('../controllers/user'),
   userRoutes = require('./user'),
   todoRoutes = require('./todo'),
@@ -10,6 +10,6 @@ const router = require('express').Router(),
   router.use(authenticate)
   router.use('/users', userRoutes)
   router.use('/todos', todoRoutes)
-  router.use('/projects', projectRoutes)
+  router.use('/projects', authorize, projectRoutes)
 
 module.exports = router

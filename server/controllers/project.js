@@ -60,6 +60,15 @@ class ProjectController {
       })
       .catch(next)
   }
+  static destroy (req, res, next) {
+    const id = req.params.id
+    Project.deleteOne({ id })
+      .then(result => {
+        console.log(result)
+        res.send(result)
+      })
+      .catch(next)
+  }
 }
 
 module.exports = ProjectController
