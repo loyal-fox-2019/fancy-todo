@@ -16,14 +16,15 @@
     <title>Fancy Todo</title>
 </head>
 
-<body>
+<body style="background-image: url('./src/img/bg-img')">
     <div class="container-fluid">
-        <div class="row" id="login-page">
+        <div class="row" id="login-page" style="display: none;">
             <div class="col d-flex justify-content-center align-items-center flex-fill vh-100">
                 <div class="card shadow text-center p-5">
                     <h5 class="card-title" id="login-title">Log in to Trello</h5>
-                    <input type="text" class="form-control mt-3" id="username-validator" name="username" placeholder="Email or Username">
-                    <input type="password" class="form-control my-3" id="password-validator" name="password" placeholder="Password">
+                    <input type="text" class="form-control mt-3" id="username" name="username" placeholder="Email or Username" required>
+                    <input type="email" class="form-control mt-3" id="email" name="email" placeholder="Email" required>
+                    <input type="password" class="form-control my-3" id="password" name="password" placeholder="Password" required>
                     <button type="button" class="btn btn-success" id="login-btn">Log In</button>
                     <p class="my-3">OR</p>
                     <div id="my-signin2"></div>
@@ -34,7 +35,7 @@
             </div>
         </div>
 
-        <div class="row mt-5" id="user-page">
+        <div class="row mt-5" id="user-page" style="display: none;">
             <div class="col">
                 <a href="#" onclick="signOut();" id="glogout-btn">Sign out</a>
             </div>
@@ -55,7 +56,7 @@
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
     <!-- ALL customs script -->
-    <script src="./src/login.js"></script>
-</body>
+    <script src="./src/js/login.js"></script>
+</bod>
 
 </html>

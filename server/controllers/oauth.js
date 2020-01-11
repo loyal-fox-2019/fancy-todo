@@ -1,7 +1,7 @@
 const {OAuth2Client} = require("google-auth-library");
 const client = new OAuth2Client(process.env.CLIENT_ID);
 const jwt = require('jsonwebtoken');
-const {oauthModel} = require('../models/oauth');
+const {userModel} = require('../models/user');
 
 class OAuthController {
   static login(req, res, next) {
@@ -15,14 +15,14 @@ class OAuthController {
         .then((ticket) => {
             oauthPayload = ticket.getPayload();
             
-            return oauthModel.findOne({
+            return userModel.findOne({
                 userId: oauthPayload.sub
             })
         }).then((user) => {
             if (user) {
                 return user;
             } else {
-                return oauthModel.create({
+                return userModel.create({
                     userId: oauthPayload.sub,
                     username: oauthPayload.given_name,
                     password: 'notsafeforpassword',
@@ -33,7 +33,7 @@ class OAuthController {
             }
         }).then((registeredUser) => {
             const token = jwt.sign({
-                userId: registeredUser.usesId,
+                userId: registeredUser.userId,
                 name: registeredUser.name,
                 email: registeredUser.email,
                 avatar: registeredUser.picture

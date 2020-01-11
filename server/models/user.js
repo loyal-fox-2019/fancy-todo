@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const {hashPassword} = require('../helpers/hashPassword');
 
-const oauthSchema = new Schema({
+const userSchema = new Schema({
     userId: {
         type: String
     },
@@ -23,13 +23,13 @@ const oauthSchema = new Schema({
     }
 });
 
-oauthSchema.pre('save', function(next) {
+userSchema.pre('save', function(next) {
     this.password = hashPassword(this.password);
     next();
 });
 
-const oauthModel = mongoose.model('oauth', oauthSchema);
+const userModel = mongoose.model('user', userSchema);
 
 module.exports = {
-    oauthModel
+    userModel
 };

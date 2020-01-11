@@ -9,8 +9,8 @@ npm i
 ```
 2. Make a new file `.env` and add this lines
 ```
-CLIENT_ID='YOUR-CLIENT-ID-FROM-GOOGLE-OAUTH-FOR-localhost:5500'
-CLIENT_SECRET='YOUR-CLIENT-SECRET-FROM-GOOGLE-OAUTH-FOR-localhost:5500'
+CLIENT_ID=YOUR-CLIENT-ID-FROM-GOOGLE-OAUTH-FOR-localhost:5500
+CLIENT_SECRET=YOUR-CLIENT-SECRET-FROM-GOOGLE-OAUTH-FOR-localhost:5500
 ```
 3. You are ready to go, type command in terminal
 ```
