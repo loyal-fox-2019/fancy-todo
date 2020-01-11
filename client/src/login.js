@@ -26,6 +26,7 @@ function onSignIn(googleUser) {
             initLoginBtn();
         }).catch((err) => {
             console.log(err);
+            $('#glogout-btn').show();
         });
 }
 
