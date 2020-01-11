@@ -1,10 +1,12 @@
 const { decodeToken } = require('../helpers/jwt'),
-  User = require('../models/user')
+  User = require('../models/user'),
+  Todo = require('../models/todo'),
+  Project = require('../models/project')
 
 function authenticate(req, res, next) {
   try {
-    req.loggedUser = decodeToken(req.headers.token)
-    User.findById(req.loggedUser.id)
+    req.user = decodeToken(req.headers.token)
+    User.findById(req.user._id)
       .then(user => {
         if(!user){
           next({status: 401, message: 'Authentication failed'})
@@ -18,6 +20,31 @@ function authenticate(req, res, next) {
 }
 
 function authorize(req, res, next) {
+  try{
+    Todo.findById(req.params.id)
+      .then(todo => {
+        if(!todo) {
+          next({status: 404, message: 'id not found'})
+        } else if(todo.user == req.user._id){
+          next()
+        } else {
+          return Project.findOne({ id: todo.project })
+        }
+      })
+      .then(project => {
+        if(project.author == req.user._id){
+          next()
+        } else if(project.members.includes(req.user._id)){
+          next()
+        } else {
+          next({status: 401, message: 'Authorization failed'})
+        }
+      })
+      .catch(next)
+  }
+  catch (err) {
+    next(err)
+  }
 }
 
 module.exports = { authenticate, authorize }

@@ -3,11 +3,6 @@ const mongoose = require('mongoose'),
   { hash } = require('../helpers/bcrypt')
 
 const userSchema = new Schema({
-  username: {
-    type: String,
-    unique: true,
-    required: [true, 'username is required']
-  },
   email: {
     type: String,
     unique: true,
@@ -15,16 +10,18 @@ const userSchema = new Schema({
     match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Invalid email address'],
     validate: {
       validator: function(value) {
-        return User.findOne({ email: value }).then(user => {
-          if (user) return false;
-        });
+        return User.findOne({ email: value })
+          .then(user => {
+            if (user) return false;
+          });
       },
       message: props => 'Email already registered'
     }
   },
   password: {
     type: String,
-    required: [true, 'password is required']
+    required: [true, 'password is required'],
+    minlength: [6, 'password not long enough']
   }
 })
 

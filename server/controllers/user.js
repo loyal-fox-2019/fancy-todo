@@ -19,7 +19,7 @@ class UserController {
         } else if(!compare(password, user.password)){
           next({status: 400, message: 'invalid password or email'})
         } else {
-          res.status(200).json({token: generateToken({id: user._id}), username: user.username})
+          res.status(200).json({token: generateToken({_id: user._id}), username: user.username})
         }
       })
       .catch(next)
@@ -27,7 +27,6 @@ class UserController {
   static register (req, res, next) {
     const { username, email, password } = req.body
     User.create({
-      username,
       email,
       password
     })
