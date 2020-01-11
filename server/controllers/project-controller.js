@@ -53,19 +53,66 @@ class ProjectController {
   }
 
   static addTodoProject(req, res, next) {
-    res.json({ message: 'welcome to add todo project' })
-  }
+    let projectFound = null
 
-  static getTodoProject(req, res, next) {
-    res.json({ message: 'welcome to get todo project' })
+    Project.findOne({ _id: req.params.projectId })
+      .then(project => {
+        projectFound = project
+
+        projectFound.todos.push({
+          title: req.body.title,
+          description: req.body.description,
+          dueDate: req.body.dueDate,
+        })
+
+        return projectFound.todos[projectFound.todos.length - 1].validate()
+      })
+      .then(() => projectFound.save())
+      .then(project => {
+        res.status(201).json({ message: 'Todo project created' })
+      })
+      .catch(next)
   }
 
   static editTodoProject(req, res, next) {
-    res.json({ message: 'welcome to edit todo project' })
+    let projectFound = null
+
+    Project.findOne({ _id: req.params.projectId })
+      .then(project => {
+        projectFound = project
+        const todo = projectFound.todos.id(req.params.todoId)
+
+        if (!todo) throw { name: 'NotFound', message: 'Todo project not found' }
+
+        todo.title = req.body.title || todo.title
+        todo.description = req.body.description || todo.description
+        todo.dueDate = req.body.dueDate || todo.dueDate
+        todo.status = req.body.status || todo.status
+
+        return todo.validate()
+      })
+      .then(() => projectFound.save())
+      .then(project => {
+        res.json({ message: 'Todo project edited' })
+      })
+      .catch(next)
   }
 
   static deleteTodoProject(req, res, next) {
-    res.json({ message: 'welcome to delete todo project' })
+    Project.findOne({ _id: req.params.projectId })
+      .then(project => {
+        const todo = project.todos.id(req.params.todoId)
+
+        if (!todo) throw { name: 'NotFound', message: 'Todo project not found' }
+
+        todo.remove()
+
+        return project.save()
+      })
+      .then(project => {
+        res.json({ message: 'Todo project deleted' })
+      })
+      .catch(next)
   }
 
   static addMember(req, res, next) {
