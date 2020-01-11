@@ -1,19 +1,50 @@
 $(document).ready(function () {
     initLoginBtn();
+    showLogin();
 });
+
+function showLogin() {
+    $('#login-title').html('Log in to Trello');
+    $('#login-btn').html('Log In');
+    $('#register').show();
+    $('#login').hide();
+}
+
+function showRegister() {
+    $('#login-title').html('Register to Trello');
+    $('#login-btn').html('Register');
+    $('#register').hide();
+    $('#login').show();
+}
+
+function onFailure(error) {
+    console.log(error);
+}
+
+function renderButton() {
+    gapi.signin2.render('my-signin2', {
+      'scope': 'profile email',
+      'width': 400,
+      'height': 35,
+      'theme': 'dark',
+      'longtitle': true,
+      'onsuccess': onSuccess,
+      'onfailure': onFailure
+    });
+}
 
 function initLoginBtn() {
     if (localStorage.getItem('token')) {
-        $('#glogout-btn').show();
-        $('.g-signin2').hide();
+        $('#user-page').show();
+        $('#login-page').hide();
     } else {
-        $('#glogout-btn').hide();
-        $('.g-signin2').show();
+        $('#user-page').hide();
+        $('#login-page').show();
     }
 }
 
-function onSignIn(googleUser) {
-    var idToken = googleUser.getAuthResponse().id_token;
+function onSuccess(googleUser) {
+    const idToken = googleUser.getAuthResponse().id_token;
     axios({
         method: 'POST',
         url: 'http://localhost:3000/oauth/login',
@@ -25,13 +56,13 @@ function onSignIn(googleUser) {
             localStorage.setItem('token', data.token);
             initLoginBtn();
         }).catch((err) => {
-            console.log(err);
-            $('#glogout-btn').show();
+            onfailure(err);
+            $('#user-page').show();
         });
 }
 
 function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
+    const auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         localStorage.removeItem('token');
         initLoginBtn();
