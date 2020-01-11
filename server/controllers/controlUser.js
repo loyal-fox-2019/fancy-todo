@@ -66,7 +66,7 @@ class ControlUser {
         // console.log(req.body.idtoken)
         const tokenGoogle = req.body.idtoken
         const payload = verifyToken(tokenGoogle)
-        console.log(payload)
+        // console.log(payload)
         payload.then(data => {
             console.log('controller google')
             // console.log(data)
@@ -80,7 +80,7 @@ class ControlUser {
                 if (result) {
                     return result
                 } else {
-                    console.log("halo dari google controller setelah findUser")
+                    console.log("halo dari google controller setelah findUser kalo ga ketemu")
                     return modelUser.create({
                         username: username,
                         email,
@@ -95,6 +95,7 @@ class ControlUser {
             })
             .catch(err => {
                 console.log(err)
+                res.status(500).json({ err, message: "Internal Server error from googlecontrol" })
             })
 
     }
