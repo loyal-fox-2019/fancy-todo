@@ -59,6 +59,7 @@ module.exports = {
   },
 
   authProjectMember(req, res, next) {
+    console.log('@@@@@@@@@@@@@@@@@@')
     Project.findById(req.params.projectId)
       .then(project => {
         if (project) {

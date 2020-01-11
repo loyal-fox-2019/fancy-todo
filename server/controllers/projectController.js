@@ -71,6 +71,7 @@ class ProjectController {
 // -------------------- End of Project basic CRUD -------------------- //
 
   static inviteMember(req, res, next) {
+    console.log('masuk')
     let targetMember;
     const { email } = req.body
     User.findOne({ email })
