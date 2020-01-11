@@ -96,7 +96,7 @@ class ProjectController {
                 }
             }, {
                 $push: {
-                    members: [req.params.memberId]
+                    members: [req.body.members]
                 }
             })
             .then(project => {
@@ -116,7 +116,7 @@ class ProjectController {
                 }
             }, {
                 $pullAll: {
-                    members: [req.params.memberId]
+                    members: [req.body.members]
                 }
             })
             .then(project => {
