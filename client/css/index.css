@@ -1,0 +1,22 @@
+#index{
+    height: 100vh;
+    background: hotpink;
+}
+
+#login{
+ position: relative;
+ top: 25%;
+ width: 30vw;
+ left: 33%;
+}
+
+#login-box{
+    height: 50vh;
+    background: grey;   
+}
+
+.log{
+    position: relative;
+    width: 100%;
+    padding-left: 25% ;
+}
