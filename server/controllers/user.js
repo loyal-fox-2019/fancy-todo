@@ -1,6 +1,7 @@
 const User = require('../models/user'),
   { compare } = require('../helpers/bcrypt'),
-  { generateToken } = require('../helpers/jwt')
+  { generateToken } = require('../helpers/jwt'),
+  Todo = require('../models/todo')
 
 class UserController {
   static all (req, res, next) {
@@ -32,6 +33,14 @@ class UserController {
     })
       .then(user => {
         res.status(201).json(user)
+      })
+      .catch(next)
+  }
+  static getTodo (req, res, next) {
+    const id = req.user._id
+    Todo.find({user: id})
+      .then(todos => {
+        res.send(todos)
       })
       .catch(next)
   }

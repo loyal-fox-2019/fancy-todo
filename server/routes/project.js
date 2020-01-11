@@ -4,6 +4,6 @@ const router = require('express').Router(),
 router.get('/', ProjectController.all)
 router.post('/', ProjectController.create)
 router.patch('/:id/addMember', ProjectController.addMember)
-router.patch('/:id/addTodo', ProjectController.addTodo)
+router.post('/:id/addTodo', ProjectController.addTodo)
 
 module.exports = router

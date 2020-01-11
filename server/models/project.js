@@ -12,12 +12,6 @@ const projectSchema = new Schema({
       ref: 'User'
     }
   ],
-  todos: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Todo'
-    }
-  ],
   name: {
     type: String,
     required: [true, 'project name required']
