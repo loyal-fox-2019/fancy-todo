@@ -8,12 +8,88 @@
 
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>Fancy | Todo</title>
     </head>
 
     <body>
+        <div class="container">
+            <div class="row">
+                <div class="col lg3 m2 s2">
 
+                </div>
+                <div class="col lg6 m8 s8">
+                    <!-- Add todo list -->
+                    <div class="section">
+                        <div id="title">
+                            <h2 class="center amber-text darken-2-text">Todo List</h2>
+                            <h4 class="center amber-text darken-2-text">Fancy!</h4>
+                        </div>
+                        <div id="input">
+                            <div class="row">
+                                <form class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col m12">
+                                            <i class="material-icons prefix">create</i>
+                                            <textarea id="name" class="materialize-textarea"></textarea>
+                                            <label for="name">What to do ...</label>
+                                        </div>
+                                        <div class="input-field col m6">
+                                            <i class="material-icons prefix">assignment</i>
+                                            <textarea id="description" class="materialize-textarea"></textarea>
+                                            <label for="description">Description</label>
+                                        </div>
+                                        <div class="input-field col m6">
+                                            <i class="material-icons prefix">timer</i>
+                                            <input type="text" class="datepicker">
+                                            <label for="due_date">Due Date</label>
+                                        </div>
+                                        <button class="btn waves-effect waves-light col s12 amber darken-2" type="submit" id="add-todo">Add</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <!-- List todo-list -->
+                    <div class="section">
+                        <div id="todo-list">
+                            <div class="col s12 m12">
+                                <h5 class="header">Horizontal Card</h5>
+                                <div class="card horizontal">
+                                  <div class="card-stacked">
+                                    <div class="card-content">
+                                        <h6>Due Date</h6>
+                                        <p>I am a very simple card. I am good at containing small bits of information.</p>
+                                    </div>
+                                    <div class="card-action">
+                                      <a href="#"><i class="material-icons prefix">crop_din</i></a>
+                                      <a href="#"><i class="material-icons prefix">edit</i></a>
+                                      <a href="#"><i class="material-icons prefix">delete</i></a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col lg3 m2 s2">
+
+                </div>
+            </div>
+
+        </div>
       <!--JavaScript at end of body for optimized loading-->
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>
+      <script src="./js/script.js"></script>
+      <script>  
+            $(document).ready(function(){
+                $('.sidenav').sidenav()
+                $(".datepicker").datepicker()
+            });
+      </script>
     </body>
   </html>
         
