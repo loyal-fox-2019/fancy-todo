@@ -34,7 +34,7 @@ function showProjects(projects) {
         <td id="project-status-${project._id}" class="p-3 px-4 text-center"></td>
         <td class="p-3 px-4 text-center flex flex-col lg:flex-row justify-center">
           <button id="invite-${project._id}" onclick="openInvite('${project._id}')" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-green-500 hover:bg-green-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Invite</button>
-          <button id="details-${project._id}" onclick="openProjectDetails('${project._id}')" type="button" class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Open</button>
+          <button id="details-${project._id}" onclick="openProjectDetails('${project._id}', '${project.name}')" type="button" class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Open</button>
         </td>
       </tr>
       <tr id="sub-project-${project._id}" class="bg-gray-100">
@@ -119,11 +119,11 @@ function submitInvitation(e, projectId) {
     })
 }
 
-function openProjectDetails(projectId) {
-  fetchTodosProject(projectId)
+function openProjectDetails(projectId, projectName) {
+  fetchTodosProject(projectId, projectName)
 }
 
-function fetchTodosProject(projectId, cb) {
+function fetchTodosProject(projectId, projectName, cb) {
   $.ajax({
     method: 'get',
     url: `${baseUrl}/projects/${projectId}`,
@@ -132,16 +132,28 @@ function fetchTodosProject(projectId, cb) {
   })
     .done(response => {
       let todos = response.todos
-      console.log(todos, '<<')
-      $("#todos-project").empty()
-      $('#todos-project').append( 
-        `<tr class="border-b">
-          <th class="w-2/5 text-left p-3 px-5">Task</th>
-          <th class="w-1/5 text-center p-3 px-5">By</th>
-          <th class="w-1/5 text-center p-3 px-5">Status</th>
-          <th class="w-1/5 text-center p-3 px-5">Due Date</th>
-          <th class="w-1/5 text-center p-3 px-5">Action</th>
-        </tr>
+      $('#col-todos-project').empty()
+      $('#col-todos-project').append(
+        `
+        <h3 class="pt-4 text-2xl text-center">${projectName}</h3>
+        <div class="text-gray-900">
+          <div class="px-3 py-4 flex justify-center">
+            <table class="w-full text-md bg-white shadow-md rounded-lg mb-4 table-fixed">
+              <tbody id="todos-project">
+              <tr class="border-b">
+                <th class="w-2/5 text-left p-3 px-5">Task</th>
+                <th class="w-1/5 text-center p-3 px-5">By</th>
+                <th class="w-1/5 text-center p-3 px-5">Status</th>
+                <th class="w-1/5 text-center p-3 px-5">Due Date</th>
+                <th class="w-1/5 text-center p-3 px-5">Action</th>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div id="del-project" class="text-center">
+          
+        </div>
         `
       )
       for (let todo of todos) {
@@ -226,12 +238,40 @@ function fetchTodosProject(projectId, cb) {
       $('#del-project').append(
         `
         <a
-          class="to-login inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+          class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+          href=""
+          onclick="openEditProject(event, '${projectId}')"
+        >
+          Edit
+        </a> |
+        <a
+          class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
           href=""
           onclick="deleteProject(event, '${projectId}')"
         >
-          Delete Project
+          Delete
         </a>
+        <form id="edit-project-form" onsubmit="changeProjectName(event, '${projectId}')" class="hidden shadow-md px-8 pt-6 pb-8 mb-4 bg-white rounded-lg">
+          <div class="mb-4">
+            <label class="block mb-2 text-sm font-bold text-gray-700" for="name-post">
+              Change Project Name
+            </label>
+            <input
+              id="edit-project-${projectId}"
+              class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+              type="text"
+              value="${projectName}"
+            />
+          </div>
+          <div class="mb-6 text-center">
+            <button
+              class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+              type="submit"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
         `
       )
       if (cb) cb(projectId)
@@ -292,4 +332,28 @@ function deleteProject(e, projectId) {
       })
     }
   })
+}
+
+function changeProjectName(e, projectId) {
+  e.preventDefault()
+  $.ajax({
+    method: 'patch',
+    url: `${baseUrl}/projects/${projectId}`,
+    data: {
+      name: $(`#edit-project-${projectId}`).val()
+    },
+    headers: { access_token }
+  })
+    .done(response => {
+      console.log(response, '<<<<')
+      openProjectDetails(response._id, response.name)
+    })
+    .fail(err => {
+      console.log(err)
+    })
+}
+
+function openEditProject(e, projectId) {
+  e.preventDefault()
+  $('#edit-project-form').show()
 }
