@@ -3,6 +3,11 @@ const app = express()
 const port = 3000
 const routes = require('./routes')
 const mongoose = require('mongoose')
+const cors = require('cors')
+
+require('dotenv').config()
+
+app.use(cors())
 
 mongoose.connect('mongodb://localhost:27017/fancy-toDo', {useNewUrlParser: true, useUnifiedTopology:true})
 .then(success=>{

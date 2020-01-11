@@ -16,6 +16,9 @@ const toDoSchema = new Schema({
     },
     due_date:{
         type: Date
+    },
+    userId:{
+        type: String
     }
 })
 
