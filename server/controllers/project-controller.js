@@ -12,7 +12,7 @@ class ProjectController {
       .catch(next)
   }
 
-  static getProject(req, res, next) {
+  static getUserProjects(req, res, next) {
     Project.find({
       $or: [
         {
