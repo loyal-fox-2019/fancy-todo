@@ -5,9 +5,9 @@ const { authentication, authorization, authProjectMember } = require('../middlew
 
 router.use(authentication)
 router.post('/', ProjectController.createProject)
+router.get('/', ProjectController.showProjects)
 router.get('/:projectId/acceptInvitation', ProjectController.acceptInvitation)
 
-router.get('/', authorization, ProjectController.showProjects)
 router.get('/:projectId', authProjectMember, ProjectController.showProject)
 
 router.patch('/:projectId/inviteMember', authorization, ProjectController.inviteMember)

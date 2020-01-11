@@ -32,6 +32,7 @@ class ProjectController {
   static showProjects(req, res, next) {
     Project.find({})
       .populate('todos')
+      .populate('owner')
       .then(projects => {
         res.status(200).json(projects)
       })

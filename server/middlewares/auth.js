@@ -42,7 +42,7 @@ module.exports = {
       entity = 'Project'
       credential = 'owner'
     }
-    console.log(queryId, '*******')
+    console.log('---------------------')
     Model.findById(queryId)
       .then(result => {
         if (result) {
