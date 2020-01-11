@@ -1,12 +1,14 @@
 const router = require('express').Router()
 const UserController = require('../controllers/user-controller')
-const projectRouter = require('./project-router')
+const userAuthenticate = require('../middlewares/user-auth')
 
 router.get('/', function(req, res, next) {
   res.json({ message: 'Server alive!' })
 })
 router.post('/login', UserController.login)
 router.post('/register', UserController.register)
-router.use('/projects', projectRouter)
+router.use(userAuthenticate)
+router.use('/users', require('./user-router'))
+router.use('/projects', require('./project-router'))
 
 module.exports = router

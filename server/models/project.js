@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose')
+const todoSchema = require('./todo')
 
 const projectSchema = new Schema({
   name: {
@@ -16,6 +17,7 @@ const projectSchema = new Schema({
       ref: 'User',
     },
   ],
+  todos: [todoSchema],
 })
 
 const Project = model('Project', projectSchema)

@@ -36,6 +36,88 @@ class UserController {
       })
       .catch(next)
   }
+
+  static getUserTodos(req, res, next) {
+    User.findOne({ _id: req.payload.id })
+      .then(user => {
+        res.json({ todos: user.todos })
+      })
+      .catch(next)
+  }
+
+  static createTodo(req, res, next) {
+    let userFound = null
+
+    User.findOne({ _id: req.payload.id })
+      .then(user => {
+        userFound = user
+        userFound.todos.push({
+          title: req.body.title,
+          description: req.body.description,
+          dueDate: req.body.dueDate,
+        })
+
+        return userFound.todos[userFound.todos.length - 1].validate()
+      })
+      .then(() => {
+        userFound.save({ validateBeforeSave: false })
+      })
+      .then(user => {
+        res.status(201).json({ message: 'Todo created' })
+      })
+      .catch(next)
+  }
+
+  static editTodo(req, res, next) {
+    let userFound = null
+
+    User.findOne({ _id: req.payload.id })
+      .then(user => {
+        userFound = user
+        const todo = userFound.todos.id(req.params.todoId)
+
+        if (!todo) throw { name: 'NotFound', message: 'Todo not found' }
+
+        todo.title = req.body.title || todo.title
+        todo.description = req.body.description || todo.description
+        todo.dueDate = req.body.dueDate || todo.dueDate
+        todo.status = req.body.status || todo.status
+
+        return todo.validate()
+      })
+      .then(() => {
+        userFound.save({ validateBeforeSave: false })
+      })
+      .then(user => {
+        res.json({ message: 'Todo edited' })
+      })
+      .catch(next)
+  }
+
+  static deleteTodo(req, res, next) {
+    User.findOne({ _id: req.payload.id })
+      .then(user => {
+        const todo = user.todos.id(req.params.todoId)
+
+        if (!todo) throw { name: 'NotFound', message: 'Todo not found' }
+
+        todo.remove()
+
+        return user.save({ validateBeforeSave: false })
+      })
+      .then(user => {
+        res.json({ message: 'Todo deleted' })
+      })
+      .catch(next)
+  }
+
+  static getAllUsers(req, res, next) {
+    User.find()
+      .then(users => {
+        res.json(users)
+      })
+      .catch(next)
+  }
 }
 
 module.exports = UserController

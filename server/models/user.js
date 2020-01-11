@@ -1,5 +1,6 @@
 const bcryptjs = require('bcryptjs')
 const { Schema, models, model } = require('mongoose')
+const todoSchema = require('./todo')
 
 const userSchema = new Schema({
   username: {
@@ -9,6 +10,10 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: [true, 'Email is required'],
+    match: [
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      'Invalid email format',
+    ],
     validate: [
       {
         validator: function(email) {
@@ -19,14 +24,6 @@ const userSchema = new Schema({
         },
         msg: 'Email already registered',
       },
-      {
-        validator: function(email) {
-          return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
-            email.toLowerCase(),
-          )
-        },
-        msg: 'Invalid email format',
-      },
     ],
   },
   password: {
@@ -34,6 +31,7 @@ const userSchema = new Schema({
     required: [true, 'Password is requried'],
     minlength: [6, 'Password min length is 6 characters'],
   },
+  todos: [todoSchema],
 })
 
 userSchema.post('validate', function(user) {
