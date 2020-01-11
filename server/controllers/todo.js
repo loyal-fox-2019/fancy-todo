@@ -4,7 +4,7 @@ const { Todo, Project } = require('../models');
 
 class TodoController {
   static async createTodo(req, res, next) {
-    const projectId = req.params.projectId || null;
+    const projectId = req.params.projectId || req.body.projectId || null;
     const { name, description, due_date, } = req.body;
     const date = new Date(due_date);
     const data = {

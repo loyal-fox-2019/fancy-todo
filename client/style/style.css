@@ -37,3 +37,52 @@
   margin-top: 5%;
   background-image: url('https://pngriver.com/wp-content/uploads/2018/04/Download-Abstract-PNG.png');
 }
+
+/* Header */
+
+.header-text {
+  text-align: center;
+  font-size: 2rem;
+}
+
+#date-form {
+  display: inline-flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  width: 15rem;
+}
+
+#header, #list {
+  margin-bottom: 1rem;
+  margin-right: 30%;
+  margin-left: 30%;
+  border: 1px solid black;
+  border-radius: 1rem;
+  padding: 1rem;
+  /* height: 30%; */
+}
+
+/* End of header */
+
+#list {
+  border: 1px solid black;
+}
+
+.card-body {
+  display: inline;
+  justify-content: space-between;
+}
+
+#actions {
+  margin-top: 3%;
+}
+
+#navigation {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+/* #create-project-submit { */
+  /* justify-content: end; */
+/* } */

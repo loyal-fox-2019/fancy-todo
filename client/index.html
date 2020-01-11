@@ -17,6 +17,94 @@
 <body>
 
 
+  <!-- Main content -->
+  <section id="main-content">
+    <div id="user">
+
+      <div id="header" style="margin-top: 5%;">
+        <h5 class="header-text">So... what will you do?</h5>
+        <hr>
+
+        <div id="todo-submit-error" class="alert alert-warning" style="display: none;">
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Name and description</span>
+          </div>
+          <input type="text" aria-label="name" id="name" class="form-control">
+          <input type="text" aria-label="desc" id="description" class="form-control">
+        </div>
+        <div class="input-group-prepend" id="date-form">
+          <span class="input-group-text" id="inputGroup-sizing-sm">Due Date</span>
+          <input type="date" id="due-date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          <button type="button" id="add-todo" style="margin-left: 10rem;" class="btn btn-primary">ADD!</button>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div id="list">
+      <div class="btn-group" id="navigation" role="group" aria-label="Basic example">
+        <button type="button" id="my-todo" class="btn btn-secondary">My Todo</button>
+        <button type="button" id="project" class="btn btn-secondary">Project</button>
+        <button type="button" id="logout" class="btn btn-secondary">Logout</button>
+      </div>
+
+      <div id="list-user"></div>
+      
+      <div id="project-list" style="display: none;">
+        <div id="create-project">
+          Create new project...
+          <input class="form-control" type="text" id="project-name-create" placeholder="Project Name">
+          <div class="text-right">
+            <button type="button" id="project-button-create" class="btn btn-outline-primary mt-2">Create</button>
+          </div>
+          <hr>
+        </div>
+        <div id="select-project">
+          <div class="text-center">
+            <button class="btn btn-outline-secondary dropdown-toggle" id="select-project-button" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a project...</button>
+            <div class="dropdown-menu" id="projects-list">
+            </div>
+          </div>
+        </div>
+        <hr>
+
+        <!-- Post new todo to project -->
+        <h5 class="header-text">So... what will we do?</h5>
+        <hr>
+
+        <div id="todo-submit-error" class="alert alert-warning" style="display: none;">
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Name and description</span>
+          </div>
+          <input type="text" aria-label="name" id="name-project" class="form-control">
+          <input type="text" aria-label="desc" id="description-project" class="form-control">
+        </div>
+        <div class="input-group-prepend" id="date-form">
+          <span class="input-group-text" id="inputGroup-sizing-sm">Due Date</span>
+          <input type="date" id="due-date-project" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+          <button type="button" id="add-todo-project" style="margin-left: 10rem;" class="btn btn-primary">Add!</button>
+        </div>
+
+
+        <div id="list-project">
+          
+        </div>
+      </div>
+    </div>
+
+
+    <div id="project">
+
+    </div>
+  </section>
+  <!-- End of main content -->
+
+
   <!-- Showing section below if no token detected -->
   <section id="noToken">
     <div class="row no-gutters">

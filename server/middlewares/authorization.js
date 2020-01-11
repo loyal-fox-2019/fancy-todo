@@ -22,7 +22,7 @@ module.exports = (req, res, next) => {
           project.members.forEach(member => {
             if (member == _id) {
               isAllowed = true
-            } else {}
+            }
           });
           if (!isAllowed) {
             next({ auth: true, status: 401, message: 'Action denied' });
