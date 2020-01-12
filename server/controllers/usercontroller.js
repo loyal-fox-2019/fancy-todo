@@ -41,13 +41,16 @@ class User{
             res.status(200).json({token})
         })
         .catch((err)=>{
-            next(err)
+            next()
         });
     }
     static signup(req,res,next){
         Usermodel.create(req.body)
         .then((data)=>{
             res.status(201).json(data)
+        })
+        .catch((err)=>{
+            next()
         })
     }
 
@@ -72,11 +75,9 @@ class User{
                 res.status(400).json({message: 'Wrong email/password'})
             }
         })
-    }
-
-    static sendwa(req,res,next){
-
-
+        .catch((err)=>{
+            next()
+        })
     }
 
 }

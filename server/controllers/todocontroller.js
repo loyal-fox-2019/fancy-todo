@@ -10,12 +10,18 @@ class Todo{
         .then((data)=>{
             res.status(200).json(data)
         })
+        .catch((err)=>{
+            next()
+        })
     }
 
     static findone(req,res,next){
         Todomodel.findById(req.params.id)
         .then((data)=>{
             res.status(200).json(data)
+        })
+        .catch((err)=>{
+            next()
         })
     }
 
@@ -38,7 +44,7 @@ class Todo{
             res.status(201).json(todo)
         })
         .catch((err)=>{
-
+            next()
         })
     }
 
@@ -50,6 +56,9 @@ class Todo{
         .then((data)=>{
             res.status(200).json(data)
         })
+        .catch((err)=>{
+            next()
+        })
     }
 
     static patch(req, res, next){
@@ -58,6 +67,9 @@ class Todo{
         }, {$set:{status: true}})
         .then((data)=>{
             res.status(200).json(data)
+        })
+        .catch((err)=>{
+            next()
         })
     }
 
