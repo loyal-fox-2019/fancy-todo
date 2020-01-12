@@ -6,6 +6,7 @@ const d = new Date();
 const dayName = days[d.getDay()];
 const monthName = months[d.getMonth()]
 const localhost = 'http://localhost:3000'
+let weather
 
 function errorHandler(message) {
     $('#c-1').html('')
@@ -14,6 +15,107 @@ function errorHandler(message) {
     $('#c-1').append(`
             <h1>${message}</h1>
             `)
+}
+
+function findOneTodo(id){
+    let token = localStorage.getItem('token')
+    $.ajax({
+        url: `${localhost}/todo/${id}`,
+        type: 'get',
+        headers: {
+            token
+        },
+        success: function(result){
+            $('#editBody').empty()
+            $('#editBody').append(`
+            <div class="form-group">
+                        <label for="todoName">Name</label>
+                        <input type="text" class="form-control" id="editTodoName" value="${result.name}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="todoDescription">Description</label>
+                        <input type="text" class="form-control" id="editTodoDescription" value="${result.description}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="todoImportanceLevel">Level of Importance</label>
+                        <select class="form-control" id="editTodoImportanceLevel">
+                            <option>Normal</option>
+                            <option>Important</option>
+                            <option>Urgent!</option>
+                        </select>
+                    </div>
+                    <input type="hidden" id="editTodoStatus" value="${result.status}">
+                    <input type="hidden" id="editTodoId" value="${result._id}">
+                    <div class="form-group">
+                        <label for="todoDue">Due</label>
+                        <input type="date" class="form-control" id="editTodoDue" required value="${result.due_date}">
+                    </div>
+            `)
+            $(`#editTodo`).modal('toggle')
+        },
+        error: function (error) {
+            $('#c-1').html('')
+            $('#c-2').html('')
+            $('#c-3').html('')
+            $('#c-1').append(`
+            <h1>${error}</h1>
+            `)
+        }
+    })
+}
+
+function editTodo(){
+    let token = localStorage.getItem('token')
+    $.ajax({
+        url: `${localhost}/todo/${$('#editTodoId').val()}`,
+        type: 'put',
+        headers: {
+            token
+        },
+        data: {
+            name: $('#editTodoName').val(),
+            description: $('#editTodoDescription').val(),
+            importanceLevel: $('#editTodoImportanceLevel').val(),
+            due_date: $('#editTodoDue').val(),
+            status: $('#editTodoStatus').val()
+        },
+        success: function(result){
+            console.log(result)
+            if (result[0].message) {
+                errorHandler(result[0].message)
+            } else {
+                
+                $(`#c-1`).html('')
+                $(`#c-2`).html('')
+                $(`#c-3`).html('')
+                    result[0].due_date = result[0].due_date.split('T')
+                    $(`#c-1`).append(`
+            <div class="card" style="width: 18rem;margin-top:10px;">
+            <div class="card-body" id="${result[0]._id}">
+              <h5 class="card-title">${result[0].name}<button type="button" class="btn btn-danger" id="delete${result[0]._id}" style="float:right;"><i class='fas fa-trash-alt'></i></button></h5>
+              <h6 class="card-subtitle mb-2 text-muted">status: ${result[0].status}</h6>
+              <p class="card-text">${result[0].description}</p>
+              <p class="card-text">DeadLine: ${result[0].due_date[0]}</p>
+            </div>
+          </div>
+            `)
+                    if (result[0].status == 'Not Done') {
+                        $(`#${result[0]._id}`).append(`
+                    <button type="button" class="btn btn-info" id="finish${result[0]._id}">Finish Todo</button>
+                `)
+                    }
+                    $(document).on('click', `#finish${result[0]._id}`, function () {
+                        finishTodo(result[0]._id)
+                    })
+                    $(document).on('click', `#delete${result[0]._id}`, function () {
+                        deleteTodo(result[0]._id)
+                    })
+                }
+        },
+        error: function(error){
+            alert(error)
+        }
+    })
 }
 
 function finishTodo(id) {
@@ -36,22 +138,25 @@ function finishTodo(id) {
                 for (let i = 0; i < result.length; i++) {
                     result[i].due_date = result[i].due_date.split('T')
                     $(`#c-${count}`).append(`
-            <div class="card" style="width: 18rem;margin-top:10px;">
-            <div class="card-body" id="${result[i]._id}">
-              <h5 class="card-title">${result[i].name}<button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;">x</button></h5>
-              <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
-              <p class="card-text">${result[i].description}</p>
-              <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
-            </div>
-          </div>
-            `)
+        <div class="card" style="width: 18rem;margin-top:10px;">
+        <div class="card-body" id="body-${result[i]._id}">
+          <h5 class="card-title">${result[i].name} <a id="${result[i]._id}"><i class='far fa-edit'></i></a><button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;"><i class='fas fa-trash-alt'></i></button></h5>
+          <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
+          <p class="card-text">${result[i].description}</p>
+          <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
+        </div>
+      </div>
+        `)
                     if (result[i].status == 'Not Done') {
-                        $(`#${result[i]._id}`).append(`
-                    <button type="button" class="btn btn-info" id="finish${result[i]._id}">Finish Todo</button>
-                `)
+                        $(`#body-${result[i]._id}`).append(`
+                <button type="button" class="btn btn-info" id="finish${result[i]._id}">Finish Todo</button>
+            `)
                     }
                     $(document).on('click', `#finish${result[i]._id}`, function () {
                         finishTodo(result[i]._id)
+                    })
+                    $(document).on('click', `#${result[i]._id}`, function(){
+                        findOneTodo(result[i]._id)
                     })
                     $(document).on('click', `#delete${result[i]._id}`, function () {
                         deleteTodo(result[i]._id)
@@ -62,6 +167,7 @@ function finishTodo(id) {
                     count++
                 }
             }
+
         }
     })
 }
@@ -86,22 +192,25 @@ function deleteTodo(id) {
                 for (let i = 0; i < result.length; i++) {
                     result[i].due_date = result[i].due_date.split('T')
                     $(`#c-${count}`).append(`
-            <div class="card" style="width: 18rem;margin-top:10px;">
-            <div class="card-body" id="${result[i]._id}">
-              <h5 class="card-title">${result[i].name}<button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;">x</button></h5>
-              <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
-              <p class="card-text">${result[i].description}</p>
-              <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
-            </div>
-          </div>
-            `)
+        <div class="card" style="width: 18rem;margin-top:10px;">
+        <div class="card-body" id="body-${result[i]._id}">
+          <h5 class="card-title">${result[i].name} <a id="${result[i]._id}"><i class='far fa-edit'></i></a><button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;"><i class='fas fa-trash-alt'></i></button></h5>
+          <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
+          <p class="card-text">${result[i].description}</p>
+          <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
+        </div>
+      </div>
+        `)
                     if (result[i].status == 'Not Done') {
-                        $(`#${result[i]._id}`).append(`
-                    <button type="button" class="btn btn-info" id="finish${result[i]._id}">Finish Todo</button>
-                `)
+                        $(`#body-${result[i]._id}`).append(`
+                <button type="button" class="btn btn-info" id="finish${result[i]._id}">Finish Todo</button>
+            `)
                     }
                     $(document).on('click', `#finish${result[i]._id}`, function () {
                         finishTodo(result[i]._id)
+                    })
+                    $(document).on('click', `#${result[i]._id}`, function(){
+                        findOneTodo(result[i]._id)
                     })
                     $(document).on('click', `#delete${result[i]._id}`, function () {
                         deleteTodo(result[i]._id)
@@ -112,6 +221,7 @@ function deleteTodo(id) {
                     count++
                 }
             }
+
         }
     })
 }
@@ -142,8 +252,8 @@ function onSignIn(googleUser) {
                     $(`#c-${count}`).append(`
             <div class="card" style="width: 18rem;margin-top:10px;">
             <div class="card-body" id="${result.toDosData[i]._id}">
-              <h5 class="card-title">${result.toDosData[i].name}<button type="button" class="btn btn-danger deleteTodo" style="float:right;" id="delete${result.toDosData[i]._id}">x</button></h5>
-              <h6 class="card-subtitle mb-2 text-muted">status: ${result.toDosData[i].status}</h6>
+            <h5 class="card-title">${result[i].name} <a id="${result[i]._id}"><i class='far fa-edit'></i></a><button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;"><i class='fas fa-trash-alt'></i></button></h5>
+            <h6 class="card-subtitle mb-2 text-muted">status: ${result.toDosData[i].status}</h6>
               <p class="card-text">${result.toDosData[i].description}</p>
               <p class="card-text">DeadLine: ${result.toDosData[i].due_date[0]}</p>
             </div>
@@ -156,6 +266,9 @@ function onSignIn(googleUser) {
                     }
                     $(document).on('click', `#finish${result.toDosData[i]._id}`, function () {
                         finishTodo(result.toDosData[i]._id)
+                    })
+                    $(document).on('click', `#${result[i]._id}`, function(){
+                        findOneTodo(result[i]._id)
                     })
                     $(document).on('click', `#delete${result.toDosData[i]._id}`, function () {
                         deleteTodo(result.toDosData[i]._id)
@@ -234,7 +347,7 @@ function webSignIn() {
                     $(`#c-${count}`).append(`
             <div class="card" style="width: 18rem;margin-top:10px;">
             <div class="card-body" id="${result.toDosData[i]._id}">
-              <h5 class="card-title">${result.toDosData[i].name}<button type="button" class="btn btn-danger deleteTodo" style="float:right;" id="delete${result.toDosData[i]._id}">x</button></h5>
+              <h5 class="card-title">${result.toDosData[i].name}<button type="button" class="btn btn-danger deleteTodo" style="float:right;" id="delete${result.toDosData[i]._id}"><i class='fas fa-trash-alt'></i></button></h5>
               <h6 class="card-subtitle mb-2 text-muted">status: ${result.toDosData[i].status}</h6>
               <p class="card-text">${result.toDosData[i].description}</p>
               <p class="card-text">DeadLine: ${result.toDosData[i].due_date[0]}</p>
@@ -379,7 +492,7 @@ function signOut() {
 
 $(document).ready(function () {
     $('#date').html(`
-    <h3>${dayName}, ${d.getDate()} ${monthName} ${d.getFullYear()}</h3>
+    <h4>${dayName}, ${d.getDate()} ${monthName} ${d.getFullYear()}</h4>
     `)
     // $('#part-signIn').hide()
     $('#part-main').hide()
@@ -388,6 +501,10 @@ $(document).ready(function () {
     $('#activeSub').hide()
     $('#historySub').hide()
     $('#levelSub').hide()
+
+    $(document).on('click', '#editSubmit', function(){
+        editTodo()
+    })
 
     $(document).on('click', '#activeMain', function () {
         $('#historySub').hide()
@@ -429,8 +546,8 @@ $(document).ready(function () {
                         result[i].due_date = result[i].due_date.split('T')
                         $(`#c-${count}`).append(`
             <div class="card" style="width: 18rem;margin-top:10px;">
-            <div class="card-body" id="${result[i]._id}">
-              <h5 class="card-title">${result[i].name}<button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;">x</button></h5>
+            <div class="card-body" id="body-${result[i]._id}">
+              <h5 class="card-title">${result[i].name} <a id="${result[i]._id}"><i class='far fa-edit'></i></a><button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;"><i class='fas fa-trash-alt'></i></button></h5>
               <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
               <p class="card-text">${result[i].description}</p>
               <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
@@ -438,12 +555,15 @@ $(document).ready(function () {
           </div>
             `)
                         if (result[i].status == 'Not Done') {
-                            $(`#${result[i]._id}`).append(`
+                            $(`#body-${result[i]._id}`).append(`
                     <button type="button" class="btn btn-info" id="finish${result[i]._id}">Finish Todo</button>
                 `)
                         }
                         $(document).on('click', `#finish${result[i]._id}`, function () {
                             finishTodo(result[i]._id)
+                        })
+                        $(document).on('click', `#${result[i]._id}`, function(){
+                            findOneTodo(result[i]._id)
                         })
                         $(document).on('click', `#delete${result[i]._id}`, function () {
                             deleteTodo(result[i]._id)
@@ -489,8 +609,8 @@ $(document).ready(function () {
                         result[i].due_date = result[i].due_date.split('T')
                         $(`#c-${count}`).append(`
             <div class="card" style="width: 18rem;margin-top:10px;">
-            <div class="card-body" id="${result[i]._id}">
-              <h5 class="card-title">${result[i].name}<button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;">x</button></h5>
+            <div class="card-body" id="body-${result[i]._id}">
+              <h5 class="card-title">${result[i].name} <a id="${result[i]._id}"><i class='far fa-edit'></i></a><button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;"><i class='fas fa-trash-alt'></i></button></h5>
               <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
               <p class="card-text">${result[i].description}</p>
               <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
@@ -498,12 +618,15 @@ $(document).ready(function () {
           </div>
             `)
                         if (result[i].status == 'Not Done') {
-                            $(`#${result[i]._id}`).append(`
+                            $(`#body-${result[i]._id}`).append(`
                     <button type="button" class="btn btn-info" id="finish${result[i]._id}">Finish Todo</button>
                 `)
                         }
                         $(document).on('click', `#finish${result[i]._id}`, function () {
                             finishTodo(result[i]._id)
+                        })
+                        $(document).on('click', `#${result[i]._id}`, function(){
+                            findOneTodo(result[i]._id)
                         })
                         $(document).on('click', `#delete${result[i]._id}`, function () {
                             deleteTodo(result[i]._id)
@@ -514,6 +637,7 @@ $(document).ready(function () {
                         count++
                     }
                 }
+
 
             },
             error: function (error) {
@@ -548,8 +672,8 @@ $(document).ready(function () {
                         result[i].due_date = result[i].due_date.split('T')
                         $(`#c-${count}`).append(`
             <div class="card" style="width: 18rem;margin-top:10px;">
-            <div class="card-body" id="${result[i]._id}">
-              <h5 class="card-title">${result[i].name}<button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;">x</button></h5>
+            <div class="card-body" id="body-${result[i]._id}">
+              <h5 class="card-title">${result[i].name} <a id="${result[i]._id}"><i class='far fa-edit'></i></a><button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;"><i class='fas fa-trash-alt'></i></button></h5>
               <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
               <p class="card-text">${result[i].description}</p>
               <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
@@ -557,12 +681,15 @@ $(document).ready(function () {
           </div>
             `)
                         if (result[i].status == 'Not Done') {
-                            $(`#${result[i]._id}`).append(`
+                            $(`#body-${result[i]._id}`).append(`
                     <button type="button" class="btn btn-info" id="finish${result[i]._id}">Finish Todo</button>
                 `)
                         }
                         $(document).on('click', `#finish${result[i]._id}`, function () {
                             finishTodo(result[i]._id)
+                        })
+                        $(document).on('click', `#${result[i]._id}`, function(){
+                            findOneTodo(result[i]._id)
                         })
                         $(document).on('click', `#delete${result[i]._id}`, function () {
                             deleteTodo(result[i]._id)
@@ -573,6 +700,7 @@ $(document).ready(function () {
                         count++
                     }
                 }
+
 
             },
             error: function (error) {
@@ -607,22 +735,25 @@ $(document).ready(function () {
                     for (let i = 0; i < result.length; i++) {
                         result[i].due_date = result[i].due_date.split('T')
                         $(`#c-${count}`).append(`
-                <div class="card" style="width: 18rem;margin-top:10px;">
-                <div class="card-body" id="${result[i]._id}">
-                  <h5 class="card-title">${result[i].name}<button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;">x</button></h5>
-                  <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
-                  <p class="card-text">${result[i].description}</p>
-                  <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
-                </div>
-              </div>
-                `)
+            <div class="card" style="width: 18rem;margin-top:10px;">
+            <div class="card-body" id="body-${result[i]._id}">
+              <h5 class="card-title">${result[i].name} <a id="${result[i]._id}"><i class='far fa-edit'></i></a><button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;"><i class='fas fa-trash-alt'></i></button></h5>
+              <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
+              <p class="card-text">${result[i].description}</p>
+              <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
+            </div>
+          </div>
+            `)
                         if (result[i].status == 'Not Done') {
-                            $(`#${result[i]._id}`).append(`
-                        <button type="button" class="btn btn-info" id="finish${result[i]._id}">Finish Todo</button>
-                    `)
+                            $(`#body-${result[i]._id}`).append(`
+                    <button type="button" class="btn btn-info" id="finish${result[i]._id}">Finish Todo</button>
+                `)
                         }
                         $(document).on('click', `#finish${result[i]._id}`, function () {
                             finishTodo(result[i]._id)
+                        })
+                        $(document).on('click', `#${result[i]._id}`, function(){
+                            findOneTodo(result[i]._id)
                         })
                         $(document).on('click', `#delete${result[i]._id}`, function () {
                             deleteTodo(result[i]._id)
@@ -633,6 +764,7 @@ $(document).ready(function () {
                         count++
                     }
                 }
+
 
             },
             error: function (error) {
@@ -668,8 +800,8 @@ $(document).ready(function () {
                         result[i].due_date = result[i].due_date.split('T')
                         $(`#c-${count}`).append(`
             <div class="card" style="width: 18rem;margin-top:10px;">
-            <div class="card-body" id="${result[i]._id}">
-              <h5 class="card-title">${result[i].name}<button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;">x</button></h5>
+            <div class="card-body" id="body-${result[i]._id}">
+              <h5 class="card-title">${result[i].name} <a id="${result[i]._id}"><i class='far fa-edit'></i></a><button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;"><i class='fas fa-trash-alt'></i></button></h5>
               <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
               <p class="card-text">${result[i].description}</p>
               <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
@@ -677,12 +809,15 @@ $(document).ready(function () {
           </div>
             `)
                         if (result[i].status == 'Not Done') {
-                            $(`#${result[i]._id}`).append(`
+                            $(`#body-${result[i]._id}`).append(`
                     <button type="button" class="btn btn-info" id="finish${result[i]._id}">Finish Todo</button>
                 `)
                         }
                         $(document).on('click', `#finish${result[i]._id}`, function () {
                             finishTodo(result[i]._id)
+                        })
+                        $(document).on('click', `#${result[i]._id}`, function(){
+                            findOneTodo(result[i]._id)
                         })
                         $(document).on('click', `#delete${result[i]._id}`, function () {
                             deleteTodo(result[i]._id)
@@ -693,6 +828,7 @@ $(document).ready(function () {
                         count++
                     }
                 }
+
 
             },
             error: function (error) {
@@ -727,22 +863,25 @@ $(document).ready(function () {
                     for (let i = 0; i < result.length; i++) {
                         result[i].due_date = result[i].due_date.split('T')
                         $(`#c-${count}`).append(`
-                <div class="card" style="width: 18rem;margin-top:10px;">
-                <div class="card-body" id="${result[i]._id}">
-                  <h5 class="card-title">${result[i].name}<button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;">x</button></h5>
-                  <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
-                  <p class="card-text">${result[i].description}</p>
-                  <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
-                </div>
-              </div>
-                `)
+            <div class="card" style="width: 18rem;margin-top:10px;">
+            <div class="card-body" id="body-${result[i]._id}">
+              <h5 class="card-title">${result[i].name} <a id="${result[i]._id}"><i class='far fa-edit'></i></a><button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;"><i class='fas fa-trash-alt'></i></button></h5>
+              <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
+              <p class="card-text">${result[i].description}</p>
+              <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
+            </div>
+          </div>
+            `)
                         if (result[i].status == 'Not Done') {
-                            $(`#${result[i]._id}`).append(`
-                        <button type="button" class="btn btn-info" id="finish${result[i]._id}">Finish Todo</button>
-                    `)
+                            $(`#body-${result[i]._id}`).append(`
+                    <button type="button" class="btn btn-info" id="finish${result[i]._id}">Finish Todo</button>
+                `)
                         }
                         $(document).on('click', `#finish${result[i]._id}`, function () {
                             finishTodo(result[i]._id)
+                        })
+                        $(document).on('click', `#${result[i]._id}`, function(){
+                            findOneTodo(result[i]._id)
                         })
                         $(document).on('click', `#delete${result[i]._id}`, function () {
                             deleteTodo(result[i]._id)
@@ -753,6 +892,7 @@ $(document).ready(function () {
                         count++
                     }
                 }
+
             },
             error: function (error) {
                 $('#c-1').html('')
@@ -787,22 +927,25 @@ $(document).ready(function () {
                     for (let i = 0; i < result.length; i++) {
                         result[i].due_date = result[i].due_date.split('T')
                         $(`#c-${count}`).append(`
-                <div class="card" style="width: 18rem;margin-top:10px;">
-                <div class="card-body" id="${result[i]._id}">
-                <h5 class="card-title">${result[i].name}<button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;">x</button></h5>
-                <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
-                <p class="card-text">${result[i].description}</p>
-                <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
-                </div>
-                </div>
+            <div class="card" style="width: 18rem;margin-top:10px;">
+            <div class="card-body" id="body-${result[i]._id}">
+              <h5 class="card-title">${result[i].name} <a id="${result[i]._id}"><i class='far fa-edit'></i></a><button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;"><i class='fas fa-trash-alt'></i></button></h5>
+              <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
+              <p class="card-text">${result[i].description}</p>
+              <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
+            </div>
+          </div>
             `)
                         if (result[i].status == 'Not Done') {
-                            $(`#${result[i]._id}`).append(`
+                            $(`#body-${result[i]._id}`).append(`
                     <button type="button" class="btn btn-info" id="finish${result[i]._id}">Finish Todo</button>
                 `)
                         }
                         $(document).on('click', `#finish${result[i]._id}`, function () {
                             finishTodo(result[i]._id)
+                        })
+                        $(document).on('click', `#${result[i]._id}`, function(){
+                            findOneTodo(result[i]._id)
                         })
                         $(document).on('click', `#delete${result[i]._id}`, function () {
                             deleteTodo(result[i]._id)
@@ -813,6 +956,7 @@ $(document).ready(function () {
                         count++
                     }
                 }
+
             }
         })
     })
@@ -839,7 +983,7 @@ $(document).ready(function () {
                 $(`#c-1`).append(`
                 <div class="card" style="width: 18rem;margin-top:10px;">
                 <div class="card-body" id="${result._id}">
-                <h5 class="card-title">${result.name}<button type="button" class="btn btn-danger" id="delete${result._id}" style="float:right;">x</button></h5>
+                <h5 class="card-title">${result.name}<button type="button" class="btn btn-danger" id="delete${result._id}" style="float:right;"><i class='fas fa-trash-alt'></i></button></h5>
                 <h6 class="card-subtitle mb-2 text-muted">status: ${result.status}</h6>
                 <p class="card-text">${result.description}</p>
                 <p class="card-text">DeadLine: ${result.due_date[0]}</p>
@@ -876,8 +1020,8 @@ $(document).ready(function () {
                         result[i].due_date = result[i].due_date.split('T')
                         $(`#c-${count}`).append(`
             <div class="card" style="width: 18rem;margin-top:10px;">
-            <div class="card-body" id="${result[i]._id}">
-              <h5 class="card-title">${result[i].name}<button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;">x</button></h5>
+            <div class="card-body" id="body-${result[i]._id}">
+              <h5 class="card-title">${result[i].name} <a id="${result[i]._id}"><i class='far fa-edit'></i></a><button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;"><i class='fas fa-trash-alt'></i></button></h5>
               <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
               <p class="card-text">${result[i].description}</p>
               <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
@@ -885,12 +1029,15 @@ $(document).ready(function () {
           </div>
             `)
                         if (result[i].status == 'Not Done') {
-                            $(`#${result[i]._id}`).append(`
+                            $(`#body-${result[i]._id}`).append(`
                     <button type="button" class="btn btn-info" id="finish${result[i]._id}">Finish Todo</button>
                 `)
                         }
                         $(document).on('click', `#finish${result[i]._id}`, function () {
                             finishTodo(result[i]._id)
+                        })
+                        $(document).on('click', `#${result[i]._id}`, function(){
+                            findOneTodo(result[i]._id)
                         })
                         $(document).on('click', `#delete${result[i]._id}`, function () {
                             deleteTodo(result[i]._id)
@@ -901,6 +1048,7 @@ $(document).ready(function () {
                         count++
                     }
                 }
+
 
             },
             error: function (error) {
@@ -935,8 +1083,8 @@ $(document).ready(function () {
                         result[i].due_date = result[i].due_date.split('T')
                         $(`#c-${count}`).append(`
             <div class="card" style="width: 18rem;margin-top:10px;">
-            <div class="card-body" id="${result[i]._id}">
-              <h5 class="card-title">${result[i].name}<button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;">x</button></h5>
+            <div class="card-body" id="body-${result[i]._id}">
+              <h5 class="card-title">${result[i].name} <a id="${result[i]._id}"><i class='far fa-edit'></i></a><button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;"><i class='fas fa-trash-alt'></i></button></h5>
               <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
               <p class="card-text">${result[i].description}</p>
               <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
@@ -944,12 +1092,15 @@ $(document).ready(function () {
           </div>
             `)
                         if (result[i].status == 'Not Done') {
-                            $(`#${result[i]._id}`).append(`
+                            $(`#body-${result[i]._id}`).append(`
                     <button type="button" class="btn btn-info" id="finish${result[i]._id}">Finish Todo</button>
                 `)
                         }
                         $(document).on('click', `#finish${result[i]._id}`, function () {
                             finishTodo(result[i]._id)
+                        })
+                        $(document).on('click', `#${result[i]._id}`, function(){
+                            findOneTodo(result[i]._id)
                         })
                         $(document).on('click', `#delete${result[i]._id}`, function () {
                             deleteTodo(result[i]._id)
@@ -994,8 +1145,8 @@ $(document).ready(function () {
                         result[i].due_date = result[i].due_date.split('T')
                         $(`#c-${count}`).append(`
             <div class="card" style="width: 18rem;margin-top:10px;">
-            <div class="card-body" id="${result[i]._id}">
-              <h5 class="card-title">${result[i].name}<button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;">x</button></h5>
+            <div class="card-body" id="body-${result[i]._id}">
+              <h5 class="card-title">${result[i].name} <a id="${result[i]._id}"><i class='far fa-edit'></i></a><button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;"><i class='fas fa-trash-alt'></i></button></h5>
               <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
               <p class="card-text">${result[i].description}</p>
               <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
@@ -1003,12 +1154,15 @@ $(document).ready(function () {
           </div>
             `)
                         if (result[i].status == 'Not Done') {
-                            $(`#${result[i]._id}`).append(`
+                            $(`#body-${result[i]._id}`).append(`
                     <button type="button" class="btn btn-info" id="finish${result[i]._id}">Finish Todo</button>
                 `)
                         }
                         $(document).on('click', `#finish${result[i]._id}`, function () {
                             finishTodo(result[i]._id)
+                        })
+                        $(document).on('click', `#${result[i]._id}`, function(){
+                            findOneTodo(result[i]._id)
                         })
                         $(document).on('click', `#delete${result[i]._id}`, function () {
                             deleteTodo(result[i]._id)
@@ -1019,6 +1173,7 @@ $(document).ready(function () {
                         count++
                     }
                 }
+
 
             },
             error: function (error) {
@@ -1056,8 +1211,8 @@ $(document).ready(function () {
                         result[i].due_date = result[i].due_date.split('T')
                         $(`#c-${count}`).append(`
             <div class="card" style="width: 18rem;margin-top:10px;">
-            <div class="card-body" id="${result[i]._id}">
-              <h5 class="card-title">${result[i].name}<button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;">x</button></h5>
+            <div class="card-body" id="body-${result[i]._id}">
+              <h5 class="card-title">${result[i].name} <a id="${result[i]._id}"><i class='far fa-edit'></i></a><button type="button" class="btn btn-danger" id="delete${result[i]._id}" style="float:right;"><i class='fas fa-trash-alt'></i></button></h5>
               <h6 class="card-subtitle mb-2 text-muted">status: ${result[i].status}</h6>
               <p class="card-text">${result[i].description}</p>
               <p class="card-text">DeadLine: ${result[i].due_date[0]}</p>
@@ -1065,12 +1220,15 @@ $(document).ready(function () {
           </div>
             `)
                         if (result[i].status == 'Not Done') {
-                            $(`#${result[i]._id}`).append(`
+                            $(`#body-${result[i]._id}`).append(`
                     <button type="button" class="btn btn-info" id="finish${result[i]._id}">Finish Todo</button>
                 `)
                         }
                         $(document).on('click', `#finish${result[i]._id}`, function () {
                             finishTodo(result[i]._id)
+                        })
+                        $(document).on('click', `#${result[i]._id}`, function(){
+                            findOneTodo(result[i]._id)
                         })
                         $(document).on('click', `#delete${result[i]._id}`, function () {
                             deleteTodo(result[i]._id)
@@ -1081,6 +1239,7 @@ $(document).ready(function () {
                         count++
                     }
                 }
+
             },
             error: function (error) {
                 $('#c-1').html('')
@@ -1101,6 +1260,19 @@ $(document).ready(function () {
         webRegistration()
     })
 
-    
+    $.ajax({
+        url: `${localhost}/weather`,
+        type: 'get',
+        success: function(result){
+            // console.log(result)
+            $('#date').append(`
+            <h4>Weather Today: ${result.weather}</h4>
+            `)
+            $('body').css('background-image', "url(" + result.bg + ")")
+        },
+        error: function(error){
+
+        }
+    })
 
 })

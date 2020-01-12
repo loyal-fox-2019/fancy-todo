@@ -6,6 +6,8 @@ router.use(authentication)
 
 router.get('/', controller.findAll)
 
+router.get('/:id', controller.findOneTodo)
+
 router.get('/all', controller.findAllTodos)
 
 router.get('/today', controller.findToday)

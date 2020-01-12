@@ -10,62 +10,66 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <meta name="google-signin-client_id"
         content="536827483878-ghe7v2fjslkjlv0173pc7b7m7hfj11e2.apps.googleusercontent.com">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <title>Todo App</title>
 </head>
 
-<body style="height: 800px;width: 100%;background-image: url(https://www.wallpaperflare.com/static/770/878/451/minimalism-landscape-mountains-lake-wallpaper.jpg);background-size: cover;background-repeat: no-repeat;">
+<body
+    style="height: 800px;width: 100%;background-size: cover;background-repeat: no-repeat;">
     <div id="part-signIn" style="background-color: rgba(255, 255, 255, 0.5);">
         <div class="container">
             <div class="row">
-              <div class="col-sm">
-                <center>
-                    <h1>ToDo App</h1>
-                </center>
-              </div>
-          </div>
-          <div class="row" style="margin-top: 35px;">
-            <div class="col-sm" style="border-right: solid black 2px;">
-                <div class="form-group" style="margin-top: 35px;">
-                    <h3>Sign in</h3>
-                    <div id="signInError"></div>
-                    <label for="loginEmail">Email address</label>
-                    <input type="email" class="form-control" id="loginEmail" aria-describedby="emailHelp" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="loginPassword">Password</label>
-                    <input type="password" class="form-control" id="loginPassword" required>
-                  </div>
-                  <button id="signIn" class="btn btn-primary">Sign in</button>
-          </div>
-            <div class="col-sm">
-                <div class="form-group" style="margin-top: 35px;">
-                    <h3>Register</h3>
-                    <label for="registerName">Name</label>
-                    <input type="text" class="form-control" id="registerName" required>
-                    <label for="registerEmail">Email address</label>
-                    <input type="email" class="form-control" id="registerEmail" aria-describedby="emailHelp" required>
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                  </div>
-                  <div class="form-group">
-                    <label for="registerPassword">Password</label>
-                    <input type="password" class="form-control" id="registerPassword" required>
-                  </div>
-                  <button id="register" class="btn btn-primary">Register</button>
-          </div>
+                <div class="col-sm">
+                    <center>
+                        <h1>ToDo App</h1>
+                    </center>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 35px;">
+                <div class="col-sm" style="border-right: solid black 2px;">
+                    <div class="form-group" style="margin-top: 35px;">
+                        <h3>Sign in</h3>
+                        <div id="signInError"></div>
+                        <label for="loginEmail">Email address</label>
+                        <input type="email" class="form-control" id="loginEmail" aria-describedby="emailHelp" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" class="form-control" id="loginPassword" required>
+                    </div>
+                    <button id="signIn" class="btn btn-primary">Sign in</button>
+                </div>
+                <div class="col-sm">
+                    <div class="form-group" style="margin-top: 35px;">
+                        <h3>Register</h3>
+                        <label for="registerName">Name</label>
+                        <input type="text" class="form-control" id="registerName" required>
+                        <label for="registerEmail">Email address</label>
+                        <input type="email" class="form-control" id="registerEmail" aria-describedby="emailHelp"
+                            required>
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                            else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <input type="password" class="form-control" id="registerPassword" required>
+                    </div>
+                    <button id="register" class="btn btn-primary">Register</button>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm">
                 <center>
                     <p style="margin-top: 15px;">or Sign In via:</p>
-                  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
                 </center>
             </div>
         </div>
-          </div>
+    </div>
     </div>
 
-    <header id="header" style="width: 100%;margin-top: 5px;">
+    <header id="header" style="width: 100%;margin-top: 5px;background-color: rgba(255, 255, 255, 0.5);">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl" id="date" style="margin-top: 10px;">
@@ -74,7 +78,7 @@
                     <h1 style="text-align: center;">ToDo App</h1>
                 </div>
                 <div class="col-xl" id="userDropdown">
-                    
+
                 </div>
             </div>
         </div>
@@ -84,9 +88,11 @@
         <div class="container-fluid" id="userIntro" style="margin-top: 5px;">
         </div>
 
-        <div class="container-fluid" id="content" style="margin-left: 0; margin-right: 50px;margin-top: 25px;background-color: rgba(255, 255, 255, 0.5); height: 700px;">
+        <div class="container-fluid" id="content"
+            style="margin-left: 0; margin-right: 50px;margin-top: 25px;background-color: rgba(255, 255, 255, 0.5); height: 700px;">
             <div class="row" style="width: 100%;">
-                <div class="col-sm" style="padding: 0;border-right: solid grey 1px; height: 700px;background-color: rgba(0, 0, 0, 0.25);">
+                <div class="col-sm"
+                    style="padding: 0;border-right: solid grey 1px; height: 700px;background-color: rgba(0, 0, 0, 0.25);">
                     <div class="row" style="width: 100%; padding: 0;margin: 0;">
                         <div class="col-sm" style="padding: 0;height: 100%;">
                             <button type="button" class="btn btn-outline-primary" style="width: 100%;"
@@ -96,8 +102,8 @@
                             <button type="button" class="btn btn-outline-dark" style="width: 100%;" id="levelMain">Level
                                 of
                                 Importance</button>
-                            <button type="button" class="btn btn-outline-info" style="width: 100%;"
-                                id="allMain">Show All Todos</button>
+                            <button type="button" class="btn btn-outline-info" style="width: 100%;" id="allMain">Show
+                                All Todos</button>
                         </div>
                         <div class="col-sm" style="padding: 0;">
                             <div id="activeSub" class="btn-group-vertical">
@@ -118,14 +124,14 @@
                                     id="inactiveTodos">Show All Inactive</button>
 
                             </div>
-                                <div id="levelSub" class="btn-group-vertical">
-                                    <button type="button" class="btn btn-outline-info" style="width: 100%;"
-                                        id="normalTodos">Normal</button>
-                                    <button type="button" class="btn btn-outline-warning" style="width: 100%;"
-                                        id="importantTodos">Important!</button>
-                                    <button type="button" class="btn btn-outline-danger" style="width: 100%;"
-                                        id="urgentTodos">Urgent!</button>
-                                </div>
+                            <div id="levelSub" class="btn-group-vertical">
+                                <button type="button" class="btn btn-outline-info" style="width: 100%;"
+                                    id="normalTodos">Normal</button>
+                                <button type="button" class="btn btn-outline-warning" style="width: 100%;"
+                                    id="importantTodos">Important!</button>
+                                <button type="button" class="btn btn-outline-danger" style="width: 100%;"
+                                    id="urgentTodos">Urgent!</button>
+                            </div>
 
                         </div>
                     </div>
@@ -180,6 +186,28 @@
         </div>
     </div>
     <!-- End of Add a ToDo Modal -->
+    <!-- Edit a ToDo Modal -->
+    <div class="modal fade" id="editTodo" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Edit a Todo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="editBody">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="editSubmit" data-dismiss="modal">Edit Todo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Edit a ToDo Modal -->
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"

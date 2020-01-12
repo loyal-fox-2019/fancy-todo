@@ -34,15 +34,15 @@ class toDoController{
                 }
             })
             toDoListDisplay = toDoList
-            toDo.updateMany({
-                $and : {
+            return toDo.updateMany({
+                
                     $and : [
                         {status : 'Not Done'},
                         {due_date : {
                             $lt : new Date()
                         }}
                     ]
-                }
+                
             },{
                 status : 'EXPIRED'
             })
@@ -193,6 +193,16 @@ class toDoController{
         })
     }
 
+    static findOneTodo(req, res, next){
+        toDo.findOne({_id:req.params.id})
+        .then(todoData=>{
+            res.status(200).json(todoData)
+        })
+        .catch(err=>{
+            next()
+        })
+    }
+
     static delete(req, res, next){
         toDo.deleteOne({_id:req.params.id, userId:req.loggedUser.id})
         .then(success=>{
@@ -213,10 +223,13 @@ class toDoController{
             description : req.body.description,
             status: req.body.status,
             importanceLevel: req.body.importanceLevel,
-            due_date: new Date(Number(date[2]), Number(date[1])-1, Number(date[0])+1)
+            due_date: new Date(Number(date[0]), Number(date[1])-1, Number(date[2])+1)
         })
         .then(updatedToDo=>{
-            res.status(200).json(updatedToDo)
+            return toDo.find({_id:req.params.id})
+        })
+        .then(updatedTodo=>{
+            res.status(200).json(updatedTodo)
         })
         .catch(err=>{
             next()
@@ -226,7 +239,7 @@ class toDoController{
     static changeStatus(req, res, next){
         toDo.updateOne({_id:req.params.id, userId:req.loggedUser.id}, {status:'Finished'})
         .then(success=>{
-            return toDo.find({userId:req.loggedUser.id, status:'Not Done'})
+            return toDo.findOne({userId:req.loggedUser.id, status:'Not Done'})
         })
         .then(toDoDatas=>{
             res.status(200).json(toDoDatas)
