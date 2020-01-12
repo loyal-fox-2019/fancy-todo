@@ -1,0 +1,53 @@
+.project:hover div{
+    background-color: #045B8F;
+}
+.project div{
+    height: 100px; background-color:#0267A3; border-radius: 5px; color: #fff; cursor: pointer;
+}
+#newProject div{
+    background-color: rgba(9,30,66,.04);
+    box-shadow: none;
+    border: none;
+    color: #172b4d;
+    display: table-cell;
+    height: 100px;
+    font-weight: 400;
+    border-radius: 5px;
+    padding-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+    text-align: center;
+    vertical-align: middle;
+    transition-property: background-color,border-color,box-shadow;
+    transition-duration: 85ms;
+    transition-timing-function: ease;
+    cursor: pointer;
+}
+#newProject:hover div{
+    background-color: rgba(9,30,66,.08);
+}
+
+.todo{
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    cursor: pointer;
+    display: block;
+    margin-bottom: 8px;
+    max-width: 300px;
+    min-height: 20px;
+    position: relative;
+    text-decoration: none;
+    z-index: 0;
+}
+.todo:hover{
+    color: #212529;
+    background-color: rgba(0,0,0,.075) !important;
+}
+.todo .card-body{
+    padding: 6px 8px 2px; box-shadow: 0 1px 0 rgba(9,30,66,.25);
+}
+.todo .card-body p {
+    margin: 0%;
+}
