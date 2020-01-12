@@ -20,11 +20,7 @@ const userSchema = new Schema({
     },
     avatar: {
         type: String
-    },
-    projects: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Project'
-    }]
+    }
 });
 
 userSchema.pre('save', function(next) {

@@ -36,6 +36,9 @@ function login() {
     })
         .then(({data}) => {
             setToken(data.token);
+            $('#user-name').html(`
+                Hi, <b>${username}</b>
+            `);
             switchPage();
         }).catch((err) => {
             console.log('INI ERROR=', err);
@@ -122,15 +125,19 @@ function renderButton() {
 function switchPage() {
     nullifyForm();
     if (localStorage.getItem('token')) {
+        initBoardStatuses();
         $('#user-page').show();
         $('#login-page').hide();
     } else {
+        $('#status-list').html('');
         $('#user-page').hide();
         $('#login-page').show();
+        $('#user-name').html('');
     }
 }
 
 function onSuccess(googleUser) {
+    const profile = googleUser.getBasicProfile();
     const idToken = googleUser.getAuthResponse().id_token;
     axios({
         method: 'POST',
@@ -141,6 +148,9 @@ function onSuccess(googleUser) {
     })
         .then(({data}) => {
             setToken(data.token);
+            $('#user-name').html(`
+                Hi, <b>${profile.getName()}</b>
+            `);
             switchPage();
         }).catch((err) => {
             console.log(err);

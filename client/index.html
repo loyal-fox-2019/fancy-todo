@@ -43,18 +43,53 @@
         <!-- HEADER USER PAGE -->
         <div class="row">
             <div class="col">
-                <a href="#" onclick="signOut();" id="glogout-btn">Sign out</a>
+                <nav class="navbar navbar-expand-lg">
+                    <!-- <a class="navbar-brand" href="#">Trello</a> -->
+                    <h3>Trello</h3>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarText">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Features</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Pricing</a>
+                            </li>
+                        </ul>
+                        <span class="navbar-text">
+                            <span id="user-name">&nbsp;</span>
+                            <button type="button" onclick="signOut();" id="glogout-btn" class="btn btn-sm btn-outline-dark ml-2">Sign Out</button>
+                        </span>
+                    </div>
+                </nav>
             </div>
         </div>
 
-        <div class="row mt-5">
+        <!-- projects dropdown -->
+        <div class="row mt-3 justify-content-center">
+            <div class="col-md-2">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="select-project">Project</label>
+                    </div>
+                    <select class="custom-select" id="select-project">
+                        <option selected>Personal</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5" id="status-list">
             <!-- TODO LIST -->
-            <div class="col-3">
+            <!-- <div class="col-3">
                 <div class="card">
                     <div class="card-body card-parent">
                         <h2 class="font-weight-bolder">TO DO</h2>
-
-                        <!-- EACH TODO -->
                         <div class="body-parent">
                             <div class="row mt-2">
                                 <div class="col mr-1">
@@ -82,115 +117,7 @@
 
                     </div>
                 </div>
-            </div>
-
-            <!-- IN PROGRESS LIST -->
-            <div class="col-3">
-                <div class="card">
-                    <div class="card-body card-parent">
-                        <h2 class="font-weight-bolder">IN PROGRESS</h2>
-
-                        <!-- EACH TODO -->
-                        <div class="body-parent">
-                            <div class="row mt-2">
-                                <div class="col mr-1">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <p class="card-text">
-                                                        With supporting text below as a natural lead-in to additional content.
-                                                    </p>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        ...
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- REVIEW LIST -->
-            <div class="col-3">
-                <div class="card">
-                    <div class="card-body card-parent">
-                        <h2 class="font-weight-bolder">REVIEW</h2>
-
-                        <!-- EACH REVIEW -->
-                        <div class="body-parent">
-                            <div class="row mt-2">
-                                <div class="col mr-1">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <p class="card-text">
-                                                        With supporting text below as a natural lead-in to additional content.
-                                                    </p>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        ...
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- DONE LIST -->
-            <div class="col-3">
-                <div class="card">
-                    <div class="card-body card-parent">
-                        <h2 class="font-weight-bolder">DONE</h2>
-
-                        <!-- EACH DONE -->
-                        <div class="body-parent">
-                            <div class="row mt-2">
-                                <div class="col mr-1">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <p class="card-text">
-                                                        With supporting text below as a natural lead-in to additional content.
-                                                    </p>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        ...
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -208,7 +135,9 @@
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
     <!-- ALL customs script -->
+    <script src="./src/js/user-page.js"></script>
     <script src="./src/js/login.js"></script>
+    <script src="./src/js/navbar.js"></script>
 </bod>
 
 </html>

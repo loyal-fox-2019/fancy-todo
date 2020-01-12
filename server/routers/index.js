@@ -6,9 +6,12 @@ const user = require('./user');
 const todo = require('./todo');
 const status = require('./status');
 const project = require('./project');
+const authentication = require('../middlewares/authentication');
 
 router.use('/oauth', oauth);
 router.use('/user', user);
+
+router.use('/', authentication);
 router.use('/todo', todo);
 router.use('/status', status);
 router.use('/projects', project);

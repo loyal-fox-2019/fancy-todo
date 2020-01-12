@@ -12,6 +12,10 @@ const todoSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Status'
     },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     project: {
         type: Schema.Types.ObjectId,
         ref: 'Project'

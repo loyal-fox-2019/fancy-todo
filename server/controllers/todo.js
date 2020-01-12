@@ -16,9 +16,30 @@ class TodoController {
     }
 
     static getAllTodos(req, res, next) {
-        todoModel.find().populate(['project','status'])
+        todoModel.find({
+            owner: req.userLogin.id
+        }).populate(['project','status','owner'])
             .then((todos) => {
                 res.status(200).json({todos});
+            }).catch(next);
+    }
+
+    static getAllTodosByStatus(req, res, next) {
+        todoModel.find({
+            owner: req.userLogin.id,
+            status: ObjectId(req.params.statusId)
+        }).populate(['project','status','owner'])
+            .then((todos) => {
+                res.status(200).json({todos});
+            }).catch(next);
+    }
+
+    static getTodoById(req, res, next) {
+        todoModel.findOne({
+            _id: ObjectId(req.params.id)
+        })
+            .then((todo) => {
+                res.status(200).json({todo});
             }).catch(next);
     }
 
@@ -35,7 +56,7 @@ class TodoController {
                     throw errors;
                 }
 
-                return todoModel.update({
+                return todoModel.updateOne({
                     _id: ObjectId(req.params.id)
                 }, req.body);
             }).then((updatedTodo) => {

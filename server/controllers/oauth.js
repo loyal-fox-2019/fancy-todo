@@ -33,6 +33,7 @@ class OAuthController {
             }
         }).then((registeredUser) => {
             const token = jwt.sign({
+                id: registeredUser._id,
                 userId: registeredUser.userId,
                 name: registeredUser.name,
                 email: registeredUser.email,
