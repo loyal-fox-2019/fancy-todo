@@ -16,10 +16,11 @@ class ProjectController {
 
   static addTodo(req, res, next) {
     const { name, description, status, due_date } = req.body
+    const project_id = req.params.projectId
     const user_id  = req.decoded.id
-    Todo.create({ name, description, status, due_date, user_id })
+    Todo.create({ name, description, status, due_date, user_id, project_id })
       .then(todo => {
-        return Project.findByIdAndUpdate(req.params.projectId,
+        return Project.findByIdAndUpdate(project_id,
           { $push: { todos: todo } },
           { new: true })
       })
@@ -42,17 +43,20 @@ class ProjectController {
   static showProject(req, res, next) {
     Project.findById(req.params.projectId)
       .populate('members')
-      .populate('todos')
+      .populate({ path: 'todos', populate: { path: 'user_id' } })
       .then(project => {
+        // console.log(project)
         res.status(200).json(project)
       })
       .catch(next)
   }
 
   static updateProjectName(req, res, next) {
+    console.log(req.params.projectId, '+++++++++++++')
     const { name } = req.body
     Project.findByIdAndUpdate(req.params.projectId, { name }, { new: true })
       .then(project => {
+        console.log(project, '[][][][][][][][][[]')
         res.status(200).json(project)
       })
       .catch(next)
@@ -141,8 +145,10 @@ class ProjectController {
   static removeMember(req, res, next) {
     let targetMember;
     const { email } = req.body
+    console.log(email, '<><><><><><><><><><><>')
     User.findOne({ email })
       .then(user => {
+        console.log(user, '_+_+_+_+_+_+_+_+')
         if (!user) throw createError(404, 'User not found')
         targetMember = user
         return Project.findById(req.params.projectId)

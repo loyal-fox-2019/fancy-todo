@@ -60,6 +60,7 @@ module.exports = {
 
   authProjectMember(req, res, next) {
     console.log('@@@@@@@@@@@@@@@@@@')
+    console.log(req.params.projectId, '%%%%%%%%%%%%')
     Project.findById(req.params.projectId)
       .then(project => {
         if (project) {
@@ -69,7 +70,7 @@ module.exports = {
             next(createError(400, 'Forbidden access'))
           }
         } else {
-          next(createError(404, `${entity} not found`))
+          next(createError(404, 'Project not found'))
         }
       })
       .catch(next)

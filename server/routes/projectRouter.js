@@ -10,6 +10,7 @@ router.get('/:projectId/acceptInvitation', ProjectController.acceptInvitation)
 
 router.get('/:projectId', authProjectMember, ProjectController.showProject)
 
+router.patch('/:projectId', authorization, authProjectMember, ProjectController.updateProjectName)
 router.patch('/:projectId/inviteMember', authorization, authProjectMember, ProjectController.inviteMember)
 router.patch('/:projectId/rejectInvitation', authProjectMember, ProjectController.rejectInvitation)
 router.patch('/:projectId/removeMember', authorization, ProjectController.removeMember)

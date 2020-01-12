@@ -19,6 +19,10 @@ const todoSchema = new mongoose.Schema({
     type: Date,
     required: [true, 'Due date must be filled out']
   },
+  project_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'Project'
+  },
   user_id: {
     type: Schema.Types.ObjectId,
     ref: "User"
