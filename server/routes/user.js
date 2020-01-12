@@ -5,4 +5,6 @@ router.post('/google', controller.googleLogin)
 
 router.post('/', controller.create)
 
+router.post('/login', controller.webLogin)
+
 module.exports = router
