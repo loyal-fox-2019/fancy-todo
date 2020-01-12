@@ -5,6 +5,7 @@ const usercontroller = require('../controllers/usercontroller')
 
 router.post('/signup', usercontroller.signup)
 router.post('/signin', usercontroller.signin)
+router.post('/googlesignin', usercontroller.googlesignin)
 
 
 

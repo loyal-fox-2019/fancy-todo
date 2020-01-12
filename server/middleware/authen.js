@@ -2,15 +2,6 @@ const jwt = require('jsonwebtoken')
 const todomodel = require('../models/todomodel')
 
 
-try{
-
-    console.log(jwt.decode('eyJhbGciOiJIUzI1NiJ9.c2RzZHNk.oHLwNbujMf9cml0H9dZoKchdtmAfU9fKmDFoev7xjl0'))
-} catch(err){
-    console.log('errr')
-}
-
-
-
 class Middleware{
     static authen (req,res,next){
         try{
