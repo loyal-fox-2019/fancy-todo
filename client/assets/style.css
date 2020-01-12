@@ -84,7 +84,7 @@
     /* grid-template-rows: repeat(auto-fill, 200px); */
     /* grid-template-rows: repeat(auto-fit, [col-start] minmax(100px, 1fr) [col-end]); */
     /* grid-template-rows: repeat(auto-fit,  minmax(100px, 1fr)); */
-    grid-template-rows: repeat(3,  minmax(20%, 30%));  
+    grid-template-rows: repeat(auto-fill  minmax(20%, 30%));  
     
     height: 70vh;
     grid-gap: 15px;
@@ -168,6 +168,7 @@
 .footer-hover
 {
     visibility: hidden;
+    border: none;
     bottom: 0;
     width: 100%;
 }
