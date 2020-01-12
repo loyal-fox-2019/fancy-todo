@@ -15,7 +15,7 @@ const todoSchema = new Schema({
     },
     status: {
         type: String,
-        default: 'On Progress'
+        default: 'OnProgress'
     },
     created_date: {
         type: Date,
