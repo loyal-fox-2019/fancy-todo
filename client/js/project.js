@@ -39,7 +39,7 @@ function showProjects(projects) {
       </tr>
       <tr id="sub-project-${project._id}" class="bg-gray-100">
         <td colspan="4" class="p-3 px-4">
-          <form id="edit-form-${project._id}-p" class="hidden shadow-md px-8 pt-6 pb-8 mb-4 bg-white rounded-lg" onsubmit="submitInvitation(event, '${project._id}')">
+          <form id="invite-form-${project._id}" class="hidden shadow-md px-8 pt-6 pb-8 mb-4 bg-white rounded-lg" onsubmit="submitInvitation(event, '${project._id}', '${project.name}', '${project.owner.email}')">
             <div class="mb-4">
               <label class="block mb-2 text-sm font-bold text-gray-700" for="name-post">
                 Invite a Member
@@ -95,27 +95,32 @@ function createProject(e) {
   })
 }
 
-function openInvite(todoId) {
-  $(`#edit-form-${todoId}`).show()
+function openInvite(projectId) {
+  $(`#invite-form-${projectId}`).show()
 }
 
-function submitInvitation(e, projectId) {
+function submitInvitation(e, projectId, projectName, inviter) {
   e.preventDefault()
   $.ajax({
     method: 'patch',
     url: `${baseUrl}/projects/${projectId}/inviteMember`,
     data: {
-      email: $(`#invite-email-${projectId}`).val()
+      email: $(`#invite-email-${projectId}`).val(),
+      inviter
     },
     // headers: { access_token: localStorage.getItem('access_token') }
     headers: { access_token }
   })
     .done(response => {
       fetchProjects()
-
+      fetchProjectMembers(projectId, projectName)
     })
     .fail(err => {
-      console.log(err)
+      let errorMsg = err.responseJSON.errors.message
+      Swal.fire({
+        icon: 'info',
+        text: errorMsg
+      })
     })
 }
 
@@ -136,6 +141,13 @@ function fetchTodosProject(projectId, projectName, cb) {
       $('#col-todos-project').append(
         `
         <h3 class="pt-4 text-2xl text-center">${projectName}</h3>
+        <h6
+          class="text-center text-sm text-blue-500 hover:text-blue-800 cursor-pointer"
+          href=""
+          onclick="openProjectMembers('${projectId}', '${projectName}')"
+        >
+          Member List
+        </h6>
         <div class="text-gray-900">
           <div class="px-3 py-4 flex justify-center">
             <table class="w-full text-md bg-white shadow-md rounded-lg mb-4 table-fixed">
@@ -157,7 +169,6 @@ function fetchTodosProject(projectId, projectName, cb) {
         `
       )
       for (let todo of todos) {
-        console.log(todo)
         let date = todo.due_date.slice(0, 10)
         $("#todos-project").append(
           `
@@ -356,4 +367,111 @@ function changeProjectName(e, projectId) {
 function openEditProject(e, projectId) {
   e.preventDefault()
   $('#edit-project-form').show()
+}
+
+function openProjectMembers(projectId, projectName) {
+  fetchProjectMembers(projectId, projectName)
+}
+
+function fetchProjectMembers(projectId, projectName) {
+  $.ajax({
+    method: 'get',
+    url: `${baseUrl}/projects/${projectId}`,
+    // headers: { access_token: localStorage.getItem('access_token') }
+    headers: { access_token }
+  })
+    .done(response => { 
+      console.log(response, '<<<')
+      let { members, pendingMembers }= response
+      $('#member-list').empty()
+      $('#member-list').append(
+        `
+        <h3 class="pt-4 text-2xl text-center">${projectName}</h3>
+        <h6 class="pt-4 text-sm pl-4">Members</h6>
+        <div class="text-gray-900">
+          <div class="px-3 py-4 flex justify-center">
+            <table class="w-full text-md bg-white shadow-md rounded-lg mb-4 table-fixed">
+              <tbody id="member-list-table">
+                <tr class="border-b">
+                  <th class="w-2/5 text-left p-3 px-5">Username</th>
+                  <th class="w-2/5 text-left p-3 px-5">Email</th>
+                  <th class="w-1/5 text-center p-3 px-5">Action</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <h6 class="pt-4 text-sm pl-4">Pending Members</h6>
+        <div class="text-gray-900">
+          <div class="px-3 py-4 flex justify-center">
+            <table class="w-full text-md bg-white shadow-md rounded-lg mb-4 table-fixed">
+              <tbody id="pending-member-list-table">
+                <tr class="border-b">
+                  <th class="w-2/5 text-left p-3 px-5">Username</th>
+                  <th class="w-2/5 text-left p-3 px-5">Email</th>
+                  <th class="w-1/5 text-center p-3 px-5">Action</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        `
+      )
+      for (let member of members) {
+        $('#member-list-table').append(
+          `
+          <tr class="border-t hover:bg-orange-100 bg-gray-100">
+            <td class="p-3 px-4">${member.username}</td>
+            <td class="p-3 px-4">${member.email}</td>
+            <td class="p-3 px-4 text-center flex flex-col lg:flex-row justify-center">
+              <button id="invite" onclick="kickMember('remove', '${member.email}', '${projectId}', '${projectName}')" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Kick</button>
+            </td>
+          </tr>
+          `
+        )
+      }
+      for (let pendingMember of pendingMembers) {
+        $('#pending-member-list-table').append(
+          `
+          <tr class="border-t hover:bg-orange-100 bg-gray-100">
+            <td class="p-3 px-4">${pendingMember.username}</td>
+            <td class="p-3 px-4">${pendingMember.email}</td>
+            <td class="p-3 px-4 text-center flex flex-col lg:flex-row justify-center">
+              <button id="invite" onclick="kickMember('cancel','${pendingMember.email}', '${projectId}', '${projectName}')" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Cancel</button>
+            </td>
+          </tr>
+          `
+        )
+      }
+    })
+}
+
+function kickMember(kind, email, projectId, projectName) {
+  Swal.fire({
+    title: 'Are you sure?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, cancel the invitation!'
+  }).then((result) => {
+    if (result.value) {
+      $.ajax({
+        method: "patch",
+        url: `${baseUrl}/projects/${projectId}/removeMember`,
+        // headers: { access_token: localStorage.getItem('access_token') }
+        headers: { access_token },
+        data: {
+          email,
+          kind
+        }
+      })
+      .done(result => {
+        fetchProjectMembers(projectId, projectName)
+      })
+      .fail(err =>  {
+        console.log(err)
+      })
+    }
+  })
 }
