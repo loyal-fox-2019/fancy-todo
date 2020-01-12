@@ -16,10 +16,6 @@ const todoSchema = new Schema({
     due_date: {
         type: Date,   
     },
-    project: {
-        type: Schema.Types.ObjectId,
-        ref: 'Project'
-    },
     ownerTodo: {
         type: Schema.Types.ObjectId,
         ref: 'User'

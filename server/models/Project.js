@@ -16,6 +16,10 @@ const projectSchema = new Schema({
     members: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
+    }],
+    todos: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Todo'
     }]
 })
 
