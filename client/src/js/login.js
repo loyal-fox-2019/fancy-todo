@@ -1,5 +1,7 @@
 $(document).ready(function () {
-    switchPage();
+    // if (!localStorage.getItem('token')) {
+        switchPage();
+    // }
     showLogin();
 
     $('#password').keypress(function(event){
@@ -16,7 +18,9 @@ function nullifyForm() {
 }
 
 function setToken(token){
-    localStorage.setItem('token',token);
+    if (!localStorage.getItem('token')) {
+        localStorage.setItem('token',token);
+    }
 }
 
 function removeToken() {
@@ -41,7 +45,7 @@ function login() {
             `);
             switchPage();
         }).catch((err) => {
-            console.log('INI ERROR=', err);
+            customAlert('Incorrect username or password');
             showLogin();
         });
 }
@@ -73,12 +77,11 @@ function register() {
             }
         })
             .then(({data}) => {
-                alert(data.msg);
+                customAlert(data.msg);
                 showLogin();
             }).catch((err) => {
                 $('#email').removeClass('is-invalid');
-                console.log('INI ERROR=', err);
-                alert('ERROR WOY');
+                customAlert(err);
                 showRegister();
             });
     }
@@ -107,7 +110,7 @@ function showRegister() {
 }
 
 function onFailure(error) {
-    console.log(error);
+    customAlert(error);
 }
 
 function renderButton() {
@@ -126,6 +129,7 @@ function switchPage() {
     nullifyForm();
     if (localStorage.getItem('token')) {
         initBoardStatuses();
+        initNewBoarStatuses();
         $('#user-page').show();
         $('#login-page').hide();
     } else {
@@ -153,7 +157,7 @@ function onSuccess(googleUser) {
             `);
             switchPage();
         }).catch((err) => {
-            console.log(err);
+            customAlert(err);
             $('#user-page').show();
         });
 }
@@ -162,6 +166,8 @@ function signOut() {
     const auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         removeToken();
-        switchPage();
+        // showLogin();
+        // switchPage();
+        location.reload();
     });
 }

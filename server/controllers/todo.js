@@ -8,7 +8,8 @@ class TodoController {
             description: req.body.description,
             status: ObjectId(req.body.status),
             project: ObjectId(req.body.project),
-            due_date: new Date(req.body.due_date)
+            due_date: req.body.due_date,
+            owner: ObjectId(req.userLogin.id)
         })
             .then((createdTodo) => {
                 res.status(201).json({createdTodo});
@@ -66,7 +67,7 @@ class TodoController {
 
     static deleteTodoById(req, res, next) {
         todoModel.deleteOne({
-            _id: ObjectId(req.params.id)
+            _id: ObjectId(req.body.id)
         })
             .then((deleteResult) => {
                 res.status(200).json(deleteResult);

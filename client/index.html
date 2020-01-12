@@ -20,6 +20,7 @@
 </head>
 
 <body style="background-image: url('./src/img/bg-img')">
+    <!-- LOGIN PAGE -->
     <div class="container-fluid" id="login-page" style="display: none;">
         <div class="row">
             <div class="col d-flex justify-content-center align-items-center flex-fill vh-100">
@@ -39,8 +40,8 @@
         </div>
     </div>
 
+    <!-- USER PAGE -->
     <div class="container-fluid" id="user-page" style="display: none;">
-        <!-- HEADER USER PAGE -->
         <div class="row">
             <div class="col">
                 <nav class="navbar navbar-expand-lg">
@@ -52,13 +53,13 @@
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                              <a class="nav-link" href="#" onclick="location.reload()">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Features</a>
+                                <a class="nav-link" href="#" onclick="customAlert('This feature is under construction')">Projects</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Pricing</a>
+                                <a class="nav-link" id="new-board" href="#" data-toggle="modal" data-target="#todo-action" data-action="Add New Board">Add New Board</a>
                             </li>
                         </ul>
                         <span class="navbar-text">
@@ -71,53 +72,73 @@
         </div>
 
         <!-- projects dropdown -->
-        <div class="row mt-3 justify-content-center">
-            <div class="col-md-2">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text" for="select-project">Project</label>
+        <div class="project-selector">
+            <div class="row mt-3 justify-content-center">
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="select-project">Project</label>
+                        </div>
+                        <select class="custom-select" id="select-project">
+                            <option selected>Personal</option>
+                        </select>
                     </div>
-                    <select class="custom-select" id="select-project">
-                        <option selected>Personal</option>
-                    </select>
                 </div>
             </div>
         </div>
 
         <div class="row mt-5" id="status-list">
-            <!-- TODO LIST -->
-            <!-- <div class="col-3">
-                <div class="card">
-                    <div class="card-body card-parent">
-                        <h2 class="font-weight-bolder">TO DO</h2>
-                        <div class="body-parent">
-                            <div class="row mt-2">
-                                <div class="col mr-1">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <p class="card-text">
-                                                        With supporting text below as a natural lead-in to additional content.
-                                                    </p>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        ...
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Board data from jquery user-page.js -->
+            &nbsp;
+        </div>
+    </div>
 
+    <!-- ADD NEW BOARD PAGE -->
+    <div class="container-fluid" id="add-new-board" style="display: none;">
+        <div class="row">
+            <div class="col d-flex justify-content-center align-items-center flex-fill vh-100">
+                <div class="card shadow p-5 w-75">
+                    <h3 class="card-title text-center">Add New Awesome Thing To Do</h3>
+                    <div class="form-group">
+                        <label for="name">Todo Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Run 10 Kilometers">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Todo Description</label>
+                        <textarea class="form-control" id="description" rows="3" placeholder="Sending out cheetah to run with me and give reward to the winner"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Todo Status</label>
+                        <select class="form-control" id="status">
+                            <!-- status list from jquery -->
+                        </select>
+                    </div>
+                    <div class="form-group text-right">
+                        <button type="button" class="btn btn-success" onclick="addNewBoard()">Let's Do This</button>
+                        <button type="button" class="btn btn-outline-secondary" onclick="location.reload();">Think Again</button>
                     </div>
                 </div>
-            </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="alert-modal" tabindex="-1" role="dialog" aria-labelledby="label-modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="label-modal">ALERT!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-danger text-center">
+                    &nbsp;
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 
