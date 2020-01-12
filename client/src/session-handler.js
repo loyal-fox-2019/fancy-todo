@@ -108,6 +108,7 @@ function logout(e) {
   if (e) e.preventDefault()
 
   localStorage.clear()
+  googleSignOut()
   showOwnTodos()
   $('#project-todo-list').empty()
 
@@ -119,4 +120,55 @@ function logout(e) {
   })
 
   toggleSection()
+}
+
+function googleSignOut() {
+  var auth2 = gapi.auth2.getAuthInstance()
+  auth2.signOut().then(function() {
+    console.log('User signed out.')
+  })
+}
+
+function onSignIn(googleUser) {
+  showSwalLoading('Login...')
+
+  var id_token = googleUser.getAuthResponse().id_token
+
+  ai.post(`/google-login`, {
+    googleToken: id_token,
+  })
+    .then(({ data }) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Success login',
+        showConfirmButton: false,
+      })
+      localStorage.setItem('token', data.token)
+      localStorage.setItem('username', data.username)
+      localStorage.setItem('view', 'todoList')
+      localStorage.setItem('email', data.email)
+
+      toggleSection()
+    })
+    .catch(error => {
+      if (error.response) {
+        Swal.fire({
+          icon: 'error',
+          title: error.response.data.errors.join(),
+          showConfirmButton: false,
+        })
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Check console log',
+          showConfirmButton: false,
+        })
+        console.log(error)
+      }
+    })
+    .finally(() => {
+      setTimeout(function() {
+        Swal.close()
+      }, 1500)
+    })
 }

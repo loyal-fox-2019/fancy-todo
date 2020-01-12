@@ -1,6 +1,9 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const bcryptjs = require('bcryptjs')
+const { OAuth2Client } = require('google-auth-library')
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
+const randomPass = require('../helpers/randomPass')
 
 class UserController {
   static register(req, res, next) {
@@ -109,6 +112,41 @@ class UserController {
       })
       .then(user => {
         res.json({ message: 'Todo deleted' })
+      })
+      .catch(next)
+  }
+
+  static googleLogin(req, res, next) {
+    let payload = null
+
+    if (!req.body.googleToken) {
+      return next({ name: 'BadRequest', message: 'Google token is required' })
+    }
+
+    client
+      .verifyIdToken({
+        idToken: req.body.googleToken,
+        audience: process.env.GOOGLE_CLIENT_ID,
+      })
+      .then(ticket => {
+        payload = ticket.getPayload()
+        return User.findOne({ email: payload.email })
+      })
+      .then(user => {
+        if (user) {
+          const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET)
+          res.json({ token, username: payload.name, email: payload.email })
+        } else {
+          return User.create({
+            username: payload.name,
+            email: payload.email,
+            password: randomPass,
+          })
+        }
+      })
+      .then(user => {
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET)
+        res.json({ token, username: payload.name, email: payload.email })
       })
       .catch(next)
   }

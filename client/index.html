@@ -15,6 +15,11 @@
 
     <script src="src/fontawesome.js"></script>
 
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta
+      name="google-signin-client_id"
+      content="379332147243-cl1vsiut4mb3e680cmvqo5em2um9355m.apps.googleusercontent.com"
+    />
     <title>Simple-Todo</title>
   </head>
   <body>
@@ -102,33 +107,12 @@
       <div class="container" style="display: none;" id="login-form">
         <div class="row d-flex justify-content-center">
           <div class="col-lg-4">
-            <form
-              class="w-auto mx-auto shadow-lg p-4 my-5 rounded"
-              onsubmit="login(event)"
-            >
+            <form class="w-auto mx-auto shadow-lg p-4 my-5 rounded text-center">
               <h3 style="color: #3d77bc;">Login</h3>
               <hr class="py-2" />
-              <div class="form-group">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="loginEmail"
-                  placeholder="Email"
-                  required
-                />
+              <div class="container d-flex justify-content-center">
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
               </div>
-              <div class="form-group pb-2">
-                <input
-                  type="password"
-                  class="form-control"
-                  id="loginPassword"
-                  placeholder="Password"
-                  required
-                />
-              </div>
-              <button type="submit" class="btn btn-outline-light custom-btn">
-                Login
-              </button>
             </form>
           </div>
         </div>
@@ -139,42 +123,12 @@
       <div class="container" style="display: none;" id="register-form">
         <div class="row d-flex justify-content-center">
           <div class="col-lg-4">
-            <form
-              class="w-auto mx-auto shadow-lg p-4 my-5 rounded"
-              onsubmit="register(event)"
-            >
+            <form class="w-auto mx-auto shadow-lg p-4 my-5 rounded text-center">
               <h3 style="color: #3d77bc;">Register</h3>
               <hr class="py-2" />
-              <div class="form-group">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="registerEmail"
-                  placeholder="Email"
-                  required
-                />
+              <div class="container d-flex justify-content-center">
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
               </div>
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="registerUsername"
-                  placeholder="Username"
-                  required
-                />
-              </div>
-              <div class="form-group pb-2">
-                <input
-                  type="password"
-                  class="form-control"
-                  id="registerPassword"
-                  placeholder="Password"
-                  required
-                />
-              </div>
-              <button type="submit" class="btn btn-outline-light custom-btn">
-                Register
-              </button>
             </form>
           </div>
         </div>

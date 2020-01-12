@@ -7,6 +7,7 @@ router.get('/', function(req, res, next) {
 })
 router.post('/login', UserController.login)
 router.post('/register', UserController.register)
+router.post('/google-login', UserController.googleLogin)
 router.use(userAuthenticate)
 router.use('/users', require('./user-router'))
 router.use('/projects', require('./project-router'))
