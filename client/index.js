@@ -173,6 +173,14 @@ $(document).ready(function(){
         $('#LogIn').hide()
     })
 
+    $('#Home').click(function(){
+        $("#Login").hide()
+        $("#Register").hide()
+        $("#formTodo").hide()
+        $("#formUpdateTodo").hide()
+        $("#mainPage").show()
+    })
+
 })
 
 function searchOneTodo(){
@@ -303,12 +311,28 @@ function forDelete(todoId){
 }
 function onSignIn(googleUser) {
     const id_token = googleUser.getAuthResponse().id_token;
+    const profile = googleUser.getBasicProfile();
+    let usertoken = null
     const url = 'http://localhost:3000/user/gsignin'
     axios.post(url,{
         token: id_token
     })
-    .then(({result})=>{
-        console.log(result)
+    .then((payload)=>{
+        console.log(payload)
+        return axios.post('http://localhost:3000/user/login',
+        {
+            username: payload.data.result.username,
+            email: payload.data.result.email
+        })
+    })
+    .then(result=>{
+        $("#Login").hide()
+        $("#Register").hide()
+        $("#formTodo").hide()
+        $("#formUpdateTodo").hide()
+        $("#mainPage").show()
+        usertoken = result.data.token
+       localStorage.setItem('token', usertoken)
     })
     .catch(err=>{
         console.log(err)
@@ -336,6 +360,7 @@ function signOut() {
     auth2.signOut().then(function () {
         console.log('User signed out.');
         $('#mainPage').hide()
+        $('#LogIn').hide()
         $('#Register').show()
         $('.todoCardContainer').empty()
         $('.todoCard').empty()
