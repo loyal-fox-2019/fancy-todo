@@ -67,7 +67,7 @@ Access the API via `http://localhost:3000/`
 
 - ##### 400
 
-  ```json
+  ```
   {
   	message:'Invalid Token'
   }
@@ -75,7 +75,7 @@ Access the API via `http://localhost:3000/`
 
 - ##### 403
 
-  ```json
+  ```
   {
   	code: 403,
       status: 'Forbidden',
@@ -85,7 +85,7 @@ Access the API via `http://localhost:3000/`
 
 - ##### 404
 
-  ```json
+  ```
   {
   	code: 404,
   	status: 'Not Found',
@@ -98,7 +98,7 @@ Access the API via `http://localhost:3000/`
 
 - ##### 500
 
-  ```json
+  ```
   {
   	message : 'Internal Sever Error'
   }
