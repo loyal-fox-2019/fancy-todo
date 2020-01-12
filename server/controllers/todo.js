@@ -45,9 +45,7 @@ class TodoController {
     }
 
     static updateTodoById(req, res, next) {
-        todoModel.findOne({
-            _id: ObjectId(req.params.id)
-        })
+        todoModel.findOne()
             .then((todo) => {
                 if (!todo) {
                     let errors = new Error('Todo not found');
@@ -67,6 +65,7 @@ class TodoController {
 
     static deleteTodoById(req, res, next) {
         todoModel.deleteOne({
+            owner: req.userLogin.id,
             _id: ObjectId(req.body.id)
         })
             .then((deleteResult) => {

@@ -8,8 +8,8 @@ class UserController {
         const {username, password} = req.body;
         userModel.findOne({
             $or: [
-                { username: req.body.username }, 
-                { email: req.body.username } 
+                { username: username }, 
+                { email: username } 
             ]
         })
             .then((user) => {
@@ -52,13 +52,13 @@ class UserController {
         })
             .then((registered) => {
                 if (registered) {
-                    let errors = new Error('Email or username already registered');
+                    let errors = new Error('Email or username already exist');
                     errors.status = 403;
                     errors.data = registered;
                     throw errors;
                     // res.status(200).json({
                     //     registered,
-                    //     msg: 'Email or username already registered'
+                    //     msg: 'Email or username already exist'
                     // })
                 } else {
                     return userModel.create({
