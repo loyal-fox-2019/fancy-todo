@@ -17,7 +17,9 @@ const verifyJWToken = (token) => {
     try {
         return JWToken.verify(token, SECRET_KEY);
     } catch (err) {
-        return err;
+        throw({
+            code: 401
+        })
     }
 };
 

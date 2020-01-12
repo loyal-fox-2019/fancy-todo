@@ -4,7 +4,18 @@ const todoSchema = new Schema(
     {
         name: {
             type: String,
-            required: true
+            required: true,
+            unique: true,
+            validate: {
+                validator: (value) => {
+                    return models.Todo.findOne({
+                        name: value
+                    }).then(response => {
+                        if (response) return false
+                    })
+                },
+                msg: "Todo Already registered"
+            }
         },
         description: {
             type: String,
@@ -15,7 +26,14 @@ const todoSchema = new Schema(
             required: true
         },
         due_date: Date,
-        user_id: {type: Schema.Types.ObjectId, ref: 'User'}
+        user_id: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        project: {
+            type: Schema.Types.ObjectId,
+            ref: 'Project'
+        }
     }
 );
 

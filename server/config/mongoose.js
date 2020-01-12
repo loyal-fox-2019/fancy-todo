@@ -7,7 +7,8 @@ console.log(MONGO_URI + "/" + MONGO_DB);
 mongoose.connect(MONGO_URI + "/" + MONGO_DB, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useCreateIndex: true,
 }, (err) => {
     if (err) {
         console.log("mongodb failed to connect");

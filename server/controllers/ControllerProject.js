@@ -16,30 +16,66 @@ class ControllerProject {
     }
 
     static addMember(req, res, next) {
-        if (!req.params.projectName || !req.params.email) throw({
-            name: "ValidationError",
-            errMsg: "Project name/ email member required"
+        if (req.memberStatus !== "admin") throw({
+            code: 401
         });
 
-        Project.findOne({
-            name: req.params.projectName
-        }).then(responseProject => {
-            if (responseProject) {
-                return User.findOne({
-                    email
+        if (!req.body.email) throw({
+            name: "ValidationError",
+            errMsg: "email member required"
+        });
+
+        User.findOne({
+            email: req.body.email
+        }).then(responseUser => {
+            if (responseUser) {
+                if (responseUser._id.toString() === req.user_id.toString()) throw({
+                    name: "ValidationError",
+                    errMsg: "You already admin for this project"
+                });
+
+                if (req.projectMembers.indexOf(responseUser._id) >= 0) throw({
+                    name: "ValidationError",
+                    errMsg: "Member already registered"
+                });
+
+                return Project.updateOne({
+                    _id: req.projectId
+                }, {
+                    $push: {
+                        members: responseUser._id
+                    }
                 })
             } else {
                 throw ({
                     code: 404,
-                    errMsg: "Project"
+                    errMsg: "Email Member"
                 })
             }
-        }).catch(next)
+        }).then(response => {
+            res.status(201).json({
+                message: "Member successfully added",
+                data: response
+            });
+        }).catch(next);
+    }
 
-
-        Project.update({
-            _id: req.params.projectId
-        })
+    static viewProject(req, res, next) {
+        Project.find({
+            $or: [
+                {admin: req.user_id},
+                {
+                    members: {
+                        $in: req.user_id
+                    }
+                }
+            ]
+        }).populate('todos')
+            .then(response => {
+                res.status(201).json({
+                    data: response
+                })
+            }).catch(next)
     }
 }
 
