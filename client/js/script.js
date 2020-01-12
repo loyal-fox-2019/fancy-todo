@@ -12,6 +12,20 @@ $(document).ready(function(){
         refresh(localStorage.getItem('id'))
     }
 
+    $(document).on('click','.send-msg', function(event){
+        $.ajax({
+            url: 'http://localhost:3000/todo/send',
+            type: 'post',
+            dataType: 'json',
+            data: {
+
+            },
+            success: function(data){
+                console.log('message send')
+            }
+        })
+    })
+
     $(document).on('click', '#login-btn', function(event){
         $.ajax({
             url: 'http://localhost:3000/user/login',
@@ -106,6 +120,7 @@ $(document).ready(function(){
                                             <span></span>
                                         </label>
                                         <a href="#" class="delete-todo" data-id="${data._id}""><i class="material-icons prefix">delete</i></a>
+                                        <a href="#" class="send-msg" data-id="${data._id}""><i class="material-icons prefix">message</i></a>
                                     </div>
                                     </div>
                                 </div>
@@ -129,6 +144,7 @@ $(document).ready(function(){
                                             <span></span>
                                         </label>
                                         <a href="#" class="delete-todo" data-id="${data._id}""><i class="material-icons prefix">delete</i></a>
+                                        <a href="#" class="send-msg" data-id="${data._id}""><i class="material-icons prefix">message</i></a>
                                     </div>
                                     </div>
                                 </div>
@@ -182,6 +198,7 @@ $(document).ready(function(){
                                         <span></span>
                                     </label>
                                     <a href="#" class="delete-todo" data-id="${data._id}""><i class="material-icons prefix">delete</i></a>
+                                    <a href="#" class="send-msg" data-id="${data._id}""><i class="material-icons prefix">message</i></a>
                                 </div>
                                 </div>
                             </div>
@@ -205,6 +222,7 @@ $(document).ready(function(){
                                         <span></span>
                                     </label>
                                     <a href="#" class="delete-todo" data-id="${data._id}""><i class="material-icons prefix">delete</i></a>
+                                    <a href="#" class="send-msg" data-id="${data._id}""><i class="material-icons prefix">message</i></a>
                                 </div>
                                 </div>
                             </div>

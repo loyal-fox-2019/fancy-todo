@@ -1,4 +1,7 @@
 const Todo = require('../models/todo')
+const accountSID = 'ACd3b3ed8fb6f0c27fa76f633f29a242d4'
+const authToken = '5a2547d0e4cac18d050b3e343eeb818f'
+const client = require('twilio')(accountSID, authToken)
 
 class TodoController{
     static create(req,res,next){
@@ -54,6 +57,20 @@ class TodoController{
                 res.status(200).json(data)
             })
             .catch(next)
+    }
+
+    static sendWhatsapp(req,res,next){
+        client.messages.create({
+            from: 'whatsapp:+14155238886',
+            to: 'whatsapp:+6281385784854',
+            body: 'Kerjakan todo kamu!'
+        })
+            .then(msg => {
+                console.log(msg.sid)
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 }
 

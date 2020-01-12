@@ -6,6 +6,7 @@ const Authenticate = require('../middlewares/authentication')
 router.post('/', TodoController.create)
 router.patch('/:id', TodoController.updateStatus)
 router.delete('/:id', TodoController.deleteTodo)
+router.post('/send', TodoController.sendWhatsapp)
 
 // get all todo
 router.get('/:id', TodoController.getAll)
