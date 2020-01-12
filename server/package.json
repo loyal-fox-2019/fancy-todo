@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "bin": {
+    "server": "server.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "set NODE_ENV=development&& nodemon bin/server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "google-auth-library": "^5.7.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.8.4",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
