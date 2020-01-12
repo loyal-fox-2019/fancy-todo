@@ -5,7 +5,8 @@ const state = {
   overdueTodoList: [],
   doneTodoList: [],
   furtherTodoList: [],
-};
+  projectList: [],
+}
 
 const viewState = {
   todoList: 'all-todo-list',
@@ -14,4 +15,4 @@ const viewState = {
   overdueTodoList: 'overdue-todo-list',
   doneTodoList: 'done-todo-list',
   furtherTodoList: 'further-todo-list',
-};
+}

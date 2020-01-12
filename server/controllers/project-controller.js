@@ -24,6 +24,8 @@ class ProjectController {
         },
       ],
     })
+      .populate('owner', 'username email -_id')
+      .populate('members', 'username email')
       .then(projects => {
         res.json({ projects })
       })

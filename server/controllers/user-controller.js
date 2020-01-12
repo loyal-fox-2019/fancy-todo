@@ -11,7 +11,9 @@ class UserController {
     })
       .then(user => {
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET)
-        res.status(201).json({ token, username: user.username })
+        res
+          .status(201)
+          .json({ token, username: user.username, email: user.email })
       })
       .catch(next)
   }
@@ -32,7 +34,7 @@ class UserController {
           throw { name: 'NotFound', message: 'Email or password is wrong' }
         }
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET)
-        res.json({ token, username: user.username })
+        res.json({ token, username: user.username, email: user.email })
       })
       .catch(next)
   }
@@ -111,5 +113,7 @@ class UserController {
       .catch(next)
   }
 }
+
+module.exports = UserController
 
 module.exports = UserController

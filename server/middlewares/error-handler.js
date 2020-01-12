@@ -1,5 +1,4 @@
 module.exports = function(err, req, res, next) {
-  console.log(err)
   switch (err.name) {
     case 'ValidationError':
       const errors = []

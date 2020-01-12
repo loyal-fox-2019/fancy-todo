@@ -10,6 +10,14 @@ function fetchOwnTodo() {
   })
 }
 
+function fetchProjects() {
+  return ai.get('/users/projects', {
+    headers: {
+      token: localStorage.getItem('token'),
+    },
+  })
+}
+
 function emptyState() {
   Object.keys(state).forEach(key => {
     state[key] = []
@@ -25,8 +33,6 @@ function updateState(data) {
     todo.dueDate = new Date(todo.dueDate)
     return todo
   })
-
-  console.log(data)
 
   data.sort((a, b) => a.dueDate > b.dueDate)
 
@@ -59,4 +65,15 @@ function updateState(data) {
   })
 
   state.todoList = data
+}
+
+function updateProject(project) {
+  const now = new Date()
+
+  project.todos = project.todos.map(todo => {
+    todo.dueDate = new Date(todo.dueDate)
+    return todo
+  })
+
+  return project
 }
