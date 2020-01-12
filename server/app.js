@@ -9,6 +9,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const errorHandler = require('./middleware/errorHandler');
 const user = require('./routes/user');
+const todo = require('./routes/todo');
 
 app.use(cors());
 mongoose.connect('mongodb://localhost:27017/fancy_todo', {
@@ -26,6 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use('/user', user);
+app.use('/todo', todo);
 app.use(errorHandler);
 
 app.listen(PORT, () => {

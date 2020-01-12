@@ -1,0 +1,165 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+/*Login CSS*/
+
+#login-area {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), 
+    rgba(0, 0, 0, 0.4)), url('../img/login-area-bg.jpg') no-repeat center;
+    background-size: cover;
+    height: 100vh;
+}
+
+.login-card {
+    padding: 100px 50px;
+    background-color: white;
+    box-shadow: 0 0 5px black;
+    border-radius: 3px;
+}
+
+.login-card h3 {
+    letter-spacing: 4px;
+    text-align: center;
+    font-size: 30px;
+}
+
+#login-form {
+    margin-top: 15px;
+}
+
+.login-area-button-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn-login-area {
+    width: 100%;
+    height: 45px;
+    font-size: 18px;
+}
+
+/*Login CSS*/
+
+/*Register CSS*/
+
+#register-area {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), 
+    rgba(0, 0, 0, 0.4)), url('../img/register-area.jpg') no-repeat center;
+    background-size: cover;
+    height: 100vh;
+    display: none;
+}
+
+.register-card {
+    box-shadow: 0 0 5px black;
+    background-color: white;
+    padding: 100px 50px;
+    border-radius: 5px;
+}
+
+.register-card h3{
+    letter-spacing: 3px;
+    text-align: center;
+}
+
+#register-form {
+    margin-top: 30px;
+}
+
+.button-register-container {
+    margin-top: 30px;
+}
+
+.btn-register-area {
+    width: 100%;
+    height: 45px;
+    font-size: 18px;
+}
+
+/*Register CSS*/
+
+/*Dashboard CSS*/
+
+.navbar {
+    display: none;
+}
+
+.navbar-brand {
+    font-size: 25px;
+}
+
+.nav-link {
+    font-size: 19px;
+    color: white !important;
+}
+
+#dashboard-area {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), 
+    rgba(0, 0, 0, 0.4)), url('../img/dashboard-area-bg.jpg') no-repeat center;
+    background-size: cover;
+    height: 92.7vh;
+    display: none;
+}
+
+.dashboard-card {
+    box-shadow: 0 0 5px black;
+    background-color: white;
+    padding: 20px 30px;
+    border-radius: 7px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.dashboard-card i {
+    font-size: 50px;
+    color: #FFD700;
+}
+/*Dashboard CSS*/
+
+/*Todo List CSS*/
+
+#todo-list-area {
+    display: none;
+    height: 93.7vh;
+}
+
+#todo-content {
+    height: 500px;
+    overflow: scroll;
+}
+
+/*Todo List CSS*/
+
+/* Create Todo CSS */
+#create-todo-area {
+    display: none;
+    height: 93.7vh;
+}
+
+.create-todo-card {
+    text-align: center;
+    box-shadow: 0 0 5px black;
+    background: linear-gradient(#16a085, #f4d03f);
+    height: 500px;
+    color: #ffffff;
+}
+
+#create-todo-form {
+    padding-left: 200px;
+    padding-right: 200px;
+}
+
+.create-todo-form-group {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.create-todo-form-group input {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+/* Create Todo CSS */
