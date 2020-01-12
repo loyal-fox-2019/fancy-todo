@@ -1,4 +1,5 @@
 const User = require('../model/User')
+const randPassword = require('../helper/passwordGenerator')
 const { verifyHash } = require('../helper/bcryptjs')
 const { generateToken } = require('../helper/jwt')
 
@@ -67,7 +68,8 @@ class UserController
             else if ( verifyHash(password, result.password))
               {
                   res.status(202).json({ 
-                      token: generateToken({ _id:result._id })
+                      token: generateToken({ _id:result._id }),
+                      username: result.username
                   })
               }
             else
@@ -82,6 +84,44 @@ class UserController
             next(err)
         })
       }
+
+
+    static googleSignIn(req,res,next){
+        const { email, name } = req.decoded
+        const password = randPassword()
+            User.findOne({email})
+            .then(user =>{
+                if(user){
+                    return user
+                }else{
+                    return User.create({
+                        username: name,
+                        email : email,
+                        password
+                    })
+                }
+            })
+            .then(result =>{
+                const temp = {
+                    id : result._id
+                }
+                const token = generateToken(temp)
+                
+                res.status(200).json({
+                    message: 'login success',
+                    token: token,
+                    user: {
+                        username : result.username,
+                        email : result.email
+                        
+                    }
+                })
+            })
+            .catch(err =>{
+                next(err)
+            })
+        }
+  
     
     
 }

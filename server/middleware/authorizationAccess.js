@@ -7,7 +7,9 @@ module.exports = (req,res,next)=>{
         AUTHORIZATION ACCESS IS RUNNING
         ================================
     `);
+    console.log('TCL\n ======================\n req.params.projectId', req.params.projectId)
     
+
     Project.findOne({
         _id : req.params.projectId
     })

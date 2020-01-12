@@ -9,5 +9,6 @@ router.delete('/masterdelete', UserController.masterDelete)
 
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
+router.post('/googleSignIn', require('../middleware/gSignIn') ,UserController.googleSignIn)
 
 module.exports = router
