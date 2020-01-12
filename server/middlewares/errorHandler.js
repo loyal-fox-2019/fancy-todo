@@ -18,7 +18,7 @@ module.exports = {
                 };
                 break;
 
-            case "JsonwebtokenError":
+            case "JsonWebTokenError":
                 statusCode = 403;
                 messageError = error.message;
                 break;

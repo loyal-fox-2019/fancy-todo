@@ -6,11 +6,11 @@ const ProjectSchema = new Schema({
         type: String,
         required: true
     },
-    owner:{
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    },
-    members: [{type: Schema.Types.ObjectId, ref: 'User'}]
+    // owner:{
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'User'
+    // },
+    members: [{ type: Schema.Types.ObjectId, ref: 'User', required: true }]
 })
 
 const Project = mongoose.model('Project', ProjectSchema)

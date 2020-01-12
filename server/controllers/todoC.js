@@ -1,14 +1,14 @@
 const Todo = require('../models/todos')
 
 class Controller {
-
+    // checked
     static seriouslyAllTodo(req, res, next) {
         Todo.find()
             .then((todos) => {
                 res.status(200).json(todos)
             }).catch(next);
     }
-
+    // checked
     static showAllTodos(req, res, next) {
         Todo.find({ creator: req.decoded.id })
             .then((todos) => {
@@ -16,7 +16,7 @@ class Controller {
             })
             .catch(next);
     }
-
+    // checked
     static showProjectTodo(req, res, next) {
         Todo.find({ project: req.params.projectId })
             .then((todos) => {
@@ -25,20 +25,28 @@ class Controller {
             .catch(next);
     }
 
+    // static showTodoFromUserProject(req, res, next) {
+    //     Todo.find({ project: { $in: req.body.projectList } })
+    //         .populate('creator')
+    //         .populate('project')
+    //         .then((todos) => {
+    //             res.status(200).json(todos)
+    //         }).catch(next);
+    // }
+    // checked for user only
     static create(req, res, next) {
-        const { title, description, status, due_date } = req.body
-        const owner = req.decoded.id
-
+        const { title, description, due_date } = req.body
+        // console.log(req.decoded.id);
         let dataObj = {
-            title: title,
-            description: description,
-            status: status,
-            due_date: due_date,
-            creator: owner
+            title,
+            description,
+            due_date,
         }
 
         if (req.params.projectId) {
             dataObj.project = req.params.projectId
+        } else {
+            dataObj.creator = req.decoded.id
         }
 
         Todo.create(dataObj)
@@ -47,7 +55,7 @@ class Controller {
             })
             .catch(next);
     }
-
+    // checked
     static delete(req, res, next) {
         Todo.findByIdAndDelete(req.params.id)
             .then((todo) => {
@@ -55,7 +63,7 @@ class Controller {
             })
             .catch(next);
     }
-
+    // checked
     static statusDone(req, res, next) {
         Todo.findByIdAndUpdate(req.params.id, {
             status: 'done'
@@ -65,7 +73,7 @@ class Controller {
             })
             .catch(next);
     }
-
+    // checked
     static editTodo(req, res, next) {
         const { title, description, due_date } = req.body
         Todo.findByIdAndUpdate(req.params.id, {

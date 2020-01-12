@@ -3,13 +3,13 @@ const { genToken } = require('../helpers/jwt')
 const { dehash } = require('../helpers/bcrypt')
 
 class Controller {
-
+// checked
     static register(req, res, next) {
         const { name, email, password } = req.body
         User.create({
-            email: email,
-            name: name,
-            password: password
+            email,
+            name,
+            password
         })
             .then((user) => {
                 let tokenData = { id: user._id, name: user.name }
@@ -18,7 +18,7 @@ class Controller {
             })
             .catch(next);
     }
-
+// checked
     static login(req, res, next) {
         const { userInput, password } = req.body
         let query;
@@ -41,7 +41,7 @@ class Controller {
             })
             .catch(next);
     }
-
+// checked
     static listUser(req, res, next) {
         User.find()
             .then((users) => {
@@ -50,9 +50,9 @@ class Controller {
             .catch(next);
     }
 
-    static listUserForInvitation(req, res, next){
+    // static listUserForInvitation(req, res, next){
         
-    }
+    // }
 
 }
 

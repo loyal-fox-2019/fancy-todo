@@ -5,7 +5,7 @@ const TodoSchema = new Schema({
     title: {
         type: String,
         required: [true, 'Title todo tak boleh kosong'],
-        maxlength: [15, 'Panjang title maksimal 15 huruf']
+        maxlength: [25, 'Panjang title maksimal 15 huruf']
     },
     description: {
         type: String,
@@ -13,27 +13,29 @@ const TodoSchema = new Schema({
     },
     status: {
         type: String,
-        required: true
+        required: true,
+        default: "todo"
     },
     due_date: {
         type: Date,
-        required: [true, 'There`s no todo without due date']
+        required: [true, 'There`s no todo without due date'],
+        // min: new Date()
     },
     creator: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        // required: true
     },
     project: {
         type: Schema.Types.ObjectId,
-        ref: 'Project',
-        default: "false"
+        ref: 'Project'
     }
 },{
     timestamps: true
 })
 
 TodoSchema.pre('save', function(next){
-    if(new Date(this.due_date).toISOString() == new Date().toISOString()) next({status: 400, msg: 'Due date tidak boleh hari ini.'})
+    if(new Date(this.due_date).toISOString() <= new Date().toISOString()) next({status: 400, msg: 'Due date tidak boleh hari ini atau hari yang sudah lewat.'})
     next()
 })
 

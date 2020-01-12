@@ -1,12 +1,17 @@
 const router = require('express').Router()
 const invitationController = require('../controllers/invitation')
+const {authentication, authorization} = require('../middlewares/auth')
 
-router.get('/:username', invitationController.userForInvite)
+// get all user for invitation
+router.get('/:username', authentication, invitationController.userForInvite)
 
-router.post('/:projectId', invitationController.inviteUser)
+// create invitation for user from project
+router.post('/:projectId', authentication, invitationController.inviteUser)
 
-router.put('/:projectId', invitationController.acceptInvitation)
+// accept project invitation
+router.put('/:projectId', authentication, invitationController.acceptInvitation)
 
-router.patch('/:projectId', invitationController.rejectInvitation)
+// reject project invitation
+router.patch('/:projectId', authentication, invitationController.rejectInvitation)
 
 module.exports = router
