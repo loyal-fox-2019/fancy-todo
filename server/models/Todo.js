@@ -5,10 +5,20 @@ mongoose.set('useCreateIndex', true);
 
 const todoSchema = new Schema({
     name: String,
-    description: String,
-    status: String,
+    description: {
+        type: String,
+        trim: true,
+    },
+    status: {
+        type: Boolean,
+        default: false
+    },
     due_date: Date,
-    UserId: Schema.Types.ObjectId
+    UserId: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: "You must login first",
+    }
 });
 
 const Todo = mongoose.model("Todo", todoSchema);
