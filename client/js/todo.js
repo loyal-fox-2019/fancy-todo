@@ -1,5 +1,3 @@
-let access_token = 'token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTU0ZGNlOTRlMDI0MzJmODE4NzUyOCIsImVtYWlsIjoibXkyQG1haWwuY29tIiwidXNlcm5hbWUiOiJkZXByYWsyIiwiaWF0IjoxNTc4NjA3ODM4fQ.oaAk3u7G30hgW6lEgjWux6fXuFYuwAz8hE7QsS65SMY'
-let baseUrl = 'http://localhost:3000'
 function fetchTodos(todoId, cb) {
   $.ajax({
     method: "get",
@@ -34,12 +32,12 @@ function showTodos(todos) {
       $("#todo-list").append(
         `
         <tr class="border-t hover:bg-orange-100 bg-gray-100">
-          <td class="p-3 px-4">${todo.name}</td>
-          <td class="p-3 px-4 text-center">${todo.status}</td>
+          <td id="name-${todo._id}" class="p-3 px-4">${todo.name}</td>
+          <td id="status-${todo._id}" class="p-3 px-4 text-center">${todo.status}</td>
           <td class="p-3 px-4 text-center">${date}</td>
           <td class="p-3 px-4 text-center flex flex-col lg:flex-row">
-            <button id="btn-check-${todo._id}" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-green-500 hover:bg-green-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Check</button>
-            <button id="btn-details-${todo._id}" onclick="openDetails('${todo._id}')" type="button" class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Details</button>
+            <button id="check-${todo._id}" onclick="check('${todo._id}', $(this).text())" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-green-500 hover:bg-green-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Check</button>
+            <button id="details-${todo._id}" onclick="openDetails('${todo._id}')" type="button" class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Details</button>
           </td>
         </tr>
         <tr id="details-${todo._id}" class="hidden bg-gray-100">
@@ -100,6 +98,15 @@ function showTodos(todos) {
         </tr>
         `
       )
+    }
+    if ($(`#status-${todo._id}`).text() === 'queued') {
+      $(`#check-${todo._id}`).text('Check')
+      $(`#check-${todo._id}`).removeClass("bg-gray-700 hover:bg-gray-900").addClass("bg-green-500 hover:bg-green-700")
+      $(`#name-${todo._id}`).removeClass('line-through')
+    } else if ($(`#status-${todo._id}`).text() === 'done'){
+      $(`#check-${todo._id}`).text('Uncheck')
+      $(`#check-${todo._id}`).removeClass("bg-green-500 hover:bg-green-700").addClass("bg-gray-700 hover:bg-gray-900")
+      $(`#name-${todo._id}`).addClass('line-through')
     }
   }
 }
@@ -209,4 +216,29 @@ function deleteTodo(todoId) {
 function clearErrNewTask(e) {
   e.preventDefault()
   $('#err-new-task').empty()
+}
+
+function check(todoId, kind) {
+  let status;
+  if (kind === "Check") {
+    status = "done";
+  } else if (kind = "Uncheck") {
+    status = "queued"
+  }
+  $.ajax({
+    method: "patch",
+    url: `${baseUrl}/todos/${todoId}`,
+    data: { status },
+    headers: { access_token: localStorage.getItem('access_token') }
+  })
+  .done(result => {
+    fetchTodos()
+  })
+  .fail(err => {
+    let errMsg = err.responseJSON.errors.message
+    Swal.fire({
+      icon: 'err',
+      text: errMsg
+    })
+  })
 }

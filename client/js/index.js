@@ -1,5 +1,4 @@
 $(document).ready(function () {
-  let access_token = localStorage.getItem('access_token')
   if (access_token) {
     verifyToken(access_token, showButtons)
   } else {
