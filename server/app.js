@@ -1,5 +1,5 @@
 if (process.env.DEBUG !== undefined) {
-    console.log("development");
+    console.log("Development");
     require('dotenv');
 }
 
@@ -9,10 +9,13 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const cors = require('cors');
 const mongoose = require('mongoose');
+
+// routers
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const todoRouter = require('./routes/todos');
 
 const app = express();
 
@@ -37,6 +40,7 @@ mongoose.connect('mongodb://localhost:27017/fancy_todo', {
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use("/todo", todoRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

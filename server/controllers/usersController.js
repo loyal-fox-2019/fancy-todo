@@ -6,7 +6,7 @@ class userController {
         User.create({email, password})
         .then((result) => {
             res.status(201);
-            res.json({result});
+            res.json(result);
         }).catch((err) => {
             res.status(403);
             res.json(err);
