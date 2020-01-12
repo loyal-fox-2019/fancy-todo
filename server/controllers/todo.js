@@ -82,7 +82,7 @@ class Todo {
             .catch(next)
     }
     static updateStatus(req, res, next) {
-        Model.findByIdAndUpdate(req.params.id, { status: req.body.status })
+        Model.findByIdAndUpdate(req.params.id, { $set: { status: 'Done' } })
             .then(updated => {
                 if (updated) {
                     res.status(200).json({ message: 'Successfully update Todos with title : ' + updated.title })
