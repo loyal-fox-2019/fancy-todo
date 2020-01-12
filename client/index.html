@@ -16,7 +16,7 @@
     <!-- custom css -->
     <link rel="stylesheet" href="./src/css/custom-style.css">
 
-    <title>Fancy Todo</title>
+    <title>Fancy Todoose</title>
 </head>
 
 <body style="background-image: url('./src/img/bg-img')">
@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col d-flex justify-content-center align-items-center flex-fill vh-100">
                 <div class="card shadow text-center p-5">
-                    <h5 class="card-title" id="login-title">Sign in to Trello</h5>
+                    <h5 class="card-title" id="login-title">Sign in to Todoose</h5>
                     <input type="text" class="form-control mt-3" id="username" name="username" placeholder="Email or Username" required>
                     <input type="email" class="form-control mt-3" id="email" name="email" placeholder="Email" required>
                     <input type="password" class="form-control my-3" id="password" name="password" placeholder="Password" required>
@@ -45,8 +45,7 @@
         <div class="row">
             <div class="col">
                 <nav class="navbar navbar-expand-lg">
-                    <!-- <a class="navbar-brand" href="#">Trello</a> -->
-                    <h3>Trello</h3>
+                    <h3 class="mr-3">Todoose</h3>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -110,7 +109,7 @@
                         <div class="input-group mb-3 ocr-mode mb-2" style="display: none;">
                             <input type="text" class="form-control" id="ocr-name-link" placeholder="http://dl.a9t9.com/running-note/eng.png" aria-describedby="btn-ocr-name">
                             <div class="input-group-append">
-                              <button class="btn btn-outline-success" type="button" id="btn-ocr-name" onclick="loadText('name')">Load Text</button>
+                              <button class="btn btn-success" type="button" id="btn-ocr-name" onclick="loadText('name')">Load Image</button>
                             </div>
                         </div>
                         <div class="text-center ocr-mode" id="uploaded-name-img">
@@ -123,7 +122,7 @@
                         <div class="input-group mb-3 ocr-mode mb-2" style="display: none;">
                             <input type="text" class="form-control" id="ocr-description-link" placeholder="http://i.imgur.com/cheetah.gif" aria-describedby="btn-ocr-description">
                             <div class="input-group-append">
-                              <button class="btn btn-outline-success" type="button" id="btn-ocr-description" onclick="loadText('description')">Load Text</button>
+                              <button class="btn btn-success" type="button" id="btn-ocr-description" onclick="loadText('description')">Load Image</button>
                             </div>
                         </div>
                         <div class="text-center ocr-mode" id="uploaded-description-img">
@@ -161,6 +160,30 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- comfirm deletion modal -->
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="confirm-delete-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirm-delete-title">Are you absolutely sure?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" role="alert" style="font-size: 15px;">
+                        Read this carefully to make sure everything is good to continue.
+                    </div>
+                    <p>This action <b>cannot be undone</b>. This will permanently delete the board and you will not be able to say hello again to this awesome challenge.</p>
+                    <p>Please type <b>I will miss you forever</b> to let the board go.</p>
+                    <input type="text" class="form-control" onkeyup="checkDeleteInput(this)">
+                    <button type="button" class="btn btn-block btn-secondary mt-2" data-dismiss="modal">Close</button>
+                    <a href="#" class="btn btn-outline-danger btn-block disabled" tabindex="-1" role="button" aria-disabled="true">I understand the consequences, confirm delete</a>
                 </div>
             </div>
         </div>

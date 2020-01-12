@@ -89,7 +89,7 @@ function register() {
 
 function showLogin() {
     nullifyForm();
-    $('#login-title').html('Sign in to Trello');
+    $('#login-title').html('Sign in to Todoose');
     $('#login-btn').html('Sign In');
     $('#login-btn').attr('onclick', 'login()');
     $('#username').attr('placeholder', 'Email or Username');
@@ -100,7 +100,7 @@ function showLogin() {
 
 function showRegister() {
     nullifyForm();
-    $('#login-title').html('Sign up to Trello');
+    $('#login-title').html('Sign up to Todoose');
     $('#login-btn').html('Sign Up');
     $('#login-btn').attr('onclick', 'register()');
     $('#username').attr('placeholder', 'Username');

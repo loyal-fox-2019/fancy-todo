@@ -22,3 +22,8 @@ npm run dev
 ```
 live-server --host=localhost --post=5500
 ```
+
+# OCR API link to register and get free API key
+```
+https://ocr.space/OCRAPI
+```

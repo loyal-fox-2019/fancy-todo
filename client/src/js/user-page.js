@@ -13,10 +13,32 @@ $(document).ready(function () {
         $('#user-page').hide();
     });
 
+    $('#confirm-delete').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget) // Button that triggered the modal
+        let callFunction = button.data('function') // Extract info from data-* attributes
+        let modal = $(this)
+        modal.find('.modal-body input').val('');
+        modal.find('.modal-body a').attr('onclick', callFunction);
+    })
+
+    $('#confirm-delete').on('hidden.bs.modal', function (event) {
+        let modal = $(this)
+        modal.find('.modal-body a').addClass('disabled');
+    })
+
     if (localStorage.getItem('token')) {
         initNewBoarStatuses();
     }
 });
+
+function checkDeleteInput(element) {
+    let confirmation = $(element).val();
+    let modal = $(element).parent('.modal-body').find('a');
+    
+    if (confirmation === 'I will miss you forever') {
+        $(modal).removeClass('disabled');
+    }
+}
 
 function customAlert(msg) {
     $(document).on('show.bs.modal', '#alert-modal', function (event) {
@@ -137,7 +159,7 @@ function initBoards(statusId, statusList) {
                                                 </select>
                                                 <div class="input-group-prepend">
                                                     <button type="button" class="btn btn-light" onclick="customAlert('This feature is under construction')"><i class="fas fa-edit m-1 text-warning"></i></button>
-                                                    <button type="button" class="btn btn-light" onclick="deleteTodo('${todo._id}')"><i class="fas fa-trash-alt m-1 text-danger"></i></button>
+                                                    <button type="button" class="btn btn-light" data-function="deleteTodo('${todo._id}')" data-toggle="modal" data-target="#confirm-delete"><i class="fas fa-trash-alt m-1 text-danger"></i></button>
                                                 </div>
                                             </div>
                                         </div>
