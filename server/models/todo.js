@@ -31,4 +31,13 @@ todoSchema.pre('save', function (next) {
     next()
 })
 
+todoSchema.pre('findOneAndUpdate', function (next) {
+    if (this.status == '1') {
+        this.status = true
+    } else if (this.status == '0') {
+        this.status = false
+    }
+    next()
+})
+
 module.exports = mongoose.model('Todo', todoSchema);

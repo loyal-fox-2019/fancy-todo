@@ -15,14 +15,14 @@ function authenticate(req, res, next) {
             return bcrypt.compare(password, user.password)
         })
         .then((result) => {
-            console.log(result);
             if (!result) {
                 res.status(401).json({
                     status: 401,
                     msg: 'Incorrect email/username or password'
                 })
             } else {
-                req.headers.user
+                req.headers.user = user
+                console.log(req.headers.user);
                 next()
             }
         })

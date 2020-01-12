@@ -14,6 +14,6 @@ todoRouter.post('/add', TodoController.create)
 
 todoRouter.put('/update/:id', TodoController.update)
 
-todoRouter.delete('/delete/:id', TodoController.findAll)
+todoRouter.delete('/delete/:id', TodoController.delete)
 
 module.exports = todoRouter

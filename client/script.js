@@ -1,12 +1,12 @@
 const localhost = 'http://localhost:3000'
 const token = localStorage.getItem('token')
 
-if (token) {
-    $('.home').fadeIn('slow');
-    $('.login').hide();
-} else {
+if (!token) {
     $('.login').fadeIn('slow');
     $('.home').hide();
+} else {
+    $('.home').fadeIn('slow');
+    $('.login').hide();
 }
 
 $(document).ready(function () {
@@ -27,8 +27,6 @@ $(document).ready(function () {
                 email: email
             },
             success: function (res) {
-                console.log(res);
-
                 if (res.status == 400) {
                     for (const field in res.msg) {
                         let alertMsg = toast(res.msg[field].name, res.msg[field].message)
@@ -76,7 +74,6 @@ $(document).ready(function () {
             url: `${localhost}/users/login`,
             data: loginData,
             success: function (res) {
-                console.log(res);
                 if (res.hasOwnProperty('token')) {
                     $('.login').fadeOut(0, () => {
                         $('footer').fadeOut(0, () => {
@@ -85,7 +82,6 @@ $(document).ready(function () {
                             setTimeout(() => {
                                 $('.loading').fadeOut(400, () => {
                                     $('.home').fadeIn('fast', () => {
-                                        initHome()
                                         $('footer').fadeIn()
                                         localStorage.setItem('token', res.token)
                                     });
@@ -115,32 +111,30 @@ $(document).ready(function () {
     /* HOME PAGE */
 
     // Get All Todos
-    function initHome() {
-        $.ajax({
-            type: "get",
-            headers: {
-                token: token
-            },
-            url: `${localhost}/todos/`,
-            success: function (todos) {
-                initCreateSelect()
-                if (todos.length == 0) {
-                    $('#todo-list').empty();
-                    $('#todo-list').append(`
+    $.ajax({
+        type: "get",
+        headers: {
+            token: token
+        },
+        url: `${localhost}/todos/`,
+        success: function (todos) {
+            initCreateSelect()
+            if (todos.length == 0) {
+                $('#todo-list').empty();
+                $('#todo-list').append(`
                         <div class="jumbotron bg-green-300">
                             <h2 class="text-6xl font-bold text text-center">No Todo</h2>
                         </div>
                     `);
-                } else {
-                    $('#todo-list').empty();
-                    $('#todo-list').append(initTodoTable());
-                    todos.forEach((todo, no) => {
-                        $('#todos').append(getUserTodo(todo, no + 1));
-                    });
-                }
+            } else {
+                $('#todo-list').empty();
+                $('#todo-list').append(initTodoTable());
+                todos.forEach((todo, no) => {
+                    $('#todos').append(getUserTodo(todo, no + 1));
+                });
             }
-        });
-    }
+        }
+    });
 
     // Add Todo
     $(document).on('submit', '#createTodo', function (event) {
@@ -188,6 +182,9 @@ $(document).ready(function () {
                             `${response.msg}`,
                             'success'
                         )
+                            .then(() => {
+                                window.location.reload()
+                            })
                     }
                 });
             }
@@ -197,23 +194,71 @@ $(document).ready(function () {
     // edit todo
     $(document).on('click', '.edit-todo', function (event) {
         event.preventDefault()
+        let todoId = $(this).val()
         $.ajax({
-            type: "put",
-            url: `${localhost}/todos/update/${$(this).val()}`,
-            data: "data",
+            type: "get",
+            url: `${localhost}/todos/${todoId}`,
             headers: {
                 token: token
             },
-            dataType: "dataType",
-            success: function (response) {
-
+            success: function (todo) {
+                $('#modal-edit-todo').empty();
+                $('#modal-edit-todo').append(getUserEditTodo(todo));
+                $('#descriptionEdit').val(todo.description);
+                $('#todoId').attr('value', todoId);
             }
         });
+    });
+
+    // update todo
+    $(document).on('click', '#update', function (event) {
+        event.preventDefault()
+        const todoname = $('#todonameEdit').val();
+        const description = $('#descriptionEdit').val();
+        const todoId = $('#todoId').val();
+        let status = $('#statusEdit').val();
+
+        Swal.fire({
+            title: 'Are you sure want to update this data?',
+            text: 'Make sure your data is correct',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "put",
+                    url: `${localhost}/todos/update/${todoId}`,
+                    data: {
+                        todoname: todoname,
+                        description: description,
+                        status: status
+                    },
+                    headers: {
+                        token: token
+                    },
+                    success: function (res) {
+                        Swal.fire(
+                            'Success',
+                            `${res.msg}`,
+                            'success'
+                        )
+                            .then(() => {
+                                window.location.reload()
+                            })
+                    }
+                });
+            }
+        })
     });
 
     // delete todo
     $(document).on('click', '.delete-todo', function (event) {
         event.preventDefault()
+        let todoData = $(this).val()
+
         Swal.fire({
             title: 'Are you sure want to delete this data?',
             text: 'Your action cannot be undone',
@@ -226,17 +271,19 @@ $(document).ready(function () {
             if (result.value) {
                 $.ajax({
                     type: "delete",
-                    url: `${localhost}/todos/delete/${$(this).val()}`,
+                    url: `${localhost}/todos/delete/${todoData}`,
                     headers: {
                         token: token
                     },
                     success: function (response) {
-                        console.log(response);
                         Swal.fire(
                             'Success',
                             `${response.msg}`,
                             'success'
                         )
+                            .then(() => {
+                                window.location.reload()
+                            })
                     }
                 });
             }
@@ -246,7 +293,6 @@ $(document).ready(function () {
     // logout
     $(document).on('click', '#logout', function (event) {
         event.preventDefault()
-
         Swal.fire({
             title: 'Are you sure want to logout?',
             icon: 'warning',
@@ -264,8 +310,7 @@ $(document).ready(function () {
                             $('.loading').fadeOut(400, () => {
                                 $('.login').fadeIn('fast', () => {
                                     $('footer').fadeIn()
-                                    localStorage.removeItem('token');
-                                    localStorage.clear()
+                                    localStorage.removeItem('token')
                                 });
                             })
                         }, 1000);
@@ -309,17 +354,18 @@ $(document).ready(function () {
     // generate user todo table
     function initTodoTable() {
         return `
-            <div class="bg-green-200 p-5 my-5 flex justify-center">
+            <div class="bg-green-200 p-5 my-5 flex flex-col justify-center">
+                <h2 class="text-4xl text-center mb-4">Todo Lists</h2>
                 <table class="table-auto overflow-auto bg-green-300 rounded-lg">
-                <thead class="bg-green-500">
-                    <th class="px-4 py-2">No</th>
-                    <th class="px-4 py-2">Title</th>
-                    <th class="px-4 py-2">Description</th>
-                    <th class="px-4 py-2">Status</th>
-                    <th class="px-4 py-2">Date Created</th>
-                    <th class="px-4 py-2">Target Date</th>
-                    <th class="px-4 py-2">Action</th>
-                </thead>
+                    <thead class="bg-green-500">
+                        <th class="px-4 py-2">No</th>
+                        <th class="px-4 py-2">Title</th>
+                        <th class="px-4 py-2">Description</th>
+                        <th class="px-4 py-2">Status</th>
+                        <th class="px-4 py-2">Date Created</th>
+                        <th class="px-4 py-2">Target Date</th>
+                        <th class="px-4 py-2">Action</th>
+                    </thead>
                 <tbody id="todos">
                 
                 </tbody>
@@ -345,11 +391,40 @@ $(document).ready(function () {
                 <td class="border px-4 py-2">${new Date(todo.due_date).toUTCString().slice(0, -4)}</td>
                 <td class="border px-4 py-2">
                     <div class="inline flex justify-center">
-                    <button class="edit-todo btn btn-primary" value="${todo._id}">Edit</button>
+                    <button type="button" class="edit-todo btn btn-primary" data-toggle="modal" data-target="#editTodoModal" value="${todo._id}">Edit</button>
                     <button class="delete-todo btn btn-danger ml-3" value="${todo._id}">Delete</button>
                     </div>
                 </td>
             </tr>
+        `
+    }
+
+    function getUserEditTodo(todo) {
+        let done = ''
+        let undone = ''
+        if (todo.status == false) {
+            undone = 'selected'
+        } else {
+            done = 'selected'
+        }
+        return `
+            <form>
+                <label for="todonameEdit">Todoname</label>
+                <input id="todonameEdit" type="text" class="form-control" value="${todo.todoname}" required>
+
+                <div class="form-group">
+                    <label for="descriptionEdit">Description</label>
+                    <textarea class="form-control" rows="5" id="descriptionEdit" required></textarea>
+                </div>
+
+                <label for="statusEdit">status</label>
+                <select class="form-control" id="statusEdit">
+                    <option value="1" ${done}>Done</option>
+                    <option value="0" ${undone}>Undone</option>
+                </select>
+
+                <input type="hidden" id="todoId">
+            </form>
         `
     }
 

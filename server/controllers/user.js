@@ -17,7 +17,9 @@ class UserController {
     }
 
     static login(req, res, next) {
-        const { user } = req.headers
+        const user = req.headers.user
+        console.log(req.headers);
+
         const generateToken = require('../helpers/generateToken');
         const token = generateToken(user)
         res.status(200).json({
