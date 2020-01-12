@@ -4,7 +4,7 @@ const User = require('../models/user');
 const Bcrypt = require('../helper/bcrypt');
 const jwt = require('../helper/jwt');
 const {OAuth2Client} = require('google-auth-library');
-const client = new OAuth2Client('724269325086-275h1fjnre39u0qm2cq6n5ko3nf1b8c4.apps.googleusercontent.com')
+const client = new OAuth2Client('724269325086-275h1fjnre39u0qm2cq6n5ko3nf1b8c4.apps.googleusercontent.com');
 
 class UserController {
     static register(req, res, next) {

@@ -165,26 +165,62 @@ $(document).ready(function(e) {
     //Execute user data and register to server
     $(document).on('click', '#btn-register', function(e) {
         e.preventDefault();
+        const registerEmail = $('#register-email').val()
         $.ajax({
-            method: 'post',
-            url: 'http://localhost:3000/user/register',
-            data: {
-                email: $('#register-email').val(),
-                password: $('#register-password').val()
-            }
+            method: 'get',
+            url: 'http://apilayer.net/api/check?access_key=' + 'f27751f3bac5167e6e86d7d77949b18a' + '&email=' + registerEmail,   
+            dataType: 'jsonp'     
         })
-        .then(response => {
-            $('#success-container').append(`
-            <div id="error-alert" class="row justify-content-center">
-                <div class="col-lg-10">
-                    <div id="alert-content" class="alert alert-success" role="alert" style="text-align: center;">
-                        Register Successful, Please Login!
+        .done(response => {
+            const formatValid = response.format_valid;
+            if(!formatValid) {
+                throw {
+                    responseText: {errors: ['Email format not true']}
+                }
+            } else {
+                $.ajax({
+                method: 'post',
+                url: 'http://localhost:3000/user/register',
+                data: {
+                    email: $('#register-email').val(),
+                    password: $('#register-password').val()
+                    }
+                })
+                .done(user => {
+                    console.log(user)
+                    $('#success-container').append(`
+                    <div id="error-alert" class="row justify-content-center">
+                        <div class="col-lg-10">
+                            <div id="alert-content" class="alert alert-success" role="alert" style="text-align: center;">
+                                Register Successful, Please Login!
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            `);
-            $('#register-area').fadeOut();
-            $('#login-area').fadeIn(2000);
+                    `);
+                    $('#register-area').fadeOut();
+                    $('#login-area').fadeIn(2000);
+                })
+                .fail(error => {
+                    const errorMessage = jQuery.parseJSON(error.responseText);
+                    $('#error-container').empty();
+                    $('#error-container').append(`
+                    <div id="error-alert" class="row justify-content-center">
+                        <div class="col-lg-10">
+                            <div id="alert-content" class="alert alert-danger" role="alert">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    `)
+                    let count = 1;
+                    errorMessage.errors.forEach(element => {
+                        $('#alert-content').append(`
+                            ${count}: ${element}
+                        `)
+                        count++
+                    })
+                })
+            }
         })
         .fail(error => {
             const errorMessage = jQuery.parseJSON(error.responseText);
