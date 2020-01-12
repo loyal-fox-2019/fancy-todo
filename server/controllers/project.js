@@ -20,6 +20,7 @@ class ProjectController {
   static async addMember(req, res, next) {
     const { projectId } = req.params;
     const { usersId } = req.body;
+    console.log(req.body, 'body')
     try {
       const members = await Project.updateOne({ _id: projectId }, { $push: { members: { $each: usersId } } })
       res.status(202).json({ message: 'User added to project' })

@@ -24,7 +24,7 @@
       <div id="header" style="margin-top: 5%;">
         <h5 class="header-text">So... what will you do?</h5>
         <hr>
-
+        
         <div id="todo-submit-error" class="alert alert-warning" style="display: none;">
         </div>
         <div class="input-group">
@@ -38,6 +38,9 @@
           <span class="input-group-text" id="inputGroup-sizing-sm">Due Date</span>
           <input type="date" id="due-date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
           <button type="button" id="add-todo" style="margin-left: 10rem;" class="btn btn-primary">ADD!</button>
+        </div>
+        <div id="show-my-id" class="mt-3">
+          <input class="form-control" type="text" placeholder="Click here to show my id" readonly>
         </div>
       </div>
 
@@ -72,27 +75,34 @@
         <hr>
 
         <!-- Post new todo to project -->
-        <h5 class="header-text">So... what will we do?</h5>
-        <hr>
-
-        <div id="todo-submit-error" class="alert alert-warning" style="display: none;">
-        </div>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Name and description</span>
+        <div id="project-detail" style="display: none;">
+          Add member...
+            <input class="form-control" type="text" id="project-member-add" placeholder="User ID">
+            <div class="text-right">
+              <button type="button" id="project-button-add-member" class="btn btn-outline-primary mt-2">Add to project</button>
+            </div>
+          <h5 class="header-text">So... what will we do?</h5>
+          <hr>
+  
+          <div id="todo-submit-error" class="alert alert-warning" style="display: none;">
           </div>
-          <input type="text" aria-label="name" id="name-project" class="form-control">
-          <input type="text" aria-label="desc" id="description-project" class="form-control">
-        </div>
-        <div class="input-group-prepend" id="date-form">
-          <span class="input-group-text" id="inputGroup-sizing-sm">Due Date</span>
-          <input type="date" id="due-date-project" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-          <button type="button" id="add-todo-project" style="margin-left: 10rem;" class="btn btn-primary">Add!</button>
-        </div>
-
-
-        <div id="list-project">
-          
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Name and description</span>
+            </div>
+            <input type="text" aria-label="name" id="name-project" class="form-control">
+            <input type="text" aria-label="desc" id="description-project" class="form-control">
+          </div>
+          <div class="input-group-prepend" id="date-form">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Due Date</span>
+            <input type="date" id="due-date-project" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            <button type="button" id="add-todo-project" style="margin-left: 10rem;" class="btn btn-primary">Add!</button>
+          </div>
+  
+  
+          <div id="list-project">
+            
+          </div>
         </div>
       </div>
     </div>

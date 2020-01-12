@@ -28,6 +28,7 @@ $(document).ready(function() {
     localStorage.removeItem('project')
     $('#list-user').show();
     $('#project-list').hide();
+    $('#project-detail').hide();
     fetchData();
   })
   $('#project').on('click', function(e) {
@@ -35,7 +36,6 @@ $(document).ready(function() {
     $('#project-list').show();
     $('#list-user').hide();
     getProjectsList();
-    // fetchData();
   })
   $('#logout').on('click', function(e){
     e.preventDefault();
@@ -59,11 +59,44 @@ $(document).ready(function() {
     e.preventDefault();
     addTodoProject();
   })
+  $('#show-my-id').on('click', function(e) {
+    $('#show-my-id').empty();
+    $('#show-my-id').append(`
+    <input class="form-control" type="text" placeholder="${localStorage.getItem('id')}" readonly>
+    `)
+  })
+  $('#project-button-add-member').on('click', function(e) {
+    e.preventDefault();
+    addMember();
+  })
 })
 
 
 
 /* Functions down here */
+
+function addMember() {
+  const usersId = [];
+  usersId.push($('#project-member-add').val())
+  const url = `${BASE_URL}/projects/${localStorage.getItem('project')}/addmember`
+  console.log(url)
+  $.ajax({
+    method: 'patch',
+    url,
+    headers: {
+      token: localStorage.getItem('token'),
+    },
+    data: {
+      usersId: usersId,
+    }
+  })
+  .done(() => Swal.fire(`User with id: ${member[0]} added to the project`))
+  .fail((err) => {
+    // const errors = err.responseJSON.errors.join(', ')
+    Swal.fire(err.responseJSON.errors)
+  })
+  .always()
+}
 
 function addTodo() {
   const name = $('#name').val();
@@ -96,6 +129,7 @@ function addTodo() {
     </div>
     `)
   })
+  .always();
 }
 
 function login() {
@@ -114,6 +148,7 @@ function login() {
     $('#password').val('');
     localStorage.setItem('token', credential.token);
     localStorage.setItem('name', credential.name);
+    localStorage.setItem('id', credential.id)
     checkLogin();
     fetchData();
   })
@@ -139,6 +174,7 @@ function onSignIn(googleUser) {
     .done((credential) => {
       localStorage.setItem('token', credential.token);
       localStorage.setItem('name', credential.name);
+      localStorage.setItem('id', credential.id)
       checkLogin();
       fetchData();
     })
@@ -156,6 +192,8 @@ function onSignIn(googleUser) {
 function signOut() {
   localStorage.removeItem('token');
   localStorage.removeItem('name');
+  localStorage.removeItem('project');
+  localStorage.removeItem('id')
   checkLogin();
   // hide main content
   var auth2 = gapi.auth2.getAuthInstance();
@@ -221,11 +259,14 @@ function fetchData() {
     });
   })
   .fail((err) => {
-    console.log(err);
+    const errors = err.responseJSON.errors.join(', ')
+    Swal.fire(errors)
   })
+  .always()
 }
 
 function fetchProjectsUpdate() {
+  $('#project-detail').show();
   const projectId = localStorage.getItem('project');
   console.log(projectId)
   $.ajax({
@@ -283,8 +324,6 @@ function fetchProjectsUpdate() {
     });
   })
   .fail((err) => {
-    console.log(err)
-    return;
     const errors = err.responseJSON.errors.join(', ')
     Swal.fire(errors)
   })
@@ -292,6 +331,7 @@ function fetchProjectsUpdate() {
 } 
 
 function fetchProjects(e) {
+  $('#project-detail').show();
   e.preventDefault();
   const { projectId } = e.data;
   localStorage.setItem('project', projectId);

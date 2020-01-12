@@ -41,7 +41,7 @@ class UserController {
           email
         };
         const token = signPayload(payload);
-        res.status(202).json({ name, token })
+        res.status(202).json({ name, token, id: _id})
       })
       .catch(next)
   } 
@@ -61,7 +61,7 @@ class UserController {
         email,
       };
       const token = signPayload(payload);
-      res.status(201).json({ name, token });
+      res.status(201).json({ name, token, id: _id });
     } catch (err) {
       next(err);
     };
@@ -79,7 +79,7 @@ class UserController {
               _id,
             }
             const token = signPayload(payload);
-            res.status(202).json({ name, token });
+            res.status(202).json({ name, token, id: _id})
           } else {
             next({ auth: true, status: 403, message: 'Email or password is wrong!' });
           }
