@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Fancy Todo</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-signin-client_id" content="882572495044-msr1s7rppis0s9dgqpq8nte8sn3e5heh.apps.googleusercontent.com">
+    <link href="https://fonts.googleapis.com/css?family=Caveat+Brush&display=swap" rel="stylesheet"> 
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body style="background-image: url('https://thumbs.dreamstime.com/b/vector-succulent-plant-texture-drawing-seamless-pattern-background-great-subtle-botanical-modern-backgrounds-fabric-89087213.jpg');">
+
+    <nav class="navbar navbar-expand-sm navbar-light">
+      <a id="btn-sign-out" class="navbar-brand btn" style="background-color: turquoise;">Sign out</a>
+        <form style="position: absolute; top: 1rem; right:1rem;" class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+    
+    <div class="container-fluid p-4" style="width: 100%;height: 100%;">
+        <div class="row" style="height: auto;">
+            <div class="col-12" align="center">
+              <h1>Fancy Todo</h1>
+              <div class="row" >
+                  <h4 id="name" class="p-2 pb-2 pl-4">name</h4>
+              </div>
+
+              <!--login page-->
+              <div id="login-section" class="container d-flex flex-column justify-content-center">
+                <div>
+                  <div class="form-group">
+                    <div id="sign-error-section">
+                      
+                    </div>
+                    <input id="email-sign-in" type="text" class="form-control mb-3" name="" id="signin-email" aria-describedby="helpId" placeholder="email" style="width: 25%;">
+                    <input id="password-sign-in" type="password" class="form-control" name="" id="signin-password" aria-describedby="helpId" placeholder="password" style="width: 25%;">
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    <a id="btn-sign-in" class="btn btn-secondary text-white m-2">Sign in</a>
+                    <a id="btn-sign-up" class="btn btn-dark text-white m-2">Sign up</a>
+                  </div>
+                  <div class="g-signin2 p-2" data-onsuccess="onSignIn"></div>
+                </div>
+              </div>
+
+              <!--create todo section-->
+              <div id="create-todo-section" class="ml-5 mr-5 pl-5 pr-5">
+                <div class="row">
+                  <div class="col-4 p-3 pl-4" align="left">
+                    <div class="form-group">
+                      <label for="">Title</label>
+                      <input type="text" class="form-control" name="" id="todo-create-title" aria-describedby="helpId">
+                    </div>
+                    <div class="form-group">
+                      <label for="">Due Date</label>
+                      <input type="date" class="form-control" name="" id="todo-create-due-date" aria-describedby="helpId">
+                    </div>
+                  </div>
+                  <div class='col-8 p-3 pr-4'>
+                    <div class="form-group">
+                      <label for="">Description</label>
+                      <textarea class="form-control" name="" id="todo-create-description" rows="3"></textarea>
+                    </div>
+                    <a name="" id="todo-btn-submit" class="btn btn-primary" href="#" role="button">Submit</a>
+                  </div>
+                </div>
+              </div>
+              
+              <!--edit todo section-->
+              <div id="edit-todo-section" class="ml-5 mr-5 pl-5 pr-5">
+                
+              </div>
+
+              <!--todo list section-->
+              <div id="todo-list-section" class="ml-5 mr-5 pl-5 pr-5">
+                <p id="todo-btn-add" class='btn btn-secondary'>Add todo</p>
+                <div id="delete-confirmation" style="width: 25%;">
+                  <h4>Are you sure?</h4>
+                    <div class="row pl-2 pr-2">
+                        <div class="col-6">
+                        <p id="btn-delete-yes" style="width: 100%;" class="btn btn-secondary">yes</p>
+                        </div>
+                        <div class="col-6">
+                        <p id="btn-delete-yes" style="width: 100%;" class="btn btn-dark">no</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="todo-cards" class="row p-3">
+
+                </div>
+              </div>
+              
+        </div>
+    </div>
+
+    <style>
+        body{
+          font-family: 'Caveat Brush', cursive;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="jquery.js"></script>
+  </body>
+</html>
