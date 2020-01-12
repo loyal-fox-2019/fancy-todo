@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 module.exports = function (req, res, next) {  
+
     if (req.headers.hasOwnProperty('token')) {
         const token = req.headers.token
         // console.log(token)
