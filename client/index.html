@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-signin-client_id" content="247409835191-ir83iem1q39gphkl645npk3bh7loqsib.apps.googleusercontent.com">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Fancy Todo</title>
+</head>
+<body>
+    <!-- =========================navigation bar================================ -->
+    <div class="navigation">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Fancy ToDo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#" onclick="signOut();">Sign out</a>
+        </nav>
+    </div>
+    <!-- =========================navigation bar================================ -->
+    <!-- =================sign in======================= -->
+    <div class="container" id="Register">
+        <article class="card-body mx-auto border p-3 shadow mt-5" style="max-width: 400px;border-radius: 10px;">
+            <h4 class="card-title mt-3 text-center">Register</h4>
+            <p class="text-center">Get started with your free account</p>
+            <p>
+                <p>Username</p> <input type="text" id="usernameSignUp">
+                <p>Email</p> <input type="email" id="emailSignUp">
+                <p>Password</p> <input type="password" id="passwordSignUp">
+                <button type="button" class="btn btn-dark" id="SignUpButt">Sign Up</button>
+            </p>
+            <p><a id="gotoLogIn" href="#">log in</a></p>
+            <!-- google button -->
+            <p>
+                    <div class="g-signin2" data-onsuccess="onSignIn" style="margin-left: 120px;"></div>
+            </p>
+        </article>
+      </div>
+      <!-- =================sign in======================= -->
+      <!-- ===================login============== -->
+      <div id="LogIn">
+        <article class="card-body mx-auto border p-3 shadow mt-5" style="max-width: 400px;border-radius: 10px;">
+            <h4 class="card-title mt-3 text-center">Login</h4>
+            <p class="text-center">Get started with your free account</p>
+            <p>
+                <p>Username</p> <input type="text" id="usernameLogIn">
+                <p>Password</p> <input type="password" id="passwordLogIn">
+                <button type="button" class="btn btn-dark" id="LogInButt">Log In</button>
+            </p>
+            <p><a id="gotoSignUp" href="#">sign up</a></p>
+            <!-- google button -->
+            <p>
+                    <div class="g-signin2" data-onsuccess="onSignIn" style="margin-left: 120px;"></div>
+            </p>
+        </article>
+      </div>
+      <!-- ================main page========================== -->
+      <div id="mainPage">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="todoSearch" placeholder="Todo Title" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button type="button" class="btn btn-light" id="searchButton" onclick="searchOneTodo()">search button</button>
+            </div>
+          </div>
+          <h6 style="text-align: center;">
+            <button type="button" class="btn btn-dark" id="addTodo">ADD</button>
+            <button type="button" class="btn btn-dark" id="refresh">REFRESH</button>
+          </h6>
+            <div class="container todoCardContainer">
+                <div class="row todoCard"></div>
+            </div>
+      </div>
+      <!-- ================main page========================== -->
+      <!-- ============form todo============ -->
+        <div id="formTodo">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" placeholder="Enter title" id="title">
+                <small class="form-text text-muted">Make it unique</small>
+            </div>
+            <div class="form-group">
+                <label>Subtitle</label>
+                <input type="text" class="form-control"placeholder="Subtitle" id="subtitle">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" class="form-control" placeholder="Enter Description" id="description">
+                <small class="form-text text-muted">Describe your todo</small>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" class="form-control" placeholder="yyyy-mm-dd" id="date">
+                <small class="form-text text-muted">Enter Due Date</small>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" id="weather">
+                <label class="form-check-label" for="exampleCheck1">Add Weather Forecast</label>
+            </div>
+            <button type="submit" class="btn btn-primary" id="newTodoButton">Submit</button>
+        </div>
+      <!-- ============form todo============ -->
+      <!-- =============update============ -->
+      <div id="formUpdateTodo">
+        
+    </div>
+      <!-- =============update============ -->
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./index.js"></script>
+</body>
+</html>
