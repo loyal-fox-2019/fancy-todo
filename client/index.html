@@ -26,14 +26,16 @@
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fa fa-envelope"></i></span>
             </div>
-            <input type="text" class="form-control form-login-input" placeholder="email here ..." name="email" id="email" required>
+            <input type="text" class="form-control form-login-input" placeholder="email here ..." name="email"
+                   id="email" required>
         </div>
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fa fa-key"></i></span>
             </div>
-            <input type="password" class="form-control form-login-input" placeholder="password here ..." name="password" id="password" required>
+            <input type="password" class="form-control form-login-input" placeholder="password here ..." name="password"
+                   id="password" required>
         </div>
         <div class="row d-flex justify-content-center">
             <button type="submit" class="btn btn-primary">Sign In</button>
@@ -57,62 +59,236 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Todo
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" name="newTask" id="newTask">New Task</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="profile-email" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="profile-name">
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item"
+                           href="#"
+                           data-toggle="modal"
+                           data-target="#newProject-container">New Project
+                        </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#" name="signout" id="signout">Sign Out</a>
                     </div>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </div>
     </nav>
 
-    <div id="title"><h1>TODO LIST</h1></div>
-
-    <card class="row"></card>
-
-    <div id="newTask-container" class="jumbotron">
-        <form id="form-newTask">
-            <div class="form-group">
-                <label for="taskName">Name</label>
-                <input type="text" class="form-control" placeholder="todo name" name="taskName" id="taskName">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 mb-3">
+                <h4>Project List</h4>
+                <hr>
+                <ul class="nav nav-pills flex-column" id="myTab" role="tablist">
+                    <!--<                   list project-->
+                </ul>
             </div>
-
-            <div class="form-group">
-                <label for="taskName">Description</label>
-                <input type="text" class="form-control" placeholder="description" name="taskDesc"
-                       id="taskDesc">
+            <!-- /.col-md-4 -->
+            <div class="col-md-10">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <h2 id="project-title"></h2>
+                        <div id="todo-container">
+                            <button type="button"
+                                    class="btn btn-primary"
+                                    name="newTodo"
+                                    id="newTodo"
+                                    data-toggle="modal"
+                                    data-target="#newTask-container">
+                                <i class="fa fa-plus"></i>
+                                New Todo
+                            </button>
+                            <button type="button"
+                                    class="btn btn-success"
+                                    name="newMember"
+                                    id="newMember"
+                                    data-toggle="modal"
+                                    data-target="#newMember-container">
+                                <i class="fa fa-user"></i>
+                                New Member
+                            </button>
+                            <p>
+                                <card class="row"></card>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <!-- /.col-md-8 -->
+        </div>
 
-            <div class="form-group">
-                <label for="due_date">Due date</label>
-                <input type="date" class="form-control" data-date-format="mm/dd/yyyy" id="taskDue" name="taskDue">
-            </div>
 
-            <div class="row d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <button type="button" class="btn btn-danger" name="newTask-cancel" id="newTask-cancel">Cancel</button>
-            </div>
-        </form>
     </div>
+    <!-- /.container -->
+
+    <!--    New Project-->
+    <div id="newProject-container" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">New Project</h4>
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal">&times;
+                    </button>
+                </div>
+                <form id="form-newProject">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="projectName">Name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="project name"
+                                   name="projectName"
+                                   id="projectName"
+                                   maxlength="25"
+                                   minlength="7"
+                                   required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="projectDescription">Description</label>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="project description"
+                                   name="projectDescription"
+                                   id="projectDescription"
+                                   maxlength="50"
+                                   minlength="10"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="message" id="warning-message"></div>
+                        <br>
+                        <button type="submit"
+                                class="btn btn-primary">Save
+                        </button>
+                        <button type="button"
+                                class="btn btn-danger"
+                                data-dismiss="modal"
+                                name="newProject-cancel"
+                                id="newProject-cancel">Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--    end new project-->
+
+    <!--    New Todo-->
+    <div id="newTask-container" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">New Todo</h4>
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal">&times;
+                    </button>
+                </div>
+
+                <form id="form-newTask">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="taskName">Name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="todo name"
+                                   name="taskName"
+                                   id="taskName"
+                                   minlength="7" ,
+                                   maxlength="25"
+                                   required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="taskName">Description</label>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="description"
+                                   name="taskDesc"
+                                   id="taskDesc"
+                                   minlength="10" ,
+                                   maxlength="50"
+                                   required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="taskDue">Due date</label>
+                            <input type="date"
+                                   class="form-control"
+                                   data-date-format="mm/dd/yyyy"
+                                   id="taskDue"
+                                   name="taskDue"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="message" id="todo-message"></div>
+                        <button type="submit"
+                                class="btn btn-primary">Save
+                        </button>
+                        <button type="button"
+                                class="btn btn-danger"
+                                data-dismiss="modal"
+                                name="newTodo-cancel"
+                                id="newTodo-cancel">Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--    end New Todo-->
+
+    <!--    New Member-->
+    <div id="newMember-container" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">New Member</h4>
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal">&times;
+                    </button>
+                </div>
+
+                <form id="form-newMember">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="taskName">Email</label>
+                            <input type="email"
+                                   class="form-control"
+                                   placeholder="member email..."
+                                   name="memberEmail"
+                                   id="memberEmail"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="message" id="member-message"></div>
+                        <button type="submit"
+                                class="btn btn-primary">Save
+                        </button>
+                        <button type="button"
+                                class="btn btn-danger"
+                                data-dismiss="modal"
+                                name="newMember-cancel"
+                                id="newMember-cancel">Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--    end New Todo-->
 
 </main>
 

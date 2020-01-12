@@ -1,18 +1,21 @@
 const url_server = "http://localhost:3000";
 const api_user = "/api/users";
 const api_todo = "/api/todos";
+const api_project = "/api/projects";
 let isLogin = false;
 
 $(document).ready(function () {
     if (localStorage.token) {
         isLogin = true;
-        $('#form-login').hide();
+        $('#login-container').hide();
         $('main').show();
         $('#profile-email').html(localStorage.email);
-        listTodo();
+        $('container').show();
+        listProject();
     } else {
         $('#form-login').show();
         $('main').hide();
+        $('container').hide();
     }
 
     $('#form-login').submit(function (event) {
@@ -30,7 +33,31 @@ $(document).ready(function () {
             isLogin = false;
             window.location.replace('http://localhost:8080');
         });
-    })
+    });
+
+    $('#form-newProject').submit(function (event) {
+        newProject(
+            $('#projectName').val(),
+            $('#projectDescription').val()
+        );
+        event.preventDefault();
+    });
+
+    $('#form-newTask').submit(function (event) {
+        addNewTodo(
+            $('#taskName').val(),
+            $('#taskDesc').val(),
+            $('#taskDue').val()
+        );
+        event.preventDefault();
+    });
+
+    $('#form-newMember').submit(function (event) {
+        addNewMember(
+            $('#memberEmail').val()
+        );
+        event.preventDefault();
+    });
 
     $('#newTask').click(function () {
         newTaskShow('show');
@@ -38,17 +65,6 @@ $(document).ready(function () {
 
     $('#newTask-cancel').click(function () {
         newTaskShow('hide');
-    });
-
-
-    $('#form-newTask').submit(function (event) {
-        addNewTodo(
-            $('#taskName').val(),
-            $('#taskDesc').val(),
-            $('#taskDue').val(),
-            localStorage.userId
-        );
-        event.preventDefault();
     });
 
 });
@@ -81,17 +97,12 @@ function login(email, password) {
 }
 
 function onSignIn(googleUser) {
-    // let profile = googleUser.getBasicProfile();
-    // let email = profile.getEmail();
-    // let userName = email.split("@")[0];
     let id_token = googleUser.getAuthResponse().id_token;
 
     $.ajax({
         type: 'POST',
         url: url_server + api_user + '/oauth2/google',
         data: {
-            // userName: userName,
-            // email: email,
             googleToken: id_token
         }
     }).done(data => {
@@ -103,23 +114,75 @@ function onSignIn(googleUser) {
     }).fail(err => {
         console.log(err);
     })
-
-    // let id_token = googleUser.getAuthResponse().id_token;
-    // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    // console.log('Name: ' + profile.getName());
-    // console.log('Image URL: ' + profile.getImageUrl());
-    // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 }
 
-function listTodo() {
+//list of project
+function listProject() {
+    $('#myTab').empty();
     $.ajax({
         type: 'GET',
-        url: url_server + api_todo + "/",
+        url: url_server + api_project,
         headers: {
-            token: localStorage.token
+            Authorization: "token " + localStorage.token
         }
-    }).done(todo => {
-        todo.data.forEach(e => {
+    }).done(projects => {
+        projects.data.forEach((e, index) => {
+            $('#myTab').append(
+                "<li class='nav-item'> " +
+                "<a class='nav-link' " +
+                "id='project" + index + "' " +
+                "data-toggle='tab' " +
+                "href='#home' " +
+                "role='tab' " +
+                "aria-controls='home' " +
+                "aria-selected='true'" +
+                "onclick=listTodo('" + e.name + "')>" +
+                e.name +
+                "</a> " +
+                "</li>"
+            )
+        })
+        $('#project0').click()
+    }).fail(err => {
+        console.log(err)
+    })
+}
+
+// create project
+function newProject(name, description) {
+    $('#warning-message').empty();
+    $.ajax({
+        type: 'POST',
+        url: url_server + api_project,
+        data: {
+            name: name,
+            description: description
+        },
+        headers: {
+            Authorization: "token " + localStorage.token
+        }
+    }).done(projects => {
+        $('#warning-message').html(`<div style="color: blue">${projects.message}</div>`);
+        $('#newProject-cancel').click();
+        listProject()
+    }).fail(err => {
+        console.log(err.responseJSON);
+        $('#warning-message').html(err.responseJSON.errMsg)
+    })
+}
+
+//list of todos
+function listTodo(projectName) {
+    $('card').empty();
+    $.ajax({
+        type: 'GET',
+        url: url_server + api_project + "/" + projectName,
+        headers: {
+            Authorization: "token " + localStorage.token
+        }
+    }).done(todos => {
+        $('#project-title').text(projectName);
+        todos.data.todos.forEach(e => {
             $('card').append(`
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
@@ -127,7 +190,7 @@ function listTodo() {
                     <p class="card-text">${e.description}</p>
                     <div>
                         <i class='fa fa-bell-o'></i>
-                        <small><code>${e.due_date}</code></small>
+                        <small><code>${e.due_date.split("T")[0]}</code></small>
                     </div>
                 </div>
             </div>
@@ -139,24 +202,53 @@ function listTodo() {
 }
 
 function addNewTodo(
-    taskName, taskDesc,
-    taskDue, userId
+    taskName,
+    taskDesc,
+    taskDue
 ) {
+    $('#todo-message').empty();
     $.ajax({
         type: 'POST',
-        url: url_server + api_todo + "/",
+        url: url_server + api_todo + "/" + $('#project-title').text(),
         headers: {
-            token: localStorage.token
+            Authorization: "token " + localStorage.token
         },
         data: {
             name: taskName,
             description: taskDesc,
-            due_date: taskDue,
-            user_id: userId
+            due_date: taskDue
         }
     }).done(response => {
-        window.location.replace('http://localhost:8080');
+        console.log(response.data)
+        listTodo($('#project-title').text());
+        $('#newTodo-cancel').click();
+    }).fail(err => {
+        console.log(err.responseJSON.errMsg.errors.name.message);
+        $('#todo-message').html(err.responseJSON.errMsg.errors.name.message)
+    })
+}
+
+function addNewMember(memberEmail) {
+    $('#member-message').empty();
+    $.ajax({
+        type: 'PATCh',
+        url: url_server + api_project + "/" + $('#project-title').text() + "/member",
+        headers: {
+            Authorization: "token " + localStorage.token
+        },
+        data: {
+            email: memberEmail
+        }
+    }).done(response => {
+        console.log(response.data);
+        listTodo($('#project-title').text());
+        $('#newMember-cancel').click();
     }).fail(err => {
         console.log(err);
+        if (err.responseJSON.code === 401){
+            $('#member-message').html(err.responseJSON.errMsg)
+        } else {
+            $('#member-message').html(err.responseJSON.errMsg.errMsg)
+        }
     })
 }
