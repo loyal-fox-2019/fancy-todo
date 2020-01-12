@@ -4,6 +4,11 @@
 
 ### Server Side
 ##### Node.js, jwt, bcrypt, googleAuth, mongoDB+mongoose
+```
+npm run dev
+```
+http://localhost:3000
+
 | Routes | Method | Function |
 | :-------: | :------: | :-----: |
 | localhost:3000/user | GET | Get all user data |
@@ -19,6 +24,7 @@
 
 ### Client Side
 ##### HTML, Materialize CSS, JQuery+AJAX
+http://localhost:8080
 - Register an account / login directly with google
 - Create todo list
 - Mark it as done / undone
