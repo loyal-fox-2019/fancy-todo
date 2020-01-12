@@ -324,7 +324,7 @@ $(document).ready(function () {
                     status,
                     due_date
                 },
-                success: readTodos()
+                success: readTodos(localStorage.getItem("userId"))
             })
         })
     })
@@ -337,15 +337,41 @@ $(document).ready(function () {
         tokenn = null
         idSiUser = null
     })
+
+    $("#searchBar").keyup(function () {
+        let isi = $('#searchBar').val()
+        console.log(isi)
+        $.ajax(`http://localhost:3000/users/${isi}`, {
+            headers: {
+                token: localStorage.getItem("token")
+            }, success: function (hasilCari) {
+                console.log(hasilCari, "ini hasil carinya")
+                if (hasilCari[0]) {
+                    for (let persatu of hasilCari) {
+                        $("#hasilCariUname").append(`
+                        <a class="dropdown-item suggestedUname" id="${persatu._id}">${persatu.username}</a>
+                        `)
+                    }
+                } else {
+                    console.log("not found")
+                }
+            }
+
+        })
+    })
+    $(document).on("click", ".suggestedUname", function () {
+        console.log(this.id)
+    }
+    )
 })
 
-function readTodos() {
+function readTodos(id) {
     $.ajax('http://localhost:3000/', {
         type: "GET",
         headers: {
             // token: tokenn
             token: localStorage.getItem("token"),
-            userId: localStorage.getItem("userId")
+            userId: id
         },
         success: function (hasilTodos) {
             // console.log(hasilTodos)

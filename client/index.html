@@ -132,9 +132,21 @@
                 <nav class="navbar navbar-light justify-content-between" id="navBar">
                     <a class="navbar-brand">Fancy To Do</a>
                     <!-- <form class="form-inline">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
+                        <input class="form-control mr-sm-2" id="searchBar" type="search" placeholder="Search"
+                            aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0 dropdown-toggle" type="submit"
                             id="searchNav">Search</button>
+
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Hasil Cari (click me!)
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="hasilCariUname">
+                            </div>
+                        </div>
+
+
                     </form> -->
                     <div class="row align-self-center justify-content-center pl-5 pr-5">
                         <a class="btn btn-danger" id="logoutBTN" onclick="signOut();">Sign out</a>

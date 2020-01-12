@@ -12,6 +12,7 @@ routes.post('/create', authentication, authorization.toCreate, controllerTodo.cr
 routes.put('/update/:id', authentication, authorization.toUpdateOrDelete, controllerTodo.updateTodo)
 routes.delete('/delete/:id', authentication, authorization.toUpdateOrDelete, controllerTodo.deleteTodo)
 routes.get('/getWeather', authentication, controllerTodo.getWeather)
+routes.get('/users/:username', authentication, controllerTodo.findByusername)
 
 
 module.exports = routes

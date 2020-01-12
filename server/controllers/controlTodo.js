@@ -112,6 +112,18 @@ class ControlTodo {
                 res.status(500).json({ err, message: "Internal Server error from getWeather Control" })
             })
     }
+    static findByusername(req, res, next) {
+
+        modelUser.find({ username: new RegExp(req.params.username, "i") })
+            .then(foundUsername => {
+                if (foundUsername[0]) {
+                    res.status(200).json(foundUsername)
+                } else {
+                    res.status(404).json({ message: "username not found" })
+                }
+            })
+
+    }
 
 }
 module.exports = ControlTodo
