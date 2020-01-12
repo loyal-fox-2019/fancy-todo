@@ -1,0 +1,96 @@
+::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #FF0000;
+}
+
+.container {
+  height: 100vh;
+}
+
+.img-thumbnail {
+  border: 0 !important
+}
+
+.home-body {
+  padding: 30px 0;
+}
+
+.todos {
+  transition: 0.3s;
+}
+
+.todos:hover {
+  cursor: pointer;
+  color:white;
+  transition: 0.3s;
+  background-color: rgba(0,0,0,0.8);
+  border-radius: 10px;
+}
+
+#text-project {
+  margin-top: 10%;
+}
+
+.projects {
+  transition: 0.3s;
+  padding: 0 20px;
+}
+
+.projects:hover {
+  cursor: pointer;
+  padding: 0 20px;
+  color:white;
+  transition: 0.3s;
+  background-color: rgba(0,0,0,0.8);
+  border-radius: 10px;
+}
+
+.single-todo {
+  border: 3px solid black;
+  border-radius: 20px;
+  box-shadow: 4px 5px 0 0 rgba(100,100,100,0.5)
+}
+
+#group-name {
+  border: 3px solid black;
+  border-radius: 20px;
+  box-shadow: 4px 5px 0 0 rgba(100,100,100,0.5)
+}
+
+.update-form {
+  padding: 10px;
+}
+
+button {
+  box-shadow: 4px 5px 0 0 rgba(100,100,100,0.5)
+}
+
+.each-invitation {
+  border: 2px solid black;
+  border-radius: 10px;
+  box-shadow: 4px 5px 0 0 rgba(100,100,100,0.5);
+  padding: 5px;
+}
+
+.btn-group-xs > .btn, .btn-xs {
+  padding: .25rem .4rem;
+  font-size: .875rem;
+  line-height: .5;
+  border-radius: .2rem;
+}
+
+#group-list {
+  padding: 10px;
+  height: 30vh;
+  /* overflow: hidden; */
+  overflow: scroll;
+}
+
+#messages { list-style-type: none; margin: 0; padding: 0; }
+#messages li { padding: 5px 10px; }
+#messages li:nth-child(odd) { background: #eee; }
+#messages { margin-bottom: 40px }
