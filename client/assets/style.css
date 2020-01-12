@@ -1,0 +1,333 @@
+
+
+
+
+
+
+.array-item {
+    border: 1px solid #333;
+    margin-bottom: 15px;
+    width: 500px;
+}
+
+.btn-jap-navigation
+{
+    border: dashed 2px black;
+    width: 250px;
+    height: fit-content;
+    padding: 6px ;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 3rem;
+    color: black;
+    margin-top: 10%;
+    margin-left: 39%;
+    /* line-height: 1.42857; */
+    /* opacity: 10; */
+    background-color:rgba(0, 0, 0, 0);
+    opacity: 0.4;
+     
+    /* background-color: blueviolet; */
+}
+
+
+/* css group for #dueDate */
+#dueDate, #dueDateGroupTodo
+{
+    /* border: 1px solid red; */
+    /* border: none; */
+    /* height: 50px;
+    width: 300px; */
+
+    text-align: left;
+    text-indent: 5px;
+    font-size: 15px;
+}
+[type="date"] 
+{
+    background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+}
+[type="date"]::-webkit-inner-spin-button 
+{
+    display: none;
+}
+[type="date"]::-webkit-calendar-picker-indicator 
+{
+    opacity: 0;
+}
+/* end of css group for #dueDate */
+
+
+
+#groupContentDetailDiv
+{
+    /* border: 2px solid red; */
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+.groupContent
+{
+    border: 5px solid blue;
+    /* display: inline-block; */
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.wrapper {
+    display: grid;
+    border:solid 2px red;
+    /* height*/
+    /* grid-template-rows: repeat(auto-fill, 200px); */
+    /* grid-template-rows: repeat(auto-fit, [col-start] minmax(100px, 1fr) [col-end]); */
+    /* grid-template-rows: repeat(auto-fit,  minmax(100px, 1fr)); */
+    grid-template-rows: repeat(auto-fill  minmax(20%, 30%));  
+    
+    height: 70vh;
+    grid-gap: 15px;
+    grid-auto-flow: column;
+    /* width */
+    grid-auto-columns: 20%; 
+    overflow: hidden;
+    /* overflow:scroll */
+}
+.cardFitContent
+{
+    height: fit-content;
+
+}
+
+
+.overscrollDivVertical .overscrollDivHorizontal
+{
+    /* border: solid 2px red; */
+    width: fit-content;
+    /* background-color: red; */
+    /* position: relative; */
+}
+.overscrollEditableVertical .overscrollEditableHorizontal
+{
+    width: fit-content;
+}
+
+#addPersonalTodoButton, #addGroupTodoButton
+{
+    border:none;
+    background-color:unset;
+    position: absolute;
+    margin-top: 20%;
+
+    z-index: 1;
+}
+#addGroupTodoButton
+{
+    margin-top: 0;
+    margin-left: 50%;
+    position: absolute;
+    display: inline;
+}
+
+
+
+#contentDiv
+{
+    position: relative;
+    /* padding: 1%; */
+}
+
+.personalTodoDiv
+{
+    border: 2px solid red;
+    /* display: inline-block; */
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* group custom card group */
+.customCardGroup
+{
+    height: 100%;
+    overflow-x:scroll;
+}
+.customCardGroup::-webkit-scrollbar 
+{
+    display: none;
+}
+/* end of group custom card group */
+
+
+
+/* group card hover */
+.footer-hover
+{
+    visibility: hidden;
+    border: none;
+    bottom: 0;
+    width: 100%;
+}
+.card-hover:hover .footer-hover
+{
+    visibility: visible;
+}
+/* end of group card hover */
+
+
+
+.projectTodoDiv
+{
+    border: 2px solid blue;
+    /* display: inline-block; */
+    position: absolute;
+    right: 0px;
+    width: 50%;
+    height: 100vh;
+
+    overflow:hidden;
+}
+.contentGroupDiv
+{
+    border:dashed 5px grey;
+    /* top:25vh */
+    margin-top: 5%;
+    height:35vh;
+    overflow-x: auto;
+}
+/* @media (min-width: 576px) {
+    .card-group.card-group-scroll {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+    }
+
+    .card-group.card-group-scroll > .card {
+        flex-basis: 35%;
+    }
+} */
+.card-block {
+    min-height: 220px;
+    margin-bottom: 15px;
+}
+
+
+
+
+.userForm
+{
+    width: 40%;
+    margin: 5% auto;
+}
+
+
+#leftDiv
+{
+    width: 50%;
+}
+
+#titleDiv
+{
+    position: relative;
+    height: 20vh;
+}
+
+#h1Title
+{
+    
+    color: #d54d7b; 
+    position: absolute;
+    font-family: "Great Vibes", cursive; 
+    font-size: 100px; 
+    line-height: 160px; 
+    font-weight: normal; 
+
+    margin-top: 5%; 
+    text-align: center; 
+    text-shadow: 8px 14px 16px grey; 
+    width: 100%;
+}
+
+#titleOrnament
+{
+    position: absolute;
+    margin-top: 12%;
+    margin-left: 25%;
+
+    width: 50%;
+    height: auto;
+
+    opacity: 0.1;
+
+}
+
+
+#overlay-white1
+{
+    /* nanti pake yang position fixed ini */
+    /* position: fixed;  */ 
+
+    /* ini position buat temp */
+    position: absolute;
+
+    background-color: white;
+    background-attachment: fixed;
+    /* background-size: 100px; */
+    top: 0;
+    left: 0;
+    width: 50vw;
+    height: 100%;
+    opacity: 0.6;
+    z-index: -1;
+}
+
+.overlay-white2
+{
+    /* nanti pake yang position fixed ini */
+    /* position: fixed;  */ 
+
+    /* ini position buat temp */
+    position: relative;
+
+    background-color: white;
+    background-attachment: fixed;
+    /* background-size: 100px; */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    opacity: 0.5;
+    z-index: -2;
+}
+
+
+
+.btnTest 
+{
+    padding-left: 32px;
+    height: 50px;
+    width: 50px;
+    position: relative;
+}
+.btnTest:before 
+{
+    position: absolute;
+    font-family: 'FontAwesome';
+    margin: auto auto;
+    content: "\f055";
+}
+
+body
+{
+    height: 100%;
+    /* background-image:  linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 1)),   url('./images/6870150-origami-wallpaper.jpg'); */
+    background-image:   url('./images/6870150-origami-wallpaper.jpg');
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-attachment: fixed;
+    background-size: 100% auto;
+    
+}
