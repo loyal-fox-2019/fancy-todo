@@ -56,6 +56,7 @@ class Auth{
             $('.isLogin').show('slow')
             sAlert.success('Login', 'Login berhasil!')
             window.history.replaceState(null, null, window.location.pathname);
+            Auth.isLogin()
         })
         .fail(err => {
             console.log(err)
@@ -66,10 +67,16 @@ class Auth{
         User
             .$user()
             .done(user => {
-                if (user) {
-                    localStorage.setItem('fancy.todo.username', user.user.username) 
+                if (user.user) {
+                    localStorage.setItem('fancy.todo.username', user.user.username)
+                    Project.generateListProjects()
+                    User.generateSelectUser() 
                     $('.login').hide('slow')
                     $('.isLogin').show('slow')
+                    $('#projects').show('slow')
+                    $('#todos').hide('slow')
+                }else{
+                    Auth.logout()
                 }
             })
             .fail(err => {

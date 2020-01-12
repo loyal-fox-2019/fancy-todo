@@ -2,9 +2,10 @@ const Project = require('../models/Project')
 class ProjectController {
 
     static create(req, res, next){
-        const members = [req.userId]
+        let members = [req.userId]
+        console.log(req.body)
         if (req.body.members) {
-            members.push(req.body.members)
+            members = members.concat(req.body.members)
         }
         Project
             .create({

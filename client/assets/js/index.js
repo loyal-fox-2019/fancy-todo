@@ -30,6 +30,13 @@ $(document).ready(function () {
     $(document).on('click', '#register', Auth.signup)
     $(document).on('click', '#login', Auth.signin)
     $(document).on('click', '#logout', Auth.logout)
+    $(document).on('click', '#project', Project.addProject)
+    $(document).on('click', '.project', Project.getProject)
+    $(document).on('click', '#addMember', Project.addMember)
+    $(document).on('click', '#deleteProject', Project.delete)
+    $(document).on('click', '#toProject', function () {  
+        Auth.isLogin()
+    })
 });
 
 
