@@ -13,7 +13,7 @@
     <title>Fancy Todo</title>
 </head>
 <body>
-    <form class="form-signin" style="display: none;">
+    <form class="form-signin" id="form-signin" style="display: none;">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
         <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>       
@@ -25,15 +25,63 @@
         <a class="btn btn-block btn-social btn-github">
             <span class="fa fa-github"></span> Sign in with GitHub 
         </a>
+        <a class="btn btn-block switch-signinup">
+            Sign up 
+        </a>
+    </form>
+
+    <form class="form-signin" id="form-signup" style="display: none;">
+        <h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
+
+        <input type="text" id="inputUsername2" class="form-control" placeholder="Username" required autofocus>       
+        <input type="password" id="inputPassword2" class="form-control" placeholder="Password" required>
+        
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="std-signup">Sign up</button>
+        <div id="error-msg-signup"></div>
+        <a class="btn btn-block switch-signinup">
+            Sign in 
+        </a>
     </form>
 
     <div class="home" style="display: none;">
-        <nav class="navbar navbar-light bg-light">
-            <span class="navbar-brand mb-0 h1">Fancy Todo</span>            
-            <div class="logout">
-                <a class="btn btn-block btn-primary" id="std-signout" style="display: none;">Sign out</a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Fancy Todo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                  
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">User</a>
+                    </li> 
+                </ul>
+                    
+                <div class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <div class="logout">
+                        <a class="btn btn-block btn-primary" id="std-signout" style="display: none;">Sign out</a>
+                    </div>
+                </div>
+                    
             </div>
-        </nav>
+        </nav>        
+
+        <div class="todos-list">
+            <table class="todos-list table">
+                <tr>
+                    <th>No.</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Due date</th>
+                    <th>Action</th>
+                </tr>
+            </table>
+        </div>
     </div>
     
 

@@ -10,8 +10,10 @@ const authenticate = require("../middlewares/authentication");
 
 api.post('/signin',generateToken);
 
-api.use('/',authenticate);
-api.use('/todos',todosRouter);
 api.use('/users',usersRouter);
+
+api.use('/todos',authenticate);
+api.use('/todos',todosRouter);
+
 
 module.exports = api;

@@ -5,19 +5,35 @@ usersRouter.use(express.urlencoded({extended:true}));
 
 const UserController = require("../controllers/userController");
 
-usersRouter.get('/',(req,res) => {
-    //res.send('User list');
-    UserController.showAllUsers(req,res);
-});
-
-usersRouter.get('/:id',(req,res) => {
-    //res.send('User detail');
-    UserController.showUserById(req,res);
-});
+function checkUserId(req,res,next)
+{
+    if(req.params.id == req.userInfo.id)
+    {
+        next();
+    }
+    else
+    {
+        res.status(403).json({
+            error: "Forbidden"
+        });
+    }
+}
 
 usersRouter.post('/',(req,res) => {
     //res.send('add User');
     UserController.addUser(req,res);
+});
+
+usersRouter.get('/',(req,res) => { // not to be used in any way
+    res.send('User list');
+    //UserController.showAllUsers(req,res);
+});
+
+usersRouter.use('/',checkUserId);
+
+usersRouter.get('/:id',(req,res) => {
+    //res.send('User detail');
+    UserController.showUserById(req,res);
 });
 
 usersRouter.put('/:id',(req,res) => {
