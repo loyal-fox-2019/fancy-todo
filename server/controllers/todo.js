@@ -61,7 +61,6 @@ class TodoController {
     const update = { status: 1 };
     try {
       const todo = await Todo.updateOne(filter, update);
-      console.log(todo);
       res.status(200).json(todo);
     } catch (err) {
       next(err);

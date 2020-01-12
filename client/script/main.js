@@ -76,8 +76,7 @@ $(document).ready(function() {
 /* Functions down here */
 
 function addMember() {
-  const usersId = [];
-  usersId.push($('#project-member-add').val())
+  const userId = $('#project-member-add').val();
   const url = `${BASE_URL}/projects/${localStorage.getItem('project')}/addmember`
   console.log(url)
   $.ajax({
@@ -87,13 +86,13 @@ function addMember() {
       token: localStorage.getItem('token'),
     },
     data: {
-      usersId: usersId,
+      usersId: userId,
     }
   })
-  .done(() => Swal.fire(`User with id: ${member[0]} added to the project`))
+  .done(() => Swal.fire(`User with id: ${userId} added to the project`))
   .fail((err) => {
-    // const errors = err.responseJSON.errors.join(', ')
-    Swal.fire(err.responseJSON.errors)
+    const errors = err.responseJSON.errors.join(', ')
+    Swal.fire(errors);
   })
   .always()
 }
