@@ -1,0 +1,52 @@
+@font-face {
+  font-family: Oxygen;
+  src: url(/assets/fonts/Oxygen-Regular.ttf);
+}
+
+*{
+  font-family: Oxygen;
+  overflow: hidden;
+}
+
+#logo{
+  height: 100px;
+}
+
+#title{
+  font-size: 300%;
+}
+
+.make-link{
+  cursor:pointer;
+  color:blue;
+  text-decoration:underline;
+}
+
+#sidebar{
+  height: 100vh;
+  background-color: rgba( 52, 152, 219, 0.1);
+  margin: 0
+}
+
+#my-todos, #logout{
+  cursor: pointer;
+  user-select: none;
+}
+
+#my-projects{
+  user-select: none;
+}
+
+#active{
+  height: 90vh;
+  overflow: scroll;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+#project-list-container{
+  height: 50vh;
+  overflow: scroll;
+}
