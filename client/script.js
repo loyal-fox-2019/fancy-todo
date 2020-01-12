@@ -1,22 +1,27 @@
 $(document).ready(function(){
-    // if(localStorage.getItem("token") === null){
-    //     console.log('ga ada token >>>>>>>>>>>>>>>>>>')
-    // }
-    // else {
-    //     let token = localStorage.getItem("token")
-    //     axios.post('http://localhost:3000/user/login', {}, {
-    //         headers: {
-    //             token
-    //         }
-    //     })
-    //     .then(({data})=>{
-    //         localStorage.setItem("user_data", JSON.stringify(data))
-    //     })
-    //     .catch(err=>{
-    //         console.log(err)
-    //     })
-    // }
-    getTodos()
+    if(localStorage.getItem("token") === null){
+        $(".all").hide()
+        $(".login").show()
+        $("#home").hide()
+        $("#sign-up").show()
+        $("#sign-out").hide()
+        $("#sign-in").show()
+    }
+    else {
+        let token = localStorage.getItem("token")
+        axios.post('http://localhost:3000/user/login', {}, {
+            headers: {
+                token
+            }
+        })
+        .then(({data})=>{
+            localStorage.setItem("user_data", JSON.stringify(data))
+            getTodos()
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
 })
 
 function onSignIn(googleUser) {
@@ -40,6 +45,12 @@ function signOut() {
     auth2.signOut().then(function () {
         localStorage.clear()
         $("#todosList").empty()
+        $(".all").hide()
+        $(".login").show()
+        $("#sign-up").show()
+        $("#home").hide()
+        $("#sign-in").show()
+        $("#sign-out").hide()
         console.log('User signed out.');
     });
 }
@@ -63,6 +74,27 @@ function login() {
     })
 }
 
+function showLogin() {
+    $(".all").hide()
+    $(".login").show()
+    $("#home").hide()
+    $("#sign-up").show()
+    $("#sign-out").hide()
+    $("#sign-in").show()
+}
+
+function showRegister() {
+    $(".all").hide()
+    $(".register").show()
+    $("#home").hide()
+    $("#sign-up").show()
+    $("#sign-out").hide()
+    $("#sign-in").show()
+    $("#register-name").val("")
+    $("#register-email").val("")
+    $("#register-password").val("")   
+}
+
 function register() {
     let name = $("#register-name").val()
     let email = $("#register-email").val()
@@ -75,11 +107,28 @@ function register() {
         }
     })
     .then(({data})=>{
-        // redirect home
+        $(".all").hide()
+        $(".login").show()
+        $("#sign-up").show()
+        $("#home").hide()
+        $("#sign-in").show()
+        $("#sign-out").hide()
     })
     .catch(err=>{
         console.log(err);
     })
+}
+
+function showCreate() {
+    $(".all").hide()
+    $(".create").show()
+    $("#home").show()
+    $("#sign-up").hide()
+    $("#sign-out").show()
+    $("#sign-in").hide()
+    $("#todo-name").val("")
+    $("#todo-description").val("")
+    $("#todo-duedate").val("")
 }
 
 function createTodo() {
@@ -132,6 +181,14 @@ function getTodos() {
                 `)
             }
         }
+        $(".all").hide()
+        $(".list").show()
+        $("#sign-up").hide()
+        $("#home").show()
+        $("#sign-in").hide()
+        $("#sign-out").show()
+        getGeoLocation()
+        getWeather(localStorage.getItem("lat"), localStorage.getItem("lon"))
     })
     .catch(err=>{
         console.log(err);
@@ -184,6 +241,30 @@ function deleteTodo(todoId){
     })
     .then(({data})=>{
         getTodos()
+    })
+    .catch(err=>{
+        console.log(err);
+    })
+}
+
+function getGeoLocation(){
+    axios.get("http://ip-api.com/json")
+    .then(({data})=>{
+        localStorage.setItem("lat", JSON.stringify(data.lat))
+        localStorage.setItem("lon", JSON.stringify(data.lon))
+    })
+    .catch(err=>{
+        console.log(err);
+    })
+}
+
+function getWeather(lat,lon){
+    axios.get(`http://localhost:3000/weather/${lat}/${lon}`)
+    .then(({data})=>{
+        $("#weather").empty()
+        $("#weather").append(`
+        <img src=${data.img_url} id="weather-img">  ${data.temp}&#8451
+        `)
     })
     .catch(err=>{
         console.log(err);

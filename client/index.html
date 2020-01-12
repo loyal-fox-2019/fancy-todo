@@ -12,7 +12,18 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
-        
+        #weather-img {
+            height: 50px;
+            background-color: rgb(223, 108, 1);
+            border-radius: 50%;
+        }
+        .nav-item:hover {
+          cursor: pointer;
+        }
+
+        .all {
+          margin-top: 100px;
+        }
     </style>
     <title>Fancy Todo</title>
   </head>
@@ -27,10 +38,16 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="#">Register</a>
+                <a class="nav-link" id="sign-up" onclick="showRegister()">Register</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Sign In</a>
+                <a class="nav-link" id="home" onclick="getTodos()">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="sign-in" onclick="showLogin()">Sign In</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="sign-out" onclick="signOut()">Sign Out</a>
               </li>
             </ul>
           </div>
@@ -38,12 +55,12 @@
       </nav>
 
       <!-- LOGIN PAGE -->
-      <div class="container-fluid w-25" style="display: block;">
+      <div class="container-fluid w-25 all login" style="display: block;">
           <div class="row border rounded my-5">
               <div class="col p-4" style="text-align: center;">
                   <h5>Login with Google:</h5>
                   <br>
-                  <div class="g-signin2" data-width="280"  data-longtitle="true" data-onsuccess="onSignIn"></div>
+                  <div class="g-signin2" data-width="flex"  data-longtitle="true" data-onsuccess="onSignIn"></div>
                   <br>
                   <p style="color: gray;">--------------- or ---------------</p>
                   Email: <br><input type="text" id="login-email" required>
@@ -51,14 +68,12 @@
                   Password: <br><input type="password" id="login-password" required>
                   <br><br>
                   <button onclick="login()">Login</button>
-                  <br>
-                  <a href="#" onclick="signOut();">Sign out</a>
               </div>
           </div>
       </div>
 
       <!-- REGISTER -->
-      <div class="container-fluid w-25" style="display: block;">
+      <div class="container-fluid w-25 all register" style="display: block;">
         <div class="row border rounded my-5">
             <div class="col p-4" style="text-align: center;">
                 <h5>Register:</h5>
@@ -69,14 +84,12 @@
                 Password: <br><input type="password" id="register-password" required>
                 <br><br>
                 <button onclick="register()">Register</button>
-                <br>
-                <a href="#" onclick="signOut();">Sign out</a>
             </div>
         </div>
       </div>
 
       <!-- CREATE TODO -->
-      <div class="container-fluid w-50" style="display: block;">
+      <div class="container-fluid w-50 all create" style="display: block;">
         <div class="row border rounded my-5">
             <div class="col p-4" style="text-align: center;">
                 <h5>Create Todo:</h5>
@@ -87,31 +100,30 @@
                 Due date: <br><input type="text" id="todo-duedate" placeholder="YYYY-MM-DD">
                 <br><br>
                 <button onclick="createTodo()">Create!</button>
-                <br>
-                <a href="#" onclick="signOut();">Sign out</a>
             </div>
         </div>
       </div>
 
       <!-- LIST TODO -->
-      <div class="container-fluid w-100 border rounded my-5 px-5" style="display: block;">
+      <div class="container-fluid w-100 border rounded my-5 px-5 all list" style="display: block;">
         <div class="row">
-            <div class="col py-3" style="text-align: center;">
+            <div class="col-2 py-3" style="text-align: center;">
                 <h5>My Todos:</h5>
-                <button onclick="getTodos()">Get Todo</button>
+                <input type="button" value="Add Todo" onclick="showCreate()">
+            </div>
+            <div class="col-10 py-3" style="text-align: right;">
+                <h5>Weather:</h5><div id="weather" style="font-weight: bold;"></div>
             </div>
         </div>
         <div class="row">
-            <div class="col-3 px-4 pb-3">Name</div>
-            <div class="col-4 px-4 pb-3">Description</div>
-            <div class="col-2 px-4 pb-3">Done</div>
-            <div class="col-2 px-4 pb-3">Due Date</div>
-            <div class="col-1 px-4 pb-3">Option</div>
+            <div class="col-3 px-4 pb-3" style="font-weight: bold;">Name</div>
+            <div class="col-4 px-4 pb-3" style="font-weight: bold;">Description</div>
+            <div class="col-2 px-4 pb-3" style="font-weight: bold;">Done</div>
+            <div class="col-2 px-4 pb-3" style="font-weight: bold;">Due Date</div>
+            <div class="col-1 px-4 pb-3" style="font-weight: bold;">Option</div>
         </div>
         <div class="row" id="todosList">
-            <!-- 
-                APPEND USER'S TODOS HERE
-            <div class="col-3 px-4 pb-3"></div> -->
+            <!-- APPEND USER'S TODOS HERE -->
         </div>
       </div>
 
