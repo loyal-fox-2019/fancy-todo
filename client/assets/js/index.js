@@ -37,6 +37,13 @@ $(document).ready(function () {
     $(document).on('click', '#toProject', function () {  
         Auth.isLogin()
     })
+    $(document).on('click', '#addTodo', Todo.addTodo)
+    $(document).on('click', '.todo', Todo.showTodo)
+    $(document).on('click', '#showModalUpdateTodo', Todo.preUpdate)
+    $(document).on('click', '#updateTodo', Todo.update)
+    $(document).on('click', '#deleteTodo', Todo.delete)
+    $(document).on('click', '#ShowModalupdateStatus', Todo.preUpdateStatus)
+    $(document).on('click', '#updateStatus', Todo.updateStatus)
 });
 
 

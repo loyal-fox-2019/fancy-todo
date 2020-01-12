@@ -65,28 +65,45 @@
                   <div class="card-header bg-light border-0">
                       Next up
                   </div>
-                  <div class="card-body" style="padding: 8px;">
-                    <div class="card bg-white rounded todo">
-                      <div class="card-body">
-                          <p>Card title</p>
-                      </div>
-                    </div>
+                  <div class="card-body" style="padding: 8px;" id="nextUp">
+                    
                   </div>
                 </div>
               </div>
               <div class="col-lg-3">
-                .
+                <div class="card bg-light">
+                  <div class="card-header bg-light border-0">
+                      On Progress
+                  </div>
+                  <div class="card-body" style="padding: 8px;" id="onProgress">
+                    
+                  </div>
+                </div>
               </div>
               <div class="col-lg-3">
-                .
+                <div class="card bg-light">
+                  <div class="card-header bg-light border-0">
+                      Done
+                  </div>
+                  <div class="card-body" style="padding: 8px;" id="done">
+                    
+                  </div>
+                </div>
               </div>
               <div class="col-lg-3">
-                .                
+                <div class="card bg-light">
+                  <div class="card-header bg-light border-0">
+                      Hold
+                  </div>
+                  <div class="card-body" style="padding: 8px;" id="hold">
+                    
+                  </div>
+                </div>             
               </div>
             </div>
           </div>
           <div class="container" id="projects">
-            <h1 id="usernameLogin" class="font-weight-normal mt-2">Hi, <span class="text-monospace">Dzakki..</span> </h1>
+            <h1 id="usernameLogin" class="font-weight-normal mt-2">Hi, <span class="text-monospace">..</span> </h1>
             <div class="ml-2">
               <h2 class="font-weight-light">Projects</h2>
               <div class="row" id="listProjects"> 
@@ -98,6 +115,143 @@
 
         <!-- modals -->
         <section id="listModal">
+
+          <div class="modal fade" id="modalUpdateTodo" tabindex="-1" role="dialog" aria-labelledby="modalUpdateTodo" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Update todo</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form id="formUpdateTodo">
+                      <div class="form-group">
+                          <label for="name">Name</label>
+                          <input type="text" class="form-control" id="name" name="name" aria-describedby="name"  required >
+                      </div>
+                      <div class="form-group">
+                          <label for="due_date">Due date</label>
+                          <input type="datetime-local" class="form-control" id="due_date" name="due_date" aria-describedby="due_date" placeholder="due_date" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                      </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="updateTodo">Update</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade bd-example-modal-lg" id="detailTodo" tabindex="-1" role="dialog" aria-labelledby="detailTodo" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="dTodoTitle">...</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-lg-9">
+                          <h5>Description</h5>
+                          <p id="dTodoDesc">...</p>
+                          <h5>Due date</h5>
+                          <p id="dTodoDueDate">...</p>
+                      </div>
+                      <div class="col-lg-3">
+                        <h5>Options</h5>
+                        <button class="btn btn-sm btn-block btn-info" id="showModalUpdateTodo">Update</button>
+                        <button class="btn btn-sm btn-block btn-info" id="ShowModalupdateStatus">Status</button>
+                        <a href="" target="_blank" class="btn btn-sm btn-block btn-info" id="searchGoogle">Search in Google</a>
+                        <button class="btn btn-sm btn-block btn-warning" id="deleteTodo">Delete</button>
+                      </div>
+                    </div>
+                  </div> 
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade" id="modalupdateStatus" tabindex="-1" role="dialog" aria-labelledby="modalupdateStatus" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Update Status</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form id="formUpdateStatus">
+                      <div class="form-group">
+                          <label for="status">Status</label>
+                          <select class="custom-select" id="status" name="status">
+                            <option value="next up">Next up</option>
+                            <option value="on progress">On progress</option>
+                            <option value="done">Done</option>
+                            <option value="hold">Hold</option>
+                          </select>
+                      </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="updateStatus">Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade" id="modalTodo" tabindex="-1" role="dialog" aria-labelledby="#modalTodo" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Add todo</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form id="formTodo">
+                      <div class="form-group">
+                          <label for="name">Name</label>
+                          <input type="text" class="form-control" id="name" name="name" aria-describedby="name"  required >
+                      </div>
+                      <div class="form-group">
+                          <label for="status">Status</label>
+                          <select class="custom-select" id="status" name="status">
+                            <option value="next up">Next up</option>
+                            <option value="on progress">On progress</option>
+                            <option value="done">Done</option>
+                            <option value="hold">Hold</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="due_date">Due date</label>
+                          <input type="datetime-local" class="form-control" id="due_date" name="due_date" aria-describedby="due_date" placeholder="due_date" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                      </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="addTodo">Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="modal fade" id="modalInvite" tabindex="-1" role="dialog" aria-labelledby="#modalInvite" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -173,7 +327,7 @@
                           </div>
                           <div class="form-group">
                               <label for="passwordRegister">Password</label>
-                              <input type="passwordRegister" class="form-control" id="passwordRegister"  name="password">
+                              <input type="password" class="form-control" id="passwordRegister"  name="password">
                           </div>
                           <button type="button" class="btn btn-primary form-control" id="register">Register</button>
                           <div class="form-group">
@@ -209,8 +363,8 @@
                             </div>
                             <button type="button" class="btn btn-primary form-control" id="login">Login</button>
                             <div class="form-group">
-                                    <small id="emailHelp" class="form-text text-muted">Or</small>
-                                    <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=c7ad8dd4b09cb2c4aa21" class="btn btn-info form-control">Github</a>
+                                  <small id="emailHelp" class="form-text text-muted">Or</small>
+                                  <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=c7ad8dd4b09cb2c4aa21" class="btn btn-info form-control">Github</a>
                             </div>
                       </form>
                     </div>

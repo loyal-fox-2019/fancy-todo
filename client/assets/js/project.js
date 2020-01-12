@@ -94,6 +94,7 @@ class Project{
                 navbarTodo.eq(0).before(btnInvite)
                 navbarTodo.eq(0).after(btnDelete)
             }
+            Todo.generateListTodo(id)
         })
         .fail(err => {
             console.log(err)

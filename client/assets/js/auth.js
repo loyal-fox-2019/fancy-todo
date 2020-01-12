@@ -68,6 +68,7 @@ class Auth{
             .$user()
             .done(user => {
                 if (user.user) {
+                    $('#usernameLogin span').text(user.user.username+'..')
                     localStorage.setItem('fancy.todo.username', user.user.username)
                     Project.generateListProjects()
                     User.generateSelectUser() 
@@ -75,6 +76,7 @@ class Auth{
                     $('.isLogin').show('slow')
                     $('#projects').show('slow')
                     $('#todos').hide('slow')
+                    
                 }else{
                     Auth.logout()
                 }

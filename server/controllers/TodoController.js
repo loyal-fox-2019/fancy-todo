@@ -7,7 +7,7 @@ class TodoController{
             .create({
                 name: req.body.name,
                 description: req.body.description,
-                status: 'next up',
+                status: req.body.status,
                 due_date: req.body.due_date,
                 ownerTodo: req.userId
             })
@@ -63,7 +63,6 @@ class TodoController{
             }, {
                 name: req.body.name,
                 description: req.body.description,
-                status: req.body.status,
                 due_date: req.body.due_date,
             })
             .then(todo => {
