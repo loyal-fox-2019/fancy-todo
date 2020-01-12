@@ -1,5 +1,6 @@
 const { Project, Todo, User } = require('../models')
 const createError = require('http-errors')
+const nodemailer = require('../helpers/nodemailer')
 
 class ProjectController {
   static createProject(req, res, next) {
@@ -76,7 +77,7 @@ class ProjectController {
   static inviteMember(req, res, next) {
     console.log('masuk')
     let targetMember;
-    const { email } = req.body
+    const { email, inviter } = req.body
     User.findOne({ email })
       .then(user => {
         if (!user) {
@@ -100,8 +101,12 @@ class ProjectController {
         }
       })
       .then(project => {
+        return nodemailer(email, inviter, req.params.projectId)
+      })
+      .then(response => {
+        console.log(response, '<<<<<<<<<<<<')
         res.status(200).json({
-          message: 'Invitation sent'
+          message: `Invitation sent to: ${response.envelope.to[0]}`
         })
       })
       .catch(next)

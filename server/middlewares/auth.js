@@ -42,7 +42,6 @@ module.exports = {
       entity = 'Project'
       credential = 'owner'
     }
-    console.log('---------------------')
     Model.findById(queryId)
       .then(result => {
         if (result) {
@@ -59,8 +58,7 @@ module.exports = {
   },
 
   authProjectMember(req, res, next) {
-    console.log('@@@@@@@@@@@@@@@@@@')
-    console.log(req.params.projectId, '%%%%%%%%%%%%')
+    // console.log(req.params.projectId, '%%%%%%%%%%%%')
     Project.findById(req.params.projectId)
       .then(project => {
         if (project) {
