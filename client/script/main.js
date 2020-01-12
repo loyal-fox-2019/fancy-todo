@@ -16,17 +16,19 @@
 // )
 
 $(document).ready(function(){
+
+    
+
     runningOverscrollVertical()
     runningOverscrollHorizontal()
     $(".overscrollEditableVertical").hover(cancelOverscrollVertical, runningOverscrollVertical)
     $(".overscrollEditableHorizontal").hover(cancelOverscrollHorizontal, runningOverscrollHorizontal)
-
-    $('#editMember').multiselect(),
-    console.log('TCL\n ======================\n', $('#editMember').multiselect().val())
-
+    
+    $('#editMember').multiselect()
     $('#editMemberButton').on('click', function() {
-        alert($('#editMember').multiselect().val());
+        updateMemberList($('#editMember').multiselect().val())
     })
+    
 
     if(!localStorage.getItem('token'))
       {
@@ -76,8 +78,18 @@ $(document).ready(function(){
         event.preventDefault()
         showContentDiv()
     })
+    $("#editProjectTodo").on('submit', function(){
+        event.preventDefault()
+        editGroupTodo()
+    })
+    $("#createNewProjectTodo").on('submit', function(){
+        event.preventDefault()
+        createNewProjectTodo()
+    })
+    
 
-      
+   
+    
 
 
       
@@ -123,8 +135,8 @@ function isLogin(status){
         showLoginForm()
     else
       {
-          showGroupContentDetail('5e1546e754da364884fe0186')
-        //   showContentDiv() //nanti pake yang ini
+        //   showGroupContentDetail('5e1546e754da364884fe0186')
+          showContentDiv() //nanti pake yang ini
       }
         
 }
@@ -160,12 +172,15 @@ function showContentDiv(){
     fetchProject()
 }
 
-function showGroupContentDetail(projectId){
+function showGroupContentDetail(projectId, projectName, memberArray){
     allStateHide()
     $("#navBarDiv").show()
     appendNavbar()
     $("#groupContentDetailDiv").show()
-    fetchProjectDetail(projectId )
+    console.log('TCL\n ======================\n projectId di luar', projectId)
+    console.log('TCL\n ======================\n project name di luar', projectName)
+    fetchProjectDetail(projectId, projectName)
 }
 
 // end of group Shower Function
+

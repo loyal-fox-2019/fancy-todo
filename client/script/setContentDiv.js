@@ -231,14 +231,22 @@ function fetchProject(){
     })
     .done(result=>{
         console.log('TCL\n ======================\n fetch project', result)
+        
         $("#projectTodoContent").empty()
         for(let x = 0; x < result.length; x++)
           {
+            let memberArray = []
+            result[x].memberList.forEach(element => {
+                memberArray.push(element.username)
+            });
+            console.log("TCL: fetchProject -> memberArray", memberArray)
+
+
             $("#projectTodoContent").append(`
-                <div class="card col-md-6" style="margin-left:10px" onClick="showGroupContentDetail('${result[x]._id}')">
+                <div class="card col-md-6" style="margin-left:10px" onClick="showGroupContentDetail('${result[x]._id}', '${result[x].title}', '${memberArray}')">
                     <div class="card-body">
                     <h5 class="card-title overscrollEditableHorizontal">${result[x].title}</h5>
-                    <p class="card-text overscrollEditableHorizontal">${result[x].desc}</p>
+                    <p class="card-text overscrollEditableHorizontal">${result[x].description}</p>
                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
                 </div>

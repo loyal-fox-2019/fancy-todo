@@ -66,6 +66,22 @@ class ProjectController
           })
       }
 
+
+    static findOneProject(req,res,next)
+      {
+          Project.find({
+              _id: req.params.projectId
+          })
+          .populate('memberList', 'username')
+          .populate('createdBy', 'username')
+          .then(result=>{
+              res.status(200).json(result)
+          })
+          .catch(err=>{
+              next(err)
+          })
+      }
+
     
     static patchUpdate(req,res,next)
       {
@@ -79,18 +95,14 @@ class ProjectController
         delete patchObj.push
         delete patchObj.pull
         
-        if( req.body.push )
-          {
-            patchObj.$addToSet = {
-              memberList : req.body.push
-            } 
-          }
+        
         if( req.body.pull )
           {
             patchObj.$pull = {
               memberList : { $in : req.body.pull }
             }
           }
+        
         console.log("TCL: patchObj projectController", patchObj)
 
 
@@ -100,7 +112,26 @@ class ProjectController
             { runValidators: true}
         )
         .then(result=>{
-            res.status(200).json(result)
+            let patchObj2 = {}
+            if( req.body.push )
+            {
+              patchObj2.$addToSet = {
+                memberList : req.body.push
+              } 
+            }
+
+            Project.update(
+              { _id: req.params.projectId },
+              patchObj2,
+              { runValidators: true}
+            )
+            .then(result=>{
+                res.status(200).json(result)
+            })
+            .catch(err=>{
+              next(err)
+            })
+
         })
         .catch(err=>{
             next(err)

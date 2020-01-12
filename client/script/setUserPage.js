@@ -85,8 +85,11 @@ function logOut(){
     .then( result=>{
         if(result.value){
             const username = localStorage.getItem("username")
+            const auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                localStorage.clear()
+            });
             localStorage.clear()
-
             Swal.fire(
                 "Succesfully logged out",
                 `See you again ${username}`
@@ -95,3 +98,30 @@ function logOut(){
         }
     })
 }
+
+
+
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+    const id_token = googleUser.getAuthResponse().id_token;
+    console.log("TCL: onSignIn -> id_token", id_token)
+    $.ajax({
+        type: "post",
+        url: "http://localhost:3000/users/googleSignIn",
+        headers: {
+            id_token
+        }
+    })
+    .done(result=>{
+    console.log("TCL: onSignIn -> result", result)
+        localStorage.setItem('token', result.token)
+        localStorage.setItem('username', result.user.username )
+        showContentDiv()
+    })
+
+  }

@@ -39,7 +39,7 @@ class TodoController
         const { title, description, dueDate } = req.body
         const status = 'unFinish'
         const projectId = req.params.projectId
-
+console.log('TCL\n ======================\n udah disini')
         Todo.create({
           title, description, status, dueDate, projectId,
           createdBy : req.decodedUser._id,
@@ -48,6 +48,7 @@ class TodoController
           updatedAt : null
         })
         .then(result=>{
+          console.log('TCL\n ======================\n', result)
             res.status(200).json(result)
         })
         .catch(err=>{
@@ -65,6 +66,8 @@ class TodoController
         })
         .populate('createdBy', 'username')
         .populate('updatedBy', 'username')
+        .sort({ status: -1 })
+        .sort({ dueDate: 1 })
         .then(result=>{
             res.status(200).json(result)
         })
@@ -82,6 +85,8 @@ class TodoController
           .populate('projectId', 'title')
           .populate('createdBy', 'username')
           .populate('updatedBy', 'username')
+          .sort({ status: -1})
+          .sort({ dueDate: 1})
           .then(result=>{
               res.status(200).json(result)
           })

@@ -13,7 +13,7 @@ router.delete('/masterDelete', ProjectController.masterDelete)
 router.use(authentication)
 router.post('/', ProjectController.createProject) //done
 router.get('/', ProjectController.findAllProjectByMemberList) //done
-
+router.get('/:projectId', ProjectController.findOneProject)
 
 router.use('/:projectId', authorizationOwner('Project'))
 // =========================================================================   
