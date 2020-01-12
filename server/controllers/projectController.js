@@ -43,6 +43,7 @@ class ProjectController {
   static showProject(req, res, next) {
     Project.findById(req.params.projectId)
       .populate('members')
+      .populate('pendingMembers')
       .populate({ path: 'todos', populate: { path: 'user_id' } })
       .then(project => {
         // console.log(project)
@@ -52,11 +53,9 @@ class ProjectController {
   }
 
   static updateProjectName(req, res, next) {
-    console.log(req.params.projectId, '+++++++++++++')
     const { name } = req.body
     Project.findByIdAndUpdate(req.params.projectId, { name }, { new: true })
       .then(project => {
-        console.log(project, '[][][][][][][][][[]')
         res.status(200).json(project)
       })
       .catch(next)
@@ -144,17 +143,21 @@ class ProjectController {
 
   static removeMember(req, res, next) {
     let targetMember;
-    const { email } = req.body
-    console.log(email, '<><><><><><><><><><><>')
+    const { email, kind } = req.body
     User.findOne({ email })
       .then(user => {
-        console.log(user, '_+_+_+_+_+_+_+_+')
         if (!user) throw createError(404, 'User not found')
         targetMember = user
         return Project.findById(req.params.projectId)
       })
       .then(project => {
-        project.members.pull(targetMember._id)
+        if (kind === 'remove') {
+          project.members.pull(targetMember._id)
+        } else if (kind === 'cancel') {
+          project.pendingMembers.pull(targetMember._id)
+        } else {
+          throw createError(400, 'Choose remove member or cancel invitation')
+        }
         return project.save()
       })
       .then(project => {
