@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
         try {
             const payload = jwt.verify(token, process.env.JWT_SECRET);
             req.payload = payload
-            console.log(payload, "ini payload")
+            console.log(payload, "ini payload dari authentication")
             next()
         } catch (err) {
             res.status(404).json({

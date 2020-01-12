@@ -7,11 +7,12 @@ class ControlTodo {
     static createTodo(req, res, next) {
         // console.log(req.body)
         // console.log(req.headers.token, "ini token dari header di control todo")
-        // console.log(req.payload, "ini payload dari createTodo")
-        // console.log("halo dari createTodo Controler")
+        console.log("halo dari createTodo Controler")
+        console.log(req.payload, "ini payload dari createTodo")
+
         modelUser.findById(req.payload.id)
             .then(idFound => {
-                // console.log(idFound)
+                console.log(idFound, "oke sudah ada")
                 if (idFound) {
                     // console.log(idFound._id)
                     return modelTodo.create({
@@ -30,25 +31,43 @@ class ControlTodo {
                 res.status(200).json({ todoCreated, message: "Your todo list has been successfully created" })
             })
             .catch(err => {
+                // console.log(err)
                 res.status(500).json({ err, message: "Internal server error from createTodo" })
             })
     }
 
     static findAllMyTodo(req, res, next) {
+        // console.log("halo dari read all")
+        let milikUser = []
+        // console.log(req.headers, "in headers dari readAll")
+        //req.headers.userid => userIdnya
         modelTodo.find().populate(['userId'])
             .then(semuaTodo => {
+                // console.log(semuaTodo[semuaTodo.length - 1])
+                // console.log(semuaTodo[semuaTodo.length - 1].userId.id, "ini idnya")
                 if (!semuaTodo[0]) {
                     res.status(200).json({ semuaTodo, message: "User has no to do" })
                 } else {
-                    res.status(200).json(semuaTodo)
+                    for (let perTodo of semuaTodo) {
+                        if (perTodo.userId) {
+
+                            if (perTodo.userId.id === req.headers.userid) {
+                                milikUser.push(perTodo)
+                            }
+                        }
+                    }
+                    res.status(200).json(milikUser)
                 }
             })
     }
     static updateTodo(req, res, next) {
         // console.log(req.params.id)
+        console.log(req.body)
+        // console.log("halo dari controller update")
         modelTodo.findByIdAndUpdate(req.params.id, req.body)
             .then(updated => {
-                console.log(updated)
+                // console.log(updated)
+                res.status(200).json({ updated, message: "updated successfully" })
             })
             .catch(err => {
                 res.status(500).json({ err, message: "Internal Server Error from updateTodo" })
@@ -79,6 +98,11 @@ class ControlTodo {
         })
             .then(response => {
                 if (response) {
+                    let icons = response.data.current.weather_icons
+                    let temperature = response.data.current.temperature
+                    let weather_descriptions = response.data.current.weather_descriptions
+                    let is_night = response.data.current.is_night
+                    res.status(200).json({ icons, temperature, weather_descriptions, is_night })
                     console.log(response.data.current.weather_icons, "weather icons", response.data.current.weather_descriptions)
                 } else {
                     console.log("no response")

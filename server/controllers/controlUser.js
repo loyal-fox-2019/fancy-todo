@@ -25,7 +25,8 @@ class ControlUser {
                 console.log(token, "ini token, user logged in")
 
                 req.headers.token = token
-                res.status(200).json({ userTerdaftar, message: "registered successfully" })
+                res.status(200).json({ userTerdaftar, message: "registered successfully", token })
+
             })
             .catch(err => {
                 res.status(500).json({ err, message: "Internal Server Error from register" })
@@ -33,6 +34,7 @@ class ControlUser {
     }
 
     static login(req, res, next) {
+        let dataUser
         modelUser.findOne({ username: req.body.username })
             .then(userNameFound => {
                 if (!userNameFound) {
@@ -40,6 +42,7 @@ class ControlUser {
                     res.status(400).json({ message: "username/password is wrong" })
                 } else {
                     console.log(userNameFound, "ada usernamenya")
+                    dataUser = userNameFound
                     const cocokPass = bcrypt.compareSync(req.body.password, userNameFound.password)
                     // console.log(cocokPass, "ini cocokpas")
                     if (cocokPass) {
@@ -47,9 +50,10 @@ class ControlUser {
                         console.log(token, "ini token, user logged in")
 
                         req.headers.token = token
-                        res.send(req.headers)
+                        res.status(200).json({ cocokPass, message: "registered successfully", token, dataUser })
 
                     } else {
+                        console.log("gagal ini di controlUser Login setelah cek username")
                         res.status(400).json({ message: "username/password is wrong" })
                     }
                 }
@@ -91,7 +95,8 @@ class ControlUser {
             })
             .then(user => {
                 console.log(user, "ini usernya")
-                res.send(user)
+                // res.send(user)
+                res.status(200).json(user)
             })
             .catch(err => {
                 console.log(err)
