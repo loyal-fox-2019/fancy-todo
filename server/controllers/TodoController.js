@@ -3,9 +3,9 @@ const Todo = require('../models/Todo')
 class TodoController {
   static async create(req, res, next) {
     try {
-      let { title, description } = req.body
+      let { title, description, dueDate } = req.body
       let owner = req.decodedId
-      let todo = await Todo.create({ title, description, owner })
+      let todo = await Todo.create({ title, description, owner, dueDate })
       res.status(201).json(todo)
     } catch (error) {
       next(error)
@@ -30,11 +30,11 @@ class TodoController {
   }
   static async updateDetail(req, res, next) {
     try {
-      const { title, description } = req.body
+      const { title, description, dueDate } = req.body
       let todo = await Todo
         .findByIdAndUpdate(
           req.params.id, 
-          { title, description },
+          { title, description, dueDate },
           { new: true, runValidators: true }
         )
       res.status(200).json(todo)

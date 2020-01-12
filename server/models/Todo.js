@@ -11,6 +11,10 @@ const TodoSchema = new Schema ({
     enum: ['doing', 'done'],
     default: 'doing' 
   },
+  dueDate: {
+    type: Date,
+    required: [true, 'Due date cannot be empty']
+  },
   owner: {
     type: Schema.Types.ObjectId,
     ref: 'User'
