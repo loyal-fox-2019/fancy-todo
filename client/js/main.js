@@ -157,7 +157,6 @@ function doneTodo(payload) {
     }
   })
     .done(result => {
-      console.log(result);
       Swal.fire({
         title: 'Success!', 
         timer: 1000,
@@ -213,6 +212,8 @@ function addTask() {
 }
 
 function logout() {
+  var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut()
   localStorage.clear()
   toLogin()
 }
@@ -326,7 +327,6 @@ function addTodoProject(payload) {
   let name = $('#add-project-task-name').val()
   let due_date = Number($('#add-project-task-due').val())
   let description = $('#add-project-task-description').val()
-  console.log(id, name, due_date, description);
   $.ajax({
     method: 'post',
     url: `${serverURL}/projects/${id}/addTodo`,

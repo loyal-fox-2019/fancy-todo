@@ -4,7 +4,7 @@ const router = require('express').Router(),
 
 router.get('/', TodoController.all)
 router.post('/', TodoController.create)
-router.delete('/:id', authorize, TodoController.remove)
-router.patch('/:id/done', authorize, TodoController.done)
+router.delete('/:id', TodoController.remove)
+router.patch('/:id/done', TodoController.done)
 
 module.exports = router

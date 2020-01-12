@@ -1,6 +1,7 @@
 const User = require('../models/user'),
   { compare } = require('../helpers/bcrypt'),
   { generateToken } = require('../helpers/jwt'),
+  { OAuth2Client } = require('google-auth-library'),
   Todo = require('../models/todo'),
   Project = require('../models/project')
 
@@ -21,13 +22,13 @@ class UserController {
         } else if(!compare(password, user.password)){
           next({status: 400, message: 'invalid password or email'})
         } else {
-          res.status(200).json({token: generateToken({_id: user._id}), username: user.username})
+          res.status(200).json({token: generateToken({_id: user._id})})
         }
       })
       .catch(next)
   }
   static register (req, res, next) {
-    const { username, email, password } = req.body
+    const { email, password } = req.body
     User.create({
       email,
       password
@@ -50,6 +51,33 @@ class UserController {
     Project.find({$or: [{members: id}, {author: id}]})
       .then(projects => {
         res.send(projects)
+      })
+      .catch(next)
+  }
+  static googleLogin (req, res, next) {
+    const clientId = process.env.GOOGLE_CLIENT_ID
+    let googlePayload = null
+    const client = new OAuth2Client(clientId)
+    client.verifyIdToken({
+        idToken: req.body.idToken,
+        audience: clientId
+    })
+      .then(ticket => {
+        googlePayload = ticket.getPayload()
+        return User.findOne({email: googlePayload.email})
+      })
+      .then(user => {
+        if(user) {
+          return user
+        } else {
+          return User.create({
+            email: googlePayload.email,
+            password: process.env.DEFAULT_PASSWORD
+          })
+        }
+      })
+      .then(user => {
+        res.status(200).json({token: generateToken({_id: user._id})})
       })
       .catch(next)
   }
