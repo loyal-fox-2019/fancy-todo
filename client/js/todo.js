@@ -2,8 +2,7 @@ function fetchTodos(todoId, cb) {
   $.ajax({
     method: "get",
     url: `${baseUrl}/todos`,
-    // headers: { access_token: localStorage.getItem('access_token') }
-    headers: { access_token }
+    headers: { access_token: localStorage.getItem('access_token') }
   })
   .done(todosArr => {
     $("#todo-list").empty();
@@ -122,8 +121,7 @@ function createTodo(e) {
       description: $("#desc-post").val(),
       due_date: $("#todo-due-date").val()
     },
-    // headers: { access_token: localStorage.getItem('access_token') }
-    headers: { access_token }
+    headers: { access_token: localStorage.getItem('access_token') }
   })
   .done(todo => {
     $("#input-form").trigger("reset");
@@ -181,8 +179,7 @@ function submitEdit(e, todoId, projectId) {
       description: $(`#desc-edit-${todoId}`).val(),
       due_date: $(`#-due-date-${todoId}`).val()
     },
-    // headers: { access_token: localStorage.getItem('access_token') }
-    headers: { access_token }
+    headers: { access_token: localStorage.getItem('access_token') }
   })
   .done(todo => {
     $('#edit-form').trigger("reset");
@@ -207,8 +204,7 @@ function deleteTodo(todoId) {
       $.ajax({
         method: "delete",
         url: `${baseUrl}/todos/${todoId}`,
-        // headers: { access_token: localStorage.getItem('access_token') }
-        headers: { access_token }
+        headers: { access_token: localStorage.getItem('access_token') }
       })
       .done(result => {
         fetchTodos()

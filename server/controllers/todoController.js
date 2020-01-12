@@ -12,6 +12,7 @@ class TodoController {
     }
     
     static showTodos(req, res, next) {
+      console.log(req.decoded.id, 'TTTTTT')
       Todo.find({ user_id: req.decoded.id })
         .then(todos => {
           res.status(200).json(todos);
@@ -34,7 +35,6 @@ class TodoController {
       description && (update.description = description)
       status && (update.status = status)
       due_date && (update.due_date = due_date)
-      console.log(update, '{{{{{{{{{{{{{{{{{{')
       Todo.findByIdAndUpdate(req.params.todoId,
         update,
         { new: true, omitUndefined: true })

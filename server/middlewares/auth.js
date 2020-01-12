@@ -10,8 +10,10 @@ module.exports = {
     try {
       const access_token = req.headers.access_token.split(' ')[1]
       const payload = verifyToken(access_token)
+      console.log(access_token)
       User.findById(payload.id)
         .then(user => {
+          console.log(user, '<<<')
           if (user) {
             req.decoded = payload
             next()
@@ -44,7 +46,6 @@ module.exports = {
     Model.findById(queryId)
       .then(result => {
         if (result) {
-          console.log(result[credential], req.decoded.id, '()()()()')
           if (result[credential] == req.decoded.id) {
             next()
           } else {
@@ -58,11 +59,9 @@ module.exports = {
   },
 
   authProjectMember(req, res, next) {
-    console.log(req.params.projectId, req.decoded.id, '%%%%%%%%%%%%')
     Project.findById(req.params.projectId)
       .then(project => {
         if (project) {
-          console.log(project, '[][][]')
           if (project.members.includes(req.decoded.id) || project.owner == req.decoded.id) {
             next()
           } else {

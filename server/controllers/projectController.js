@@ -26,17 +26,17 @@ class ProjectController {
           { new: true })
         })
         .then(project => {
-        console.log(project, 'x^^^^^^^^^^^^^^^^^^^^^^x')
         res.status(201).json(project)
       })
       .catch(next)
   }
 
   static showProjects(req, res, next) {
-    Project.find({ members: req.decoded.id })
+    Project.find({ $or: [{ members: req.decoded.id }, { owner: req.decoded.id}]})
       .populate('todos')
       .populate('owner')
       .then(projects => {
+        console.log(projects, req.decoded.id, '<<<<')
         res.status(200).json(projects)
       })
       .catch(next)

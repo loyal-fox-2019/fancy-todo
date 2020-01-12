@@ -1,7 +1,9 @@
-const { User } = require('../models')
+const { User, Project } = require('../models')
 const { generateToken } = require('../helpers/jwt')
 const { verifyPassword } = require('../helpers/bcrypt')
 const createError = require('http-errors')
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client(process.env.CLIENT_ID)
 
 class UserController {
   static register(req, res, next) {
@@ -48,12 +50,47 @@ class UserController {
   }
 
   static showInvitations(req, res, next) {
-    Project.find({ pendingMembers: { $elemMatch: { email: req.decoded.email } }})
+    console.log(req.decoded.id, 'yuyuyuy')
+    Project.find({ pendingMembers: req.decoded.id })
       .then(projects => {
         res.status(200).json(projects)
       })
       .catch(next)
   }
+
+  static gSign(req, res, next) {
+    let gpayload = {};
+    let payload = {};
+    let access_token = '';
+    client.verifyIdToken({
+        idToken: req.body.id_token,
+        audience: process.env.CLIENT_ID
+      })
+      .then(ticket => {
+        payload = ticket.getPayload();
+        return User.findOne({ email: payload.email })
+      })
+      .then(user => {
+        if (user) {
+          gpayload.id = user._id;
+          gpayload.username = user.username;
+          gpayload.email = user.email
+          return user;
+        } else {
+          return User.create({
+            email: payload.email,
+            username: payload.name.split(' ').join('') + Date.now(),
+            password: payload.jti,
+            gSignIn: true
+          })
+        }
+      })
+      .then(user => {
+        access_token = generateToken(gpayload)
+        res.status(200).json({ access_token: `token ${access_token}` })
+      })
+      .catch(next)
+    }
 }
 
 module.exports = UserController

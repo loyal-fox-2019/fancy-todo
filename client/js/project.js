@@ -2,8 +2,7 @@ function fetchProjects() {
   $.ajax({
     method: "get",
     url: `${baseUrl}/projects`,
-    // headers: { access_token: localStorage.getItem('access_token') }
-    headers: { access_token }
+    headers: { access_token: localStorage.getItem('access_token') }
   })
   .done(projectsArr => {
     $("#project-list").empty();
@@ -28,6 +27,7 @@ function showProjects(projects) {
     `
   )
   for (let project of projects) {
+    console.log(project, 'ooo')
     $("#project-list").append(
       `
       <tr class="border-t hover:bg-orange-100 bg-gray-100">
@@ -37,8 +37,9 @@ function showProjects(projects) {
           <button id="details-${project._id}" onclick="openProjectDetails('${project._id}', '${project.name}', '${project.owner}')" type="button" class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Open</button>
         </td>
       </tr>
+
       <tr id="sub-project-${project._id}" class="bg-gray-100">
-        <td colspan="4" class="hidden p-3 px-4">
+        <td colspan="4" class="p-3 px-4">
           <form id="invite-form-${project._id}" class="hidden shadow-md px-8 pt-6 pb-8 mb-4 bg-white rounded-lg" onsubmit="submitInvitation(event, '${project._id}', '${project.name}', '${project.owner.email}')">
             <div class="mb-4">
               <label class="block mb-2 text-sm font-bold text-gray-700" for="name-post">
@@ -65,12 +66,12 @@ function showProjects(projects) {
       `
     )
     // if (project.owner._id === localStorage.getItem('id'))
-    if (project.owner._id !== localStorage.getItem('id')) {
-      $(`#invite-${project._id}`).hide()
-      $(`#project-status-${project._id}`).append('Member')
-    } else {
-      $(`#project-status-${project._id}`).append('Owner')
-    }
+    // if (project.owner._id !== localStorage.getItem('id')) {
+    //   // $(`#invite-${project._id}`).hide()
+    //   $(`#project-status-${project._id}`).append('Member')
+    // } else {
+    //   $(`#project-status-${project._id}`).append('Owner')
+    // }
   }
 }
 
@@ -83,8 +84,7 @@ function createProject(e) {
     data: {
       name: $('#project-name-post').val()
     },
-    // headers: { access_token: localStorage.getItem('access_token') }
-    headers: { access_token }
+    headers: { access_token: localStorage.getItem('access_token') }
   })
   .done(project => {
     $('#project-form').trigger("reset");
@@ -96,6 +96,7 @@ function createProject(e) {
 }
 
 function openInvite(projectId) {
+  
   $(`#invite-form-${projectId}`).show()
 }
 
@@ -108,10 +109,13 @@ function submitInvitation(e, projectId, projectName, inviter) {
       email: $(`#invite-email-${projectId}`).val(),
       inviter
     },
-    // headers: { access_token: localStorage.getItem('access_token') }
-    headers: { access_token }
+    headers: { access_token: localStorage.getItem('access_token') }
   })
     .done(response => {
+      Swal.fire({
+        icon: 'succes',
+        text: 'Invitation sent'
+      })
       fetchProjects()
       fetchProjectMembers(projectId, projectName)
     })
@@ -134,8 +138,7 @@ function fetchTodosProject(projectId, projectName, ownerId) {
   $.ajax({
     method: 'get',
     url: `${baseUrl}/projects/${projectId}`,
-    // headers: { access_token: localStorage.getItem('access_token') }
-    headers: { access_token }
+    headers: { access_token: localStorage.getItem('access_token') }
   })
     .done(response => {
       let todos = response.todos
@@ -147,7 +150,7 @@ function fetchTodosProject(projectId, projectName, ownerId) {
           <span
             class="text-center text-sm text-blue-500 hover:text-blue-800 cursor-pointer"
             href=""
-            onclick="openNewProjectTask('${projectId}', '${projectName}')"
+            onclick="openProjectMembers('${projectId}', '${projectName}')"
           >
             Member List
           </span> |
@@ -324,8 +327,7 @@ function deleteTodoProject(todoId, projectId, projectName) {
       $.ajax({
         method: "delete",
         url: `${baseUrl}/todos/${todoId}`,
-        // headers: { access_token: localStorage.getItem('access_token') }
-        headers: { access_token }
+        headers: { access_token: localStorage.getItem('access_token') }
       })
       .done(result => {
         fetchTodosProject(projectId, projectName)
@@ -351,8 +353,7 @@ function deleteProject(e, projectId) {
       $.ajax({
         method: "delete",
         url: `${baseUrl}/projects/${projectId}`,
-        // headers: { access_token: localStorage.getItem('access_token') }
-        headers: { access_token }
+        headers: { access_token: localStorage.getItem('access_token') }
       })
       .done(result => {
         fetchProjects()
@@ -372,10 +373,9 @@ function changeProjectName(e, projectId) {
     data: {
       name: $(`#edit-project-${projectId}`).val()
     },
-    headers: { access_token }
+    headers: { access_token: localStorage.getItem('access_token') }
   })
     .done(response => {
-      console.log(response, '<<<<')
       openProjectDetails(response._id, response.name)
     })
     .fail(err => {
@@ -389,6 +389,8 @@ function openEditProject(e, projectId) {
 }
 
 function openProjectMembers(projectId, projectName) {
+  $('.all').hide()
+  $('#project-members').show()
   fetchProjectMembers(projectId, projectName)
 }
 
@@ -396,8 +398,7 @@ function fetchProjectMembers(projectId, projectName) {
   $.ajax({
     method: 'get',
     url: `${baseUrl}/projects/${projectId}`,
-    // headers: { access_token: localStorage.getItem('access_token') }
-    headers: { access_token }
+    headers: { access_token: localStorage.getItem('access_token') }
   })
     .done(response => { 
       console.log(response, '<<<')
@@ -442,12 +443,13 @@ function fetchProjectMembers(projectId, projectName) {
           <tr class="border-t hover:bg-orange-100 bg-gray-100">
             <td class="p-3 px-4">${member.username}</td>
             <td class="p-3 px-4">${member.email}</td>
-            <td class="hidden p-3 px-4 text-center flex flex-col lg:flex-row justify-center">
-              <button id="invite" onclick="kickMember('remove', '${member.email}', '${projectId}', '${projectName}')" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Kick</button>
+            <td class="p-3 px-4 text-center flex flex-col lg:flex-row justify-center">
+              <button onclick="kickMember('remove', '${member.email}', '${projectId}', '${projectName}')" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Kick</button>
             </td>
           </tr>
           `
         )
+        // if (project)
       }
       for (let pendingMember of pendingMembers) {
         $('#pending-member-list-table').append(
@@ -456,7 +458,7 @@ function fetchProjectMembers(projectId, projectName) {
             <td class="p-3 px-4">${pendingMember.username}</td>
             <td class="p-3 px-4">${pendingMember.email}</td>
             <td class="p-3 px-4 text-center flex flex-col lg:flex-row justify-center">
-              <button id="invite" onclick="kickMember('cancel','${pendingMember.email}', '${projectId}', '${projectName}')" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Cancel</button>
+              <button onclick="kickMember('cancel','${pendingMember.email}', '${projectId}', '${projectName}')" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Cancel</button>
             </td>
           </tr>
           `
@@ -478,8 +480,7 @@ function kickMember(kind, email, projectId, projectName) {
       $.ajax({
         method: "patch",
         url: `${baseUrl}/projects/${projectId}/removeMember`,
-        // headers: { access_token: localStorage.getItem('access_token') }
-        headers: { access_token },
+        headers: { access_token: localStorage.getItem('access_token') },
         data: {
           email,
           kind
@@ -566,8 +567,7 @@ function createProjectTodo(e, projectId, projectName) {
       description: $("#desc-post-p").val(),
       due_date: $("#todo-due-date-p").val()
     },
-    // headers: { access_token: localStorage.getItem('access_token') }
-    headers: { access_token }
+    headers: { access_token: localStorage.getItem('access_token') }
   })
   .done(todo => {
     $("#input-form").trigger("reset");
@@ -609,8 +609,7 @@ function submitEditTodoProject(e, todoId, projectId, projectName) {
       description: $(`#desc-edit-${todoId}`).val(),
       due_date: $(`#-due-date-${todoId}`).val()
     },
-    // headers: { access_token: localStorage.getItem('access_token') }
-    headers: { access_token }
+    headers: { access_token: localStorage.getItem('access_token') }
   })
   .done(todo => {
     $('#edit-form').trigger("reset")
@@ -649,4 +648,45 @@ function checkTodoProject(todoId, kind, projectId, projectName) {
 function clearErrNewTaskP(e) {
   e.preventDefault()
   $('#err-new-task-p').empty()
+}
+
+function fetchInvitations(projectId, projectName) {
+  $.ajax({
+    method: 'get',
+    url: `${baseUrl}/user/invitations`,
+    headers: { access_token: localStorage.getItem('access_token') }
+  })
+    .done(projects => { 
+      console.log(projects, '<<<')
+      $('#invitation-list').empty()
+      $('#invitation-list').append(
+        `
+        <div class="text-gray-900">
+          <div class="px-3 py-4 flex justify-center">
+            <table class="w-full text-md bg-white shadow-md rounded-lg mb-4 table-fixed">
+              <tbody id="invitation-list-table">
+                <tr class="border-b">
+                  <th class="w-2/5 text-left p-3 px-5">Project Name</th>
+                  <th class="w-1/5 text-center p-3 px-5">Action</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        `
+      )
+      for (let project of projects) {
+        $('#invitation-list-table').append(
+          `
+          <tr class="border-t hover:bg-orange-100 bg-gray-100">
+            <td class="p-3 px-4">${project.name}</td>
+            <td class="p-3 px-4 text-center flex flex-col lg:flex-row justify-center">
+              <button onclick="" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Accept</button>
+              <button onclick="" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Reject</button>
+            </td>
+          </tr>
+          `
+        )
+      }
+    })
 }

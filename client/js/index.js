@@ -1,14 +1,15 @@
 $(document).ready(function () {
-  if (access_token) {
-    verifyToken(access_token, showButtons)
-  } else {
+  if (!localStorage.getItem('access_token')) {
     $('.all').hide()
     $('#the-navbar').hide()
     $('#login').show()
+  } else {
+    $('.all').hide()
+    $('#big-buttons').show()
+    fetchTodos()
+    fetchProjects()
   }
 
-  fetchTodos()
-  fetchProjects()
 
   $('.to-register').on('click', function(e) {
     e.preventDefault()
@@ -22,22 +23,22 @@ $(document).ready(function () {
   
 });
 
-function verifyToken(access_token, cb) {
-  $.ajax({
-    method: 'get',
-    url: `${baseUrl}/user/profile`,
-    headers: { access_token }
-  })
-    .done(response => {
-      cb()
-    })
-    .fail(err => {
-      Swal.fire({
-        icon: 'err',
-        text: err
-      })
-    })
-}
+// function verifyToken(access_token, cb) {
+//   $.ajax({
+//     method: 'get',
+//     url: `${baseUrl}/user/profile`,
+//     headers: { access_token }
+//   })
+//     .done(response => {
+//       cb()
+//     })
+//     .fail(err => {
+//       Swal.fire({
+//         icon: 'err',
+//         text: err
+//       })
+//     })
+// }
 
 function showButtons() {
   $('.all').hide()
@@ -49,6 +50,7 @@ function toMyTodos(e) {
   e.preventDefault()
   $('.all').hide()
   $('#my-todos').show()
+  fetchTodos()
 }
 
 function toNewTask(e) {
@@ -67,4 +69,11 @@ function toTodosProject(e) {
   e.preventDefault()
   $('.all').hide()
   $('#todos-project').show()
+}
+
+function toInvitation(e) {
+  e.preventDefault()
+  $('.all').hide()
+  $('#project-invitation').show()
+  fetchInvitations()
 }
