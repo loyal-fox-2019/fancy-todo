@@ -5,7 +5,8 @@ class TodoController{
         let data = {
             name: req.body.name,
             description: req.body.description,
-            due_date: new Date(req.body.due_date),
+            status: false,
+            due_date: req.body.due_date,
             user_id: req.body.user_id
         }
         Todo.create(data)
@@ -19,7 +20,7 @@ class TodoController{
     }
 
     static getAll(req,res,next){
-        Todo.find({user_id: req.params.user_id}).populate('user_id')
+        Todo.find({user_id: req.params.id}).populate('user_id')
             .then(results => {
                 res.status(200).json(results)
             })
@@ -37,28 +38,20 @@ class TodoController{
             .catch(next)
     }
 
-    static update(req,res,next){
-        let data = {
-            name: req.body.name,
-            description: req.body.description,
-            due_date: req.body,due_date
-        }
-        Todo.updateOne({_id:req.params.id}, data)
-            .then(data => {
-                res.status(200).json({
-                    data,
-                    message: 'Todo updated'
-                })
-            })
-            .catch(next)
-    }
-
     static deleteTodo(req,res,next){
         Todo.remove({_id: req.params.id})
             .then(data => {
                 res.status(200).json({
                     message: 'Todo removed'
                 })
+            })
+            .catch(next)
+    }
+
+    static getSingleTodo(req,res,next){
+        Todo.findById(req.params.id)
+            .then(data => {
+                res.status(200).json(data)
             })
             .catch(next)
     }
