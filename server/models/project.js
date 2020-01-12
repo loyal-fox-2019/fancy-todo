@@ -15,15 +15,6 @@ const projectSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      // validate: {
-      // validator: function(members) {
-      // return models.Project.findOne({ members }).then(project => {
-      // if (project) return false
-      // return true
-      // })
-      // },
-      // msg: 'Member already on this project',
-      // },
     },
   ],
   todos: [todoSchema],
