@@ -96,9 +96,10 @@ $(document).ready(function () {
     })
     $(document).on("click", ".edit", function () {
         let idToEdit = ($(this).val())
+        // console.log(idToEdit, "ini dari idToEdit")
         $("#toBeEdited").empty()
         $("#toBeEdited").append(`
-        <div class="form-group row">
+        <div class="form-group row p-4">
             <label for="nameTodo" class="col-sm-2 col-form-label">
                <h6>Name</h6>
                </label>
@@ -106,28 +107,28 @@ $(document).ready(function () {
                <input type="text" name="nameTodo" class="form-control" id="nameTodo"
                    aria-describedby="nameTodohelp" required>
             </div>
-        <div>
-        <div class="form-group row">
+        </div>
+        <div class="form-group row p-4">
             <label for="descToDo" class="col-sm-2 col-form-label">
-               <h6>descToDo</h6>
+               <h6>Description</h6>
                </label>
             <div class="col-sm-10">
                <input type="text" name="descToDo" class="form-control" id="descToDo"
                    aria-describedby="descToDohelp">
             </div>
-        <div>
-        <div class="form-group row">
+        </div>
+        <div class="form-group rowp-4">
             <label for="status" class="col-sm-2 col-form-label">
                <h6>Status</h6>
             </label>
                 <div class="col-sm-10">
-                 <select name="status" id="status">
+                 <select name="status" id="status class="form-control-lg">
                     <option value="true" selected>Done</option>
                     <option value="false">Not Done</option>
                  </select>
                 </div>
-        <div>
-        <div class="form-group row">
+        </div>
+        <div class="form-group row p-4">
             <label for="DueDate" class="col-sm-2 col-form-label">
                <h6>Due Date</h6>
                </label>
@@ -135,7 +136,7 @@ $(document).ready(function () {
                <input type="date" name="DueDate" class="form-control" id="DueDate"
                    aria-describedby="DueDatehelp">
             </div>
-        <div>
+        </div>
         <div class="row align-self-center justify-content-center pl-5 pr-5">
                     <div class="col-6">
                           <button class="btn btn-primary" value="${idToEdit}" id="confirmEdit">Edit</button>
@@ -178,49 +179,8 @@ $(document).ready(function () {
                         success: function (hasilTodos) {
                             // console.log(hasilTodos)
                             $(".todos").empty()
-                            // let kontenTodos = ` <div class="card" >
-                            // <table class="table-light table-bordered justify-content-center">
-                            // <thead>
-                            // <tr>
-                            // <th>Name</th>
-                            // <th>Description</th>
-                            // <th>Due_Date</th>
-                            // <th>Status</th>
-                            // <tr>
-                            // </thead>
-                            // `
-                            // for (let perTodo of hasilTodos) {
-                            //     // console.log(perTodo._id, "ini idnya")
-                            //     if (perTodo.status === false) {
-                            //         perTodo.status = "Not Done"
-                            //     } else {
-                            //         perTodo.status = "Done"
-                            //     }
-                            //     kontenTodos += `
-                            // <tr>
-                            // <td>${perTodo.name}</td>
-                            // <td>${perTodo.description}</td>
-                            // <td>${perTodo.due_date}</td>
-                            // <td>${perTodo.status}</td>
-                            // <td>
-
-                            // <button class="btn edit" value="${perTodo._id}">edit</button>     
-                            // <button class="btn delete" value="${perTodo._id}">delete</button>
-
-                            // <td> 
-                            // </tr>
-                            // </table>
-                            //  </div>
-                            // `
-                            // }
-                            // kontenTodos += `</table> </div>`
-                            // $('.todos').append(kontenTodos)
                         }
                     })
-
-
-                    //     $("#infoChange").append(`
-                    //     <h4>The Data has been successfully updated</h4>`)
                 }
             })
         })
@@ -299,7 +259,7 @@ $(document).ready(function () {
         // console.log(tokenn)
         $(".todos").empty()
         $(".todos").append(`
-        <div class="form-group row">
+        <div class="form-group row p-4">
             <label for="nameTodo" class="col-sm-2 col-form-label">
                <h6>Name</h6>
                </label>
@@ -307,28 +267,28 @@ $(document).ready(function () {
                <input type="text" name="nameTodo" class="form-control" id="nameTodoCreate"
                    aria-describedby="nameTodohelp" required>
             </div>
-        <div>
-        <div class="form-group row">
+        </div>
+        <div class="form-group row p-4">
             <label for="descToDo" class="col-sm-2 col-form-label">
-               <h6>descToDo</h6>
+               <h6>Description</h6>
                </label>
             <div class="col-sm-10">
                <input type="text" name="descToDo" class="form-control" id="descToDoCreate"
                    aria-describedby="descToDohelp">
             </div>
-        <div>
-        <div class="form-group row">
+        </div>
+        <div class="form-group row p-4">
             <label for="status" class="col-sm-2 col-form-label">
                <h6>Status</h6>
             </label>
                 <div class="col-sm-10">
-                 <select name="status" id="statusCreate">
+                 <select name="status" id="statusCreate" class="form-control-lg">
                     <option value="true" selected>Done</option>
                     <option value="false">Not Done</option>
                  </select>
                 </div>
-        <div>
-        <div class="form-group row">
+        </div>
+        <div class="form-group row p-4">
             <label for="DueDate" class="col-sm-2 col-form-label">
                <h6>Due Date</h6>
                </label>
@@ -336,12 +296,12 @@ $(document).ready(function () {
                <input type="date" name="DueDate" class="form-control" id="DueDateCreate"
                    aria-describedby="DueDatehelp">
             </div>
-        <div>
+        </div>
         <div class="row align-self-center justify-content-center pl-5 pr-5">
-                    <div class="col-6">
-                          <button class="btn btn-primary"  id="confirmCreate">Add</button>
+                    <div class="col-6 justify-content-center">
+                          <button class="btn btn-primary "  id="confirmCreate">Add</button>
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 justify-content-center ">
                         <button class="btn btn-primary" id="cancelCreate">Cancel</button>
                       </div>
         </div>
