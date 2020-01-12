@@ -33,7 +33,7 @@ todoSchema.pre('save',function(next) {
     this.user = ObjectId(this.user);
     if(!this.entered_date)
     {
-        this.entered_date = new Date(this.entered_date);
+        this.entered_date = new Date();
     }
     
     if(this.due_date)

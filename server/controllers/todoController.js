@@ -65,20 +65,61 @@ class TodoController
 
     static updateTodo(req,res)
     {
-        const data = _.pick(req.body,'name','description','due_date','user');
-        
-        Todo.findByIdAndUpdate(req.params.id,data,(err,todo) => {
+        const data = _.pick(req.body,'name','description','due_date','status'); //cannot change user
+
+        Todo.findById(req.params.id,(err,todo) => {
             if(err)
             {
                 res.status(400).json({
                     msg: "invalid request"
+                });
+            }
+            else if(todo)
+            {
+                for(let key in data)
+                {
+                    if(data.hasOwnProperty(key))
+                    {
+                        todo[key] = data[key];
+                    }
+                }
+
+                todo.save((err,updated) => {
+                    if(err)
+                    {
+                        res.status(400).json({
+                            err: "invalid request"
+                        })
+                    }
+                    else
+                    {
+                        res.status(201).json({
+                            msg: "update success",
+                            updated: updated
+                        });
+                    }
                 })
             }
             else
             {
-                res.status(201).json(todo);
+                res.status(404).json({
+                    msg: "not found"
+                });
             }
-        });
+        })
+        
+        // Todo.findByIdAndUpdate(req.params.id,data,(err,todo) => {
+        //     if(err)
+        //     {
+        //         res.status(400).json({
+        //             msg: "invalid request"
+        //         })
+        //     }
+        //     else
+        //     {
+        //         res.status(201).json(todo);
+        //     }
+        // });
     }
 
     static deleteTodo(req,res)

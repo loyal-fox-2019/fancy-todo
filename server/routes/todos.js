@@ -21,13 +21,13 @@ todosRouter.post('/',(req,res) => {
 });
 
 todosRouter.put('/:id',(req,res) => {
-    res.send('update Todo');
-    //TodoController.updateTodo(req,res);
+    //res.send('update Todo');
+    TodoController.updateTodo(req,res);
 });
 
 todosRouter.patch('/:id',(req,res) => {
-    res.send('update Todo');
-    //TodoController.updateTodo(req,res);
+    //res.send('update Todo');
+    TodoController.updateTodo(req,res);
 });
 
 todosRouter.delete('/:id',(req,res) => {
