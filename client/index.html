@@ -99,13 +99,37 @@
             <div class="col d-flex justify-content-center align-items-center flex-fill vh-100">
                 <div class="card shadow p-5 w-75">
                     <h3 class="card-title text-center">Add New Awesome Thing To Do</h3>
+                    <div class="text-right bg-light mt-3 type-mode">
+                        <button type="button" class="btn btn-link type-mode" onclick="switchModeTo('ocr-mode')">Lazy to type? Try our image to text feature here <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="bg-light mt-3 ocr-mode" style="display: none;">
+                        <button type="button" class="btn btn-link" onclick="switchModeTo('type-mode')"><i class="fas fa-chevron-left"></i> Type faster than the speed of light? Back to manual type</button>
+                    </div>
                     <div class="form-group">
                         <label for="name">Todo Name</label>
+                        <div class="input-group mb-3 ocr-mode mb-2" style="display: none;">
+                            <input type="text" class="form-control" id="ocr-name-link" placeholder="http://dl.a9t9.com/running-note/eng.png" aria-describedby="btn-ocr-name">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-success" type="button" id="btn-ocr-name" onclick="loadText('name')">Load Text</button>
+                            </div>
+                        </div>
+                        <div class="text-center ocr-mode" id="uploaded-name-img">
+                            <!-- fill with uploaded image -->
+                        </div>
                         <input type="text" class="form-control" id="name" placeholder="Run 10 Kilometers">
                     </div>
                     <div class="form-group">
                         <label for="description">Todo Description</label>
-                        <textarea class="form-control" id="description" rows="3" placeholder="Sending out cheetah to run with me and give reward to the winner"></textarea>
+                        <div class="input-group mb-3 ocr-mode mb-2" style="display: none;">
+                            <input type="text" class="form-control" id="ocr-description-link" placeholder="http://i.imgur.com/cheetah.gif" aria-describedby="btn-ocr-description">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-success" type="button" id="btn-ocr-description" onclick="loadText('description')">Load Text</button>
+                            </div>
+                        </div>
+                        <div class="text-center ocr-mode" id="uploaded-description-img">
+                            <!-- fill with uploaded image -->
+                        </div>
+                        <textarea class="form-control" id="description" rows="4" placeholder="Sending out cheetah to run with me and give reward to the winner"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="status">Todo Status</label>
@@ -159,6 +183,7 @@
     <script src="./src/js/user-page.js"></script>
     <script src="./src/js/login.js"></script>
     <script src="./src/js/navbar.js"></script>
+    <script src="./src/js/ocr-mode.js"></script>
 </bod>
 
 </html>
