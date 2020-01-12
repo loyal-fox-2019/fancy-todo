@@ -6,7 +6,7 @@ class ProjectController {
         res.send('create project')
     }
 
-    static getProject(req, res, next) {
+    static getAllProject(req, res, next) {
         res.send('get project')
     }
 
@@ -14,8 +14,12 @@ class ProjectController {
         res.send('update project')
     }
 
-    static addMember(req,res,next) {
+    static addMember(req, res, next) {
         res.send('add member')
+    }
+
+    static removeMember(req, res, next) {
+        res.send('remove member')
     }
 }
 
