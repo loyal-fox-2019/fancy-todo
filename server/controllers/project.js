@@ -28,8 +28,9 @@ class ProjectController {
       .catch(next)
   }
   static addTodo (req, res, next) {
-    const { name, description, due_date } = req.body,
+    const { name, description } = req.body,
       id = req.params.id
+    let due_date = Number(req.body.due_date)
     Project.findById( id )
       .then(project => {
         if(!project) {
@@ -64,7 +65,6 @@ class ProjectController {
     const id = req.params.id
     Project.deleteOne({ id })
       .then(result => {
-        console.log(result)
         res.send(result)
       })
       .catch(next)

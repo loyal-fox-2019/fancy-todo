@@ -10,6 +10,6 @@ const router = require('express').Router(),
   router.use(authenticate)
   router.use('/users', userRoutes)
   router.use('/todos', todoRoutes)
-  router.use('/projects', authorize, projectRoutes)
+  router.use('/projects', projectRoutes)
 
 module.exports = router

@@ -1,7 +1,8 @@
 const User = require('../models/user'),
   { compare } = require('../helpers/bcrypt'),
   { generateToken } = require('../helpers/jwt'),
-  Todo = require('../models/todo')
+  Todo = require('../models/todo'),
+  Project = require('../models/project')
 
 class UserController {
   static all (req, res, next) {
@@ -41,6 +42,14 @@ class UserController {
     Todo.find({user: id})
       .then(todos => {
         res.send(todos)
+      })
+      .catch(next)
+  }
+  static getProject (req, res, next) {
+    const id = req.user._id
+    Project.find({$or: [{members: id}, {author: id}]})
+      .then(projects => {
+        res.send(projects)
       })
       .catch(next)
   }

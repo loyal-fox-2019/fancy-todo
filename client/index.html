@@ -23,182 +23,445 @@
     <title>Fancy Todo</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-      <a class="navbar-brand mr-auto" href="#">
-        <img src="https://image.flaticon.com/icons/png/512/46/46715.png" width="30" height="30" class="d-inline-block align-top" alt="">
-         Fancy Todo
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link btn btn-success mx-3 px-2" href="add-task.html">Add New Taks</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link btn btn-success mx-3 px-2" href="login.html">Sign Up</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link btn btn-success mx-3 px-2" href="#">Logout</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <div class="container main-container">
-      <div class="row">
-        <div class="col-md-12">
-          <section class="card tasks-widget">
-            <div class="card-body">
-              <div class="task-content">
-                <ul class="task-list">
-                  <li>
-                    <div class="task-title">
-                      <div class="row">
-                        <div class="col-md-1">
-                          <div class="task-checkbox text-center">
-                            <span class="h2">1</span>
-                          </div>
-                        </div>
-                        <div class="col-md-8">
-                          <div>
-                            <span class="h4">Flatlab is Modern Dashboard</span>
-                          </div>
-                          <div>
-                            <span class="badge badge-sm badge-success"
-                              >2 Days</span
-                            >
-                            <span class="badge badge-sm badge-success"
-                              >Urgent</span
-                            >
-                            <span class="badge badge-sm badge-success"
-                              >delayed</span
-                            >
-                          </div>
-                          <div>
-                            <p>description about the task bla bla bla</p>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div class="hidden-phone text-center p-1">
-                            <button class="btn btn-success btn-sm">
-                              <i class=" fa fa-check"></i> Done
-                            </button>
-                          </div>
-                          <div class="hidden-phone text-center p-1">
-                            <button class="btn btn-primary btn-sm">
-                              <i class="fa fa-pencil"></i> Edit
-                            </button>
-                          </div>
-                          <div class="hidden-phone text-center p-1">
-                            <button class="btn btn-danger btn-sm">
-                              <i class="fa fa-trash-o "></i> Delete
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="task-title">
-                      <div class="row">
-                        <div class="col-md-1">
-                          <div class="task-checkbox text-center">
-                            <span class="h2">1</span>
-                          </div>
-                        </div>
-                        <div class="col-md-8">
-                          <div>
-                            <span class="h4">Flatlab is Modern Dashboard</span>
-                          </div>
-                          <div>
-                            <span class="badge badge-sm badge-success"
-                              >2 Days</span
-                            >
-                            <span class="badge badge-sm badge-success"
-                              >Urgent</span
-                            >
-                            <span class="badge badge-sm badge-success"
-                              >delayed</span
-                            >
-                          </div>
-                          <div>
-                            <p>description about the task bla bla bla</p>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div class="hidden-phone text-center p-1">
-                            <button class="btn btn-success btn-sm">
-                              <i class=" fa fa-check"></i> Done
-                            </button>
-                          </div>
-                          <div class="hidden-phone text-center p-1">
-                            <button class="btn btn-primary btn-sm">
-                              <i class="fa fa-pencil"></i> Edit
-                            </button>
-                          </div>
-                          <div class="hidden-phone text-center p-1">
-                            <button class="btn btn-danger btn-sm">
-                              <i class="fa fa-trash-o "></i> Delete
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="task-title">
-                      <div class="row">
-                        <div class="col-md-1">
-                          <div class="task-checkbox text-center">
-                            <span class="h2">1</span>
-                          </div>
-                        </div>
-                        <div class="col-md-8">
-                          <div>
-                            <span class="h4">Flatlab is Modern Dashboard</span>
-                          </div>
-                          <div>
-                            <span class="badge badge-sm badge-success"
-                              >2 Days</span
-                            >
-                            <span class="badge badge-sm badge-success"
-                              >Urgent</span
-                            >
-                            <span class="badge badge-sm badge-success"
-                              >delayed</span
-                            >
-                          </div>
-                          <div>
-                            <p>description about the task bla bla bla</p>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div class="hidden-phone text-center p-1">
-                            <button class="btn btn-success btn-sm">
-                              <i class=" fa fa-check"></i> Done
-                            </button>
-                          </div>
-                          <div class="hidden-phone text-center p-1">
-                            <button class="btn btn-primary btn-sm">
-                              <i class="fa fa-pencil"></i> Edit
-                            </button>
-                          </div>
-                          <div class="hidden-phone text-center p-1">
-                            <button class="btn btn-danger btn-sm">
-                              <i class="fa fa-trash-o "></i> Delete
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+    <div class="login-body" id="login-page">
+      <div class="container">
+        <form class="form-signin" action="#">
+          <h2 class="form-signin-heading">sign in now</h2>
+          <div class="login-wrap">
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Email"
+              autofocus=""
+              required
+              id="login-email"
+            />
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              required
+              id="login-password"
+            />
+            <button class="btn btn-lg btn-login btn-block" type="submit">
+              Sign in
+            </button>
+            <p>or you can sign in via oAuth</p>
+            <div class="text-center">
+              <a href="#" class="btn btn-primary">
+                <i class="fa fa-facebook"></i>
+                Facebook
+              </a>
+              <a href="#" class="btn btn-primary">
+                <i class="fa fa-twitter"></i>
+                Twitter
+              </a>
             </div>
-          </section>
+            <div class="registration">
+              Don't have an account yet?
+              <a class="" href="register" id="link-register">
+                Create an account
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="login-body" id="register-page">
+      <div class="container">
+        <form class="form-signin" action="">
+          <h2 class="form-signin-heading">register now</h2>
+          <div class="login-wrap">
+            <p>Enter your account details below</p>
+            <input
+              type="email"
+              id="register-email"
+              class="form-control"
+              placeholder="Email"
+              autofocus=""
+              required
+            />
+            <input
+              id="register-password"
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              required
+            />
+            <input
+              type="password"
+              id="retype-password"
+              class="form-control"
+              placeholder="Re-type Password"
+              required
+            />
+            <label class="checkbox">
+              <input type="checkbox" value=true id="agree" /> I agree to
+              the Terms of Service and Privacy Policy
+            </label>
+            <button class="btn btn-lg btn-login btn-block" type="submit">
+              Submit
+            </button>
+
+            <div class="registration">
+              Already Registered.
+              <a class="" href="login" id="link-login">
+                Login
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="main-page">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand mr-auto" href="#">
+          <img
+            src="https://image.flaticon.com/icons/png/512/46/46715.png"
+            width="30"
+            height="30"
+            class="d-inline-block align-top"
+            alt=""
+          />
+          Fancy Todo
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link btn btn-sm btn-success mx-3 px-2" id="btn-add-task" href="add-task"
+                >Add New Taks</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link btn btn-sm btn-success mx-3 px-2" id="btn-add-project" href="add-task"
+                >Add Project</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link btn btn-sm btn-success mx-3 px-2" id="btn-logout" href="logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="container main-container">
+        <div class="row">
+          <div class="col-md-12">
+            <section class="card tasks-widget">
+              <div class="card-body">
+                <div class="task-content">
+                  <ul class="task-list" id="todo-list">
+                    <li>
+                      <div class="task-title">
+                        <div class="row">
+                          <div class="col-md-1">
+                            <div class="task-checkbox text-center">
+                              <span class="h2"><i class="fa fa-bookmark"></i></span>
+                            </div>
+                          </div>
+                          <div class="col-md-8">
+                            <div>
+                              <span class="h4"
+                                >Flatlab is Modern Dashboard</span
+                              >
+                            </div>
+                            <div>
+                              <span class="badge badge-sm badge-success"
+                                >2 Days</span
+                              >
+                              <span class="badge badge-sm badge-success"
+                                >Urgent</span
+                              >
+                              <span class="badge badge-sm badge-success"
+                                >delayed</span
+                              >
+                            </div>
+                            <div>
+                              <p>description about the task bla bla bla</p>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="hidden-phone text-center p-1">
+                              <button class="btn btn-success btn-sm">
+                                <i class=" fa fa-check"></i> Done
+                              </button>
+                            </div>
+                            <div class="hidden-phone text-center p-1">
+                              <button class="btn btn-primary btn-sm">
+                                <i class="fa fa-pencil"></i> Edit
+                              </button>
+                            </div>
+                            <div class="hidden-phone text-center p-1">
+                              <button class="btn btn-danger btn-sm">
+                                <i class="fa fa-trash-o "></i> Delete
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+            <section class="card tasks-widget p-4">
+              <h3>Projects: </h3>
+              <div id="project-list">
+                <div class="card-body p-4 my-3">
+                  <h5>Judul Project</h5>
+                  <button class="btn btn-success btn-sm">
+                    Go To Project
+                  </button>
+                  <button class="btn btn-danger btn-sm">
+                    <i class="fa fa-trash-o "></i> Delete Project
+                  </button>
+                </div>
+                <div class="card-body p-4 my-3">
+                  <h5>Judul Project 2</h5>
+                  <button class="btn btn-success btn-sm">
+                    Go To Project
+                  </button>
+                  <button class="btn btn-danger btn-sm">
+                    <i class="fa fa-trash-o "></i> Delete Project
+                  </button>
+                </div>
+                
+              </div>
+            </section>
+          </div>
         </div>
       </div>
     </div>
+    <div id="main-project-page">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand mr-auto" href="#">
+          <img
+            src="https://image.flaticon.com/icons/png/512/46/46715.png"
+            width="30"
+            height="30"
+            class="d-inline-block align-top"
+            alt=""
+          />
+          Fancy Project
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item" id="nav-item-1">
+              <a class="nav-link btn btn-sm btn-success mx-3 px-2" id="btn-add-project-task" href="add-task"
+                >Add New Taks</a
+              >
+            </li>
+            <li class="nav-item" id="nav-item-2">
+              <a class="nav-link btn btn-sm btn-success mx-3 px-2" id="btn-add-member" href="add-task"
+                >Add Member</a
+              >
+            </li>
+            <li class="nav-item" id="nav-item-3">
+              <a class="nav-link btn btn-sm btn-success mx-3 px-2" id="btn-back" href="#">Back</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="container main-container">
+        <div class="row">
+          <div class="col-md-12">
+            <section class="card tasks-widget">
+              <div class="card-body">
+                <div class="task-content">
+                  <ul class="task-list" id="project-todo-list">
+                    <li>
+                      <div class="task-title">
+                        <div class="row">
+                          <div class="col-md-1">
+                            <div class="task-checkbox text-center">
+                              <span class="h2"><i class="fa fa-bookmark"></i></span>
+                            </div>
+                          </div>
+                          <div class="col-md-8">
+                            <div>
+                              <span class="h4"
+                                >Flatlab is Modern Dashboard</span
+                              >
+                            </div>
+                            <div>
+                              <span class="badge badge-sm badge-success"
+                                >2 Days</span
+                              >
+                              <span class="badge badge-sm badge-success"
+                                >Urgent</span
+                              >
+                              <span class="badge badge-sm badge-success"
+                                >delayed</span
+                              >
+                            </div>
+                            <div>
+                              <p>description about the task bla bla bla</p>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="hidden-phone text-center p-1">
+                              <button class="btn btn-success btn-sm">
+                                <i class=" fa fa-check"></i> Done
+                              </button>
+                            </div>
+                            <div class="hidden-phone text-center p-1">
+                              <button class="btn btn-primary btn-sm">
+                                <i class="fa fa-pencil"></i> Edit
+                              </button>
+                            </div>
+                            <div class="hidden-phone text-center p-1">
+                              <button class="btn btn-danger btn-sm">
+                                <i class="fa fa-trash-o "></i> Delete
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="login-body" id="add-task-page">
+      <div class="container">
+        <form class="form-signin" action="#">
+          <h2 class="form-signin-heading">Add task</h2>
+          <div class="login-wrap">
+            <input
+              id="add-task-name"
+              type="text"
+              class="form-control"
+              placeholder="Task name"
+              autofocus=""
+              required
+            />
+            <input
+              id="add-task-due"
+              type="number"
+              class="form-control"
+              placeholder="Task Due (days)"
+              autofocus=""
+            />
+            <!-- <input
+              type="text"
+              class="form-control"
+              placeholder="tags separated by space"
+              autofocus=""
+            /> -->
+            <textarea name="task-description" id="add-task-description" class="my-3" rows="5" placeholder="Task description"></textarea>
+            <button class="btn btn-lg btn-login btn-block" type="submit">
+              Add Task
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="login-body" id="add-project-task-page">
+      <div class="container">
+        <div class="form-signin" action="#">
+          <h2 class="form-signin-heading">Add task</h2>
+          <div class="login-wrap">
+            <input
+              id="add-project-task-name"
+              type="text"
+              class="form-control"
+              placeholder="Task name"
+              autofocus=""
+              required
+            />
+            <input
+              id="add-project-task-due"
+              type="number"
+              class="form-control"
+              placeholder="Task Due (days)"
+              autofocus=""
+            />
+            <!-- <input
+              type="text"
+              class="form-control"
+              placeholder="tags separated by space"
+              autofocus=""
+            /> -->
+            <textarea name="task-description" id="add-project-task-description" class="my-3" rows="5" placeholder="Task description"></textarea>
+            <div id="add-project-task-button">
+              <button class="btn btn-lg btn-login btn-block">
+                Add Task
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="login-body" id="add-project-page">
+      <div class="container">
+        <form class="form-signin" action="#">
+          <h2 class="form-signin-heading">New Project</h2>
+          <div class="login-wrap">
+            <input
+              id="add-project-name"
+              type="text"
+              class="form-control"
+              placeholder="Project name"
+              autofocus=""
+              required
+            />
+            <h5>Members:</h5>
+            <div class="p-2" id="list-user">
+            </div>
+            <button class="btn btn-lg btn-login btn-block mt-2" type="submit">
+              Add Project
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="./js/main.js"></script>
   </body>
 </html>

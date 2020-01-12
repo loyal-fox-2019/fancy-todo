@@ -26,19 +26,14 @@ function authorize(req, res, next) {
         if(!todo) {
           next({status: 404, message: 'id not found'})
         } else if(todo.user == req.user._id){
-          console.log('AYOO NEXT');
           next()
         } else {
-          Project.findOne({ id: todo.project })
+          Project.find({$or: [{members: req.user._id}, {author: req.user._id}]})
             .then(project => {
               if(!project) {
                 next({status: 401, message: 'Authorization failed'})
-              } else if(project.author == req.user._id){
-                next()
-              } else if(project.members.includes(req.user._id)){
-                next()
               } else {
-                next({status: 401, message: 'Authorization failed'})
+                next()
               }
             })
         }
