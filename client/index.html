@@ -88,7 +88,7 @@
                         <div id="title">
                             <h2 class="center amber-text darken-2-text">Todo List</h2>
                             <h4 class="center amber-text darken-2-text">Fancy!</h4>
-                            <h6 class="right amber-text darken-2-text"><a href="#" id="logout">Logout</a></h6>
+                            <h6 class="right amber-text darken-2-text"><a href="#" onclick="signOut();">Sign out</a></h6>
                         </div>
                         <div id="input">
                             <div class="row">
@@ -109,7 +109,8 @@
                                             <input type="text" id="due_date" class="datepicker" required>
                                             <label for="due_date">Due Date</label>
                                         </div>
-                                        <button class="btn waves-effect waves-light col s12 amber darken-2" type="submit" id="add-todo">Add</button>
+                                        <button class="btn waves-effect waves-light col s12 amber darken-2" type="submit" id="add-todo">Add</button><br>
+                                        <a class="btn waves-effect waves-light col s12 amber darken-2 modal-trigger" style="margin-top: 10px;" href="#modal-football">Football Schedule</a>
                                     </div>
                                 </form>
                             </div>
@@ -128,9 +129,22 @@
                 <div class="col lg3 m2 s2"></div>
             </div>
         </div>
+
+        <!-- MODAL FOOTBALL SCHEDULE -->
+        <div id="modal-footbal" class="modal Football">
+            <div class="modal-content">
+              <h4>Modal Header</h4>
+              <p>A bunch of text</p>
+            </div>
+            <div class="modal-footer">
+              <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+        </div>
+
       <!--JavaScript at end of body for optimized loading-->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="js/materialize.min.js"></script>
+        <script src="js/script.js"></script>
         <script>
             function onSignIn(googleUser) {
                 var id_token = googleUser.getAuthResponse().id_token
@@ -151,6 +165,21 @@
                     }
                 })
             }
+
+            function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                console.log('User signed out.');
+                })
+                localStorage.removeItem('token')
+                localStorage.removeItem('id')
+                $('#todo-list').html('')
+                $('#email').val('')
+                $('#password').val('')
+                $('#login-page').show()
+                $('#main-page').hide()
+            }
+
             function showAll(id){
                 console.log(id)
                 $.ajax({
@@ -213,14 +242,6 @@
                     }
                 })
             }
-
-            $(document).ready(function(){
-                $('.sidenav').sidenav()
-                $(".datepicker").datepicker({
-                    showClearBtn: true
-                })
-                $('.modal').modal()
-            });
         </script>
     </body>
   </html>

@@ -1,4 +1,11 @@
 $(document).ready(function(){
+    $('.sidenav').sidenav()
+    $(".datepicker").datepicker({
+        showClearBtn: true
+    })
+    $('.modal').modal()
+    $('.football').modal()
+
     // hide halaman todo
     if(localStorage.getItem("token") === null){
         $('#login-page').show()
@@ -27,6 +34,7 @@ $(document).ready(function(){
     })
 
     $(document).on('click', '#login-btn', function(event){
+        console.log('masuk')
         $.ajax({
             url: 'http://localhost:3000/user/login',
             type: 'post',
@@ -51,27 +59,6 @@ $(document).ready(function(){
     $(document).on('click', '#google-sign', function(event){
         console.log(localStorage.getItem('id'))
         refresh(localStorage.getItem('id'))
-        event.preventDefault()
-    })
-
-    function logOut(){
-        localStorage.removeItem('token')
-        localStorage.removeItem('id')
-        $('#todo-list').html('')
-        $('#email').val('')
-        $('#password').val('')
-        $('#login-page').show()
-        $('#main-page').hide()
-    }
-
-    $(document).on('click', '#logout', function(event){
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut()
-            .then(function () {
-                logOut()
-                console.log('User signed out.');
-            });
-        
         event.preventDefault()
     })
 

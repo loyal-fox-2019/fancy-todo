@@ -88,7 +88,6 @@ class UserController{
                             name: data.name,
                             email: data.email
                         }, process.env.JWT_SECRET)
-                        req.headers.token = token
                         res.status(200).json({
                             message: 'Login Success',
                             token: token,
