@@ -13,7 +13,6 @@ module.exports = {
       console.log(access_token)
       User.findById(payload.id)
         .then(user => {
-          console.log(user, '<<<')
           if (user) {
             req.decoded = payload
             next()

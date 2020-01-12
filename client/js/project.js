@@ -21,20 +21,19 @@ function showProjects(projects) {
   $("#project-list").empty()
   $('#project-list').append( 
     `<tr class="border-b">
-      <th class="w-3/5 text-left p-3 px-5">Project Name</th>
+      <th class="w-4/5 text-left p-3 px-5">Project Name</th>
       <th class="w-1/5 text-center p-3 px-5">Action</th>
     </tr>
     `
   )
   for (let project of projects) {
-    console.log(project, 'ooo')
     $("#project-list").append(
       `
       <tr class="border-t hover:bg-orange-100 bg-gray-100">
         <td class="p-3 px-4">${project.name}</td>
         <td class="p-3 px-4 text-center flex flex-col lg:flex-row justify-center">
           <button id="invite-${project._id}" onclick="openInvite('${project._id}')" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-green-500 hover:bg-green-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Invite</button>
-          <button id="details-${project._id}" onclick="openProjectDetails('${project._id}', '${project.name}', '${project.owner}')" type="button" class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Open</button>
+          <button id="details-${project._id}" onclick="openProjectDetails('${project._id}', '${project.name}', '${project.owner._id}')" type="button" class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Open</button>
         </td>
       </tr>
 
@@ -65,13 +64,9 @@ function showProjects(projects) {
       </tr>
       `
     )
-    // if (project.owner._id === localStorage.getItem('id'))
-    // if (project.owner._id !== localStorage.getItem('id')) {
-    //   // $(`#invite-${project._id}`).hide()
-    //   $(`#project-status-${project._id}`).append('Member')
-    // } else {
-    //   $(`#project-status-${project._id}`).append('Owner')
-    // }
+    if (project.owner._id !== localStorage.getItem('userId')) {
+      $(`#invite-${project._id}`).hide()
+    }
   }
 }
 
@@ -88,6 +83,8 @@ function createProject(e) {
   })
   .done(project => {
     $('#project-form').trigger("reset");
+    $('.all').hide()
+    $('#my-projects').show()
     fetchProjects()
   })
   .fail(err => {
@@ -96,7 +93,6 @@ function createProject(e) {
 }
 
 function openInvite(projectId) {
-  
   $(`#invite-form-${projectId}`).show()
 }
 
@@ -262,8 +258,8 @@ function fetchTodosProject(projectId, projectName, ownerId) {
           $(`#name-${todo._id}-p`).addClass('line-through')
         }
       }
-      $('#del-project').empty()
-      if (ownerId === localStorage.getItem('id')) {
+      if (ownerId === localStorage.getItem('userId')) {
+        $('#del-project').empty()
         $('#del-project').append(
           `
           <a
@@ -280,7 +276,7 @@ function fetchTodosProject(projectId, projectName, ownerId) {
           >
             Delete
           </a>
-          <form id="edit-project-form" onsubmit="changeProjectName(event, '${projectId}')" class="hidden shadow-md px-8 pt-6 pb-8 mb-4 bg-white rounded-lg">
+          <form id="edit-project-form" onsubmit="changeProjectName(event, '${projectId}', '${ownerId}')" class="hidden shadow-md px-8 pt-6 pb-8 mb-4 bg-white rounded-lg">
             <div class="mb-4">
               <label class="block mb-2 text-sm font-bold text-gray-700" for="name-post">
                 Change Project Name
@@ -356,6 +352,8 @@ function deleteProject(e, projectId) {
         headers: { access_token: localStorage.getItem('access_token') }
       })
       .done(result => {
+        $('.all').hide()
+        $('#my-projects').show()
         fetchProjects()
       })
       .fail(err =>  {
@@ -365,7 +363,7 @@ function deleteProject(e, projectId) {
   })
 }
 
-function changeProjectName(e, projectId) {
+function changeProjectName(e, projectId, ownerId) {
   e.preventDefault()
   $.ajax({
     method: 'patch',
@@ -376,7 +374,7 @@ function changeProjectName(e, projectId) {
     headers: { access_token: localStorage.getItem('access_token') }
   })
     .done(response => {
-      openProjectDetails(response._id, response.name)
+      openProjectDetails(response._id, response.name, ownerId)
     })
     .fail(err => {
       console.log(err)
@@ -400,8 +398,7 @@ function fetchProjectMembers(projectId, projectName) {
     url: `${baseUrl}/projects/${projectId}`,
     headers: { access_token: localStorage.getItem('access_token') }
   })
-    .done(response => { 
-      console.log(response, '<<<')
+    .done(response => {
       let { members, pendingMembers }= response
       $('#member-list').empty()
       $('#member-list').append(
@@ -474,7 +471,7 @@ function kickMember(kind, email, projectId, projectName) {
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, cancel the invitation!'
+    confirmButtonText: 'Yes, kick the member!'
   }).then((result) => {
     if (result.value) {
       $.ajax({
@@ -490,7 +487,10 @@ function kickMember(kind, email, projectId, projectName) {
         fetchProjectMembers(projectId, projectName)
       })
       .fail(err =>  {
-        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          text: err.responseJSON.errors.message
+        })
       })
     }
   })
@@ -656,8 +656,7 @@ function fetchInvitations(projectId, projectName) {
     url: `${baseUrl}/user/invitations`,
     headers: { access_token: localStorage.getItem('access_token') }
   })
-    .done(projects => { 
-      console.log(projects, '<<<')
+    .done(projects => {
       $('#invitation-list').empty()
       $('#invitation-list').append(
         `
@@ -698,6 +697,8 @@ function acceptInv(projectId) {
     headers: { access_token: localStorage.getItem('access_token') }
   })
     .done(response => {
+      $('.all').hide()
+      $('#my-projects').show()
       Swal.fire({
         icon: 'success',
         text: response.message
@@ -707,6 +708,29 @@ function acceptInv(projectId) {
       Swal.fire({
         icon: 'errors',
         text: err.responseJSON.errors.message
+      })
+    })
+}
+
+function rejectInv(projectId) {
+  $.ajax({
+    method: 'patch',
+    url: `${baseUrl}/projects/${projectId}/rejectInvitation`,
+    headers: { access_token: localStorage.getItem('access_token') }
+  })
+    .done(response => {
+      $('.all').hide()
+      $('#my-projects').show()
+      Swal.fire({
+        icon: 'success',
+        text: response.message
+      })
+    })
+    .fail(err => {
+      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        text: err
       })
     })
 }

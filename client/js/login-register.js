@@ -21,8 +21,8 @@ function login(e) {
     }
   })
     .done(user => {
-      console.log(user, 'oooooo')
       localStorage.setItem('access_token', user.access_token)
+      localStorage.setItem('userId', user.userId)
       $('.all').hide()
       $('#the-navbar').show()
       $('#big-buttons').show()
@@ -30,7 +30,7 @@ function login(e) {
     .fail(err => {
       const errMsg = err.responseJSON.errors.message
       Swal.fire({
-        icon: 'err',
+        icon: 'error',
         text: errMsg
       })
     })
@@ -49,7 +49,7 @@ function logout() {
       if(gapi.auth2) {
         let auth2 = gapi.auth2.getAuthInstance()
         auth2.signOut().then(function () {
-          localStorage.removeItem('access_token')
+          localStorage.clear()
           toLogin()
         });
       }
@@ -64,7 +64,6 @@ function onSignIn(googleUser) {
     url: `${baseUrl}/user/login/google`,
     data: { id_token }
   }).done(user => {
-      console.log(user.access_token, '<<<<')
       localStorage.setItem('access_token', user.access_token);
       $('.all').hide()
       $('#the-navbar').show()

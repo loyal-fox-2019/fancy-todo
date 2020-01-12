@@ -37,7 +37,7 @@ class UserController {
         payload.email = user.email
         payload.username = user.username
         access_token = generateToken(payload)
-        res.status(200).json({ access_token: `token ${access_token}` })
+        res.status(200).json({ access_token: `token ${access_token}`, email: user.email, userId: user._id })
       } else {
         next({ statusCode: 400, message: 'Invalid email/password'})
       }

@@ -36,7 +36,7 @@ class ProjectController {
       .populate('todos')
       .populate('owner')
       .then(projects => {
-        console.log(projects, req.decoded.id, '<<<<')
+        console.log(projects, req.decoded.id, '')
         res.status(200).json(projects)
       })
       .catch(next)
@@ -105,7 +105,6 @@ class ProjectController {
         return nodemailer(email, inviter, req.params.projectId)
       })
       .then(response => {
-        console.log(response, '<<<<<<<<<<<<')
         res.status(200).json({
           message: `Invitation sent to: ${response.envelope.to[0]}`
         })
@@ -140,6 +139,7 @@ class ProjectController {
       $pull: { pendingMembers: req.decoded.id }
     })
       .then(project => {
+        console.log(project, '!@#$%^&*()(*&^%$#@!@#$%^&*')
         res.status(200).json({
           message: 'You have rejected the invitation'
         })

@@ -12,7 +12,6 @@ class TodoController {
     }
     
     static showTodos(req, res, next) {
-      console.log(req.decoded.id, 'TTTTTT')
       Todo.find({ user_id: req.decoded.id })
         .then(todos => {
           res.status(200).json(todos);

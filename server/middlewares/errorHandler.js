@@ -1,5 +1,4 @@
 module.exports = (err, req, res, next) => {
-  console.log(err, '<<<')
   let statusCode, message
   const stringifiedError = JSON.stringify(err)
   if (err.name === 'JsonWebTokenError') {
