@@ -67,6 +67,81 @@ $(document).ready(function() {
         $('#form-signin').toggle();
         $('#form-signup').toggle();
     })
+
+    $('table.todos-list').on('click','.edit-todo',function() { 
+        //create event onclick for dynamically created links
+        console.log("clicked", this.id);
+        $.ajax({
+            url: `http://localhost:3000/api/todos/${this.id}`,
+            method: "GET",
+            headers: {
+                token: sessionStorage.getItem('token')
+            },
+            success: function(res) {
+                $('#edit-name').attr('value',res.name);
+                $('#edit-id').attr('value',res._id);
+                $('#edit-description').html(res.description);
+                $('#edit-status').attr('value',res.status || "");
+            },
+
+        })
+    })
+
+    $('table.todos-list').on('click','.delete-todo',function() { 
+        //create event onclick for dynamically created links
+        $.ajax({
+            url: `http://localhost:3000/api/todos/${this.id}`,
+            method: "DELETE",
+            headers: {
+                token: sessionStorage.getItem('token')
+            },
+            success: function(res) {
+                showTodosTable()
+            },
+
+        })
+    })
+
+    $('table.todos-list').on('click','.add-todo',function() { 
+        //create event onclick for dynamically created links
+        $.ajax({
+            url: "http://localhost:3000/api/todos",
+            method: "POST",
+            headers: {
+                token: sessionStorage.getItem('token')
+            },
+            data: {
+                name: $("#inputNewTodoName").val(),
+                description: $("#inputNewTodoDesc").val(),
+                due_date: $("#inputNewTodoDue").val()
+            },
+            success: function(res) {
+                showTodosTable()
+            }
+        })
+        
+    })
+
+    $('#submit-edit').click(function() { 
+        //create event onclick for dynamically created links
+        $.ajax({
+            url: `http://localhost:3000/api/todos/${$("#edit-id").val()}`,
+            method: "PUT",
+            headers: {
+                token: sessionStorage.getItem('token')
+            },
+            data: {
+                name: $("#edit-name").val(),
+                description: $("#edit-description").val(),
+                status: $("#edit-status").val(),
+                due_date: $("#edit-due").val()
+            },
+            success: function(res) {
+                showTodosTable()
+            }
+        })
+        
+    })
 })
 
 function showTodosTable()
@@ -77,7 +152,7 @@ function showTodosTable()
                     <th>Description</th>
                     <th>Status</th>
                     <th>Due date</th>
-                    <th>Action</th>
+                    <th>Actions</th>
                 </tr>`;
 
     $('table.todos-list').html(head);
@@ -97,11 +172,25 @@ function showTodosTable()
                         <td>${res[i].description}</td>
                         <td>${res[i].status || "Pending"}</td>
                         <td>${res[i].due_date || "-"}</td>
-                        <td><a class="btn btn-block edit-todo">Edit</a></td>
-                        <td><a class="btn btn-block delete-todo">Delete</a></td>
+                        <td><a class="btn btn-block edit-todo" id="${res[i]._id}" data-toggle="modal" data-target="#ModalEditForm">Edit</a></td>
+                        <td><a class="btn btn-block delete-todo" id="${res[i]._id}">Delete</a></td>
                     </tr>
                 `);
             }
+            
+            $('table.todos-list').append(`
+                <tr>
+                    <td></td>
+                    <td><input type="text" id="inputNewTodoName"></td>
+                    <td><textarea type="text" id="inputNewTodoDesc"></textarea></td>
+                    <td><input type="text" value="Pending" disabled></td>
+                    <td><input type="date" id="inputNewTodoDue"></td>
+                    <td><a class="btn btn-block add-todo">Add</a></td>
+                    <td></td>
+                </tr>
+            `);
         }
     })
+
+    
 }

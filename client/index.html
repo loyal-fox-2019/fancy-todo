@@ -13,6 +13,7 @@
     <title>Fancy Todo</title>
 </head>
 <body>
+    <!-- Sign in form -->
     <form class="form-signin" id="form-signin" style="display: none;">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
@@ -30,6 +31,7 @@
         </a>
     </form>
 
+    <!-- Sign up form -->
     <form class="form-signin" id="form-signup" style="display: none;">
         <h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
 
@@ -43,7 +45,10 @@
         </a>
     </form>
 
+    <!-- Home page -->
     <div class="home" style="display: none;">
+
+        <!-- Navigation bar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">Fancy Todo</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,6 +75,7 @@
             </div>
         </nav>        
 
+        <!-- Todo list, can add, edit, delete -->
         <div class="todos-list">
             <table class="todos-list table">
                 <tr>
@@ -82,11 +88,59 @@
                 </tr>
             </table>
         </div>
+
+        <div id="ModalEditForm" class="modal fade">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title">Edit</h1>
+                    </div>
+                    <div class="modal-body">
+                        <div role="form">
+                            <input type="hidden" id="edit-id">
+                            <div class="form-group">
+                                <label class="control-label">Name</label>
+                                <div>
+                                    <input type="text" class="form-control input-lg" id="edit-name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Description</label>
+                                <div>
+                                    <textarea type="text" class="form-control input-lg" id="edit-description"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Due date</label>
+                                <div>
+                                    <input type="date" class="form-control input-lg" id="edit-due">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Status</label>
+                                <div>
+                                    <input type="text" class="form-control input-lg" id="edit-status">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <button type="submit" class="btn btn-success" id="submit-edit"  data-dismiss="modal">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
     </div>
     
 
-    <!-- jQuery -->
+    <!-- jQuery, Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <!-- Other scripts -->
     <script src="main.js"></script>
 </body>
