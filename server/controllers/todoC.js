@@ -16,6 +16,13 @@ class Controller {
             })
             .catch(next);
     }
+
+    static showSingleTodo(req, res, next) {
+        Todo.findById({ _id: req.params.id, creator: req.decoded.id })
+            .then((todo) => {
+                res.status(200).json(todo)
+            }).catch(next);
+    }
     // checked
     static showProjectTodo(req, res, next) {
         Todo.find({ project: req.params.projectId })
@@ -25,15 +32,16 @@ class Controller {
             .catch(next);
     }
 
-    // static showTodoFromUserProject(req, res, next) {
-    //     Todo.find({ project: { $in: req.body.projectList } })
-    //         .populate('creator')
-    //         .populate('project')
-    //         .then((todos) => {
-    //             res.status(200).json(todos)
-    //         }).catch(next);
-    // }
-    // checked for user only
+    static showTodoFromUserProject(req, res, next) {
+        Todo.find({ project: { $in: req.body.projectList } })
+            .populate('creator')
+            .populate('project')
+            .then((todos) => {
+                res.status(200).json(todos)
+            }).catch(next);
+    }
+
+    // checked for user and project
     static create(req, res, next) {
         const { title, description, due_date } = req.body
         // console.log(req.decoded.id);
@@ -67,7 +75,7 @@ class Controller {
     static statusDone(req, res, next) {
         Todo.findByIdAndUpdate(req.params.id, {
             status: 'done'
-        }, { new: true })
+        }, { new: true, runValidators: true })
             .then((todo) => {
                 res.status(200).json(todo)
             })
@@ -80,7 +88,7 @@ class Controller {
             title: title,
             description: description,
             due_date: due_date
-        }, { new: true })
+        }, { new: true, runValidators: true })
             .then((todo) => {
                 res.status(200).json(todo)
             }).catch(next);

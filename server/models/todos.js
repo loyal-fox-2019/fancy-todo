@@ -19,7 +19,7 @@ const TodoSchema = new Schema({
     due_date: {
         type: Date,
         required: [true, 'There`s no todo without due date'],
-        // min: new Date()
+        min: new Date()
     },
     creator: {
         type: Schema.Types.ObjectId,

@@ -5,9 +5,14 @@ const Todo = require('../models/todos')
 
 function authentication(req, res, next) {
     try {
+        // console.log(req.headers.token);
         req.decoded = verify(req.headers.token)
         // console.log(req.decoded);
-        next()
+        User.findById(req.decoded.id)
+        .then((user) => {
+            if(!user) next({status: 403, msg: "Token Rejected"})
+            else next()
+        }).catch(next);
     } catch (error) {
         next(error)
     }
@@ -23,7 +28,16 @@ function authorization(req, res, next) {
     }).catch(next);
 }
 
+function stillOnProject(req,res,next) {
+    Project.findById(req.params.id)
+    .then((project) => {
+        if(project.members.includes(req.decoded.id)) next()
+        else next({status: 403, msg: "You're not the project's member"})
+    }).catch(next);
+}
+
 module.exports = {
     authentication,
-    authorization
+    authorization,
+    stillOnProject
 }

@@ -7,6 +7,10 @@ router.get('/all', ControllerTodo.seriouslyAllTodo)
 
 router.get('/', authentication, ControllerTodo.showAllTodos)
 
+router.get('/single/:id', authentication, ControllerTodo.showSingleTodo)
+
+router.get('/project', authentication, ControllerTodo.showTodoFromUserProject)
+
 router.get('/:projectId', authentication, ControllerTodo.showProjectTodo)
 
 // create

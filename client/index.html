@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-signin-client_id" content="86398874367-n5c7vtvso1ujvv831t7tahktq0101ni5.apps.googleusercontent.com">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- style css -->
+    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/login.css">
+    <link rel="icon" href="style/3775731-analysis-chart-pencil-planning-strategy_108990.ico">
+    <title>Fancy Todo by Patra Dayanand</title>
+</head>
+
+<body>
+
+    <div id="off-login">
+        <div>
+            <form id="user-login">
+                <h1>Login</h1>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="login-name" placeholder="Username or email">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="login-password" placeholder="Password">
+                </div>
+                <div style="display: flex; flex-direction: row;">
+                    <button type="submit" class="btn btn-primary" onsubmit.preventDefault="login()">Login</button>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                </div>
+            </form>
+        </div>
+        <div id="user-register">
+            <form>
+                <h1>Register</h1>
+                <div class="form-group">
+                    <label for="register-name">Username</label>
+                    <input type="text" class="form-control" id="register-name" placeholder="Exp: Tray">
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email address</label>
+                    <input type="email" class="form-control" id="register-email" placeholder="Exp: tray@mail.com">
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" class="form-control" id="register-password" placeholder="No exp here">
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+    <!-- pagar -->
+    <div id="on-login">
+        <div id="the-todo">
+            <div id="my-todos-div">
+                <div style="display: flex; justify-content: space-between; width: 80%;">
+                    <button class="btn btn-success" data-toggle="modal" data-target="#user-create-modal">Create</button>
+                    <h2 class="text-warning owner">My Todo</h2>
+                    <button class="btn btn-outline-warning" onclick="showMyProjectTodo()" id="to-project">To Project
+                        Todo</button>
+                </div>
+                <div class="my-todos-list">
+                    <div id="for-user">
+
+                    </div>
+                </div>
+            </div>
+            <div id="project-todos-list">
+                <div style="display: flex; justify-content: space-between; width: 80%;">
+                    <h2 class="text-warning">Project Todo </h2>
+                    <button class="btn btn-outline-warning" onclick="showMyTodo()" id="to-todos">To My Todo</button>
+                </div>
+                <div class="my-todos-list">
+                </div>
+                <div id="for-user-project">
+
+                </div>
+            </div>
+        </div>
+        <!-- project page -->
+        <div id="the-project" class="the-project">
+            <div class="project-title" style="display: flex; justify-content: space-between; width: 80%;">
+                <button class="btn btn-success" id="create-di-project" data-toggle="modal"
+                    data-target="#project-create-modal">Create</button>
+                <h1></h1>
+                <span></span>
+            </div>
+            <div class="member-list">
+
+            </div>
+            <div class="todos-in-project">
+                <div id="for-project">
+
+                </div>
+            </div>
+        </div>
+        <!-- side bar -->
+        <div id="menus">
+            <div style="display: flex; justify-content: flex-start; flex-flow: row nowrap;">
+                <button class="btn btn-outline-danger" onclick="backHome()">Home</button>
+                <button class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Create
+                    Project</button>
+                <button class="btn btn-outline-danger" onclick="logout()">Logout</button>
+            </div>
+            <div id="for-invitation"></div>
+            <h1>Project</h1>
+            <div id="project-list-here"></div>
+        </div>
+    </div>
+
+    <!-- modal -->
+    <!-- Button trigger modal -->
+    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#user-create-modal">
+    Launch demo modal
+  </button> -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="user-create-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create todo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="creating-todo">
+                        <div class="form-group">
+                            <label for="title">Todo Title</label>
+                            <input type="text" class="form-control" id="create-title" maxlength="25">
+                        </div>
+                        <div class="form-group">
+                            <label for="due-date">Due Date</label>
+                            <input type="date" class="form-control" id="create-due-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" class="form-control" id="create-description">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="project-create-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create todo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="creating-project-todo">
+                        <div class="form-group">
+                            <label for="title">Todo Title</label>
+                            <input type="text" class="form-control" id="project-create-title" maxlength="25">
+                        </div>
+                        <div class="form-group">
+                            <label for="due-date">Due Date</label>
+                            <input type="date" class="form-control" id="project-create-due-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" class="form-control" id="project-create-description">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- for edit -->
+    <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create todo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-todo">
+                        <div class="form-group">
+                            <label for="title">Todo Title</label>
+                            <input type="text" class="form-control" id="edit-title" maxlength="25">
+                        </div>
+                        <small class="small-id"></small>
+                        <div class="form-group">
+                            <label for="due-date">Due Date</label>
+                            <input type="date" class="form-control" id="edit-due-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" class="form-control" id="edit-description">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end edit -->
+    <!-- for project name -->
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Project Name</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="project-name-input">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="createProject()">Create Project</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- bootstrap js -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!-- javascript -->
+    <script src="script/user.js"></script>
+    <script src="script/main.js"></script>
+    <script src="script/project.js"></script>
+    <script src="script/todo.js"></script>
+</body>
+
+</html>

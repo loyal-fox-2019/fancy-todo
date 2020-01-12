@@ -1,0 +1,25 @@
+#off-login {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    background: rgb(164,17,17);
+    background: linear-gradient(151deg, rgba(164,17,17,1) 30%, rgba(73,191,198,1) 60%); 
+}
+
+form {
+    border: 1px solid gray;
+    width: 30vw;
+    padding: 10px;
+}
+
+#user-login, #user-register {
+    height: 373px;
+    background-color: rgba(240, 255, 240, 0.493);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
