@@ -188,7 +188,7 @@
           </a>
         </div>      
   
-        <div class="mx-2 sm:mx-4 mt-8 flex justify-center">
+        <div onclick="toMyProjects(event)" class="mx-2 sm:mx-4 mt-8 flex justify-center">
           <a href="https://tailwindtemplates.io/buttons/" class="w-32 h-32 sm:w-48 sm:h-48 shadow-lg rounded-lg flex items-center justify-center no-underline button-gradient"
             style="background-image: linear-gradient(to bottom, #6ed624 0%, #319e2c 51%, #6ed624 100%);background-size: auto 200%;">
             <div>
@@ -204,24 +204,7 @@
             </div>
           </a>
         </div>
-  
-        <div class="mx-2 sm:mx-4 mt-8 flex justify-center">
-          <a href="https://tailwindtemplates.io/cards/" class="w-32 h-32 sm:w-48 sm:h-48 shadow-lg rounded-lg flex items-center justify-center no-underline button-gradient" 
-            style="background-image: linear-gradient(to bottom, #dd5a5a 0%, #dd0f0f 51%, #dd5a5a 100%);background-size: auto 200%">
-            <div>
-              <div class="flex justify-center">
-                <i class="material-icons text-white p-2 sm:p-4 text-xl sm:text-2xl rounded-full" style="background-color: #962222">dashboard</i>
-              </div>
-  
-              <div class="flex justify-center mt-4">
-                <div class="text-center text-white">
-                  <h4>Create New Task</h4>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-  
+    
         <div class="mx-2 sm:mx-4 mt-8 flex justify-center">
           <a href="https://tailwindtemplates.io/forms/" class="w-32 h-32 sm:w-48 sm:h-48 shadow-lg rounded-lg flex items-center justify-center no-underline button-gradient"
             style="background-image: linear-gradient(to bottom, #9e44e2 0%, #6200c4 51%, #9e44e2 100%);background-size: auto 200%;">
@@ -403,7 +386,7 @@
     <!-- End of Projects -->
 
     <!-- Todos Project-->
-    <div class="all container mx-auto">
+    <div id="todos-project" class="all container mx-auto">
       <div class="flex justify-center px-6 my-12">
         <div class="flex">
           <div id="col-todos-project" class="bg-white p-5 rounded-lg">
@@ -415,7 +398,7 @@
     <!-- End of Todos Project -->
 
     <!-- Project Members -->
-    <div class="all relative container mx-auto">
+    <div id="project-members" class="all relative container mx-auto">
       <div class="flex justify-center px-6 my-12">
         <!-- Row -->
         <div class="w-full xl:w-3/4 lg:w-11/12 flex">
@@ -427,6 +410,27 @@
       </div>
     </div>
     <!-- End of Project Members -->
+
+    <!-- Create New Project Task -->
+    <div id="new-project-task" class="all container mx-auto">
+      <div class="flex justify-center px-6 my-12">
+        <!-- Row -->
+        <div class="w-full xl:w-3/4 lg:w-11/12 flex">
+          <!-- Col -->
+          <div class="w-full bg-white p-5 rounded-lg">
+            <h3 class="pt-4 text-2xl text-center">Create New Project Task</h3>
+            <div id="err-new-task-p" class="px-8 pt-4 bg-white rounded">
+
+            </div>
+            <div id="project-form-box">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of 'Create New Project Task' -->
+
 
   <!-- End of Main Page -->
 

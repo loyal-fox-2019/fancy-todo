@@ -19,10 +19,10 @@ function showTodos(todos) {
   $("#todo-list").empty()
   $('#todo-list').append( 
     `<tr class="border-b">
-      <th class="w-2/5 text-left p-3 px-5">Task</th>
-      <th class="w-1/5 text-center p-3 px-5">Status</th>
-      <th class="w-1/5 text-center p-3 px-5">Due Date</th>
-      <th class="w-1/5 text-center p-3 px-5">Action</th>
+      <th class="w-1/4 text-left p-3 px-5">Task</th>
+      <th class="w-1/4 text-center p-3 px-5">Status</th>
+      <th class="w-1/4 text-center p-3 px-5">Due Date</th>
+      <th class="w-1/4 text-center p-3 px-5">Action</th>
     </tr>
     `
   )
@@ -35,9 +35,9 @@ function showTodos(todos) {
           <td id="name-${todo._id}" class="p-3 px-4">${todo.name}</td>
           <td id="status-${todo._id}" class="p-3 px-4 text-center">${todo.status}</td>
           <td class="p-3 px-4 text-center">${date}</td>
-          <td class="p-3 px-4 text-center flex flex-col lg:flex-row">
+          <td class="p-3 px-4 text-center flex flex-col lg:flex-row justify-center">
             <button id="check-${todo._id}" onclick="check('${todo._id}', $(this).text())" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-green-500 hover:bg-green-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Check</button>
-            <button id="details-${todo._id}" onclick="openDetails('${todo._id}')" type="button" class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Details</button>
+            <button id="btn-details-${todo._id}" onclick="openDetails('${todo._id}')" type="button" class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Details</button>
           </td>
         </tr>
         <tr id="details-${todo._id}" class="hidden bg-gray-100">
@@ -156,7 +156,14 @@ function createTodo(e) {
 }
 
 function openDetails(todoId) {
-  $(`#details-${todoId}`).show()
+  if ($(`#details-${todoId}`).css('display') === 'none') {
+    if ($(`#edit-form-${todoId}`).css('display') !== 'none') {
+      $(`#edit-form-${todoId}`).hide()
+    }
+    $(`#details-${todoId}`).show()
+  } else {
+    $(`#details-${todoId}`).hide()
+  }
 }
 
 function openEdit(todoId) {

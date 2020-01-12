@@ -56,3 +56,15 @@ function toNewTask(e) {
   $('.all').hide()
   $('#new-task').show()
 }
+
+function toMyProjects(e) {
+  e.preventDefault()
+  $('.all').hide()
+  $('#my-projects').show()
+}
+
+function toTodosProject(e) {
+  e.preventDefault()
+  $('.all').hide()
+  $('#todos-project').show()
+}

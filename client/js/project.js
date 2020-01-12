@@ -1,5 +1,3 @@
-let ownerId = '5e154dce94e02432f8187528'
-
 function fetchProjects() {
   $.ajax({
     method: "get",
@@ -12,7 +10,11 @@ function fetchProjects() {
     showProjects(projectsArr);
   })
   .fail(err => {
-    console.log(err)
+    let errMsg = err.responseJSON.errors.message
+    Swal.fire({
+      icon: 'error',
+      text: errMsg
+    })
   })
 }
 
@@ -21,7 +23,6 @@ function showProjects(projects) {
   $('#project-list').append( 
     `<tr class="border-b">
       <th class="w-3/5 text-left p-3 px-5">Project Name</th>
-      <th class="w-1/5 text-center p-3 px-5">Status</th>
       <th class="w-1/5 text-center p-3 px-5">Action</th>
     </tr>
     `
@@ -31,14 +32,13 @@ function showProjects(projects) {
       `
       <tr class="border-t hover:bg-orange-100 bg-gray-100">
         <td class="p-3 px-4">${project.name}</td>
-        <td id="project-status-${project._id}" class="p-3 px-4 text-center"></td>
         <td class="p-3 px-4 text-center flex flex-col lg:flex-row justify-center">
           <button id="invite-${project._id}" onclick="openInvite('${project._id}')" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-green-500 hover:bg-green-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Invite</button>
-          <button id="details-${project._id}" onclick="openProjectDetails('${project._id}', '${project.name}')" type="button" class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Open</button>
+          <button id="details-${project._id}" onclick="openProjectDetails('${project._id}', '${project.name}', '${project.owner}')" type="button" class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Open</button>
         </td>
       </tr>
       <tr id="sub-project-${project._id}" class="bg-gray-100">
-        <td colspan="4" class="p-3 px-4">
+        <td colspan="4" class="hidden p-3 px-4">
           <form id="invite-form-${project._id}" class="hidden shadow-md px-8 pt-6 pb-8 mb-4 bg-white rounded-lg" onsubmit="submitInvitation(event, '${project._id}', '${project.name}', '${project.owner.email}')">
             <div class="mb-4">
               <label class="block mb-2 text-sm font-bold text-gray-700" for="name-post">
@@ -65,7 +65,7 @@ function showProjects(projects) {
       `
     )
     // if (project.owner._id === localStorage.getItem('id'))
-    if (project.owner._id !== ownerId) {
+    if (project.owner._id !== localStorage.getItem('id')) {
       $(`#invite-${project._id}`).hide()
       $(`#project-status-${project._id}`).append('Member')
     } else {
@@ -124,11 +124,13 @@ function submitInvitation(e, projectId, projectName, inviter) {
     })
 }
 
-function openProjectDetails(projectId, projectName) {
-  fetchTodosProject(projectId, projectName)
+function openProjectDetails(projectId, projectName, ownerId) {
+  $('.all').hide()
+  $('#todos-project').show()
+  fetchTodosProject(projectId, projectName, ownerId)
 }
 
-function fetchTodosProject(projectId, projectName, cb) {
+function fetchTodosProject(projectId, projectName, ownerId) {
   $.ajax({
     method: 'get',
     url: `${baseUrl}/projects/${projectId}`,
@@ -141,19 +143,28 @@ function fetchTodosProject(projectId, projectName, cb) {
       $('#col-todos-project').append(
         `
         <h3 class="pt-4 text-2xl text-center">${projectName}</h3>
-        <h6
-          class="text-center text-sm text-blue-500 hover:text-blue-800 cursor-pointer"
-          href=""
-          onclick="openProjectMembers('${projectId}', '${projectName}')"
-        >
-          Member List
-        </h6>
+        <div class="text-center">
+          <span
+            class="text-center text-sm text-blue-500 hover:text-blue-800 cursor-pointer"
+            href=""
+            onclick="openNewProjectTask('${projectId}', '${projectName}')"
+          >
+            Member List
+          </span> |
+          <span
+            class="text-center text-sm text-blue-500 hover:text-blue-800 cursor-pointer"
+            href=""
+            onclick="openNewTodoProject('${projectId}', '${projectName}')"
+          >
+            Create Task
+          </span>
+        </div>
         <div class="text-gray-900">
           <div class="px-3 py-4 flex justify-center">
             <table class="w-full text-md bg-white shadow-md rounded-lg mb-4 table-fixed">
-              <tbody id="todos-project">
+              <tbody id="todos-project-table">
               <tr class="border-b">
-                <th class="w-2/5 text-left p-3 px-5">Task</th>
+                <th class="w-1/5 text-left p-3 px-5">Task</th>
                 <th class="w-1/5 text-center p-3 px-5">By</th>
                 <th class="w-1/5 text-center p-3 px-5">Status</th>
                 <th class="w-1/5 text-center p-3 px-5">Due Date</th>
@@ -170,15 +181,15 @@ function fetchTodosProject(projectId, projectName, cb) {
       )
       for (let todo of todos) {
         let date = todo.due_date.slice(0, 10)
-        $("#todos-project").append(
+        $("#todos-project-table").append(
           `
           <tr class="border-t hover:bg-orange-100 bg-gray-100">
-            <td class="p-3 px-4">${todo.name}</td>
+            <td id="name-${todo._id}-p" class="p-3 px-4">${todo.name}</td>
             <td class="p-3 px-4 text-center">${todo.user_id.username}</td>
-            <td class="p-3 px-4 text-center">${todo.status}</td>
+            <td id="status-${todo._id}-p" class="p-3 px-4 text-center">${todo.status}</td>
             <td id="todo-status-${todo._id}" class="p-3 px-4 text-center">${date}</td>
             <td class="p-3 px-4 text-center flex flex-col lg:flex-row justify-center">
-              <button id="btn-check-${todo._id}" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-green-500 hover:bg-green-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Check</button>
+              <button id="check-${todo._id}-p" onclick="checkTodoProject('${todo._id}', $(this).text(), '${projectId}', '${projectName}')" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-green-500 hover:bg-green-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Check</button>
               <button id="btn-details-${todo._id}" onclick="openDetails('${todo._id}')" type="button" class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Details</button>
             </td>
           </tr>
@@ -188,10 +199,10 @@ function fetchTodosProject(projectId, projectName, cb) {
                 <span>${todo.description}</span>
                 <div id='action-btn-${todo._id}'>
                   <button id="edit-${todo._id}-p" onclick="openEdit('${todo._id}')" type="button" class="mr-2 text-sm bg-green-500 hover:bg-green-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Edit</button>
-                  <button id="delete-${todo._id}-p" onclick="deleteTodoProject('${todo._id}', '${projectId}')" type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Delete</button>
+                  <button id="delete-${todo._id}-p" onclick="deleteTodoProject('${todo._id}', '${projectId}', '${projectName}')" type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Delete</button>
                 </div>
               </div>
-              <form id="edit-form-${todo._id}" class="hidden shadow-md px-8 pt-6 pb-8 mb-4 bg-white rounded-lg" onsubmit="submitEdit(event, '${todo._id}', '${projectId}')">
+              <form id="edit-form-${todo._id}" class="hidden shadow-md px-8 pt-6 pb-8 mb-4 bg-white rounded-lg" onsubmit="submitEditTodoProject(event, '${todo._id}', '${projectId}', '${projectName}')">
                 <div class="mb-4">
                   <label class="block mb-2 text-sm font-bold text-gray-700" for="name-post">
                     Title
@@ -238,61 +249,69 @@ function fetchTodosProject(projectId, projectName, cb) {
           </tr>
           `
         )
-        if (todo.user_id._id !== ownerId) {
-          $(`#btn-check-${todo._id}`).hide()
-        }
-        if (todo.user_id._id !== ownerId) {
-          $(`#action-btn-${todo._id}`).hide()
+        if ($(`#status-${todo._id}-p`).text() === 'queued') {
+          $(`#check-${todo._id}-p`).text('Check')
+          $(`#check-${todo._id}-p`).removeClass("bg-gray-700 hover:bg-gray-900").addClass("bg-green-500 hover:bg-green-700")
+          $(`#name-${todo._id}-p`).removeClass('line-through')
+        } else if ($(`#status-${todo._id}-p`).text() === 'done'){
+          $(`#check-${todo._id}-p`).text('Uncheck')
+          $(`#check-${todo._id}-p`).removeClass("bg-green-500 hover:bg-green-700").addClass("bg-gray-700 hover:bg-gray-900")
+          $(`#name-${todo._id}-p`).addClass('line-through')
         }
       }
       $('#del-project').empty()
-      $('#del-project').append(
-        `
-        <a
-          class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-          href=""
-          onclick="openEditProject(event, '${projectId}')"
-        >
-          Edit
-        </a> |
-        <a
-          class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-          href=""
-          onclick="deleteProject(event, '${projectId}')"
-        >
-          Delete
-        </a>
-        <form id="edit-project-form" onsubmit="changeProjectName(event, '${projectId}')" class="hidden shadow-md px-8 pt-6 pb-8 mb-4 bg-white rounded-lg">
-          <div class="mb-4">
-            <label class="block mb-2 text-sm font-bold text-gray-700" for="name-post">
-              Change Project Name
-            </label>
-            <input
-              id="edit-project-${projectId}"
-              class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-              type="text"
-              value="${projectName}"
-            />
-          </div>
-          <div class="mb-6 text-center">
-            <button
-              class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
-        `
-      )
-      if (cb) cb(projectId)
+      if (ownerId === localStorage.getItem('id')) {
+        $('#del-project').append(
+          `
+          <a
+            class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+            href=""
+            onclick="openEditProject(event, '${projectId}')"
+          >
+            Edit
+          </a> |
+          <a
+            class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+            href=""
+            onclick="deleteProject(event, '${projectId}', '${projectName}')"
+          >
+            Delete
+          </a>
+          <form id="edit-project-form" onsubmit="changeProjectName(event, '${projectId}')" class="hidden shadow-md px-8 pt-6 pb-8 mb-4 bg-white rounded-lg">
+            <div class="mb-4">
+              <label class="block mb-2 text-sm font-bold text-gray-700" for="name-post">
+                Change Project Name
+              </label>
+              <input
+                id="edit-project-${projectId}"
+                class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                type="text"
+                value="${projectName}"
+              />
+            </div>
+            <div class="mb-6 text-center">
+              <button
+                class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                type="submit"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+          `
+        )
+      }
     })
     .fail(err => {
-      console.log(err)
+      let errorMsg = err.responseJSON.errors.message
+      Swal.fire({
+        icon: 'info',
+        text: errorMsg
+      })
     })
 }
 
-function deleteTodoProject(todoId, projectId) {
+function deleteTodoProject(todoId, projectId, projectName) {
   Swal.fire({
     title: 'Are you sure?',
     icon: 'warning',
@@ -309,7 +328,7 @@ function deleteTodoProject(todoId, projectId) {
         headers: { access_token }
       })
       .done(result => {
-        fetchTodosProject(projectId)
+        fetchTodosProject(projectId, projectName)
       })
       .fail(err =>  {
         console.log(err)
@@ -423,7 +442,7 @@ function fetchProjectMembers(projectId, projectName) {
           <tr class="border-t hover:bg-orange-100 bg-gray-100">
             <td class="p-3 px-4">${member.username}</td>
             <td class="p-3 px-4">${member.email}</td>
-            <td class="p-3 px-4 text-center flex flex-col lg:flex-row justify-center">
+            <td class="hidden p-3 px-4 text-center flex flex-col lg:flex-row justify-center">
               <button id="invite" onclick="kickMember('remove', '${member.email}', '${projectId}', '${projectName}')" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Kick</button>
             </td>
           </tr>
@@ -474,4 +493,160 @@ function kickMember(kind, email, projectId, projectName) {
       })
     }
   })
+}
+
+function openNewTodoProject(projectId, projectName) {
+  $('.all').hide()
+  $('#new-project-task').show()
+  $('#project-form-box').empty()
+  $('#project-form-box').append(
+    `
+    <form id="input-form-${projectId}" class="px-8 pt-6 pb-8 mb-4 bg-white rounded" onsubmit="createProjectTodo(event, '${projectId}', '${projectName}')">
+      <div class="mb-4">
+        <label class="block mb-2 text-sm font-bold text-gray-700" for="name-post">
+          Title
+        </label>
+        <input
+          class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+          id="name-post-p"
+          type="text"
+          placeholder="Title"
+        />
+      </div>
+      <div class="mb-4">
+        <label class="block mb-2 text-sm font-bold text-gray-700" for="desc-post">
+          Description
+        </label>
+        <textarea
+          class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+          id="desc-post-p"
+          type="text"
+          rows="5"
+          placeholder="Write the description"
+        ></textarea>
+      </div>
+      <div class="mb-4">
+        <input
+          id="todo-due-date-p"
+          class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+          name="due_date"
+          type="date"
+        />
+      </div>
+      <div class="mb-6 text-center">
+        <button
+          class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          Submit
+        </button>
+      </div>
+      <hr class="mb-2 border-t" />
+      <div class="text-center">
+        <a
+          onclick="toTodosProject(event)"
+          class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+          href="#"
+        >
+          Project's Todos
+        </a>
+      </div>
+    </form>
+    `
+  )
+}
+
+function createProjectTodo(e, projectId, projectName) {  
+  e.preventDefault()
+  $.ajax({
+    method: "patch",
+    url: `${baseUrl}/projects/${projectId}/addTodo`,
+    data: {
+      name: $("#name-post-p").val(),
+      description: $("#desc-post-p").val(),
+      due_date: $("#todo-due-date-p").val()
+    },
+    // headers: { access_token: localStorage.getItem('access_token') }
+    headers: { access_token }
+  })
+  .done(todo => {
+    $("#input-form").trigger("reset");
+    $('.all').hide()
+    $('#todos-project').show()
+    fetchTodosProject(projectId, projectName)
+  })
+  .fail(err => {
+    let errMsg = err.responseJSON.errors.message
+    $('#err-new-task-p').empty()
+    $('#err-new-task-p').append(
+      `
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <strong class="font-bold">Holy Moly!</strong>
+        <div id="err-box-new-task"></div>
+        <span onclick="clearErrNewTaskP(event)" class="absolute top-0 bottom-0 right-0 px-4 py-3">
+          <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+        </span>
+      </div>
+      `
+    )
+    for (let msg of errMsg) {
+      $('#err-box-new-task').append(
+        `
+        <span class="block">${msg}</span>
+        `
+      )
+    }
+  })
+}
+
+function submitEditTodoProject(e, todoId, projectId, projectName) {
+  if (e) e.preventDefault()
+  $.ajax({
+    method: "patch",
+    url: `${baseUrl}/todos/${todoId}`,
+    data: {
+      name: $(`#name-edit-${todoId}`).val(),
+      description: $(`#desc-edit-${todoId}`).val(),
+      due_date: $(`#-due-date-${todoId}`).val()
+    },
+    // headers: { access_token: localStorage.getItem('access_token') }
+    headers: { access_token }
+  })
+  .done(todo => {
+    $('#edit-form').trigger("reset")
+    fetchTodosProject(projectId, projectName)
+  })
+  .fail(err => {
+    console.log(err);
+  })
+}
+
+function checkTodoProject(todoId, kind, projectId, projectName) {
+  let status;
+  if (kind === "Check") {
+    status = "done";
+  } else if (kind = "Uncheck") {
+    status = "queued"
+  }
+  $.ajax({
+    method: "patch",
+    url: `${baseUrl}/todos/${todoId}`,
+    data: { status },
+    headers: { access_token: localStorage.getItem('access_token') }
+  })
+  .done(result => {
+    fetchTodosProject(projectId, projectName)
+  })
+  .fail(err => {
+    let errMsg = err.responseJSON.errors.message
+    Swal.fire({
+      icon: 'err',
+      text: errMsg
+    })
+  })
+}
+
+function clearErrNewTaskP(e) {
+  e.preventDefault()
+  $('#err-new-task-p').empty()
 }

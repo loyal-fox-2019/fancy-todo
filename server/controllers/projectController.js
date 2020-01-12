@@ -24,15 +24,16 @@ class ProjectController {
         return Project.findByIdAndUpdate(project_id,
           { $push: { todos: todo } },
           { new: true })
-      })
-      .then(project => {
+        })
+        .then(project => {
+        console.log(project, 'x^^^^^^^^^^^^^^^^^^^^^^x')
         res.status(201).json(project)
       })
       .catch(next)
   }
 
   static showProjects(req, res, next) {
-    Project.find({})
+    Project.find({ members: req.decoded.id })
       .populate('todos')
       .populate('owner')
       .then(projects => {
