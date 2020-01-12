@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="183023411634-kc5ld7jmc3sa9e22dug9qcdi6u54pniu.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        #weather-img {
+            height: 50px;
+            background-color: rgb(223, 108, 1);
+            border-radius: 50%;
+        }
+        .nav-item:hover {
+          cursor: pointer;
+        }
+
+        .all {
+          margin-top: 100px;
+        }
+    </style>
+    <title>Fancy Todo</title>
+  </head>
+  <body>
+      <!-- NAVBAR -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="#">Fancy Todo</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" id="sign-up" onclick="showRegister()">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="home" onclick="getTodos()">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="sign-in" onclick="showLogin()">Sign In</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="sign-out" onclick="signOut()">Sign Out</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- LOGIN PAGE -->
+      <div class="container-fluid w-25 all login" style="display: block;">
+          <div class="row border rounded my-5">
+              <div class="col p-4" style="text-align: center;">
+                  <h5>Login with Google:</h5>
+                  <br>
+                  <div class="g-signin2" data-width="flex"  data-longtitle="true" data-onsuccess="onSignIn"></div>
+                  <br>
+                  <p style="color: gray;">--------------- or ---------------</p>
+                  Email: <br><input type="text" id="login-email" required>
+                  <br><br>
+                  Password: <br><input type="password" id="login-password" required>
+                  <br><br>
+                  <button onclick="login()">Login</button>
+              </div>
+          </div>
+      </div>
+
+      <!-- REGISTER -->
+      <div class="container-fluid w-25 all register" style="display: block;">
+        <div class="row border rounded my-5">
+            <div class="col p-4" style="text-align: center;">
+                <h5>Register:</h5>
+                Name: <br><input type="text" id="register-name" required>
+                <br><br>
+                Email: <br><input type="text" id="register-email" required>
+                <br><br>
+                Password: <br><input type="password" id="register-password" required>
+                <br><br>
+                <button onclick="register()">Register</button>
+            </div>
+        </div>
+      </div>
+
+      <!-- CREATE TODO -->
+      <div class="container-fluid w-50 all create" style="display: block;">
+        <div class="row border rounded my-5">
+            <div class="col p-4" style="text-align: center;">
+                <h5>Create Todo:</h5>
+                Name: <br><input type="text" id="todo-name" required>
+                <br><br>
+                Description: <br><input type="text" id="todo-description">
+                <br><br>
+                Due date: <br><input type="text" id="todo-duedate" placeholder="YYYY-MM-DD">
+                <br><br>
+                <button onclick="createTodo()">Create!</button>
+            </div>
+        </div>
+      </div>
+
+      <!-- LIST TODO -->
+      <div class="container-fluid w-100 border rounded my-5 px-5 all list" style="display: block;">
+        <div class="row">
+            <div class="col-2 py-3" style="text-align: center;">
+                <h5>My Todos:</h5>
+                <input type="button" value="Add Todo" onclick="showCreate()">
+            </div>
+            <div class="col-10 py-3" style="text-align: right;">
+                <h5>Weather:</h5><div id="weather" style="font-weight: bold;"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 px-4 pb-3" style="font-weight: bold;">Name</div>
+            <div class="col-4 px-4 pb-3" style="font-weight: bold;">Description</div>
+            <div class="col-2 px-4 pb-3" style="font-weight: bold;">Done</div>
+            <div class="col-2 px-4 pb-3" style="font-weight: bold;">Due Date</div>
+            <div class="col-1 px-4 pb-3" style="font-weight: bold;">Option</div>
+        </div>
+        <div class="row" id="todosList">
+            <!-- APPEND USER'S TODOS HERE -->
+        </div>
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
