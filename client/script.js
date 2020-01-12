@@ -162,6 +162,7 @@ function getTodos() {
         }
     })
     .then(({data})=>{
+        console.log(data)
         if(data !== []){
             for(let obj of data) {
                 let done

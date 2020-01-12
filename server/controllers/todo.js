@@ -14,7 +14,7 @@ class TodoController {
         let userId = req.user.userId
         TodoModel.find({
             user: userId
-        }).populate('user')
+        }, '-__v').populate('user', '-password -__v')
         .then(datas=>{
             res.status(200).json(datas)          
         })
