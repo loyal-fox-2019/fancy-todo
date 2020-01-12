@@ -56,7 +56,7 @@ class AuthController {
             url: 'https://github.com/login/oauth/access_token',
             params: {
                 client_id: 'c7ad8dd4b09cb2c4aa21',
-                client_secret: 'e66afbce60c8a7387ad8001793f21cf4979d1acb',
+                client_secret: process.env.GITHUB_SECRET,
                 code: req.params.code
             },
             headers: {
