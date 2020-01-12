@@ -22,10 +22,18 @@ class UserControlLer{
         User.deleteOne({username: req.params.username})
     }
     static login(req,res,next){
+        // console.log(req.body)
+        let password = null
+        if(req.body.hasOwnProperty('password')){
+            password = req.body.password
+        }else{
+            password = process.env.DEFAULT_PASSWORD
+        }
         User.findOne({username:req.body.username})
         .then(user=>{
             // console.log(req.body.password, user)
-            const decoded = decode(req.body.password, user.password)
+            console.log(user)
+            const decoded = decode(password, user.password)
             // console.log(decoded)
             if(decoded){
                 // console.log(user)
