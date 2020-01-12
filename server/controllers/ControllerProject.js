@@ -77,6 +77,17 @@ class ControllerProject {
                 })
             }).catch(next)
     }
+
+    static viewProjectTodos(req, res, next) {
+        Project.findOne({
+            _id: req.projectId
+        }).populate('todos')
+            .then(response => {
+                res.status(201).json({
+                    data: response
+                })
+            }).catch(next)
+    }
 }
 
 module.exports = ControllerProject;

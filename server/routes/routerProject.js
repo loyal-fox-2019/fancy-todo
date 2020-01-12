@@ -11,5 +11,9 @@ router.patch(
     controllerProject.addMember
 );
 router.get("/", controllerProject.viewProject);
+router.get("/:projectName",
+    authorization,
+    controllerProject.viewProjectTodos
+);
 
 module.exports = router;

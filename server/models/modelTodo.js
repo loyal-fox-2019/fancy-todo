@@ -6,6 +6,8 @@ const todoSchema = new Schema(
             type: String,
             required: true,
             unique: true,
+            minlength: 7,
+            maxlength: 25,
             validate: {
                 validator: (value) => {
                     return models.Todo.findOne({
@@ -19,7 +21,9 @@ const todoSchema = new Schema(
         },
         description: {
             type: String,
-            required: true
+            required: true,
+            minlength: 10,
+            maxlength: 50,
         },
         status: {
             type: String,

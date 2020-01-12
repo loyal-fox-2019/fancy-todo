@@ -10,10 +10,6 @@ const authorization = (req, res, next) => {
         name: req.params.projectName
     }).then(response => {
         if (response) {
-            req.projectId = response._id;
-            req.projectAdmin = response.admin;
-            req.projectMembers = response.members;
-
             if (response.admin.toString() === req.user_id.toString()) {
                 req.memberStatus = "admin"
             } else if (response.members.indexOf(req.user_id) >= 0) {
@@ -21,13 +17,16 @@ const authorization = (req, res, next) => {
             } else {
                 throw({code: 401})
             }
+            req.projectId = response._id;
+            req.projectAdmin = response.admin;
+            req.projectMembers = response.members;
+            next()
         } else {
             throw ({
                 code: 404,
                 errMsg: "Project"
             })
         }
-        next()
     }).catch(next)
 };
 

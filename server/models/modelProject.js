@@ -5,11 +5,25 @@ const projectSchema = new Schema(
         name: {
             type: String,
             required: true,
-            unique: true
+            unique: true,
+            minlength: 7,
+            maxlength: 25,
+            validate: {
+                validator: (value) => {
+                    return models.Todo.findOne({
+                        name: value
+                    }).then(response => {
+                        if (response) return false
+                    })
+                },
+                msg: "Project already registered"
+            }
         },
         description: {
             type: String,
-            required: true
+            required: true,
+            minlength: 10,
+            maxlength: 50,
         },
         admin: {
             required: true,
