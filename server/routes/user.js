@@ -2,14 +2,15 @@
 
 const router = require('express').Router()
 const userController = require('../controllers/userController')
+const authentication = require('../middlewares/authentication')
 
 router.post('/', userController.signUp)
 router.post('/signin', userController.signIn)
-router.get('/users/myProfile', userController.getProfile)
-router.patch('/users/myProfile', userController.updateProfile)
-router.get('/users/:userID', userController.getUserProfile)
-router.patch('/users/:userID/password', userController.changePassword)
-router.patch('/users/:userID/email', userController.changeEmail)
-router.patch('users/:userID/email/activation', userController.emailActivation)
+router.use(authentication)
+router.get('/profile', userController.getProfile)
+router.patch('/profile', userController.updateProfile)
+router.patch('/profile/password', userController.changePassword)
+router.patch('/profile/email', userController.changeEmail)
+router.get('/profile/:userID', userController.getUserProfile)
 
 module.exports = router

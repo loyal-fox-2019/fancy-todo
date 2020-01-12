@@ -6,8 +6,9 @@ const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const cors = require('cors')()
-const port = process.env.PORT
+const port = process.env.PORT || 3000
 const router = require('./routes')
+const errorHandler = require('./middlewares/errorHandler');
 
 app.use(cors)
 app.use(express.json())
@@ -21,7 +22,7 @@ app.get('/', (req, res, next) => {
 
 app.use(router)
 
-mongoose.connect('mongodb://localhost:27017/fancy-todo', {
+mongoose.connect(`${process.env.DB_CONNECTION}/${process.env.DB_NAME}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -33,6 +34,7 @@ mongoose.connect('mongodb://localhost:27017/fancy-todo', {
         console.log(err)
     })
 
+app.use(errorHandler)
 app.listen(port, () => {
     console.log('RESTFULL API Server Ready')
 })
