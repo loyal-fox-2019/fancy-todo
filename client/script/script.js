@@ -260,3 +260,12 @@ $(document).on('click', '.detail', function(event){
         }
     })  
 })
+
+
+$(document).on('click', '#logout', function (event){
+    localStorage.removeItem('token')
+    $('#signin').show()
+    $('#signup').hide()
+    $('#home').hide()
+    event.preventDefault()
+})

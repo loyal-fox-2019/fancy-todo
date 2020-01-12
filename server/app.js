@@ -5,15 +5,14 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const router = require('./routes/index')
 
+
+
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 
 app.use('/', router)
-
-
-
 
 
 mongoose.connect(`mongodb://localhost:27017/fancy-todo`, {

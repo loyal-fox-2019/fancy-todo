@@ -1,12 +1,13 @@
 const jwt = require('jsonwebtoken')
 const todomodel = require('../models/todomodel')
+require('dotenv').config()
 
 
 class Middleware{
     static authen (req,res,next){
         try{
-            const verif = jwt.verify(req.headers.token, 'secret')
-            const decode = jwt.decode(req.headers.token, 'secret') 
+            const verif = jwt.verify(req.headers.token, process.env.SECRET)
+            const decode = jwt.decode(req.headers.token, process.env.SECRET) 
             req.userid = decode
             next()
         } catch(err){

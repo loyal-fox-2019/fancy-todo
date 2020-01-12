@@ -6,11 +6,11 @@ const {OAuth2Client} = require('google-auth-library')
 class User{
     static googlesignin(req,res,next){
         let temporary = null
-        const client = new OAuth2Client('376671315610-fpp2033jq5mpkqssqe367eekt13fiits.apps.googleusercontent.com');
+        const client = new OAuth2Client(process.env.GOOGLE);
         async function verify() {
         const ticket = await client.verifyIdToken({
         idToken: req.body.idtoken,
-        audience: '376671315610-fpp2033jq5mpkqssqe367eekt13fiits.apps.googleusercontent.com',
+        audience: process.env.GOOGLE,
         });
         const payload = ticket.getPayload();
         const userid = payload['sub'];
@@ -30,14 +30,14 @@ class User{
                     first_name: temporary.given_name,
                     last_name: temporary.family_name,
                     email: temporary.email,
-                    password: 'tesss'
+                    password: process.env.GENPASSWORD
                 })
             }
             return data
         })
         .then((data)=>{
             const payload = {userid: data._id}
-            let token = jwt.sign(payload, 'secret')
+            let token = jwt.sign(payload, process.env.SECRET)
             res.status(200).json({token})
         })
         .catch((err)=>{
