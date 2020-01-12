@@ -4,9 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css" integrity="sha256-rFMLRbqAytD9ic/37Rnzr2Ycy/RlpxE5QH52h7VoIZo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
     <title>Fancy Todo</title>
 </head>
 <body>
+    <form class="form-signin" style="display: none;">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+        <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>       
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="std-signin">Sign in</button>
+        <div id="error-msg"></div>
+
+        <a class="btn btn-block btn-social btn-github">
+            <span class="fa fa-github"></span> Sign in with GitHub 
+        </a>
+    </form>
+
+    <div class="home" style="display: none;">
+        <nav class="navbar navbar-light bg-light">
+            <span class="navbar-brand mb-0 h1">Fancy Todo</span>            
+            <div class="logout">
+                <a class="btn btn-block btn-primary" id="std-signout" style="display: none;">Sign out</a>
+            </div>
+        </nav>
+    </div>
     
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <!-- Other scripts -->
+    <script src="main.js"></script>
 </body>
 </html>

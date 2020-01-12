@@ -12,7 +12,7 @@ class TodoController
 {
     static showAllTodos(req,res)
     {
-        Todo.find().populate('user')
+        Todo.find({user: req.userInfo.id}).populate('user')
         .then((todos) => {
             res.status(200).json(todos);
         })
@@ -50,7 +50,8 @@ class TodoController
 
     static addTodo(req,res)
     {
-        const data = _.pick(req.body,'name','description','due_date','user');
+        const data = _.pick(req.body,'name','description','due_date');
+        data.user = req.userInfo.id;
         
         Todo.create(data)
         .then((todo) => {            
