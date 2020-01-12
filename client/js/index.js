@@ -63,12 +63,14 @@ function toMyProjects(e) {
   e.preventDefault()
   $('.all').hide()
   $('#my-projects').show()
+  fetchProjects()
 }
 
 function toTodosProject(e) {
   e.preventDefault()
   $('.all').hide()
   $('#todos-project').show()
+  fetchTodosProject()
 }
 
 function toInvitation(e) {
@@ -76,4 +78,10 @@ function toInvitation(e) {
   $('.all').hide()
   $('#project-invitation').show()
   fetchInvitations()
+}
+
+function toNewProject(e) {
+  e.preventDefault()
+  $('.all').hide()
+  $('#new-project').show()
 }

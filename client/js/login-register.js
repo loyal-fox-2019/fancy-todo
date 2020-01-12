@@ -74,3 +74,31 @@ function onSignIn(googleUser) {
       console.log(err)
     })
 }
+
+function register(e) {
+  e.preventDefault()
+  $.ajax({
+    method: 'post',
+    url: `${baseUrl}/user/register`,
+    data: {
+      username: $('#register-username').val(),
+      email: $('#register-email').val(),
+      password: $('#register-password').val()
+    }
+  })
+    .done(user => {
+      Swal.fire({
+        icon: 'success',
+        text: 'Successfully registered!'
+      })
+      $('.all').hide()
+      $('#login').show()
+    })
+    .fail(err => {
+      const errMsg = err.responseJSON.errors.message
+      Swal.fire({
+        icon: 'error',
+        text: errMsg
+      })
+    })
+}

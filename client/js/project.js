@@ -681,12 +681,32 @@ function fetchInvitations(projectId, projectName) {
           <tr class="border-t hover:bg-orange-100 bg-gray-100">
             <td class="p-3 px-4">${project.name}</td>
             <td class="p-3 px-4 text-center flex flex-col lg:flex-row justify-center">
-              <button onclick="" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Accept</button>
-              <button onclick="" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Reject</button>
+              <button onclick="acceptInv('${project._id}')" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Accept</button>
+              <button onclick="rejectInv('${project._id}')" type="button" class="mb-2 lg:mr-2 lg:mb-0 text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Reject</button>
             </td>
           </tr>
           `
         )
       }
+    })
+}
+
+function acceptInv(projectId) {
+  $.ajax({
+    method: 'get',
+    url: `${baseUrl}/projects/${projectId}/acceptInvitation`,
+    headers: { access_token: localStorage.getItem('access_token') }
+  })
+    .done(response => {
+      Swal.fire({
+        icon: 'success',
+        text: response.message
+      })
+    })
+    .fail(err => {
+      Swal.fire({
+        icon: 'errors',
+        text: err.responseJSON.errors.message
+      })
     })
 }
