@@ -1,8 +1,10 @@
 const url_server = "http://34.70.155.203:3000";
+// const url_server = "http://localhost:3000";
 const api_user = "/api/users";
 const api_todo = "/api/todos";
 const api_project = "/api/projects";
-const client = "http://fancy-todo.mputong.com/";
+const client = "http://fancy-todo.mputong.com";
+// const client = "http://localhost:8080";
 let isLogin = false;
 
 $(document).ready(function () {
@@ -97,7 +99,6 @@ function login(email, password) {
     }).done(data => {
         localStorage.token = data.token;
         localStorage.email = data.email;
-        localStorage.userId = data.userId;
         window.location.replace(client);
     }).fail(err => {
         console.log(err);
@@ -117,7 +118,6 @@ function onSignIn(googleUser) {
     }).done(data => {
         localStorage.token = data.token;
         localStorage.email = data.email;
-        localStorage.userId = data.userId;
 
         if (!isLogin) window.location.replace(client);
     }).fail(err => {
