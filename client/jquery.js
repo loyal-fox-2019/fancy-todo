@@ -1,26 +1,28 @@
 $(document).ready(function() {
     if(!localStorage.token) {
-        $("#todoContent").empty();
-        $("#signIn").fadeIn();
+        $("#todoContent").hide();
+        $("#signIn").show();
     } else {
-        $("#todoContent").fadeIn();
-        $("#signIn").empty();
+        $("#todoContent").show();
+        $("#signIn").hide();
     }
 
 });
 
 function onSignIn(googleUser) {
     const id_token = googleUser.getAuthResponse().id_token;
-    $.post('http://localhost:3000/user/googlesignin', {
-        id_token: id_token
-    }, (response => {
+    $.ajax({
+        url: 'http://localhost:3000/user/googlesignin',
+        method: 'post',
+        data: {
+            id_token: id_token
+        }
+    })
+    .done(function(response) {
         localStorage.setItem('token', response.token);
         $('#signIn').hide();
-        $('#todoContent').fadeIn();
+        $('#todoContent').show();
         listTodo();
-        })
-    )
-    .done(function() {
         $('.msg').empty();
     })
     .fail(function(err) {
@@ -39,22 +41,24 @@ function signOut() {
         localStorage.removeItem('token');
         // localStorage.clear();
         $('#todoContent').hide();
-        $('#signIn').fadeOut();
+        $('#signIn').show();
     });
 }
 
 function login() {
-    $.post('http://localhost:3000/user/login', {
-        username: $('#username').val(),
-        password: $('#password').val()
-    }, (response => {
+    $.ajax({
+        url: 'http://localhost:3000/user/login',
+        method: 'post',
+        data: {
+            username: $('#username').val(),
+            password: $('#password').val()
+        }
+    })
+    .done(function(response) {
         localStorage.setItem('token', response.data.token);
-        $('#signIn').hide();
-        $('#todoContent').fadeIn();
         listTodo();
-        })
-    )
-    .done(function(result) {
+        $('#signIn').hide();
+        $('#todoContent').show();
         $('.msg').empty();
     })
     .fail(function(err) {
@@ -65,18 +69,21 @@ function login() {
             </p>
         `);
     });
+
 }
 
 function register() {
-    $.post('http://localhost:3000/user/register', {
-        username: $('#username').val(),
-        password: $('#password').val()
-    }, (response => {
-            $('#username').removeAttr('value');
-            $('#password').removeAttr('value');
-        })
-    )
+    $.ajax({
+        url: 'http://localhost:3000/user/register',
+        method: 'post',
+        data: {
+            username: $('#username').val(),
+            password: $('#password').val()    
+        }
+    })
     .done(function(result) {
+        $('#username').removeAttr('value');
+        $('#password').removeAttr('value');
         $('.msg').empty();
         $('.msg').append(`
             <p>
@@ -101,38 +108,49 @@ function register() {
 function listTodo() {
     $.ajax({
         url: "http://localhost:3000/todo",
-        methods: "get",
-        success: function( result ) {
-            result.forEach(element => {
-                $( "#todoRowData" ).append(`
-                    <tr>
-                    <td scope="row">${element.name}</td>
-                    <td>${element.description}</td>
-                    <td>${element.status}</td>
-                    <td>${element.due_date}</td>
-                    <td>
-                    <a id="editTodo" href="" onclick="editTodo(${element._id});">Update</a> | <a id="deleteTodo" href="" onclick="deleteTodo(${element._id});">Delete</a>
-                    </td>
-                    </tr>
-                `);
-            });
-        }
+        method: "get",
+        headers: { token: localStorage.getItem('token') }
+    })
+    .done(result => {
+        $('#todoRowData').empty();
+        $('.status').hide();
+        $('#aSaveTodo').hide();
+        result.forEach(element => {
+            $( "#todoRowData" ).append(`
+                <tr>
+                <td scope="row">${element.name}</td>
+                <td>${element.description}</td>
+                <td>${element.status}</td>
+                <td>${element.due_date}</td>
+                <td>
+                <a id="aeditTodo" onclick="editTodo('${element._id}')">Edit</a> | <a id="adeleteTodo" onclick="deleteTodo('${element._id}')">Delete</a>
+                </td>
+                </tr>
+            `);
+        });
+    })
+    .fail(err => {
+        console.log(err);
     });
 }
 
-function addTodo() {
-    $.post('http://localhost:3000/todo', {
-        name: $('#name').val(),
-        description: $('#description').val(),
-        due_date: $('#dueDate').val()
-    }, (response => {
-            $('#name').removeAttr('value');
-            $('#description').removeAttr('value');
-            $('#dueDate').removeAttr('value');
-            listTodo();
-        })
-    )
+function addTodo(event) {
+    event.preventDefault();
+    $.ajax({
+        url: 'http://localhost:3000/todo',
+        method: 'post',
+        headers: { token: localStorage.getItem('token') },
+        data: {
+            name: $('#name').val(),
+            description: $('#description').val(),
+            due_date: $('#dueDate').val()
+        }
+    })
     .done(function(result) {
+        $('#name').removeAttr('value');
+        $('#description').removeAttr('value');
+        $('#dueDate').removeAttr('value');
+        listTodo();
         $('.msg').empty();
     })
     .fail(function(err) {
@@ -146,18 +164,17 @@ function addTodo() {
 }
 
 function deleteTodo(id) {
-    console.log('masuk destroy todo ')
-    $.delete(`http://localhost:3000/todo/${id}`, {
-    }, (response => {
-            listTodo();
-        })
-    )
+    event.preventDefault();
+    $.ajax({
+        url: `http://localhost:3000/todo/${id}`,
+        headers: { token: localStorage.getItem('token') },
+        method: 'delete'
+    })
     .done(function(result) {
-        console.log('done destroy todo')
+        listTodo();
         $('.msg').empty();
     })
     .fail(function(err) {
-        console.log('destroy error '+err)
         $('.msg').empty();
         $('.msg').append(`
             <p>
@@ -168,5 +185,48 @@ function deleteTodo(id) {
 }
 
 function editTodo(id) {
-    
+    $('.status').show();
+    $('#aSaveTodo').show();
+    $('#aCreate').hide();
+
+    $.ajax({
+        url: `http://localhost:3000/todo/${id}`,
+        headers: { token: localStorage.getItem('token') },
+        method: 'get'
+    })
+    .done(function(response) {
+        $('#name').val(response.name);
+        $('#description').val(response.description);
+        $('#dueDate').val(response.due_date);
+        $('#status').val(response.status);
+        $('#todoId').val(response._id);
+    })
+    .fail(function(err) {
+        console.log(err);
+    });
+}
+
+function saveTodo(event) {
+    event.preventDefault();
+    const id = $('#todoId').val();
+    $.ajax({
+        url: `http://localhost:3000/todo/${id}`,
+        headers: { token: localStorage.getItem('token') },
+        method: 'put'
+    })
+    .done(function(response) {
+        $('#name').removeAttr('value');
+        $('#description').removeAttr('value');
+        $('#dueDate').removeAttr('value');
+        $('.status').hide();
+        $('#aSaveTodo').hide();
+        $('#aCreate').show();
+        listTodo();
+        $('.msg').empty();
+        console.log('Success save 1 record');
+    })
+    .fail(function(err) {
+        console.log('Error: ', err);
+    });
+
 }

@@ -36,12 +36,14 @@
         <input type="text" placeholder="Name" name="name" id="name">
         <input type="text" placeholder="Description" name="description" id="description">
         <input type="text" placeholder="Due Date" name="dueDate" id="dueDate">
-        <label for="status">Status</label>
-        <select name="status" id="status">
-        <option>In progress</option>
-        <option>Completed</option>
+        <label class="status" for="status">Status</label>
+        <select class="status" name="status" id="status">
+        <option>in progress</option>
+        <option>completed</option>
         </select>
-        <a href="" id="aCreate" onclick="addTodo();">  Add Todo</a>
+        <input type="text" id="todoId" style="display: none;">
+        <a id="aCreate" onclick="addTodo(event);">Add Todo</a>
+        <a id="aSaveTodo" onclick="saveTodo(event);">Save Todo</a>
         <div id="todoList">
             <table class="table">
                 <thead>
