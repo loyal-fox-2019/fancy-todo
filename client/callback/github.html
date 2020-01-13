@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="icon" href="assets/todo-icon.png" />
+
+    <title>Github Auth</title>
+  </head>
+  <body>
+    <p id="message">Redirecting...</p>
+
+    <script src="../src/axios/axios.min.js"></script>
+    <script>
+      let code = window.location.href.split('?code=')[1]
+      axios
+        .post('http://localhost:3000/github-login', {
+          code,
+        })
+        .then(({ data }) => {
+          localStorage.setItem('token', data.token)
+          localStorage.setItem('email', data.email)
+          localStorage.setItem('username', data.username)
+          localStorage.setItem('view', 'todoList')
+          window.location.href = 'http://localhost:8080'
+        })
+        .catch(err => {
+          if (err.response) console.log(err)
+          else console.error(err)
+          document.getElementById('message').innerHTML =
+            'Error happend. <a href="http://localhost:8080">Back to homepage</a>'
+        })
+    </script>
+  </body>
+</html>
