@@ -19,4 +19,4 @@ Router.delete('/:id', GroupController.deleteGroup)
 Router.patch('/:id/members', GroupController.inviteMember)
 Router.delete('/:id/members/:member_id', GroupController.kickMember)
 
-module.exports = groups
+module.exports = Router
