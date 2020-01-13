@@ -22,8 +22,8 @@ const projectSchema = new Schema(
         description: {
             type: String,
             required: true,
-            minlength: 10,
-            maxlength: 50,
+            minlength: 20,
+            maxlength: 100,
         },
         admin: {
             required: true,
