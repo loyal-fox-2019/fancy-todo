@@ -139,7 +139,7 @@ $(document).ready(function() {
       .done(data => {
          localStorage.token = data.token
          localStorage.userId = data.userId
-         pageInit
+         pageInit()
       })
       .fail(error => {
          console.log(Object.keys(error))
