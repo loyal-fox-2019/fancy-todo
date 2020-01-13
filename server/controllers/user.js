@@ -5,13 +5,11 @@ const jwt = require('jsonwebtoken')
 const { checkPassword } = require('../helpers/bcrypt')
 const { OAuth2Client } = require('google-auth-library')
 const client = new OAuth2Client(process.env.CLIENT_ID_GOOGLE)
-const email = require('../helpers/mailer')
+const mailer = require('../helpers/mailer')
 
 class UserController {
     static register(req, res, next) {
         const { email, password, fullname } = req.body
-        console.log(req.body.email, "=======================")
-        console.log(email, password, fullname)
         User.create({
             email,
             password,
@@ -44,7 +42,7 @@ class UserController {
                         })
                     } else {
                         const token = jwt.sign({ id: data.id }, process.env.JWT_SECRET)
-                        email(email)
+                        mailer(req.body.email)
                         res.status(200).json({
                             _id,
                             email,
@@ -91,7 +89,7 @@ class UserController {
                 let accessToken = jwt.sign({
                     email: payload.email
                 }, process.env.JWT_SECRET)
-                email(payload.email)
+                mailer(payload.email)
                 res.status(200).json({ accessToken, user })
             })
             .catch((err) => {
