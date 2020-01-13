@@ -5,15 +5,21 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <link rel="stylesheet" href="./css/tailwind.css">
-   <link rel="stylesheet" href="./css//style.css">
+   <link rel="stylesheet" href="./css/style.css">
    <title>A bit fancier todo</title>
 </head>
 <body>
-   <div id="auth-page">
-      <div id="login">
-         <form method="post" id="login-form">
-            <label>Email</label>
-            <input type="email" id="login-email"/>
+   <div id="auth-page" class="flex flex-col items-center mt-10">
+      <div id="auth-tab" class="flex justify-around w-4/12 mb-6">
+         <button id="selectLogin">Login</button>
+         <button id="selectRegister">Register</button>
+      </div>
+
+      <div id="login" class="">
+         <h5>Login</h5>
+         <form method="post" id="login-form" class="flex flex-col">
+            <label class="my-2">Email</label>
+            <input type="email" id="login-email" class="my-2 border-gray-300"/>
 
             <label>Password</label>
             <input type="password" id="login-password"/>
@@ -23,6 +29,7 @@
       </div>
 
       <div id="register">
+         <h5>Register</h5>
          <form method="post" id="register-form">
             <label>Username</label>
             <input type="text" id="register-username"/>
@@ -163,7 +170,7 @@
          </div>
       </div>
    </div>
-   
+
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
    <script src="./js/main.js"></script>
