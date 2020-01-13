@@ -46,9 +46,10 @@ class ProjectController {
         projectModel.findOneAndUpdate({ _id: req.params.projectID }, projectUpdateData, { runValidators: true, new: true })
             .then(project => {
                 res.status(200).json({
-                    message: `update project with projectID ${req.params.id} success!`,
+                    message: `update project with projectID ${req.params.projectID} success!`,
                     project
                 })
+                return 
             })
             .catch(next)
     }
