@@ -92,7 +92,7 @@ class UserController {
             }
         })
         .then(user => {
-            const token = generateToken(user.username);
+            const token = generateToken(user);
             res.status(200).json({ token });
         })
         .catch(err => {

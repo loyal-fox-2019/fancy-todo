@@ -19,11 +19,11 @@ const TodoSchema = new Schema ({
     due_date: {
         type: Date
     },
-    // userId: {
-    //     type: Schema.Types.ObjectId,
-    //     required: true,
-    //     ref: 'User'
-    // }
+    userId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    }
 });
 
 const Todo = mongoose.model('Todo', TodoSchema);

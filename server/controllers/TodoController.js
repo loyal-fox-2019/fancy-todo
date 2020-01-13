@@ -4,7 +4,6 @@ const Todo = require('../models/todo');
 
 class TodoController {
     static create(req, res, next) {
-        console.log('masuk create todo ')
         const name = req.body.name;
         const description = req.body.description;
         const due_date = (req.body.due_date);
@@ -13,16 +12,15 @@ class TodoController {
             name,
             description,
             status: 'in progress',
-            due_date
+            due_date,
+            userId
         })
         .then(todo => {
-            console.log('created todo ')
             res.status(201).json({
                 todo
             });
         })
         .catch(err => {
-            console.log('error create todo '+err)
             res.status(500).json({
                 message: err.message
             });
@@ -44,7 +42,7 @@ class TodoController {
     }
 
     static findOne(req, res, next) {
-        Todo.findById(userId)
+        Todo.findById(req.params.id)
         .then(todo => {
             res.status(200).json(todo);
         })
@@ -57,7 +55,7 @@ class TodoController {
 
     static update(req, res, next) {
         Todo.findOne({
-            _id: req.body.id
+            _id: req.params.id
         })
         .then(todo => {
             if(!todo) {
@@ -65,12 +63,17 @@ class TodoController {
                     message: 'Todo not found'
                 });
             } else {
-                return Todo.update({
-                    name: req.body.name,
-                    description: req.body.description,
-                    status: req.body.status,
-                    due_date: req.body.dueDate
-                });
+                return Todo.updateOne(
+                    {
+                        _id: req.params.id
+                    },
+                    {
+                        name: req.body.name,
+                        description: req.body.description,
+                        status: req.body.status,
+                        due_date: req.body.dueDate
+                    }
+                );
             }
         })
         .then(todo => {
@@ -87,7 +90,7 @@ class TodoController {
 
     static deleteOne(req, res, next) {
         Todo.deleteOne({
-            _id: req.body.id
+            _id: req.params.id
         })
         .then(todo => {
             if(!todo) {
