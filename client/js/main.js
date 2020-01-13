@@ -1,5 +1,6 @@
-const port = 3000
-const baseUrl = `http://localhost:${port}`
+const port = 55555
+// const baseUrl = `http://localhost:${port}`
+const baseUrl = `http://18.219.119.178:${port}`
 
 $('#selectLogin').click(function() {
    $('#register').hide()
