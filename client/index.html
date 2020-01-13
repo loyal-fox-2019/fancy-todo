@@ -110,7 +110,7 @@
                                             <label for="due_date">Due Date</label>
                                         </div>
                                         <button class="btn waves-effect waves-light col s12 amber darken-2" type="submit" id="add-todo">Add</button><br>
-                                        <a class="btn waves-effect waves-light col s12 amber darken-2 modal-trigger" style="margin-top: 10px;" href="#modal-football">Football Schedule</a>
+                                        <a class="btn waves-effect waves-light col s12 amber darken-2 modal-trigger" id="schedule-btn" style="margin-top: 10px;" href="#modal-football">Football Schedule</a>
                                     </div>
                                 </form>
                             </div>
@@ -131,13 +131,17 @@
         </div>
 
         <!-- MODAL FOOTBALL SCHEDULE -->
-        <div id="modal-footbal" class="modal Football">
-            <div class="modal-content">
-              <h4>Modal Header</h4>
-              <p>A bunch of text</p>
-            </div>
-            <div class="modal-footer">
-              <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        <div id="modal-football" class="modal football">
+            <div class="modal-content" style="min-height: 80vh;">
+                <h4>Select League and Date</h4>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">timer</i>
+                    <input type="text" id="match-date" class="datepicker" required>
+                    <label for="due_date">Match Date</label>
+                </div>
+                <div class="row" id="league-list">
+
+                </div>
             </div>
         </div>
 
@@ -158,8 +162,7 @@
                     success: function(data){
                         console.log(data, 'masuk gan')
                         localStorage.setItem('token', data.token)
-                        localStorage.setItem('id', data.id)
-                        showAll(data.id)
+                        showAll()
                         $('#login-page').hide()
                         $('#main-page').show()
                     }
@@ -180,11 +183,14 @@
                 $('#main-page').hide()
             }
 
-            function showAll(id){
-                console.log(id)
+            function showAll(){
+                console.log()
                 $.ajax({
-                    url: 'http://localhost:3000/todo/'+id,
+                    url: 'http://localhost:3000/todo',
                     type: 'get',
+                    headers: {
+                        token: localStorage.getItem('token')
+                    },
                     dataType: 'json',
                     success: function(results){
                         $.each(results, (i,data)=>{
@@ -206,7 +212,6 @@
                                                     <span></span>
                                                 </label>
                                                 <a href="#" class="delete-todo" data-id="${data._id}""><i class="material-icons prefix">delete</i></a>
-                                                <a href="#" class="send-msg" data-id="${data._id}""><i class="material-icons prefix">message</i></a>
                                             </div>
                                             </div>
                                         </div>
@@ -230,7 +235,6 @@
                                                     <span></span>
                                                 </label>
                                                 <a href="#" class="delete-todo" data-id="${data._id}""><i class="material-icons prefix">delete</i></a>
-                                                <a href="#" class="send-msg" data-id="${data._id}""><i class="material-icons prefix">message</i></a>
                                             </div>
                                             </div>
                                         </div>

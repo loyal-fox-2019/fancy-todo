@@ -1,31 +1,50 @@
-# FANCY TODO
-### API Documentation
-------
+# FANCY TODO App
+#### API Documentation  
+----------
 
-### Server Side
-##### Node.js, jwt, bcrypt, googleAuth, mongoDB+mongoose
+## List of Routes
+
+List of basic routes:
+
+| Route       | HTTP | Header(s) | Body                                                       | Description              | Return Data |
+| ----------- | ---- | --------- | ---------------------------------------------------------- | ------------------------ | ----- | 
+| /user/register | POST | null      | name : STRING, email : STRING, password : STRING | Register a new user | status:201, message, data: {name,email,password} |
+| /user/login  | POST | null      | email : STRING, password : STRING                     | User Login | status: 200, message, token |
+| /user/google  | POST | null      | Google Account                    | User Login using google account | tatus: 200, message, token |
+
+
+
+List of todos routes:
+
+| Route          | HTTP   | Header(s) | Body                                      | Description                  | Return data |
+| -------------- | ------ | --------- | ----------------------------------------- | ---------------------------- | ------------|
+| /todos     | GET    | token     | null                                      | Get all User's Todo List     | status: 200, message, data: [array of todos] |
+| /todos/:id | GET    | token     | null                                      | Get a single User's todo            | status: 200, message, data: {single todo} |
+| /todos     | POST   | token     | title : STRING, description : STRING, due_date: STRING | Add a Todo data for User    | status: 201, message |
+| /todos/:id | DELETE | token     | null                                      | Delete a Todo data for User | status: 200, message |
+| /todos/:id | PATCH  | token     | status: boolean | Update Todo data for User | status: 200, message |
+
+
+
+## Usage
+#### Tech Used
+1. MongoDB
+2. Mongoose
+3. Express
+4. Axios
+5. Jsonwebtoken
+6. GoogleAuth
+
+Make sure you install all the tech above.
+
+Make sure you have Node.js and npm installed in your computer:
+
 ```
-npm run dev
+$ npm install
 ```
-http://localhost:3000
-
-| Routes | Method | Function |
-| :-------: | :------: | :-----: |
-| localhost:3000/user | GET | Get all user data |
-| localhost:3000/user/login | POST | Login with registered account |
-| localhost:3000/user/register | POST | Register a new account |
-| localhost:3000/user/google | POST  | Register / Login with google account |
-| localhost:3000/todo/:id | GET | Get all user's todo data |
-| localhost:3000/todo/ | POST | Post new todo data |
-| localhost:3000/todo/id | PATCH | Update todo status |
-| localhost:3000/todo/:id | DELETE | Delete one todo |
-
-----
-
-### Client Side
-##### HTML, Materialize CSS, JQuery+AJAX
-http://localhost:8080
-- Register an account / login directly with google
-- Create todo list
-- Mark it as done / undone
-- Delete the todo
+### You can run this app using this command
+```
+$ npm run dev
+```
+#### Client running on PORT 8080
+#### Access API via http://localhost:3000

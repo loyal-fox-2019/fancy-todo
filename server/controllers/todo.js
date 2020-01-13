@@ -7,7 +7,7 @@ class TodoController{
             description: req.body.description,
             status: false,
             due_date: req.body.due_date,
-            user_id: req.body.user_id
+            user_id: req.loggedIn.id
         }
         Todo.create(data)
             .then(result => {
@@ -20,7 +20,7 @@ class TodoController{
     }
 
     static getAll(req,res,next){
-        Todo.find({user_id: req.params.id}).populate('user_id')
+        Todo.find({user_id: req.loggedIn.id}).populate('user_id')
             .then(results => {
                 res.status(200).json(results)
             })
