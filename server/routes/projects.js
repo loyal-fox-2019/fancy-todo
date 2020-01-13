@@ -13,8 +13,12 @@ router.patch('/:id/members/:userid', authorizeProject, ProjectController.addMemb
 router.delete('/:id', authorizeProject, ProjectController.delete)
 
 router.post('/:id/todos', authorizeProject, ProjectController.createTodo)
+router.get('/:id/todos', authorizeProject, ProjectController.getTodo)
+router.get('/:id/todos/:todoId', authorizeProject, ProjectController.getOneTodo)
 router.put('/:id/todos/:todoId', authorizeProject, ProjectController.updateDetailTodo)
 router.patch('/:id/todos/:todoId', authorizeProject, ProjectController.updateStatusTodo)
+router.post('/:id/member', authorizeProject, ProjectController.addMember)
+router.delete('/:id/member/:memberId', authorizeProject, ProjectController.removeMember)
 router.delete('/:id/todos/:todoId', authorizeProject, ProjectController.deleteTodo)
 
 

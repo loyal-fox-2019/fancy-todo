@@ -14,7 +14,7 @@ class TodoController {
   static async getAll(req, res, next) {
     try {
       let owner = req.decodedId
-      let todos = await Todo.find({ owner })
+      let todos = await Todo.find({ owner }).sort({updatedAt: -1})
       res.status(200).json(todos)
     } catch (error) {
       next(error)

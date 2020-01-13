@@ -5,6 +5,20 @@ const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 class UserController {
+  static async getUsers(req, res, next) {
+    console.log(req.params.email)
+    try {
+      let user = await User.findOne({email: req.params.email})
+      if (user) {
+        res.status(201).json(user)
+      } else {
+        next({ status: 404, message: 'User not found!' })
+      }
+    } catch (error) {
+      next(error)
+    }
+  }
+
   static async register(req, res, next) {
     try {
       let { name, email, password } = req.body
