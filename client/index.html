@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css" integrity="sha256-7stu7f6AB+1rx5IqD8I+XuIcK4gSnpeGeSjqsODU+Rk=" crossorigin="anonymous" />
+    <title>Fancy Todo</title>
+    <meta name="google-signin-client_id" content="875004286199-h5drg5snv5mgpqi0797abn3ftf4rkel5.apps.googleusercontent.com">
+</head>
+<body>
+<!--=================================================start of navbar=================================================================== -->
+<div id="navBarDiv">
+  
+</div>
+
+
+
+<!--=================================================start of user page=================================================================== -->
+    <div id="leftDiv">
+
+        <div id="titleDiv">
+          <h1 id="h1Title">Fancy To Do</h1>
+          <!-- <img id='titleOrnament' src="./assets/images/pngfuel 2.com.png" alt=""> -->
+        </div>
+        
+
+
+        <!-- start of Login Form -->
+        <div id="loginFormDiv" class="card userForm" >
+            <h5 class="card-header text-center">Login</h5>
+            <div class="card-body">
+
+                <form id="loginForm">
+                    <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" id="emailLogin" aria-describedby="emailHelp" required>
+                    </div>
+                    <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="passwordLogin" required>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <!-- <button type="submit" class="btn btn-primary">gSignIn</button> -->
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    </div>
+                </form>
+
+            <div class="dropdown-divider"></div>
+            <h6 class="card-title text-center" >New User?  <a id="showRegistrationForm" href="">register</a>  now with us</h6>
+
+            </div>
+        </div>
+        <!-- end of Login Form -->
+
+
+        <!-- start of Registration Form -->
+        <div id="registrationFormDiv" class="card userForm">
+            <h5 class="card-header text-center">Registration</h5>
+            <div class="card-body">
+
+                <form id="registrationForm">
+                    <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="usernameRegistration" aria-describedby="" required>
+                    </div>
+                    <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" id="emailRegistration" aria-describedby="emailHelp" required>
+                    </div>
+                    <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="passwordRegistration" required>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">register</button>
+                    </div>
+                </form>
+
+
+            <div class="dropdown-divider"></div>
+            <h6 class="card-title text-center" >Already registered? click <a id="showLoginForm" href="">here</a> to login</h6>
+
+            </div>
+        </div>
+        <!-- end of Registration Form -->
+
+        <div id="overlay-white1"></div>
+    </div>
+
+<!--=================================================end of user page=================================================================== -->
+
+
+<!--=================================================start of content home page=================================================================== -->
+    <div id="contentDiv">   
+
+        <!-- start of personal todo div -->
+        <div class="personalTodoDiv p-3 " >
+            <h1>Personal Todo</h1>
+            <button id="addPersonalTodoButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#createNewTodo" data-whatever="">
+              <i class="fas fa-plus-circle fa-3x" style="color:#6428EF"></i> 
+            </button>
+
+
+<!-- start of modal to create new todo -->
+            <div class="modal fade" id="createNewTodo" tabindex="-1" role="dialog" aria-labelledby="createNewTodoLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="createNewTodoLabel">New Todo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="modalCreateNewPersonalTodo">
+                      <div class="form-group">
+                        <label for="title" class="col-form-label">Title</label>
+                        <input id="modalNewPersonalTodoTitle" type="text" class="form-control"  required>
+                      </div>
+                      <div class="form-group">
+                        <label for="description" class="col-form-label">Description</label>
+                        <textarea id="modalNewPersonalTodoDescription" class="form-control" id="description" rows=5 style="resize:none" required></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="dueDate" class="col-form-label">Due Date</label>
+                        <input id="modalNewPersonalTodoDueDate" type="date" id="dueDate" required >
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary modalCloserButton" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Post New Todo</button>
+                      </div>
+                    </form>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+<!--end of modal to create new todo -->
+
+
+
+<!-- start of modal to edit todo in personal todo -->
+<div class="modal fade" id="editPersonalTodo" tabindex="-1" role="dialog" aria-labelledby="createNewPersonalTodoLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createNewPersonalTodoLabel">Edit Personal Todo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="editPersonalTodoForm">
+            <!-- append here -->
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!--end of modal to edit todo in personal todo -->
+
+            <div class="customCardGroup overscrollDivVertical">
+              <div id="personalTodoContent" class="row row-cols-1 row-cols-md-3">
+
+                <!-- <div class="col mb-4 ">
+                  <div class="card card-hover">
+                    <div class="card-body">
+                      <h5 class="card-title overscrollEditableVertical">Card title 1</h5>
+                      <p class="card-text overscrollEditableVertical">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                    <div class="card-footer footer-hover text-center" data-toggle="modal" data-target="#editPersonalTodo" data-whatever="">
+                      <small class="text-muted">edit todo</small>
+                    </div>
+                  </div>
+                </div> -->
+
+                <!-- append here  -->
+
+
+
+              </div>
+            </div>
+            
+        </div>
+        <!-- end of personal todo div -->
+
+
+        
+
+        <!-- start of project todo div -->
+        <div class="projectTodoDiv p-3">
+            <h1>Project Todo</h1>
+
+
+            <button type="button" class="btn btn-info btn-jap-navigation" title='New Task'
+            data-toggle="modal" data-target="#addNewProjectModal" data-whatever="">
+                <i class="fas fa-folder-plus fa-3x" style="margin-bottom: 5%;"></i>
+            </button>
+
+<!-- start of modal to create new Project -->
+<div class="modal fade" id="addNewProjectModal" tabindex="-1" role="dialog" aria-labelledby="addNewProjectModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addNewProjectModal">New Project</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="createNewProjectForm">
+          <div class="form-group">
+            <label for="createNewProjectTitle" class="col-form-label">Title</label>
+            <input type="text" class="form-control" id="createNewProjectTitle" required>
+          </div>
+          <div class="form-group">
+            <label for="createNewProjectDescription" class="col-form-label">Description</label>
+            <textarea class="form-control" id="createNewProjectDescription" rows=5 style="resize:none" required></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary modalCloserButton" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Create New Project</button>
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!--end of modal to create new Project -->
+
+
+
+
+          <div class="contentGroupDiv overscrollDivHorizontal">
+
+            <div class="container-fluid pt-3">
+              <div id="projectTodoContent" class="row flex-row flex-sm-nowrap pt-3">
+
+                <!-- <div class="card col-md-6" style="margin-left:10px">
+                  <div class="card-body">
+                    <h5 class="card-title overscrollEditableHorizontal">Card title</h5>
+                    <p class="card-text overscrollEditableHorizontal">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                  </div>
+                </div> -->
+
+                <!-- append here -->
+
+              </div>
+          </div>
+
+            
+          </div>
+
+        </div>
+        <!-- end of project todo div -->
+   
+
+
+
+        <div class="overlay-white2"></div>
+
+    </div>
+
+   <!--=================================================end of content home page=================================================================== --> 
+    
+
+  <!--=================================================Start of Group Content Detail Page=================================================== --> 
+    <div id="groupContentDetailDiv">
+      <div class="groupContent">
+        <div id="projectTitleDiv">
+          <h1>Group Content Detail</h1>
+        </div>
+        <button id="goBackButton" type="button" class="btn btn-primary" style="border:none; background-color: unset;">
+          <i class="fas fa-arrow-circle-left fa-3x" style="color:greenyellow"></i>
+        </button>
+        <form>
+
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-1 col-form-label">Members</label>
+            <div class="col-sm-10" id="memberListDisplay">
+              <!-- append here -->
+              
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-1 col-form-label">Edit Members</label>
+            <div class="col-sm-10" id="testDiv">
+              <select class="custom-select" id="editMember" multiple="multiple" value="add/remove member">
+                
+                <!-- append here -->
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <button id="editMemberButton" type="button" class="btn btn-primary">Edit Member</button>
+            </div>
+          </div>
+
+        </form>
+
+
+
+
+        <!-- button to toggle modal create new todo in project -->
+        <button id="addGroupTodoButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#createNewGroupTodo" data-whatever="" >
+          <i class="fas fa-plus-circle fa-3x" style="color:#6428EF"></i> 
+        </button>
+
+
+<!-- start of modal to create new todo in project -->
+        <div class="modal fade" id="createNewGroupTodo" tabindex="-1" role="dialog" aria-labelledby="createNewGroupTodoLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="createNewGroupTodoLabel">New Group Todo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="createNewProjectTodo">
+                  <div class="form-group">
+                    <label for="projectLabel">Project</label>
+                    <input type="text" id="projectLabel" class="form-control" placeholder="Disabled input" value="project lalala" disabled>
+                  </div>
+                  <div class="form-group">
+                    <label for="newGroupTodoTitle" class="col-form-label">Title</label>
+                    <input type="text" class="form-control" id="newGroupTodoTitle" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="newGroupTodoDescription" class="col-form-label">Description</label>
+                    <textarea class="form-control" id="newGroupTodoDescription" rows=5 style="resize:none" required></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="newGroupTodoDueDate" class="col-form-label">Due Date</label>
+                    <input type="date" id="newGroupTodoDueDate" required>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary modalCloserButton" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Post New Todo</button>
+                  </div>
+                </form>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+<!--end of modal to create new todo in project-->
+
+
+        
+
+
+
+<!-- start of modal to edit todo in project -->
+<div class="modal fade" id="editGroupTodo" tabindex="-1" role="dialog" aria-labelledby="createNewGroupTodoLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createNewGroupTodoLabel">New Group Todo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="editProjectTodo">
+          <!-- append here -->
+         
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!--end of modal to edit todo in project -->
+
+    <div id="projectDetailContent" class="wrapper overscrollDivHorizontal p-3" >
+
+      <div class="card cardFitContent card-hover" >
+        <div class="card-body">
+          <h5 class="card-title overscrollEditableHorizontal">Card title that wraps to a new line</h5>
+          <p class="card-text overscrollEditableHorizontal">This is a longecontent is a little bito additional content. This content is a little bit longer.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">CreatedBy: jap</li>
+          <li class="list-group-item">UpdatedBy: hendy</li>
+          <li class="list-group-item">dueDate: 2020-01-20</li>
+        </ul>
+        <div class="card-body">
+          <a href="#" class="card-link">unfinished</a>
+        </div>
+        <div class="card-footer text-center footer-hover overscrollEditableHorizontal" data-toggle="modal" data-target="#editGroupTodo" data-whatever="">
+          <small class="text-muted" >edit</small>
+        </div>
+      </div>
+
+      
+
+
+
+
+    </div>
+
+
+
+
+
+      </div>
+      <div class="overlay-white2"></div>
+    </div>
+
+<!--=================================================END of Group Content Detail Page======================================================== --> 
+
+
+
+
+    
+    
+
+    
+<!-- gSignIn -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<!-- sweetalert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<!-- font awesome  -->
+<script defer src="https://use.fontawesome.com/releases/v5.11.2/js/all.js"></script>
+<script src="https://kit.fontawesome.com/a5750d6f48.js" crossorigin="anonymous"></script>
+<!-- bootstrap -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<!-- jquery core -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<!-- jquery ui -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<!-- plugin : overscroll -->
+<script src="./assets/not-so-latest-jquery/not-so-latest-jquery-latest.js"></script>
+<script src="./assets/azoff-overscroll-52b87e1/dist/jquery.overscroll.js"></script>
+<!-- plugin : bootstrap multiple select -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.js" integrity="sha256-gh5oDg46rxRDr9QF4nehk1UNULQ05EhbM9wOerElwRc=" crossorigin="anonymous"></script>
+<!-- config & main js -->
+<script src="./config/ajax.js"></script>
+<script src="./script/setUserPage.js"></script>
+<script src="./script/setContentDiv.js"></script>
+<script src="./script/setProjectTodo.js"></script>
+<script src="./script/main.js"></script>
+
+
+
+
+</body >
+</html>
