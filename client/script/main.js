@@ -73,7 +73,6 @@ function onSignIn(googleUser) {
         data: { idToken }
     })
         .done((response) => {
-            console.log(response)
             localStorage.setItem('token', response.accessToken)
             localStorage.setItem('_id', response.user._id)
             localStorage.setItem('email', response.user.email)
@@ -95,11 +94,11 @@ function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         localStorage.clear()
-        $("#landingPage").show()
-        checkLogin()
         $('#completed').empty()
         $('#todo').empty()
         $('#imageUser').empty()
+        checkLogin()
+        $("#landingPage").show()
     });
 }
 
