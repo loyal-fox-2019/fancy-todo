@@ -178,6 +178,7 @@ $(document).ready(function() {
     })
       .done(result => {
         const id = result._id
+        const email = result.email
         Swal.fire({
           icon: 'warning',
           title: 'Add Member',
@@ -188,11 +189,10 @@ $(document).ready(function() {
           confirmButtonText: 'Yes'
         }).then((result) => {
           if (result.value) {
-            console.log(id)
             $.ajax({
               url: `http://localhost:3000/api/projects/${projectId}/member`,
               method: 'POST',
-              data: { userId: id },
+              data: { userId: id, email },
               headers: {
                 token: localStorage.getItem('token')
               }
@@ -210,7 +210,6 @@ $(document).ready(function() {
               })
           }
         })
-        console.log(result) 
       })
       .fail(err => {
         showError(err)
@@ -482,7 +481,6 @@ function doneTodoProject(id) {
     }
   })
     .done(result => {
-      console.log('success')
       loadTodosProject()
     })
     .fail(err => {
@@ -609,7 +607,6 @@ function showProject(id) {
     }
   })
     .done(result => {
-      console.log(result)
       localStorage.setItem('projectId', result._id)
       const todos = result.todos
       const members = result.members

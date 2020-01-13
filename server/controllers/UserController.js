@@ -6,7 +6,6 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 class UserController {
   static async getUsers(req, res, next) {
-    console.log(req.params.email)
     try {
       let user = await User.findOne({email: req.params.email})
       if (user) {
