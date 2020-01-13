@@ -3,6 +3,9 @@
 # Fitur extra
 Project-token untuk join project dengan authentikasi.
 <hr>
+# Deploy link
+http://fancy-todo-1-zoe.s3-website-ap-southeast-1.amazonaws.com/
+<hr>
 # User
 
 ## register
