@@ -1,0 +1,117 @@
+<div class="container-fluid-auto container-sm container-md container-lg h-100 w-25 mx-50" id="loginPage">
+    <div class="isiKotakSignIn justify-content-center card p-3">
+        <h3>Login With Google</h3>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <a class="dropdown-item g-singout" onclick="signOut();" id="logout">logout</a>
+    </div>
+</div>
+</div>
+
+<!-- <div class="container-fluid mt-3 gray"> -->
+<div class="webPage" id="webPage">
+    <nav class="navbar navbar-expand-lg gray">
+        <a class="navbar-brand font-weight-bold mx-3 p-3" href="#">UberGit</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon bg-dark"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown" aria-labelledby="navbarDropdown">
+                    <a class="nav-link font-weight-bold dropdown-toggle userloggedIn" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" href="#" id="userName"></a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item g-singout" onclick="signOut();" id="logout">logout</a>
+                    </div>
+                </li>
+            </ul>
+            <!-- </div> -->
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-md-2 colBesar">
+                <ul>
+                    <h3>Users</h3>
+                    <li class="users" id="kenny">kennysalam</li>
+                    <li class="users" id="amel">amadyanissa</li>
+                    <li class="users" id="serafimsng">serafimsng</li>
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                        <!-- <table id="starred" class="table table-bordered table-striped mb-0"></table> -->
+                        <!-- <ul id="starred"></ul> -->
+                    </div>
+                </ul>
+                <div class="col">
+
+                    <button class="btn btn-primary" id="allStar">Get My Starred Repos</button>
+                </div>
+            </div>
+            <div class="col scroll col-4 colBesar">
+                <div class="container tengah justify-content-center">
+                    <div class="col pt-3">
+
+                        <h3></h3>
+                        <input type="search" placeholder="Search" id="searchRepo">
+                        <button id="searchbutton" type="button" class="button"
+                            placeholder="Search my starred repo">Search</button>
+                        <div class="overflow-y">
+                            <div id="repos"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col colBesar">
+                <div class="container">
+
+                    <div class="row">
+                        <h3>Git Tutor</h3>
+                    </div>
+                    <div class="row">
+                        <p>Generate your markdown</p>
+                    </div>
+                    <div class="row">
+
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque bibendum massa nec sem
+                        congue,
+                        et
+                        ultrices
+                        odio porttitor. Nullam non fermentum elit, vitae maximus erat. Donec congue at eros tempor
+                        congue.
+                        Aliquam
+                        id leo in nisi facilisis dictum. Aenean at dui mauris. Maecenas laoreet eros eu lorem
+                        maximus,
+                        ut
+                        imperdiet
+                        libero consectetur. Aliquam eu semper purus. Duis non dolor ut erat pretium imperdiet sed
+                        eget
+                        dolor.
+                        Maecenas nec imperdiet sem. Nullam ac vehicula magna, eu sodales arcu. Ut ultricies ante
+                        dictum,
+                        sollicitudin quam eu, tempor massa.
+                    </div>
+                    <div class="row">
+                        <h3>Create New Repo</h3>
+                    </div>
+                    <div class="row containCreateRepo p-3">
+                        <div class="col col-6">
+                            <input type="search" id="newRepo" placeholder="Your Repository Name">
+                        </div>
+                        <div class="col col-6">
+                            <button id="createNewRepo" type="button" class="button">create</button>
+                        </div>
+
+                        <div class="col col-6 mh-3">
+                            <div id="created">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

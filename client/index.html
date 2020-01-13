@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-signin-client_id"
+        content="122606219695-b7b5vkupuacgsm3ndk8gqrn3jk5jn5po.apps.googleusercontent.com">
+    <title>Fancy Todo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <link href="index.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .item {
+            width: 200px;
+            height: 200px;
+            background-color: gray;
+            margin: 50px auto;
+            padding-top: 70px;
+            font-size: 3em;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row no-gutters" id="loginPage">
+            <div class="col-md-6 no-gutters">
+                <div class="leftside d-flex justify-content-center align-self-center">
+                    <div class="col align-self-center containKeepLife">
+                        <div class="row align-self-center justify-content-start pl-5 pr-5 keep">
+                            <h2>
+                                Keep Track of your Activities
+                            </h2>
+                        </div>
+                        <div class="row align-self-center justify-content-start pl-5 pr-5 life">
+                            <h5>
+                                Life goes incredibly fast and waits for no one. We are here to help you organize them.
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 no-gutters">
+                <div class="rightside d-flex justify-content-center align-self-center">
+                    <div class="col align-self-center form-group">
+                        <div class="col justify-content-center">
+                            <h2 class="tulisanRegis pl-2">Register</h2>
+                        </div>
+                        <div class="form-group row">
+                            <label for="username" class="col-sm-2 col-form-label">
+                                <h6>Username</h6>
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="text" name="username" class="form-control" id="username"
+                                    aria-describedby="usernameHelp" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+
+                            <label for="email" class="col-sm-2 col-form-label">
+                                <h6>Email</h6>
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="email" name="email" class="form-control" id="email"
+                                    aria-describedby="emailHelp" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-2 col-form-label">
+                                <h6>Password</h6>
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="password" name="password" class="form-control" id="password"
+                                    aria-describedby="passwordHelp" required>
+                            </div>
+                        </div>
+                        <div class="row align-self-center justify-content-center pl-5 pr-5">
+                            <div class="btn btn-primary" id="registerNow">
+                                Sign Me Up!
+                            </div>
+                        </div>
+                        <div class="col my-3 justify-content-center">
+                            <!-- <p>Already has an Account?</p> -->
+                            <h2 class="tulisanRegis pl-2">Login</h2>
+                        </div>
+                        <div class="form-group row">
+                            <label for="username" class="col-sm-2 col-form-label">
+                                <h6>Username</h6>
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="text" name="username" class="form-control" id="usernameLogin"
+                                    aria-describedby="usernameHelp" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-2 col-form-label">
+                                <h6>Password</h6>
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="password" name="password" class="form-control" id="passwordLogin"
+                                    aria-describedby="passwordHelp" required>
+                            </div>
+                        </div>
+                        <div class="row align-self-center justify-content-center pl-5 pr-5">
+                            <div class="btn btn-primary" id="loginNow">
+                                Login
+                            </div>
+                        </div>
+                        <div class="row align-self-center justify-content-center my-4 pl-5 pr-5">
+
+                            <div class="g-signin2" id="loginGoogle" data-onsuccess="onSignIn" data-longtitle="true">
+                            </div>
+                        </div>
+                        <div class="row align-self-center justify-content-center pl-5 pr-5">
+                            <a href="#" onclick="signOut();">Sign out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div id="mainPage" class="no-gutters">
+                <nav class="navbar navbar-light justify-content-between" id="navBar">
+                    <a class="navbar-brand">Fancy To Do</a>
+                    <!-- <form class="form-inline">
+                        <input class="form-control mr-sm-2" id="searchBar" type="search" placeholder="Search"
+                            aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0 dropdown-toggle" type="submit"
+                            id="searchNav">Search</button>
+
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Hasil Cari (click me!)
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="hasilCariUname">
+                            </div>
+                        </div>
+
+
+                    </form> -->
+                    <div class="row align-self-center justify-content-center pl-5 pr-5">
+                        <a class="btn btn-danger" id="logoutBTN" onclick="signOut();">Sign out</a>
+                    </div>
+                </nav>
+                </nav>
+                <!-- <div class="containerSapaW"> -->
+
+                <div class="">
+                    <div class="d-flex justify-content-center align-self-center" id="sapaUser">
+                        <div class="col-4 align-self-center no-gutters">
+                            <div class="row align-self-center justify-content-start pl-5 pr-5 keep no-gutters">
+                                <div class=" col weatherContain" id="weather">
+                                    <div class="row align-self-center">
+                                        <div class="col-8 pl-5" id="wIcon">
+
+                                        </div>
+                                        <div class="col-4" id="temperature">
+
+                                        </div>
+                                    </div>
+                                    <div class="row align-self-center pl-5" id="wDesc">
+                                        <div class="col pl-4 align-self-center">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8 align-self-center justify-content-center no-gutters">
+                            <!-- <div class="row align-self-center justify-content-start pl-5 pr-5 keep no-gutters"> -->
+                            <div class="haloUser  justify-content-center" id="haloUser">
+
+                            </div>
+                            <div class="row justify-content-center align-self-center">
+                                <div class="col-6">
+
+                                    <button class="btn btn-primary" id="createTodo">Create new to do</button>
+                                </div>
+
+                                <div class="col-6 justify-content-end">
+                                    <button class="btn btn-primary" id="seeTodos">Show me my todos</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="container-fluid"> -->
+                <div class="col">
+                    <div class="row justify-content-center align-self-center">
+
+                        <div class="col-5" style="padding-left:50px">
+                            <img src="done-5.png" alt="done-5" width="400">
+                        </div>
+                        <div class="col-7 todos">
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-self-center">
+                    <div class="letsDo justify-content-center align-self-center">
+                        <h5>It's Always Nice to Keep in Track of Everything</h5>
+                        <!-- <div class="col" id="toBeEdited"></div> -->
+                        <div class="col align-self-center form-group">
+                            <div id="toBeEdited">
+
+                            </div>
+                            <!-- <div class="col justify-content-center" id="toBeEdited"> -->
+                            <!-- </div> -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- </div> -->
+
+                <!-- </div> -->
+            </div>
+        </div>
+        <div class="h-100 row align-self-center vertical-center" id="pageNotFound">
+            <div class="col pageNotFoundContain">
+                <div class="row d-flex justify-content-center pageNotFoundContent">
+                    <h2>Oops</h2>
+                </div>
+                <div class="row d-flex justify-content-center pageNotFoundContent">
+                    <h4>Looks Like You're Lost</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <!-- <script>
+        AOS.init({
+            duration: 1200,
+        });
+    </script> -->
+    <!-- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->
+    <script src="index.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="googleLogin.js"></script>
+
+</body>
+
+</html>
