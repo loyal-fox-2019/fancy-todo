@@ -12,6 +12,7 @@ input[type=text],
 input[type=email],
 input[type=password],
 input[type=submit],
+input[type=date],
 textarea {
    border: 1px solid #e2e8f0;
    margin-top: 0.5rem;

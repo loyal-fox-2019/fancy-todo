@@ -64,15 +64,21 @@ function fetchTodos() {
    .done(data => {
       console.log('todo data', data.todos)
       $('#todo-show').empty()
+
+      $('#todo-show').append(`
+         <h3 class="text-2xl text-gray-800">Your todo(s):</h3>
+      `)
+
       data.todos.forEach(todo => {
          console.log(todo._id)
+
          $('#todo-show').append(`
-            <div class="flex flex-col ${todo.status == 'finished' ? 'bg-green-200' : ''}">
-               <p>${todo.name} <span>${todo.due_date.toString().split('T')[0]}</span></p>
-               <p>${todo.description}</p>
+            <div class="flex flex-col py-4 px-3 ${todo.status == 'finished' ? 'bg-green-200' : ''} rounded shadow">
+               <p class="text-2xl">${todo.name} <span class="text-lg text-gray-500">${todo.due_date.toString().split('T')[0]}</span></p>
+               <p class="text-lg my-2">${todo.description}</p>
                <div class="todo-card-footer">
-                  <a href="#" class="todo-card-footer-update" data-value="${todo._id}">Update</a>
-                  <a href="#" class="todo-card-footer-delete" data-value="${todo._id}">Delete</a>
+                  <a href="#" class="todo-card-footer-update underline text-lg" data-value="${todo._id}">Update</a>
+                  <a href="#" class="todo-card-footer-delete underline text-lg" data-value="${todo._id}">Delete</a>
                </div>
             </div>
          `)
@@ -89,6 +95,31 @@ function fetchTodos() {
 
 $(document).ready(function() {
    pageInit()
+
+   $('#logout').click(function() {
+      localStorage.removeItem('token')
+      pageInit()
+   })
+
+   $('#selectLogin').click(function() {
+      $('#register').hide()
+      $('#login').show()
+   })
+   
+   $('#selectRegister').click(function() {
+      $('#login').hide()
+      $('#register').show()
+   })
+   
+   $('#select-todo-create').click(function() {
+      $('#todo-edit').hide()
+      $('#todo-create').show()
+   })
+   
+   $('#select-todo-update').click(function() {
+      $('#todo-create').hide()
+      $('#todo-edit').show()
+   })
 
    $('#project-form-label').text('Create new project')
 
@@ -205,7 +236,7 @@ $(document).ready(function() {
       event.preventDefault()
 
       $.ajax({
-         url: `${baseUrl}/todo/`,
+         url: `${baseUrl}/todo/${$('#todo-edit-id').val()}`,
          method: 'patch',
          data: {
             name: $('#todo-edit-name').val(),
@@ -218,6 +249,7 @@ $(document).ready(function() {
          }
       })
       .done(data => {
+         console.log('berhasil')
          $('#todo-edit-name').val('')
          $('#todo-edit-description').val('')
          $('#todo-edit-due_date').val('')
@@ -551,15 +583,17 @@ function refillProjectDetail(projectId) {
 
       data.project.todos.forEach(todo => {
          $('#inside-todos').append(`
-            <div class="flex flex-col ${todo.status == 'finished' ? 'bg-green-200' : ''}">
-               <p>${todo.name} <span>${todo.due_date.toString().split('T')[0]}</span></p>
-               <p>${todo.description}</p>
+            <div class="flex flex-col ${todo.status == 'finished' ? 'bg-green-200' : ''} border border-indigo-100 shadow rounded py-4 px-2 mb-4">
+               <p class="text-2xl">${todo.name} <span class="text-lg text-gray-500">${todo.due_date.toString().split('T')[0]}</span></p>
+               <p class="text-lg my-2">${todo.description}</p>
                <div class="todo-card-footer">
-                  <a href="#" class="inside-todos-remove" data-value="${todo._id}" data-project="${data.project._id}">Remove</a>
+                  <a href="#" class="inside-todos-remove underline text-lg" data-value="${todo._id}" data-project="${data.project._id}">Remove</a>
                </div>
             </div>
          `)
       })
+
+      
 
       console.log('getting free todos')
       $.ajax({
@@ -573,16 +607,16 @@ function refillProjectDetail(projectId) {
          console.log('getting free todos complete')
          $('#free-todos').empty()
          $('#free-todos').append(`
-            <h5>Free todos</h5>
+            <h5 class="text-xl text-gray-800">Free Todos</h5>
          `)
 
          data2.todos.forEach(todo => {
             $('#free-todos').append(`
-               <div class="flex flex-col ${todo.status == 'finished' ? 'bg-green-200' : ''}">
-                  <p>${todo.name} <span>${todo.due_date.toString().split('T')[0]}</span></p>
-                  <p>${todo.description}</p>
+               <div class="flex flex-col ${todo.status == 'finished' ? 'bg-green-200' : ''} border border-indigo-100 shadow rounded py-4 px-2 mb-4">
+                  <p class="text-2xl">${todo.name} <span class="text-lg text-gray-500">${todo.due_date.toString().split('T')[0]}</span></p>
+                  <p class="text-lg my-2">${todo.description}</p>
                   <div class="todo-card-footer">
-                     <a href="#" class="free-todos-add" data-value="${todo._id}" data-project="${data.project._id}">Add</a>
+                     <a href="#" class="free-todos-add underline text-lg" data-value="${todo._id}" data-project="${data.project._id}">Add</a>
                   </div>
                </div>
             `)
@@ -629,12 +663,12 @@ function fetchProjects() {
       data.projects.forEach(project => {
          $('#project-show').append(`
             <div>
-               <p>
-                  Project name: <a href="#" class="project-show-link" data-value="${project._id}" data-owner="${project.users[0]}">${project.name}</a>
+               <p class="py-2">
+                  Project name:&nbsp;&nbsp;&nbsp;<a href="#" class="project-show-link text-2xl text-gray-600 hover:text-gray-800" data-value="${project._id}" data-owner="${project.users[0]}">${project.name}</a>
                </p>
                <div>
-                  <a href="#" class="project-show-update" data-value="${project._id}" data-name="${project.name}">Update</a>
-                  <a href="#" class="project-show-delete" data-value="${project._id}">Delete</a>
+                  <a href="#" class="project-show-update text-lg underline" data-value="${project._id}" data-name="${project.name}">Update</a>
+                  <a href="#" class="project-show-delete text-lg underline" data-value="${project._id}">Delete</a>
                </div>
             </div>
          `)

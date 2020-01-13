@@ -57,7 +57,8 @@ class TodoController {
 
    static async readFreeTodos(req, res, next) {
       try {
-         const todos = await Todo.find({project: null})
+         console.log(req.decoded.userId)
+         const todos = await Todo.find({user: req.decoded.userId, project: null})
 
          res.status(200).json({todos})
       }
