@@ -2,7 +2,7 @@
 
 ## **Unique Feature**
 
-Send an email after a new task is added
+Group Chat, Drag and Drop, Invitation
 
 ## **Register User**
 
@@ -378,7 +378,7 @@ Update a todo and return JSON data.
         "ok": 1,
         "deletedCount": 0
     }
-    ```
+  ```
   
 - **Sample Call:**
 
