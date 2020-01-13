@@ -59,6 +59,14 @@ $(document).ready(function () {
         event.preventDefault();
     });
 
+    $('#form-newUser').submit(function (event) {
+        registerUser(
+            $('#userEmail').val(),
+            $('#userPassword').val()
+        )
+        event.preventDefault();
+    });
+
     $('#newTask').click(function () {
         newTaskShow('show');
     });
@@ -245,10 +253,27 @@ function addNewMember(memberEmail) {
         $('#newMember-cancel').click();
     }).fail(err => {
         console.log(err);
-        if (err.responseJSON.code === 401){
+        if (err.responseJSON.code === 401) {
             $('#member-message').html(err.responseJSON.errMsg)
         } else {
             $('#member-message').html(err.responseJSON.errMsg.errMsg)
         }
+    })
+}
+
+function registerUser(email, password) {
+    $.ajax({
+        type: 'POST',
+        url: url_server + api_user + '/register',
+        data: {
+            email: email,
+            password: password
+        }
+    }).done(response => {
+        console.log(response);
+        $('#newUser-cancel').click();
+    }).fail(err => {
+        console.log(err);
+        $('#user-message').text(err.responseJSON.errMsg.message)
     })
 }

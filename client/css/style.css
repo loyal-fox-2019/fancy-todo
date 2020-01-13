@@ -5,6 +5,7 @@
     position: absolute;
     transform: translate(-50%, -50%);
     background-color: white;
+    text-align: center;
 }
 
 #title {
@@ -38,6 +39,7 @@
 .message {
     font-size: 12px;
     color: red;
+    margin: 10px 10px 0 10px;
 }
 
 #todo-container {
@@ -47,4 +49,34 @@
 #myTabContent{
     padding-left: 20px;
     border-left: lightgray 1px solid;
+}
+
+#register-button{
+    margin: 20px;
+    font-size: 12px;
+}
+
+label {
+    font-size: 14px;
+}
+
+input{
+    font-size: 12px !important;
+}
+
+button {
+    font-size: 13px !important;
+}
+
+.input-description{
+    font-size: 12px;
+    color: #0984e3;
+}
+
+.btn-primary{
+    background-color: #1e90ff;
+}
+
+.btn-danger{
+    background-color: #ff4757;
 }

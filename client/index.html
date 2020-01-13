@@ -14,53 +14,152 @@
 </head>
 <body>
 
+<!--    user register-->
+<div id="newUser-container" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Register</h4>
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal">&times;
+                </button>
+            </div>
+
+            <form id="form-newUser">
+                <div class="message" id="user-message"></div>
+                <div class="modal-body">
+                    <label for="userEmail">Email</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-envelope"></i>
+                            </span>
+                        </div>
+                        <input type="email"
+                               class="form-control"
+                               placeholder="user email..."
+                               name="userEmail"
+                               id="userEmail"
+                               required>
+                    </div>
+
+                    <label for="userPassword">Password</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-key"></i>
+                            </span>
+                        </div>
+                        <input type="password"
+                               class="form-control"
+                               placeholder="user password..."
+                               name="userPassword"
+                               id="userPassword"
+                               minlength="8"
+                               maxlength="30"
+                               required>
+                    </div>
+                    <div class="input-description">
+                        min 8 character, max 30 character
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit"
+                            class="btn btn-primary">Sign Up
+                    </button>
+                    <button type="button"
+                            class="btn btn-danger"
+                            data-dismiss="modal"
+                            name="newUser-cancel"
+                            id="newUser-cancel">Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--    end user register-->
+
 <!--login form-->
 <div class="jumbotron" id="login-container">
     <p>
-    <div id="logo">FANCY TODO</div>
+    <div id="logo">SIGN IN</div>
     <small>
         <div class="message" id="login-message"></div>
     </small>
     <form id="form-login">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                <span class="input-group-text">
+                    <i class="fa fa-envelope"></i>
+                </span>
             </div>
-            <input type="text" class="form-control form-login-input" placeholder="email here ..." name="email"
-                   id="email" required>
+            <input type="email"
+                   class="form-control form-login-input"
+                   placeholder="email here ..."
+                   name="email"
+                   id="email"
+                   required>
         </div>
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fa fa-key"></i></span>
+                <span class="input-group-text">
+                    <i class="fa fa-key"></i>
+                </span>
             </div>
-            <input type="password" class="form-control form-login-input" placeholder="password here ..." name="password"
-                   id="password" required>
+            <input type="password"
+                   class="form-control form-login-input"
+                   placeholder="password here ..."
+                   name="password"
+                   id="password"
+                   minlength="8"
+                   maxlength="30"
+                   required>
         </div>
+
         <div class="row d-flex justify-content-center">
             <button type="submit" class="btn btn-primary">Sign In</button>
             <!-- Google signin -->
             <div class="g-signin2 ml-3" data-onsuccess="onSignIn"></div>
             <!-- end google signin -->
         </div>
+        <a href="#"
+           id="register-button"
+           data-toggle="modal"
+           data-target="#newUser-container">register new user</a>
     </form>
     </p>
 </div>
+<!--end login form-->
 
 <main>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Fancy - Todo</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="profile-email" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="profile-name">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       id="profile-email"
+                       role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false"
+                       name="profile-name">
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item"
@@ -118,8 +217,6 @@
             </div>
             <!-- /.col-md-8 -->
         </div>
-
-
     </div>
     <!-- /.container -->
 
@@ -135,6 +232,7 @@
                     </button>
                 </div>
                 <form id="form-newProject">
+                    <div class="message" id="warning-message"></div>
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="projectName">Name</label>
@@ -162,7 +260,6 @@
                     </div>
 
                     <div class="modal-footer">
-                        <div class="message" id="warning-message"></div>
                         <br>
                         <button type="submit"
                                 class="btn btn-primary">Save
@@ -193,6 +290,7 @@
                 </div>
 
                 <form id="form-newTask">
+                    <div class="message" id="todo-message"></div>
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="taskName">Name</label>
@@ -230,7 +328,6 @@
                     </div>
 
                     <div class="modal-footer">
-                        <div class="message" id="todo-message"></div>
                         <button type="submit"
                                 class="btn btn-primary">Save
                         </button>
@@ -260,6 +357,7 @@
                 </div>
 
                 <form id="form-newMember">
+                    <div class="message" id="member-message"></div>
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="taskName">Email</label>
@@ -273,7 +371,6 @@
                     </div>
 
                     <div class="modal-footer">
-                        <div class="message" id="member-message"></div>
                         <button type="submit"
                                 class="btn btn-primary">Save
                         </button>
@@ -289,7 +386,6 @@
         </div>
     </div>
     <!--    end New Todo-->
-
 </main>
 
 <!--script js-->
