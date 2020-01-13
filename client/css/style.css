@@ -65,6 +65,10 @@ input{
     /*background-color: #fafffe !important;*/
 }
 
+textarea{
+    font-size: 12px !important;
+}
+
 button {
     font-size: 13px !important;
 }
@@ -85,3 +89,4 @@ button {
 .card-text{
     font-size: 12px;
 }
+

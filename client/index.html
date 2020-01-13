@@ -235,14 +235,13 @@
 
                         <div class="form-group">
                             <label for="projectDescription">Description</label>
-                            <input type="text"
-                                   class="form-control"
-                                   placeholder="project description"
-                                   name="projectDescription"
-                                   id="projectDescription"
-                                   maxlength="100"
-                                   minlength="20"
-                                   required>
+                            <textarea class="form-control"
+                                      placeholder="project description"
+                                      name="projectDescription"
+                                      id="projectDescription"
+                                      maxlength="100"
+                                      minlength="20"
+                                      required></textarea>
                             <div class="input-description">
                                 min 20 character, max 100 character
                             </div>
@@ -299,33 +298,32 @@
 
                         <div class="form-group">
                             <label for="taskName">Description</label>
-                            <input type="text"
-                                   class="form-control"
-                                   placeholder="description"
-                                   name="taskDesc"
-                                   id="taskDesc"
-                                   minlength="20" ,
-                                   maxlength="100"
-                                   required>
+                            <textarea class="form-control"
+                                      placeholder="description"
+                                      name="taskDesc"
+                                      id="taskDesc"
+                                      minlength="20"
+                                      maxlength="100"
+                                      required></textarea>
                             <div class="input-description">
                                 min 20 character, max 100 character
                             </div>
                         </div>
 
                         <label for="taskDue">Due date
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <i class="fa fa-calendar"></i>
                                 </span>
+                                </div>
+                                <input type="date"
+                                       class="form-control"
+                                       data-date-format="mm/dd/yyyy"
+                                       name="taskDue"
+                                       id="taskDue"
+                                       required>
                             </div>
-                            <input type="date"
-                                   class="form-control"
-                                   data-date-format="mm/dd/yyyy"
-                                   name="taskDue"
-                                   id="taskDue"
-                                   required>
-                        </div>
                     </div>
 
                     <div class="modal-footer">
