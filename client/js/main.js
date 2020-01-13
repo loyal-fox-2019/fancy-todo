@@ -59,7 +59,11 @@ function fetchTodos() {
       })
    })
    .fail(error  => {
-      console.log(error)
+      Swal.fire({
+         icon: 'error',
+         title: 'Fetch todo failed',
+         text: error.responseJSON
+      })
    })
 }
 
@@ -88,6 +92,12 @@ $(document).ready(function() {
       .fail(error => {
          console.log(Object.keys(error))
          console.log(error)
+
+         Swal.fire({
+            icon: 'error',
+            title: 'Registration failed',
+            text: error.responseJSON
+         })
       })
    })
 
@@ -109,6 +119,11 @@ $(document).ready(function() {
          pageInit()
       })
       .fail(error => {
+         Swal.fire({
+            icon: 'error',
+            title: 'Login failed',
+            text: error.responseJSON
+         })
          console.log(Object.keys(error))
          console.log(error)
       })
@@ -158,6 +173,11 @@ $(document).ready(function() {
       })
       .fail(error => {
          console.log(error.responseJSON)
+         Swal.fire({
+            icon: 'error',
+            title: 'Todo creation failed',
+            text: error.responseJSON
+         })
       })
    })
 
@@ -185,6 +205,11 @@ $(document).ready(function() {
          console.log(data)
       })
       .fail(error => {
+         Swal.fire({
+            icon: 'error',
+            title: 'Todo update failed',
+            text: error.responseJSON
+         })
          console.log(error.responseJSON)
       })
    })
@@ -211,6 +236,11 @@ $(document).ready(function() {
          $('#todo-edit-due_date').val(data.todo.due_date.toString().split('T')[0])
       })
       .fail(error => {
+         Swal.fire({
+            icon: 'error',
+            title: 'Setting up todo update has failed',
+            text: error.responseJSON
+         })
          console.log(error.responseJSON)
       })
    })
@@ -230,6 +260,11 @@ $(document).ready(function() {
          fetchTodos()
       })
       .fail(error => {
+         Swal.fire({
+            icon: 'error',
+            title: 'Todo deletion has failed',
+            text: error.responseJSON
+         })
          console.log(error.responseJSON)
       })
    })
@@ -258,6 +293,11 @@ $(document).ready(function() {
          fetchTodos()
       })
       .fail(error => {
+         Swal.fire({
+            icon: 'error',
+            title: 'Todo edit has failed',
+            text: error.responseJSON
+         })
          console.log(error.responseJSON)
       })
    })
@@ -311,6 +351,14 @@ $(document).ready(function() {
 
       })
       .fail(error => {
+         const job = isCreate? 'creation' : 'edit'
+
+         Swal.fire({
+            icon: 'error',
+            title: `Project ${job} has failed`,
+            text: error.responseJSON
+         })
+
          console.log(error.responseJSON)
       })
    })
@@ -342,6 +390,12 @@ $(document).ready(function() {
          fetchProjects()
       })
       .fail(error => {
+         Swal.fire({
+            icon: 'error',
+            title: 'Project deletion has failed',
+            text: error.responseJSON
+         })
+         
          console.log(error.responseJSON)
       })
    })
@@ -374,6 +428,12 @@ $(document).ready(function() {
          refillProjectDetail($(this).data('project'))
       })
       .fail(error => {
+         Swal.fire({
+            icon: 'error',
+            title: 'Todo removal from project has failed',
+            text: error.responseJSON
+         })
+
          console.log(error.responseJSON)
       })
    })
@@ -395,6 +455,11 @@ $(document).ready(function() {
          refillProjectDetail($(this).data('project'))
       })
       .fail(error => {
+         Swal.fire({
+            icon: 'error',
+            title: 'Todo addition to project has failed',
+            text: error.responseJSON
+         })
          console.log(error.responseJSON)
       })
    })
@@ -417,6 +482,11 @@ $(document).ready(function() {
          $('#project-token-show').text(data.project_token)
       })
       .fail(error => {
+         Swal.fire({
+            icon: 'error',
+            title: 'Project token generation has failed',
+            text: error.responseJSON
+         })
          console.log(error.responseJSON)
       })
    })
@@ -436,6 +506,11 @@ $(document).ready(function() {
          fetchProjects()
       })
       .fail(error => {
+         Swal.fire({
+            icon: 'error',
+            title: 'Join project failed',
+            text: error.responseJSON
+         })
          console.log(error)
       })
    })
@@ -497,6 +572,20 @@ function refillProjectDetail(projectId) {
          $('#project-list').hide()
          $('#project-detail').show()
       })
+      .fail(error => {
+         Swal.fire({
+            icon: 'error',
+            title: 'Fetching free-todos has failed',
+            text: error.responseJSON
+         })
+      })
+   })
+   .fail(error => {
+      Swal.fire({
+         icon: 'error',
+         title: 'Project detail retrieval has failed',
+         text: error.responseJSON
+      })
    })
 }
 
@@ -532,6 +621,11 @@ function fetchProjects() {
       })
    })
    .fail(error => {
+      Swal.fire({
+         icon: 'error',
+         title: 'Fetch project has failed',
+         text: error.responseJSON
+      })
       console.log(error.responseJSON)
    })
 }
