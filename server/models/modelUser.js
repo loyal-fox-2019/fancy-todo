@@ -3,21 +3,9 @@ const {createBCryptHash} = require('../helpers/bCrypt');
 
 const userSchema = new Schema(
     {
-        // userName: {
-        //     type: String,
-        //     validate: {
-        //         validator: function (userName) {
-        //             return models.User.findOne({
-        //                 userName: userName
-        //             }).then(result => {
-        //                 return !result;
-        //             })
-        //         },
-        //         message: "username has been registered !!!"
-        //     }
-        // },
         email: {
             type: String,
+            required: true,
             validate: [{
                 validator: function (email) {
                     const emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
@@ -37,7 +25,9 @@ const userSchema = new Schema(
         },
         password: {
             type: String,
-            required: true
+            required: true,
+            minlength: 8,
+            maxlength: 30
         },
         role: String
     }
