@@ -1,5 +1,5 @@
-// const serverURL = 'http://35.239.217.58'
 const serverURL = 'http://localhost:80'
+// const serverURL = 'https://fancyserver.amilhasbala.com'
 
 $(document).ready(function () {
   hideAll()
@@ -121,6 +121,33 @@ function removeTodo(payload) {
     })
 }
 
+function deleteProject(payload) {
+  let id = payload
+  $.ajax({
+    method: 'delete',
+    url: `${serverURL}/projects/${id}`,
+    headers: {
+      token: localStorage.getItem('token')
+    }
+  })
+    .done(result => {
+      Swal.fire({
+        title: 'Success!', 
+        timer: 1000,
+        icon: 'success',
+        showConfirmButton: false
+      })
+      toMain()
+    })
+    .fail(err => {
+      Swal.fire({
+        title: 'Error!',
+        text: `${err.responseJSON.message}`,
+        icon: 'error'
+      })
+    })
+}
+
 function removeProjectTodo(payload) {
   let id = payload.getAttribute('data-id')
   $.ajax({
@@ -137,7 +164,7 @@ function removeProjectTodo(payload) {
         icon: 'success',
         showConfirmButton: false
       })
-      toMainProject()
+      toMainProject(id)
     })
     .fail(err => {
       Swal.fire({
@@ -606,7 +633,7 @@ function toMain() {
           <button class="btn btn-success btn-sm" data-id="${project._id}" onclick="toMainProject(this.getAttribute('data-id'))">
             Go To Project
           </button>
-          <button class="btn btn-danger btn-sm">
+          <button class="btn btn-danger btn-sm" data-id="${project._id}" onclick="deleteProject(this.getAttribute('data-id'))">
             <i class="fa fa-trash-o "></i> Delete Project
           </button>
         </div>
