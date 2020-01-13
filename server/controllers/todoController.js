@@ -9,7 +9,8 @@ class todoController {
                 description : req.body.description,
                 status : 'pending',
                 createdBy : req.decoded.id,
-                group : req.body.groupId
+                group : req.body.groupId,
+                dueDate: req.body.date
             })
                 .then(todo => {
                     return Group.updateOne({_id:req.body.groupId},{
@@ -24,7 +25,8 @@ class todoController {
                 description : req.body.description,
                 status : 'pending',
                 createdBy : req.decoded.id,
-                group : null
+                group : null,
+                dueDate: req.body.date
             })
                 .then(todo => {
                     res.status(201).json(todo)
@@ -50,9 +52,11 @@ class todoController {
     }
 
     static update( req,res,next ) {
+        console.log(req.body)
         Todo.updateOne({_id: req.params.id},{
             name : req.body.name,
-            description : req.body.description
+            description : req.body.description,
+            dueDate: req.body.date
         },{
             runValidators:true
         })

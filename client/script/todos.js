@@ -6,12 +6,14 @@ function getTodos () {
     })
     .done( data => {
         for(let todo of data) {
+            let date = todo.dueDate.substring(0,todo.dueDate.indexOf('T'))
             if (todo.status==='finished') {
                 $('.container-finished').append(`
                     <div class="single-todo mt-3 mb-2 draggable" id="${todo._id}">
                         <h3>${todo.name}</h3>
                         <p>${todo.description}</p>
-                        <button class="btn btn-outline-dark mb-2" onclick="showTodoForm('${todo._id}','${todo.name}','${todo.description}')">Actions</button>
+                        <p>${date}</p>
+                        <button class="btn btn-outline-dark mb-2" onclick="showTodoForm('${todo._id}','${todo.name}','${todo.description}','${date}')">Actions</button>
                     </div>
                 `)
             } else {
@@ -19,7 +21,8 @@ function getTodos () {
                     <div class="single-todo mt-3 mb-2 draggable" id="${todo._id}">
                         <h3>${todo.name}</h3>
                         <p>${todo.description}</p>
-                        <button class="btn btn-outline-dark mb-2" onclick="showTodoForm('${todo._id}','${todo.name}','${todo.description}')">Actions</button>
+                        <p>${date}</p>
+                        <button class="btn btn-outline-dark mb-2" onclick="showTodoForm('${todo._id}','${todo.name}','${todo.description}','${date}')">Actions</button>
                     </div>
                 `)
             }
@@ -52,6 +55,10 @@ function showTodoForm ( id,name,description ) {
                         <label for="updateDescription">Description :</label>
                         <input type="text" class="form-control" placeholder="Enter description" id="updateDescription" value="${description}">
                     </div>
+                    <div class="form-group">
+                        <label for="updateDueDate">Due Date :</label>
+                        <input type="date" class="form-control" id="updateDueDate">
+                    </div>
                     <button type="submit" class="btn btn-outline-dark" onclick="updateTodo('${id}')">Update</button>
                     <button type="submit" class="btn btn-outline-danger" onclick="deleteTodo('${id}')">Delete</button>
                 </form>
@@ -67,7 +74,8 @@ function updateTodo (id) {
         url:`http://localhost:3000/todo/${id}`,
         data:{
             name:$('#updateName').val(),
-            description:$('#updateDescription').val()
+            description:$('#updateDescription').val(),
+            date:$('#updateDueDate').val()
         },
         headers:{token:localStorage.getItem('token')}
     })
@@ -79,6 +87,10 @@ function updateTodo (id) {
             timer: 1500
         })
         $('.single-todo').remove()
+        $('.single-todo').remove()
+        $('#updateName').val(''),
+        $('#updateDescription').val(''),
+        $('#updateDueDate').val('')
         getTodos()
     })
     .fail( err => {
@@ -140,7 +152,8 @@ function createTodo () {
         url:'http://localhost:3000/todo',
         data:{
             name:$('#createName').val(),
-            description:$('#createDescription').val()
+            description:$('#createDescription').val(),
+            date:$('#createDate').val()
         },
         headers:{ token: localStorage.getItem('token') }
     })
@@ -154,6 +167,7 @@ function createTodo () {
         $('.single-todo').remove()
         $('#createName').val('')
         $('#createDescription').val('')
+        $('#createDate').val('')
         getTodos()
     })
     .fail( err => {

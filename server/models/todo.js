@@ -12,7 +12,11 @@ const todoSchema = new Schema({
     },
     status:String,
     createdBy:{ type: Schema.Types.ObjectId, ref: 'User' },
-    group: { type: Schema.Types.ObjectId, ref: 'Group'}
+    group: { type: Schema.Types.ObjectId, ref: 'Group'},
+    dueDate: {
+        type:Date,
+        required:[true,'Please input due date']
+    }
 })
 
 const Todo = mongoose.model('Todo',todoSchema)
