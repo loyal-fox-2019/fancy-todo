@@ -8,7 +8,7 @@ const UserSchema = new Schema({
         type: String,
         required: [true, 'Nama harus diisi'],
         minlength: [4, 'Nama minimal 4 huruf'],
-        maxlength: [10, 'Nama maksimal 10 huruf'],
+        maxlength: [15, 'Nama maksimal 10 huruf'],
         unique: true,
         validate: {
             validator: function (v) {

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    fetchMyProject()
+    // fetchMyProject()
 })
 
 function openProject(id) {
@@ -78,6 +78,7 @@ function fetchProjectTodo(id) {
 function backHome() {
     $('#the-todo').show()
     $('#the-project').hide()
+    localStorage.removeItem('thisProject')
 }
 
 function createProject() {
@@ -111,6 +112,20 @@ function removeMember(id) {
         },
         error: function (err) {
             console.log(err.responseJSON)
+        }
+    });
+}
+
+function addMember(email) {
+    $.ajax({
+        type: "post",
+        url: baseURL + '/invite/' + localStorage.getItem('thisProject') + `?email=${email}`,
+        headers: ajaxHead,
+        success: function (response) {
+            swal.fire('invitation sended')
+        },
+        error: function (error) {
+            swal.fire('user not found :(')
         }
     });
 }

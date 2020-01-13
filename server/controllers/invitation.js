@@ -34,16 +34,17 @@ class Controller {
     // router -> POST /:projectId?username=???
     // checked
     static inviteUser(req, res, next) {
-        User.findOneAndUpdate({ name: req.query.username }, {
+        User.findOneAndUpdate({ email: req.query.email }, {
             $push: { invitation: req.params.projectId }
         })
             .then((user) => {
-                res.status(200).json(user.name)
+                if(!user) next({status: 404, msg: 'User not found'})
+                else res.status(200).json(user.name)
             }).catch(next);
     }
 
     // router -> GET /invite/:username
-    // checked
+    // checked but not used
     static userForInvite(req, res, next) {
         let regexQuery = new RegExp(req.params.username)
         // console.log(regexQuery);
@@ -53,6 +54,14 @@ class Controller {
                 res.status(200).json(userList)
             }).catch(next);
     }
+
+    // static userForInvite(req, res, next) {
+    //     User.find({ email: req.body.invitatedUser })
+    //         .then((user) => {
+    //             if(user)
+    //             res.status(200).json(userList)
+    //         }).catch(next);
+    // }
 
 }
 

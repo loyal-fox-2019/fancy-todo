@@ -80,7 +80,7 @@ $(document).ready(function () {
 
 
             }).catch((err) => {
-                console.log(err.responseJSON.message)
+                console.log(err)
             });
     })
 
@@ -193,7 +193,10 @@ function fetchMyProject() {
                 $('#project-list-here').append('<h5>Tidak ada project</h5>')
             }
         }).catch((err) => {
+            $('#my-todos-div').show()
+            $('#the-project').hide()
             console.log(err)
+
             swal.fire(err.responseJSON.message)
         });
 }

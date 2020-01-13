@@ -18,7 +18,6 @@ function showMyTodo(e) {
     // e.preventDefault()
     $('#project-todos-list').hide()
     $('#my-todos-div').show()
-    localStorage.removeItem('thisProject')
 }
 
 function showMyProjectTodo(e) {
