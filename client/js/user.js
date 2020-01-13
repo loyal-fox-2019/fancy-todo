@@ -2,6 +2,7 @@ const url_server = "http://34.70.155.203:3000";
 const api_user = "/api/users";
 const api_todo = "/api/todos";
 const api_project = "/api/projects";
+const client = "http://fancy-todo.mputong.com/"
 let isLogin = false;
 
 $(document).ready(function () {
@@ -31,7 +32,7 @@ $(document).ready(function () {
         auth2.signOut().then(function () {
             localStorage.clear();
             isLogin = false;
-            window.location.replace('http://localhost:8080');
+            window.location.replace(client);
         });
     });
 
