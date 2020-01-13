@@ -134,11 +134,18 @@ function signOut() {
     });
 }
 
+function backHome(){
+    $("#myTodoHome").show();
+    $("#myProjectHome").show();
+    $("#projectPage").hide();
+    $("#sideBar").empty();
+    showProfile()
+}
 
 // ====================== PROFILE USER ===========================
 function showProfile(){
     $.ajax({
-        url : `http://localhost:3000/users/one`,
+        url : `http://localhost:3000/users/one/0`,
         method : "get",
         headers : {
           token : localStorage.getItem('token')
@@ -389,6 +396,7 @@ function addProject(){
     })
 }
 
+let idProject = ''
 function showProject(id){
     $("#myTodoHome").hide();
     $("#myProjectHome").hide();
@@ -402,25 +410,214 @@ function showProject(id){
         }
     })
     .done(data =>{
-        console.log(data)
+        idProject = id
         $("#sideBar").append(`
         <div class="bg-light" id="sidebar-wrapper">
-            <div class="sidebar-heading">
-                <h3>${data.title}</h3>
-                <small> Owner: </small>
-                <p> ${data.owner.email} </p>
-            </div>
-            <div class="list-group list-group-flush">
-                <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
-            </div>
+                    <div class="sidebar-heading">
+                        <h3>${data.title}</h3>
+                        <small> Owner: </small>
+                        <p> ${data.owner.email}</p>
+                        <small> Member: </small>
+                        <div id="members">
+                        </div>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <a class="list-group-item list-group-item-action bg-light" data-toggle="modal" data-target="#addMember"> + Member</a>
+                        <a class="list-group-item list-group-item-action bg-light" data-toggle="modal" data-target="#createTodoProject"> + Todo</a>
+                    </div>
         </div>
         `);
+
+        //show members
+        data.members.forEach(element => {
+            $("#members").append(`
+            <span class="badge badge-secondary">${element.email}</span>
+            `);
+        });
+
+        // show Todo
+        $("#projectPage").empty();
+        data.todos.forEach(element => {
+            console.log(element)
+            let lastUpdate = element.updatedAt
+            let spl = lastUpdate.split('T')
+            let getDate = spl[0].split('-')
+            let now =  new Date().getDate() - getDate[2]
+            if(now === 0){
+                now = 'now'
+            }else{
+                now = now + ' days ago'
+            }
+            let dueDate = ''
+            if(element.dueDate){
+             dueDate = getDueDate(element.dueDate)
+            }
+            $("#projectPage").append(`
+            <a class="list-group-item list-group-item-action" onclick="getProjectTodo('${element._id}','${data._id}')" data-toggle="modal" data-target="#updateProjectTodo">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">${element.title}</h5>
+                    <small class="text-muted">${now}</small>
+                </div>
+                <p class="mb-1">${element.description}</p>
+                <div class="d-flex w-100 justify-content-between">
+                    <small class="text-muted"><i class="fa fa-calendar"></i>${dueDate}</small>
+                    <small class="text-muted"><i class="fa fa-user-secret"></i> created By: ${element.user.email}</small>
+                </div>
+            </a>
+            <div class="list-group-item">
+                <div class="d-flex w-100 justify-content-between">
+                    <a style="cursor: pointer;color: red;" onclick="deleteProjectTodo('${element._id}','${data._id}')"><i class="fa">&#xf014;</i> Delete </a>
+                    <a style="cursor: pointer;color: green;" onclick="getProjectTodo('${element._id}','${data._id}')" data-toggle="modal" data-target="#updateProjectTodo"><i class="fa fa-cogs"></i> Update </a>
+                </div>
+            </div>
+            <hr />
+            `);
+        });
     })
     .fail(err =>{
         console.log(err)
     })
-  
+}
+
+let tempIdtodo = [] 
+function getProjectTodo(todoId,projectId){
+    $.ajax({
+        url : `http://localhost:3000/project/${todoId}`,
+        method : "GET",
+        headers : {
+            token : localStorage.getItem('token'),
+            id_project : projectId
+        }
+    })
+    .done(data =>{
+        tempIdtodo = []
+        let date = data.dueDate.split('T')
+        $("#title_update_project").val(`${data.title}`)
+        $("#description_update_project").val(`${data.description}`)
+        $("#dueDate_update_project").val(`${date[0]}`)
+        tempIdtodo.push(todoId,projectId)
+    })
+    .fail(err =>{
+        console.log(err)
+    })
+}
+
+function updateTodoProject(){
+    let title = $("#title_update_project").val();
+    let description = $("#description_update_project").val();
+    let dueDate = $("#dueDate_update_project").val();
+    $.ajax({
+        url : `http://localhost:3000/project/${tempIdtodo[0]}`,
+        method : "PUT",
+        headers : {
+            token : localStorage.getItem('token'),
+            id_project : tempIdtodo[1]
+        },
+        data :{
+            title,
+            description,
+            dueDate,
+        }
+    })
+    .done(data =>{
+        tempId = ''
+        showProject(tempIdtodo[1])
+    })
+    .fail(err =>{
+        console.log(err)
+    })
+}
+
+function deleteProjectTodo(todoId,projectId){
+    $.ajax({
+        url : `http://localhost:3000/project/${todoId}`,
+        method : "delete",
+        headers : {
+            token : localStorage.getItem('token'),
+            id_project : projectId
+        }
+    })
+    .done(data=>{
+       showProject(projectId)
+    })
+    .fail(err=>{
+        console.log(err)
+    })  
+}
+
+function addMember(){
+    let email = $("#email_member").val() || 1
+    $.ajax({
+        url : `http://localhost:3000/users/one/${email}`,
+        method : "GET",
+        headers : {
+            token : localStorage.getItem('token')
+        }
+    })
+    .done(data =>{
+         $.ajax({
+            url : `http://localhost:3000/project`,
+            method : "patch",
+            headers : {
+                token : localStorage.getItem('token'),
+                id_project : idProject
+            },
+            data : {
+                idUser : data._id
+            }
+        })
+        .done(data =>{
+            showProject(idProject)
+        })
+        .fail(err =>{
+            console.log(err)
+            Swal.fire({
+                title: 'Ops...',
+            type: 'error',
+            text: 'you are not owner..'
+            })
+        })
+    })
+    .fail(err => {
+      
+        Swal.fire({
+            title: 'Ops...',
+        type: 'error',
+        text: err.responseJSON.message
+        })
+    })
+}
+
+function addTodoProject(){
+    let title = $("#title_todo").val();
+    let description = $("#description_todo").val();
+    let dueDate = $("#dueDate_todo").val();
+    $.ajax({
+        url : `http://localhost:3000/project/todo`,
+        method : "PATCH",
+        headers : {
+            token : localStorage.getItem('token'),
+            id_project : idProject
+        },
+        data :{
+            title,
+            description,
+            dueDate,
+        }
+    })
+    .done(()=>{
+        $("#title_todo").val('')
+        $("#description_todo").val('')
+        $("#dueDate_todo").val('')
+        showProject(idProject)
+    })
+    .fail(err=>{
+        Swal.fire({
+            title: 'Ops...',
+        type: 'error',
+        text: err.responseJSON.message
+        })
+    })
 }
 
 

@@ -26,10 +26,8 @@
     <title>Trello</title>
 </head>
 <body class="body">
-<div id="loginRegister">
-    <!-- <img src="assets/images/trello.png" id="logo"> -->
+<div id="loginRegister" style="background-color: #F7F7F7">
     <img alt="Trello" class="trello-main-logo" src="./assets/images/trellonew.png">
-
     <!-- login and login withGoogle -->
     <div class="container" id="loginForm">
         <div class="row justify-content-center mt-5">
@@ -102,7 +100,7 @@
     <!-- navbar -->
     <div id="header" >
         <nav class="navbar" >
-            <img src="assets/images/rect3752-3.png" id="logo-bar">
+            <img  onclick="backHome()" style="cursor: pointer;" src="assets/images/rect3752-3.png" id="logo-bar">
             
             <form class="form-inline" >
                 <div class="d-flex justify-content-between">  
@@ -118,11 +116,12 @@
         <div class="row mt-4" >
             <!-- Side bar -->
             <div class="col-2 border" id="sideBar">
+               
             </div>
             <!-- Side bar -->
 
             <!-- My Todo -->
-            <div class="col-5" id="myTodoHome">
+            <div class="col-5" id="myTodoHome" >
                 <br>
                 <button type="button" class="btn btn-outline-warning my-2 my-sm-0" data-toggle="modal" data-target="#createTodo">
                    + Add Todo List
@@ -135,7 +134,7 @@
             <!-- My Todo -->
 
             <!-- my Project -->
-            <div class="col-5" id="myProjectHome">
+            <div class="col-5" id="myProjectHome" >
                 <br>
                 <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#createProject">
                     + Add Project
@@ -156,9 +155,10 @@
             </div>
             <!-- my Project -->
 
+            <!-- project page -->
             <div class="col-10 border" id="projectPage" style="display: none;">
             </div>
-
+            <!-- project page -->
         </div>
     </div>
     <!-- home -->
@@ -219,7 +219,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal Create Todo-->
+    <!-- Modal Update Todo-->
 
    <!-- Modal Create Project-->
     <div class="modal fade" id="createProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -241,6 +241,85 @@
             </div>
     </div>
     <!-- Modal Create Project-->
+
+    <!-- Modal Update Project Todo-->
+    <div class="modal fade" id="updateProjectTodo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <div class="modal-title" id="exampleModalCenterTitle">
+                        <label for="validationServer03">Title :</label>
+                        <input type="text" class="form-control" id="title_update_project" required>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="validationTextarea" onclick="deleteTodo()">Description : </label>
+                        <textarea class="form-control" id="description_update_project"></textarea> 
+                    </div>
+                        <label for="validationTextarea"><i class="fa fa-calendar-plus-o"></i>  Due Date : </label>
+                        <input type="date" id="dueDate_update_project">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="updateTodoProject()">Update Todo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Create Project Todo-->
+
+   <!-- Modal Add Member-->
+   <div class="modal fade" id="addMember" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Invite To Board </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" id="email_member" placeholder="Email address" required>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addMember()">Invite</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Modal Add Member-->
+
+    <!-- Modal Create Todo Project-->
+    <div class="modal fade" id="createTodoProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <div class="modal-title" id="exampleModalCenterTitle">
+                        <label for="validationServer03">Title :</label>
+                        <input type="text" class="form-control" id="title_todo" required>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="validationTextarea" onclick="deleteTodo()">Description : </label>
+                        <textarea class="form-control" id="description_todo"></textarea> 
+                    </div>
+                        <label for="validationTextarea"><i class="fa fa-calendar-plus-o"></i>  Due Date : </label>
+                        <input type="date" id="dueDate_todo">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addTodoProject()">Create Todo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Create Todo Project-->
 
 </div>
 
