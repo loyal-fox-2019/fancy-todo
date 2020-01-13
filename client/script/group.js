@@ -1,5 +1,6 @@
 let socket
 let oldroom
+let rooms = []
 
 function chat (groupId,groupName) {
     socket = io.connect('http://localhost:3000')
@@ -19,25 +20,31 @@ function chat (groupId,groupName) {
     //         console.log(err)
     //     })
     // }
-    if( oldroom ) {
-        socket.emit('leave',oldroom)
-        socket.emit('join',`${groupName}`)   
+    if(rooms.includes(groupName)){
+        console.log(rooms)
+        console.log('udah ada')
     } else {
-        socket.emit('join',`${groupName}`)
-        oldroom = groupName
+        rooms.push(groupName)
+        if( oldroom ) {
+            socket.emit('leave',oldroom)
+            socket.emit('join',`${groupName}`)   
+        } else {
+            socket.emit('join',`${groupName}`)
+            oldroom = groupName
+        }
+        socket.on('message', function(msg){
+            console.log(msg)
+            $('#messages').append(`
+                <li>
+                    <span style="display: inline-block; vertical-align=top;">
+                        <p style="color: blue;">${msg.name}: </p>
+                        ${msg.message}
+                    </span>
+                </li>
+            `);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
     }
-    socket.on('message', function(msg){
-        console.log(msg)
-        $('#messages').append(`
-            <li>
-                <span style="display: inline-block; vertical-align=top;">
-                    <p style="color: blue;">${msg.name}: </p>
-                    ${msg.message}
-                </span>
-            </li>
-        `);
-        window.scrollTo(0, document.body.scrollHeight);
-    });
 }
 
 function sendChat (groupName,groupId) {
