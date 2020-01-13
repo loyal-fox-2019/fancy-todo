@@ -3,12 +3,14 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const { checkPassword } = require('../helpers/bcrypt')
-const { googleAuth } = require('google-auth-library')
-const client = new googleAuth(process.env.CLIENT_ID_GOOGLE)
+const { OAuth2Client } = require('google-auth-library')
+const client = new OAuth2Client(process.env.CLIENT_ID_GOOGLE)
 
 class UserController {
     static register(req, res, next) {
         const { email, password, fullname } = req.body
+        console.log(req.body.email, "=======================")
+        console.log(email, password, fullname)
         User.create({
             email,
             password,
@@ -58,28 +60,29 @@ class UserController {
     static loginGoogle(req, res, next) {
         let payload = null
         client.verifyIdToken({
-            idToken: req.body.token,
+            idToken: req.body.idToken,
             audience: process.env.CLIENT_ID_GOOGLE
         })
             .then((data) => {
                 payload = data.getPayload()
                 return User.findOne({
-                    email: payload.email
+                    email: payload.email,
+                    id: payload.id
                 })
             })
             .then((user) => {
-                if (!user) {
-                    return User.create({
-                        email: payload.email,
-                        password: ~~(Math.random() * 99999) + 1,
-                        name: payload.name,
-                        picture: payload.picture
-                    })
-                } else {
+                if (user) {
                     let accessToken = jwt.sign({
                         email: payload.email
                     }, process.env.JWT_SECRET)
                     res.status(200).json({ accessToken, user })
+                } else {
+                    return User.create({
+                        email: payload.email,
+                        password: ~~(Math.random() * 99999) + 1,
+                        fullname: payload.name,
+                        picture: payload.picture
+                    })
                 }
             })
             .then((user) => {

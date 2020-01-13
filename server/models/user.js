@@ -34,6 +34,9 @@ const userSchema = new Schema({
         type: String,
         maxlength: [25, "Max fullname 25"],
         required: [true, "Required Your fullname"]
+    },
+    picture: {
+        type: String
     }
 })
 

@@ -10,69 +10,167 @@
         integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
 
     <!-- Google Oauth -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id"
         content="980559183060-v4lcn63k7o61bikmqqj7d0rdfiaca164.apps.googleusercontent.com">
     <link rel="stylesheet" type="text/css" href="./style/style.css">
-    <title>Document</title>
+
+    <title>Todododo</title>
 </head>
 
 <body>
-    <div class="container" id="container">
 
-        <!-- //SIGNUP -->
-        <div class="form-container sign-up-container">
-            <form action="" method="POST">
-                <h1>Create Account</h1>
-                <input name="fullname" type="text" placeholder="fullname" />
-                <input name="password" type="password" placeholder="password" />
-                <input name="email" type="email" placeholder="Email" />
-                <button>Sign Up</button>
-            </form>
+    <!--START TAMPILAN UTAMA -->
+    <div class="container-fluid main" id="landingPage">
+        <div id="video1">
+            <video autoplay="autoplay" loop="loop" muted="muted" width="100%;">
+                <source src="./attributes/videos/todolist.mp4" type="video/mp4">
+            </video>
         </div>
-
-        <!-- LOGIN -->
-        <div class="form-container sign-in-container">
-            <form action="" method="POST">
-                <h1>Sign in</h1>
-                <input name="email" type="email" placeholder="email" />
-                <input name="password" type="password" placeholder="Password" />
-                <button type="submit">Sign In</button>
-                <div class="social-container">
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                </div>
-            </form>
+        <div class="covertext" style="margin: 250px; margin-right: 200vh;">
+            <div class="explore">
+                <a href="#"><button type="button" class="btn btn-lg explorebtn" id="btnLandingPage">Todo</button></a>
+            </div>
         </div>
+    </div>
 
-        <div class="overlay-container">
-            <div class="overlay">
-                <div class="overlay-panel overlay-left">
-                    <h1>Welcome Back!</h1>
-                    <p>To keep connected with us please login with your personal info</p>
-                    <button class="ghost" id="signIn">Sign In</button>
-                </div>
-                <div class="overlay-panel overlay-right">
-                    <h1>Hello, Friend!</h1>
-                    <p>Enter your personal details</p>
-                    <button class="ghost" id="signUp">Sign Up</button>
+
+    <!-- Start Login & Signup Form -->
+    <div class="container-loginForm" id="loginPage" style="display: none;">
+        <div id="loginRegister">
+            <!-- //SIGNUP FORM-->
+            <div class="formLogin-container sign-up-container" id="registerForm">
+                <form action="" method="POST">
+                    <h1>Create Account</h1>
+                    <input name="fullname" id="fullnameRegis" type="text" placeholder="fullname" />
+                    <input name="email" id="emailRegis" type="email" placeholder="Email" />
+                    <input name="password" id="passwordRegis" type="password" placeholder="password" />
+                    <button type="submit">Sign Up</button>
+                </form>
+            </div>
+
+            <!-- LOGIN FORM-->
+            <div class="formLogin-container sign-in-container" id="loginForm">
+                <form action="" method="POST">
+                    <h1>Sign in</h1>
+                    <input name="email" type="email" id="email" placeholder="email" />
+                    <input name="password" type="password" id="password" placeholder="Password" />
+                    <button type="submit">Sign In</button>
+                    <div class="social-container">
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="overlayLogin-container">
+                <div class="overlayLogin">
+                    <div class="overlayLogin-panel overlayLogin-left">
+                        <h1>Join using Todododo</h1>
+                        <p>To keep connected with us please login with your personal info</p>
+                        <button class="ghost" id="signIn">Sign In</button>
+                    </div>
+                    <div class="overlayLogin-panel overlayLogin-right">
+                        <h1>Hallo My Friend!</h1>
+                        <p>Do You Want Register?</p>
+                        <button class="ghost" id="signUp">Sign Up</button>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
-    <script>
-        const signUpButton = document.getElementById('signUp');
-        const signInButton = document.getElementById('signIn');
-        const container = document.getElementById('container');
+    <!-- END Login & Signup Form -->
 
-        signUpButton.addEventListener('click', () => {
-            container.classList.add("right-panel-active");
-        });
+    <!-- START NAVBAR -->
+    <div class="navbar" id="navbarApp" style="display: none;">
+        <div class="item" onclick="allTodo()" id="getAllTodo">
+            <div class="fa fa-list"></div>
+            <div class="label">Todo</div>
+        </div>
+        <div class="item">
+            <a href="#" onclick="signOut();">
+                <div class="fa fa-power-off"></div>
+                <div class="label">Logout</div>
+            </a>
+        </div>
+        <div class="item" id="imageUser">
+        </div>
+    </div>
+    <!--END NAVBAR -->
 
-        signInButton.addEventListener('click', () => {
-            container.classList.remove("right-panel-active");
-        });
-    </script>
+    <!-- START Main Content -->
+    <div class="wrapper" id="mainContent" style="display: none;">
+        <header>
+            <div id='animationDiv'>
+                <button id="add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTodo">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="container" id="allTodoUser">
+            <ul class="todo" id="todo">
+            </ul>
+            <hr class="divider">
+            <ul class="todo" id="completed">
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalTodo" tabindex="-1" role="dialog" aria-labelledby="modalTodoLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Your Todo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="newTodo">
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">Name Todolist</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="your todo">
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-form-label">Description:</label>
+                            <input type="text" class="form-control" id="description" name="your description"
+                                placeholder="description">
+                        </div>
+                        <div class="form-group">
+                            <label for="date-picker">Due Date</label>
+                            <input placeholder="dd/mm/yy" type="date" id="dueDate" class="form-control datepicker">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/mojs/latest/mo.min.js"></script>
+    <!-- JS-->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="./script/main.js"></script>
 </body>
 
 </html>

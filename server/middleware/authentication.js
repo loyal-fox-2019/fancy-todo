@@ -7,17 +7,31 @@ function auth(req, res, next) {
     if (req.headers.hasOwnProperty('token')) {
         try {
             const decoded = jwt.verify(req.headers.token, process.env.JWT_SECRET)
-            User.findById(decoded.id)
-                .then((result) => {
-                    req.user = {
-                        _id: result._id,
-                        email: result.email,
-                        fullname: result.fullname
-                    }
-                    next()
-                }).catch((err) => {
-                    next(err)
-                });
+            if (Object.keys(decoded)[0] !== "email") {
+                User.findById(decoded.id)
+                    .then((result) => {
+                        req.user = {
+                            _id: result.id,
+                            email: result.email,
+                            fullname: result.fullname
+                        }
+                        next()
+                    }).catch((err) => {
+                        next(err)
+                    });
+            } else {
+                User.findOne({ email: decoded.email })
+                    .then((result) => {
+                        req.user = {
+                            _id: result.id,
+                            email: result.email,
+                            fullname: result.fullname
+                        }
+                        next()
+                    }).catch((err) => {
+                        next(err)
+                    });
+            }
         }
         catch{
             next({

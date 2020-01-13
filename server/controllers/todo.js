@@ -1,6 +1,7 @@
 "use strict"
 
 const Todo = require('../models/todo')
+const User = require('../models/user')
 
 class TodoController {
     static findAll(req, res, next) {
@@ -13,12 +14,11 @@ class TodoController {
     }
 
     static create(req, res, next) {
-        const { name, description, status, dueDate } = req.body
-        // console.log(name, description, status, dueDate)
+        const { name, description, dueDate } = req.body
         Todo.create({
             name,
             description,
-            status,
+            status: 'uncompleted',
             dueDate,
             userId: req.user._id
         })
