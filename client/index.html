@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="google-signin-client_id" content="759785826174-mkpk6qamnlv1gs4060irlqggdlavndva.apps.googleusercontent.com">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <title>FANCY TODO LIST</title>
+</head>
+<body>
+  <main class="mt-4">
+    <section id="login">
+      <form id="login-form">
+        <h1 class="mb-3 text-center">Fancy Todo</h1>
+        <hr />
+        <div class="form-group">
+          <label>Email address</label>
+          <input 
+            type="email" 
+            id="login-email" 
+            class="form-control"
+            placeholder="Insert email here...">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input 
+            type="password" 
+            id="login-password" 
+            class="form-control"
+            placeholder="Insert password here...">
+        </div>
+        <button type="submit" class="btn btn-primary mt-2 mb-2" style="width: 236px;">Login</button>
+        <div class="text-center">
+          <p>Don't have account yet? <a href="" id="register-link">Register</a></p>
+        </div>
+      </form>
+    </section>
+    <section id="register">
+      <form id="register-form">
+        <div class="form-group">
+          <h1 class="mb-3 text-center">Fancy Todo</h1>
+          <hr />
+          <label>Name</label>
+          <input 
+            type="name" 
+            id="register-name" 
+            class="form-control"
+            placeholder="Insert name here...">
+        </div>
+        <div class="form-group">
+          <label>Email address</label>
+          <input 
+            type="email" 
+            id="register-email" 
+            class="form-control"
+            placeholder="Insert email here...">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input 
+            type="password" 
+            id="register-password" 
+            class="form-control"
+            placeholder="Insert password here...">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 236px;">Register</button>
+        <div class="text-center">
+          <p>
+            Already have an account? <br />
+            <a href="" id="login-link">Login Here</a>
+            or
+          </p>
+        </div>
+        <div class="g-signin2" data-width="236" data-onsuccess="onSignIn"></div>
+        
+      </form>
+    </section>
+    <section id="home">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <aside>
+              <h1>FANCY TODO</h1>
+              <button class="btn btn-primary" onclick="showTodos()">Your Todos</button>
+              <button class="btn btn-primary"  data-toggle="modal" data-target="#addProjectModal">Add Project</button>
+              <a class="btn btn-outline-danger" href="#" onclick="signOut();">Sign out</a>
+              <hr />
+              <h4>Project List</h4>
+              <div class="project-wrapper">
+              </div>
+            </aside>
+          </div>
+          <div class="col-md-8">
+            <section id="todo-wrapper">
+              <h1>YOUR TODO LIST</h1>
+              <button id="addTodo" class="btn btn-primary mb-5" data-toggle="modal" data-target="#addTodoModal">Add Todo</button>
+              <div class="todo-list">
+              </div>
+            </section>
+
+            <section id="project-todo-wrapper">
+              <h1>PROJECT TODO LIST</h1>
+              <hr />
+              <div class="btn-group mb-3">
+                <button id="project-addTodo" class="btn btn-primary mb-3"  data-toggle="modal" data-target="#projectAddTodoModal">Add Todo</button>
+              </div>
+              <div class="input-group mb-3">
+                <input type="text" id="member-email" class="form-control" placeholder="Insert user email here...">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary addMember" type="button" id="button-addon2">Add Member</button>
+                </div>
+              </div>
+              <h5>Members</h5>
+              <div class="member-list mb-3"></div>
+              <div class="project-todo-list"></div>
+            </section>
+
+            <!-- modal add todo -->
+            <div class="modal fade" id="addTodoModal" tabindex="-1" role="dialog" aria-labelledby="addTodoLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="addTodoLabel">Add Todo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="form-addTodo">
+                      <div class="form-group">
+                        <label class="col-form-label">Title:</label>
+                        <input type="text" class="form-control" id="addTodo-title" placeholder="Insert title here...">
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label">Description:</label>
+                        <input type="text" class="form-control" id="addTodo-description" placeholder="Insert description here...">
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label">Due Date:</label>
+                        <input type="date" class="form-control" id="addTodo-dueDate">
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Save">
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end modal addTodo -->
+
+            <!-- modal add editTodo -->
+            <div class="modal fade" id="editTodoModal" tabindex="-1" role="dialog" aria-labelledby="editTodoLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="editTodoLabel">Edit Todo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="form-editTodo">
+                      <div class="form-group">
+                        <label class="col-form-label">Title:</label>
+                        <input type="text" class="form-control" id="editTodo-title" placeholder="Insert title here...">
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label">Description:</label>
+                        <input type="text" class="form-control" id="editTodo-description" placeholder="Insert description here...">
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label">Due Date:</label>
+                        <input type="date" class="form-control" id="editTodo-dueDate">
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Save">
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end modal editTodo -->
+
+            <!-- modal add project -->
+            <div class="modal fade" id="addProjectModal" tabindex="-1" role="dialog" aria-labelledby="addProjectLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="addProjectLabel">Add Project</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="form-addProject">
+                      <div class="form-group">
+                        <label class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="project-name" placeholder="Insert title here...">
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label">Description:</label>
+                        <input type="text" class="form-control" id="project-description" placeholder="Insert description here...">
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Save">
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end modal add project -->
+
+            <!-- modal project add todo -->
+            <div class="modal fade" id="projectAddTodoModal" tabindex="-1" role="dialog" aria-labelledby="projectAddTodoLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="addTodoLabel">Add Todo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="form-addTodo-project">
+                      <div class="form-group">
+                        <label class="col-form-label">Title:</label>
+                        <input type="text" class="form-control" id="addTodoProject-title" placeholder="Insert title here...">
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label">Description:</label>
+                        <input type="text" class="form-control" id="addTodoProject-description" placeholder="Insert description here...">
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label">Due Date:</label>
+                        <input type="date" class="form-control" id="addTodoProject-dueDate">
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Save">
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end modal project addTodo -->
+
+            <!-- modal project editTodo -->
+            <div class="modal fade" id="projectEditTodoModal" tabindex="-1" role="dialog" aria-labelledby="projectEditTodoLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="editTodoLabel">Edit Todo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="form-editTodoProject">
+                      <div class="form-group">
+                        <label class="col-form-label">Title:</label>
+                        <input type="text" class="form-control" id="editTodoProject-title" placeholder="Insert title here...">
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label">Description:</label>
+                        <input type="text" class="form-control" id="editTodoProject-description" placeholder="Insert description here...">
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label">Due Date:</label>
+                        <input type="date" class="form-control" id="editTodoProject-dueDate">
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Save">
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end modal project editTodo -->
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+  <script 
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script 
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>
