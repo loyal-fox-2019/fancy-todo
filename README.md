@@ -26,12 +26,12 @@ Returns json data about newly register user.
 
   - **Code:** 201 <br />
     ```javascript
-        {
-        "isGoogle": false,
+    {
         "_id": "5de401e04ff47e7e7d539435",
         "name": "Username",
         "email": "user@email.com",
         "password": "$2a$10$8S4ZHyFYKZmiO4enOcYpKOBnl5EY.utDcrdlSLTTs3zG5QdFMDcVS",
+        "invitation": []
         "__v": 0
     }
     ```
@@ -72,7 +72,7 @@ Returns json data about a single user.
 
 - **URL**
 
-  /users/signin
+  /users/login
 
 - **Method:**
 
@@ -89,8 +89,8 @@ Returns json data about a single user.
     **Content:**
     ```javascript 
     {   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzUyMjM5Nzl9.YbHSsgEs84-KLr9sVH-ZAWhkwvlZ5BUEm8-EpMpZmso", 
-        "userId": "5de401e04ff47e7e7d539435", 
-        "userEmail": "user@email.com" }
+        "name": "username", 
+     }
     ```
 
 - **Error Response:**
@@ -138,7 +138,7 @@ Returns json data about a single user.
 
   ```javascript
   $.ajax({
-    url: `${baseURL}/user/google`,
+    url: `${baseURL}/user/googleSignIn`,
     method: "post",
     data: {
       token: id_token
@@ -151,6 +151,8 @@ Returns json data about a single user.
 
 Returns json data about all todo.
 
+Authentication: Yes
+
 - **URL**
 
   /todo
@@ -170,20 +172,13 @@ Returns json data about all todo.
             "name": "makan bubur",
             "description": "kamseng",
             "status": 0,
-            "dueDate": "1997-12-28T00:00:00.000Z",
-            "__v": 0
-        },
-        {
-            "_id": "5de2704e54a51a1e810a6f1e",
-            "name": "Masak",
-            "description": "Masak nasi goreng",
-            "status": 0,
-            "dueDate": "2019-01-01T00:00:00.000Z",
+            "createdBy": Populate with user,
+            "group": populate with group
             "__v": 0
         }
     ]
     ```
-
+  
 - **Sample Call:**
 
   ```javascript
@@ -193,61 +188,17 @@ Returns json data about all todo.
     })
   ```
 
-  ## **Get Todo Detail**
-
-Returns json data about a single todo.
-
-- **URL**
-
-  /todo/detail?id=
-
-- **Method:**
-
-  `GET`
-
-- **Success Response:**
-
-  - **Code:** 200 <br />
-    **Content:**
-    ```javascript 
-    [
-        {
-            "_id": "5de2703854a51a1e810a6f1d",
-            "name": "makan bubur",
-            "description": "kamseng",
-            "status": 0,
-            "dueDate": "1997-12-28T00:00:00.000Z",
-            "__v": 0
-        }
-    ]
-    ```
- **Error Response:**
-
-  - **Code:** 403 Forbidden <br />
-    **Content:**
-    ```javascript
-    {
-        "error": "CastError",
-        "message": "Cast to ObjectId failed for value \"5de29ccf6c5dfb4b6c492af\" at path \"_id\" for model     \"Todo\""
-    }
-    ```
-
-- **Sample Call:**
-
-  ```javascript
-    $.ajax({
-        url: `http://localhost:3000/todo/detail?id=`,
-        method: `get`,
-    })
-  ```
-
-    ## **Delete Todo**
+  
+  
+  ## **Delete Todo**
 
 Delete a todo and return JSON data.
 
+Authentication: Yes
+
 - **URL**
 
-  /todo
+  /todo/:id
 
 - **Method:**
 
@@ -283,8 +234,7 @@ Delete a todo and return JSON data.
   ```javascript
     $.ajax({
         method:"delete",
-        url:`http://localhost:3000/todo`,
-        data:{id}
+        url:`http://localhost:3000/todo/:id`,
     })
   ```
 
@@ -310,9 +260,9 @@ Create a todo and return JSON data.
         "_id": "5de40ad5225c1b0bda23b4f5",
         "name": "task name",
         "description": "description",
-        "status": false,
-        "dueDate": "2019-02-11T17:00:00.000Z",
-        "userId": "1",
+        "status": 'pending',
+        "createdBy": Populate with user,
+        "group": Populate with user,
         "__v": 0
     }
     
@@ -347,9 +297,11 @@ Create a todo and return JSON data.
 
 Update a todo and return JSON data.
 
+Authentication: Yes
+
 - **URL**
 
-  /todo
+  /todo/:id
 
 - **Method:**
 
@@ -359,6 +311,7 @@ Update a todo and return JSON data.
 
   - **Code:** 201<br />
     **Content:**
+    
     ```javascript 
     
     {
@@ -387,7 +340,245 @@ Update a todo and return JSON data.
           method:"put",
           url:"http://localhost:3000/todo",
           data:{
-              id,name,description,status,dueDate
+              name,description
           }
       })
   ```
+  
+  - ## Patch Todo**
+  
+  Update a todo and return JSON data.
+  
+  Authentication: Yes
+  
+  - **URL**
+  
+    /todo/:id
+  
+  - **Method:**
+  
+    `PATCH`
+  
+  - **Success Response:**
+  
+    - **Code:** 201<br />
+      **Content:**
+  
+      ```javascript 
+      {
+          "n": 1,
+          "nModified": 1,
+          "ok": 1
+      }
+      
+      ```
+  
+       **Error Response:**
+  
+    - **Code:** 403 Forbidden <br />
+      **Content:**
+  
+    ```javascript
+    {
+          "n": 0,
+          "ok": 1,
+          "deletedCount": 0
+      }
+    ```
+  
+  - **Sample Call:**
+  
+    ```javascript
+      $.ajax({
+            method:"put",
+            url:"http://localhost:3000/todo"
+        })
+    ```
+
+## **Get Projects
+
+Returns json data about all projects.
+
+Authentication: Yes
+
+- **URL**
+
+  /group
+
+- **Method:**
+
+  `GET`
+
+- **Success Response:**
+
+  - **Code:** 200 <br />
+    **Content:**
+
+    ```javascript 
+    [
+        {
+            "members": Populate with user,
+            "todos": Populate with todos,
+            "name": "Group",
+            "creator": Populate with user
+        }
+    ]
+    ```
+
+- **Sample Call:**
+
+  ```javascript
+    $.ajax({
+        url: `http://localhost:3000/group`,
+        method: `get`
+    })
+  ```
+
+  
+
+  ## **Get One Project
+
+  Returns json data about one project.
+
+  Authentication: Yes
+
+  - **URL**
+
+    /group
+
+  - **Method:**
+
+    `GET`
+
+  - **Success Response:**
+
+    - **Code:** 200 <br />
+      **Content:**
+
+      ```javascript 
+      
+      {
+          "members": Populate with user,
+          "todos": Populate with todos,
+          "name": "Group",
+          "creator": Populate with user
+      }
+      
+      ```
+
+  - **Sample Call:**
+
+    ```javascript
+      $.ajax({
+          url: `http://localhost:3000/group`,
+          method: `get`
+      })
+    ```
+
+    
+
+    ## **Create Project**
+
+    Create a project and return JSON data.
+
+    - **URL**
+
+      /group
+
+    - **Method:**
+
+      `POST`
+
+    - **Success Response:**
+
+      - **Code:** 201<br />
+        **Content:**
+
+        ```javascript 
+        {
+            "members": Populate with user,
+            "todos": Populate with todos,
+            "name": "Group",
+            "creator": Populate with user
+        }
+        
+        ```
+
+         **Error Response:**
+
+      - **Code:** 403 Forbidden <br />
+        **Content:**
+
+        ```javascript
+        {
+            "error": "ValidationError",
+            "message": "Todo validation failed: name: Path `name` is required."
+        }
+        ```
+
+    - **Sample Call:**
+
+      ```javascript
+        $.ajax({
+            method: "post",
+            url: "http://localhost:3000/group",
+            data: {
+              name,
+            }
+          })
+      ```
+
+
+
+- - ## Patch Project**
+
+  Update a project and return JSON data.
+
+  Authentication: Yes
+
+  - **URL**
+
+    /project
+
+  - **Method:**
+
+    `PATCH`
+
+  - **Success Response:**
+
+    - **Code:** 201<br />
+      **Content:**
+
+      ```javascript 
+      {
+          "n": 1,
+          "nModified": 1,
+          "ok": 1
+      }
+      
+      ```
+
+       **Error Response:**
+
+    - **Code:** 403 Forbidden <br />
+      **Content:**
+
+    ```javascript
+    {
+          "n": 0,
+          "ok": 1,
+          "deletedCount": 0
+      }
+    ```
+
+  - **Sample Call:**
+
+    ```javascript
+      $.ajax({
+            method:"put",
+            url:"http://localhost:3000/project",
+          	data: {invitation}
+        })
+    ```
+
+## 
