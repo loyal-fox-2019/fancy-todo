@@ -10,7 +10,6 @@ module.exports = {
     try {
       const access_token = req.headers.access_token.split(' ')[1]
       const payload = verifyToken(access_token)
-      console.log(access_token)
       User.findById(payload.id)
         .then(user => {
           if (user) {
