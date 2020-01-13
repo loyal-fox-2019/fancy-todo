@@ -1,4 +1,4 @@
-const url_server = "http://localhost:3000";
+const url_server = "http://34.70.155.203:3000";
 const api_user = "/api/users";
 const api_todo = "/api/todos";
 const api_project = "/api/projects";
@@ -136,18 +136,18 @@ function listProject() {
     }).done(projects => {
         projects.data.forEach((e, index) => {
             $('#myTab').append(
-                "<li class='nav-item'> " +
-                "<a class='nav-link' " +
-                "id='project" + index + "' " +
-                "data-toggle='tab' " +
-                "href='#home' " +
-                "role='tab' " +
-                "aria-controls='home' " +
-                "aria-selected='true'" +
-                "onclick=listTodo('" + e.name + "')>" +
-                e.name +
-                "</a> " +
-                "</li>"
+                `<li class='nav-item'>
+                    <a class='nav-link'
+                        id='project${index}'
+                        data-toggle='tab'
+                        href='#home'
+                        role='tab'
+                        aria-controls='home'
+                        aria-selected='true'
+                        onclick="listTodo('${e.name}')">
+                        ${e.name}
+                    </a>
+                </li>`
             )
         });
 
@@ -299,8 +299,8 @@ function addNewTodo(
         listTodo($('#project-title').text());
         $('#newTodo-cancel').click();
     }).fail(err => {
-        console.log(err.responseJSON.errMsg.errors.name.message);
-        $('#todo-message').html(err.responseJSON.errMsg.errors.name.message)
+        console.log(err);
+        // $('#todo-message').html(err.responseJSON.errMsg.errors.name.message)
     })
 }
 
