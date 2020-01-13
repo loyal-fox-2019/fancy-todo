@@ -1,0 +1,92 @@
+#login-container {
+    width: 35%;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    text-align: center;
+}
+
+#title {
+    width: 100%;
+    text-align: center;
+    margin: 25px;
+}
+
+.card {
+    margin: 25px;
+    background-color: ghostwhite;
+}
+
+#logo {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+#form-login {
+    margin-top: 20px;
+}
+
+.form-login-input {
+    font-size: 12px;
+}
+
+.container {
+    padding: 25px;
+}
+
+.message {
+    font-size: 12px;
+    color: red;
+    margin: 10px 10px 0 10px;
+}
+
+#todo-container {
+    padding: 25px;
+}
+
+#myTabContent{
+    padding-left: 20px;
+    border-left: lightgray 1px solid;
+}
+
+#register-button{
+    margin: 20px;
+    font-size: 12px;
+}
+
+label {
+    font-size: 14px;
+}
+
+input{
+    font-size: 12px !important;
+    /*background-color: #fafffe !important;*/
+}
+
+textarea{
+    font-size: 12px !important;
+}
+
+button {
+    font-size: 13px !important;
+}
+
+.input-description{
+    font-size: 12px;
+    color: #0984e3;
+}
+
+.btn-primary{
+    background-color: #1e90ff;
+}
+
+.btn-danger{
+    background-color: #ff4757;
+}
+
+.card-text{
+    font-size: 12px;
+}
+

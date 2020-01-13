@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<!--    <meta name="google-signin-client_id"-->
+<!--          content="571255700472-lqfru7fg3q6voo4mguh744iub17ri7cn.apps.googleusercontent.com">-->
+    <meta name="google-signin-client_id" content="909932081564-i4rl7419j9i8ku8co3ilc9dkjd4j1fsk.apps.googleusercontent.com">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <title>Fancy - Todo</title>
+</head>
+<body>
+
+<!--    user register-->
+<div id="newUser-container" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Register</h4>
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal">&times;
+                </button>
+            </div>
+
+            <form id="form-newUser">
+                <div class="message" id="user-message"></div>
+                <div class="modal-body">
+                    <label for="userEmail">Email</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-envelope"></i>
+                            </span>
+                        </div>
+                        <input type="email"
+                               class="form-control"
+                               placeholder="user email..."
+                               name="userEmail"
+                               id="userEmail"
+                               required>
+                    </div>
+
+                    <label for="userPassword">Password</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-key"></i>
+                            </span>
+                        </div>
+                        <input type="password"
+                               class="form-control"
+                               placeholder="user password..."
+                               name="userPassword"
+                               id="userPassword"
+                               minlength="8"
+                               maxlength="30"
+                               required>
+                    </div>
+                    <div class="input-description">
+                        min 8 character, max 30 character
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit"
+                            class="btn btn-primary">Sign Up
+                    </button>
+                    <button type="button"
+                            class="btn btn-danger"
+                            data-dismiss="modal"
+                            name="newUser-cancel"
+                            id="newUser-cancel">Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--    end user register-->
+
+<!--login form-->
+<div class="jumbotron" id="login-container">
+    <p>
+    <div id="logo">SIGN IN</div>
+    <small>
+        <div class="message" id="login-message"></div>
+    </small>
+    <form id="form-login">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="fa fa-envelope"></i>
+                </span>
+            </div>
+            <input type="email"
+                   class="form-control form-login-input"
+                   placeholder="email here ..."
+                   name="email"
+                   id="email"
+                   required>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="fa fa-key"></i>
+                </span>
+            </div>
+            <input type="password"
+                   class="form-control form-login-input"
+                   placeholder="password here ..."
+                   name="password"
+                   id="password"
+                   minlength="8"
+                   maxlength="30"
+                   required>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Sign In</button>
+            <!-- Google signin -->
+            <div class="g-signin2 ml-3" data-onsuccess="onSignIn"></div>
+            <!-- end google signin -->
+        </div>
+        <a href="#"
+           id="register-button"
+           data-toggle="modal"
+           data-target="#newUser-container">register new user</a>
+    </form>
+    </p>
+</div>
+<!--end login form-->
+
+<main>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Fancy - Todo</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       id="profile-email"
+                       role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false"
+                       name="profile-name">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item"
+                           href="#"
+                           data-toggle="modal"
+                           data-target="#newProject-container">New Project
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" name="signout" id="signout">Sign Out</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 mb-3">
+                <h4>Project List</h4>
+                <hr>
+                <ul class="nav nav-pills flex-column" id="myTab" role="tablist">
+                    <!--<                   list project-->
+                </ul>
+            </div>
+            <!-- /.col-md-4 -->
+            <div class="col-md-10">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <h2 id="project-title"></h2>
+                        <div id="todo-container">
+                            <div id="todo-menu-container"></div>
+                            <hr>
+                            <p>
+                                <card class="row"></card>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-md-8 -->
+        </div>
+    </div>
+    <!-- /.container -->
+
+    <!--    New Project-->
+    <div id="newProject-container" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">New Project</h4>
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal">&times;
+                    </button>
+                </div>
+                <form id="form-newProject">
+                    <div class="message" id="warning-message"></div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="projectName">Name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="project name"
+                                   name="projectName"
+                                   id="projectName"
+                                   maxlength="25"
+                                   minlength="7"
+                                   required>
+                            <div class="input-description">
+                                min 7 character, max 25 character
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="projectDescription">Description</label>
+                            <textarea class="form-control"
+                                      placeholder="project description"
+                                      name="projectDescription"
+                                      id="projectDescription"
+                                      maxlength="100"
+                                      minlength="20"
+                                      required></textarea>
+                            <div class="input-description">
+                                min 20 character, max 100 character
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <br>
+                        <button type="submit"
+                                class="btn btn-primary">Save
+                        </button>
+                        <button type="button"
+                                class="btn btn-danger"
+                                data-dismiss="modal"
+                                name="newProject-cancel"
+                                id="newProject-cancel">Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--    end new project-->
+
+    <!--    New Todo-->
+    <div id="newTask-container" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">New Todo</h4>
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal">&times;
+                    </button>
+                </div>
+
+                <form id="form-newTask">
+                    <div class="message" id="todo-message"></div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="taskName">Name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="todo name"
+                                   name="taskName"
+                                   id="taskName"
+                                   minlength="7" ,
+                                   maxlength="25"
+                                   required>
+                            <div class="input-description">
+                                min 7 character, max 25 character
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="taskName">Description</label>
+                            <textarea class="form-control"
+                                      placeholder="description"
+                                      name="taskDesc"
+                                      id="taskDesc"
+                                      minlength="20"
+                                      maxlength="100"
+                                      required></textarea>
+                            <div class="input-description">
+                                min 20 character, max 100 character
+                            </div>
+                        </div>
+
+                        <label for="taskDue">Due date
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                </div>
+                                <input type="date"
+                                       class="form-control"
+                                       data-date-format="mm/dd/yyyy"
+                                       name="taskDue"
+                                       id="taskDue"
+                                       required>
+                            </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit"
+                                class="btn btn-primary">Save
+                        </button>
+                        <button type="button"
+                                class="btn btn-danger"
+                                data-dismiss="modal"
+                                name="newTodo-cancel"
+                                id="newTodo-cancel">Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--    end New Todo-->
+
+    <!--    New Member-->
+    <div id="newMember-container" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">New Member</h4>
+                    <button type="button"
+                            class="close"
+                            data-dismiss="modal">&times;
+                    </button>
+                </div>
+
+                <form id="form-newMember">
+                    <div class="message" id="member-message"></div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                            </div>
+                            <input type="email"
+                                   class="form-control"
+                                   placeholder="email member here ..."
+                                   name="memberEmail"
+                                   id="memberEmail"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit"
+                                class="btn btn-primary">
+                            <i class="fa fa-user"></i> Add
+                        </button>
+                        <button type="button"
+                                class="btn btn-danger"
+                                data-dismiss="modal"
+                                name="newMember-cancel"
+                                id="newMember-cancel">Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--    end New Todo-->
+</main>
+
+<!--script js-->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js"
+        integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P"
+        crossorigin="anonymous"></script>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+
+<script src="js/user.js"></script>
+</body>
+</html>
