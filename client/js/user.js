@@ -2,7 +2,7 @@ const url_server = "http://34.70.155.203:3000";
 const api_user = "/api/users";
 const api_todo = "/api/todos";
 const api_project = "/api/projects";
-const client = "http://fancy-todo.mputong.com/"
+const client = "http://fancy-todo.mputong.com/";
 let isLogin = false;
 
 $(document).ready(function () {
@@ -119,7 +119,7 @@ function onSignIn(googleUser) {
         localStorage.email = data.email;
         localStorage.userId = data.userId;
 
-        if (!isLogin) window.location.replace('http://localhost:8080');
+        if (!isLogin) window.location.replace(client);
     }).fail(err => {
         console.log(err);
     })
