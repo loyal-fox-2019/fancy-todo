@@ -1,7 +1,6 @@
 "use strict"
 
 const Todo = require('../models/todo')
-const User = require('../models/user')
 
 class TodoController {
     static findAll(req, res, next) {

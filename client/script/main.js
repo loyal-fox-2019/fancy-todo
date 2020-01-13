@@ -79,7 +79,7 @@ function onSignIn(googleUser) {
             localStorage.setItem('email', response.user.email)
             localStorage.setItem('login', 'google')
             checkLogin()
-            imageUser(response.user.picture)
+            imageUser(response.user)
         })
         .fail(err => {
             console.log(err)
@@ -295,7 +295,10 @@ function yourTodos(response) {
 }
 
 function imageUser(response) {
+    console.log(response)
     $("#imageUser").empty()
-    $("#imageUser").append(`<img src="${response}" alt="gambarAvatarMu"
-                width="50" height="50">`)
+    $("#imageUser").append(`<img src="${response.picture}" alt="gambarAvatarMu"
+                width="50" height="50">
+                <div class="label">${response.fullname}</div>
+                `)
 }
