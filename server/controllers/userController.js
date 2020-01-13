@@ -50,7 +50,6 @@ class UserController {
   }
 
   static showInvitations(req, res, next) {
-    console.log(req.decoded.id, 'yuyuyuy')
     Project.find({ pendingMembers: req.decoded.id })
       .then(projects => {
         res.status(200).json(projects)

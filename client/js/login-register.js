@@ -64,7 +64,6 @@ function onSignIn(googleUser) {
     url: `${baseUrl}/user/login/google`,
     data: { id_token }
   }).done(user => {
-      console.log(user, '<<')
       localStorage.setItem('access_token', user.access_token)
       localStorage.setItem('userId', user.userId)
       $('.all').hide()
@@ -72,7 +71,10 @@ function onSignIn(googleUser) {
       $('#big-buttons').show()
     })
     .fail(err => {
-      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        text: err.responseJSON.errors.message
+      })
     })
 }
 
