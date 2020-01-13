@@ -1,7 +1,7 @@
 'use strict'
 
-const UserController = require('./user')
-const TodoController = require('./todo')
-const GroupController = require('./group')
+const User = require('./user')
+const Todo = require('./todo')
+const Group = require('./group')
 
-module.exports = { UserController, TodoController, GroupController }
+module.exports = { User, Todo, Group }
