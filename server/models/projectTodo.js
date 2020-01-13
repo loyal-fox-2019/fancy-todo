@@ -3,10 +3,14 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const userTodoSchema = new Schema({
-    user: { 
-        type: Schema.Types.ObjectId, 
-        ref: 'Users' 
+const projectTodoSchema = new Schema({
+    projectID: {
+        type: Schema.Types.ObjectId,
+        ref: 'Projects'
+    },
+    assignedTo: {
+        type: Schema.Types.ObjectId,
+        ref: 'Users'
     },
     title: {
         type: String,
@@ -36,6 +40,6 @@ const userTodoSchema = new Schema({
     },
 }, { versionKey: false, timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 
-const userTodos = mongoose.model('UserTodos', userTodoSchema)
+const projectTodos = mongoose.model('ProjectTodos', projectTodoSchema)
 
-module.exports = userTodos
+module.exports = projectTodos
