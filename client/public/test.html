@@ -1,0 +1,674 @@
+<div id="top_bar">
+    <div id="top_bar_inner">
+        <a href="#" class="left_menu_toggle menu_toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" data-svgs-path="sm1/menu.svg">
+                <path fill-rule="evenodd" fill="currentColor" d="M4.5 5h15a.5.5 0 1 1 0 1h-15a.5.5 0 0 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1z"></path></svg></a>
+        <div id="logo" data-track="navigation|todoist_logo"><a href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" data-svgs-path="sm1/todoist_logo.svg" class="light_icon"><path fill="currentColor" fill-rule="evenodd" d="M21 0H3a3 3 0 0 0-3 3v3.7L4 9c.4.2.8.2 1.1 0l8-4.6a.8.8 0 0 1 .8 0l1 .5c.2.2.1.6 0 .7L5.1 11c-.4.3-.7.3-1.2 0L0 8.8v2l4 2.4c.4.2.8.2 1.1 0l8-4.6a.8.8 0 0 1 .8 0l1 .5c.2.1.1.5 0 .6l-9.7 5.6c-.4.2-.7.3-1.2 0A857 857 0 0 1 0 13v2l4 2.3c.4.2.8.2 1.1 0l8-4.6a.8.8 0 0 1 .8 0l1 .5c.2.2.1.6 0 .7l-9.7 5.5c-.4.3-.7.3-1.2 0a857 857 0 0 1-4-2.3v4A3 3 0 0 0 3 24h18a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3"></path></svg></a>
+        </div>
+        <div id="top_icons">
+            <span id="sync_state_icon"></span>
+            <span data-track="navigation|quick_add" id="quick_add_task_holder">
+                <span class="light_icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24" data-svgs-path="sm1/plus_m.svg"><g fill="none" fill-rule="evenodd" transform="translate(4 3)"><mask id="jd4FBg" fill="#fff"><path d="M9 8h7a.5.5 0 1 1 0 1H9v7a.5.5 0 1 1-1 0V9H1a.5.5 0 0 1 0-1h7V1a.5.5 0 0 1 1 0v7z"></path></mask><g mask="url(#jd4FBg)"><path fill="currentColor" d="M-4-3h24v24H-4z"></path></g></g></svg></span></span>
+            <span id="before_pie" style="display: none;"></span>
+            <span id="top_completed_holder"><a href="#completed" class="fixed_pos">
+                <span id="top_completed" class="completed_pie_stat" data-track="navigation|karma">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><defs></defs><g fill="none" fill-rule="evenodd" transform="translate(3 3)"><mask id="4ZtaWA" fill="#fff"><path id="a" d="M12.3 5L7 10.3 5.4 8.6a.5.5 0 0 0-.8 0l-3.9 4a9 9 0 1 1 .5.9L5 9.7l1.6 1.7a.5.5 0 0 0 .8 0L13 5.7v3.8a.5.5 0 1 0 1 0v-5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.8z"></path></mask><g mask="url(#4ZtaWA)"><path fill="#ffffff" d="M-3-3h24v24H-3z"></path></g></g></svg><span class="count">250</span></span></a></span>
+            <span id="notifications_counter">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24" data-svgs-path="sm1/notifications.svg" class="light_icon"><defs><path id="sm1/notifications/a" d="M10.8 16a3 3 0 0 1-5.6 0h5.6zM5 15h6-6zm-3.8 0a1 1 0 0 1-.8-1.5 16 16 0 0 0 2.1-8 5.5 5.5 0 0 1 11 0c0 2.8.7 5.5 2.1 8a1 1 0 0 1-.8 1.5H1.2z"></path></defs><g fill="none" fill-rule="evenodd" transform="translate(4 3)"><mask id="sm1/notifications/b" fill="#fff"><use xlink:href="#sm1/notifications/a"></use></mask><g mask="url(#sm1/notifications/b)"><path fill="currentColor" d="M-4-3h24v24H-4z"></path></g></g></svg></span>
+            <span id="gear_holder" class="menu_icon fixed_pos" data-track="navigation|gear">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24" data-svgs-path="sm1/gear.svg" class="light_icon"><defs>
+                    <path id="sm1/gear/a" d="M5.7 2.8A7 7 0 0 1 7 2.3v-1l.1-.8a1 1 0 0 1 .4-.4l.8-.1h1.4l.8.1.4.4.1.8v1l1.3.5.7-.7.7-.4a1 1 0 0 1 .5 0l.7.4 1 1 .4.7a1 1 0 0 1 0 .5L16 5l-.7.7.5 1.3h1l.8.1.4.4.1.8v1.4l-.1.8a1 1 0 0 1-.4.4l-.8.1h-1a7 7 0 0 1-.5 1.3l.7.7.4.7a1 1 0 0 1 0 .5l-.4.7-1 1-.7.4a1 1 0 0 1-.5 0L13 16l-.7-.7a7 7 0 0 1-1.3.5v1l-.1.8a1 1 0 0 1-.4.4l-.8.1H8.3l-.8-.1a1 1 0 0 1-.4-.4l-.1-.8v-1a7 7 0 0 1-1.3-.5l-.7.7-.7.4a1 1 0 0 1-.5 0L3 16l-1-1-.4-.7a1 1 0 0 1 0-.5L2 13l.7-.7a7 7 0 0 1-.5-1.3h-1l-.8-.1a1 1 0 0 1-.4-.4L0 9.7V8.3l.1-.8a1 1 0 0 1 .4-.4l.8-.1h1l.5-1.3-.7-.7-.4-.7a1 1 0 0 1 0-.5L2 3l1-1 .7-.4a1 1 0 0 1 .5 0L5 2l.7.7zM9 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path></defs><g fill="none" fill-rule="evenodd" transform="translate(3 3)"><mask id="sm1/gear/b" fill="currentColor"><use xlink:href="#sm1/gear/a"></use></mask><use fill="currentColor" xlink:href="#sm1/gear/a"></use></g></svg></span>
+        </div>
+        <div id="quick_find">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" data-svgs-path="sm1/search.svg" class="search_icon light_icon"><defs>
+                <path id="sm1/search/a" d="M11.44 10.73l4.41 4.42a.5.5 0 0 1-.7.7l-4.42-4.41a6.5 6.5 0 1 1 .7-.71zM6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11z"></path></defs><g fill="none" fill-rule="evenodd" transform="translate(4 4)">
+                    <mask id="sm1/search/b" fill="#fff"><use xlink:href="#sm1/search/a"></use></mask>
+                    <g mask="url(#sm1/search/b)"><path fill="currentColor" d="M-3-4h24v24H-4z"></path></g></g></svg>
+            <input class="quick_find fixed_pos" type="text text_box" placeholder="Quick Find" autocomplete="off" autocorrect="off" spellcheck="false">
+            <a href="/Help/Filtering" class="help_icon" target="_blank" data-track="navigation|quick_find_help" style="opacity: 1; display: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" data-svgs-path="sm1/question.svg" class="light_icon"><g fill="none" fill-rule="evenodd">
+                    <path fill="currentColor" d="M11.9 16.5c-.46 0-.8-.35-.8-.85s.34-.86.8-.86c.48 0 .8.36.8.86s-.32.85-.8.85zM9.5 9.87c.06-1.32.9-2.37 2.54-2.37 1.46 0 2.46.95 2.46 2.21 0 .96-.47 1.64-1.22 2.11-.73.46-.94.8-.94 1.45v.4h-1.02v-.57c0-.8.37-1.36 1.16-1.86.68-.43.94-.82.94-1.47 0-.76-.56-1.32-1.43-1.32-.87 0-1.43.55-1.5 1.42H9.5z"></path>
+                    <circle cx="12" cy="12" r="7.5" stroke="currentColor"></circle></g></svg></a>
+        </div>
+    </div>
+</div>
+
+<div id="top-header">
+    <div id="headerinside">
+        <a id="home" href="">
+            <i class="fas fa-home" style="font-size: 28px;"></i>
+        </a>
+        <input id="search" name="search" placeholder="Quick Find">
+        <a id="cross" href="">
+            <i class="fas fa-cross" style="font-size: 28px;"></i>
+        </a>
+        <a href="">
+            <img src="productivity.svg" alt="productivity">
+        </a>
+        <a href="">
+            <img src="notifications-bell-button.svg" alt="notifications-bell-button">
+        </a>
+        <a href="">
+            <img src="settings.svg" alt="settings" >
+        </a>
+    </div>
+</div>
+<div id="content">
+    <div id="leftside">
+        <ul>
+            <li><a href="">inbox</a></li>
+            <li><a href="">Today</a> </li>
+            <li><a href="">Next 7 days</a> </li>
+            <li><a href="">Project</a> </li>
+            <li><a href="">Welcome</a> </li>
+            <li><a href="">Add project</a> </li>
+            <li><a href="">Archived projects</a> </li>
+            <li><a href="">Labels</a> </li>
+            <li><a href="">Filters</a> </li>
+        </ul>
+    </div>
+    <div id="rightside">
+        <ul>
+            <li>Today</li>
+            
+        </ul>
+    </div>
+</div>
+
+body {
+  margin: 0;
+  color: #202020;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 13px;
+  padding: 0;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+#top_bar {
+  height: 43px;
+  top: 0;
+  position: fixed;
+  z-index: 200;
+  width: 100%;
+  border-bottom: 1px solid #ca2100;
+  background-color: #db4c3f;
+  transition: height 200ms ease-in;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+#top_bar_inner {
+  margin-left: 44px;
+  max-width: 950px;
+  height: 100%;
+}
+.left_menu_toggle {
+  padding: 5px 0;
+  padding-right: 5px;
+  color: white;
+  display: none;
+}
+a: -webkit-any-link {
+  cursor: pointer;
+}
+.left_menu_toggle svg{
+  padding: 2px;
+}
+#logo {
+  float: left;
+  margin-left: 36px;
+  padding-top: 7px;
+  display: block;
+}
+#logo svg {
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+}
+#top_icons {
+  float: right;
+  height: 100%;
+  white-space: nowrap;
+  padding-right: 12px;
+  display: block;
+}
+#top_icons #quick_add_task_holder {
+  position: relative;
+  color: white;
+}
+#top_icons>span {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  float: left;
+  height: 100%;
+  margin-left: 10px;
+  cursor: pointer;
+}
+#top_icons #top_completed_holder {
+  position: relative;
+}
+#top_completed_holder a {
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+#top_icons #notifications_counter {
+  position: relative;
+}
+#notifications_counter {
+  vertical-align: middle;
+}
+#top_icons #notifications_counter svg {
+  padding: 2px 4px;
+}
+#top_icons #gear_holder {
+  position: relative;
+}
+#top_icons #gear_holder svg {
+  padding: 2px 4px;
+  pointer-events: none;
+}
+#quick_find {
+  white-space: nowrap;
+  margin-left: 328px;
+  padding-top: 6px;
+  display: block;
+}
+#top_bar .light_icon {
+  color: #fff;
+}
+.search_icon {
+  position: absolute;
+  z-index: 15;
+  margin-top: 4px;
+  margin-left: 3px;
+  cursor:text !important;
+  transition: opacity .1s ease-in;
+}
+@media only screen and (max-width: 870px) {
+  #quick#find .quick_find {
+      width: 160px;
+  }
+}
+.quick_find {
+  border: 1px solid transparent;
+  border-radius: 3px;
+  padding: 5px;
+  box-sizing: border-box;
+  outline: 0;
+  color: #fff;
+  padding-left: 30px;
+  margin-top: 2px;
+  background: 0;
+  transition: width .2s ease-in;
+}
+input {
+  font-size: 13px;
+  -webkit-appearance: textfield;
+  -webkit-rtl-ordering: logical;
+  cursor: text;
+  text-rendering: auto;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: start;
+  margin:0em;
+  font: 400 13.33px arial;
+  -webkit-writing-mode: horizontal-tb;
+}
+#quick_find .help_icon {
+  position: relative;
+  z-index: 15;
+  padding: 0 5px;
+  transform: translate(-34px,7px);
+}
+.help_icon {
+  animation-name: effect-fade-in;
+  animation-duration: 100ms;
+}
+a {
+  color: #202020;
+  text-decoration: none;
+}
+#quick_find .help_icon svg {
+  position: absolute;
+  top: -24px;
+}
+#top_bar .light_icon {
+  color: #fff;
+}
+
+#top-header {
+  background-color: #dd4b39;
+  margin: 0;
+  padding: 0;
+  height: 43px;
+}
+#headerinside {
+  margin: 0 auto;
+  max-width: 900px;
+  display: flex;
+}
+.fa-home:hover, .fa-cross:hover {
+  color: white;
+}
+#search {
+  width: 300px;
+  background-color: #dd4b39;
+  padding-left: 30px;
+  background-image: url("search.svg") no-repeat left;
+  transition: width 4s;
+}
+#search:focus {
+  width: 800px;
+  background-color: white;
+}
+#headerinside img {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  padding: auto;
+  margin: auto;
+}
+#leftside ul {
+  list-style-type: none;
+  margin: 15px;;
+  padding: 0;
+}
+#leftside li a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+}
+#leftside li a:hover {
+  background-color: white;
+}
+#content {
+  max-width: 900px;
+  margin: auto;
+  padding: 0;
+  height: 95vh;
+  display: flex;
+}
+#leftside {
+  width: 30%;
+  max-width: 296px;
+  background-color: #fafafa;
+  height: 100%;
+}
+#rightside {
+  width: 70%;
+  max-width: 596px;
+  background-color: white;
+}
+ul {
+  list-style-type: none;
+}
+@media screen and (max-width:600px) {
+  #leftside {
+      display: none;
+  }
+  #rightside {
+      width:100%;
+  }
+}
+
+
+<!-- <nav class="nav">
+        <div class="nav__container">
+          <div class="nav__logo-container">	
+            <span class="icon nav__logo">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" data-svgs-path="sm1/todoist_logo.svg" class="light_icon"><path fill="currentColor" fill-rule="evenodd" d="M21 0H3a3 3 0 0 0-3 3v3.7L4 9c.4.2.8.2 1.1 0l8-4.6a.8.8 0 0 1 .8 0l1 .5c.2.2.1.6 0 .7L5.1 11c-.4.3-.7.3-1.2 0L0 8.8v2l4 2.4c.4.2.8.2 1.1 0l8-4.6a.8.8 0 0 1 .8 0l1 .5c.2.1.1.5 0 .6l-9.7 5.6c-.4.2-.7.3-1.2 0A857 857 0 0 1 0 13v2l4 2.3c.4.2.8.2 1.1 0l8-4.6a.8.8 0 0 1 .8 0l1 .5c.2.2.1.6 0 .7l-9.7 5.5c-.4.3-.7.3-1.2 0a857 857 0 0 1-4-2.3v4A3 3 0 0 0 3 24h18a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3"></path></svg>
+            </span>
+          </div>
+          <span class="icon nav__menu-toggle">
+            <svg class="nav__menu-toggle-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" data-svgs-path="sm1/menu.svg"><path fill-rule="evenodd" fill="currentColor" d="M4.5 5h15a.5.5 0 1 1 0 1h-15a.5.5 0 0 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1z"></path></svg>
+          </span>
+          <div class="nav__menu">
+              <span class="icon nav__search-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" data-svgs-path="sm1/search.svg" class="nav__link-svg"><defs><path id="sm1/search/a" d="M11.44 10.73l4.41 4.42a.5.5 0 0 1-.7.7l-4.42-4.41a6.5 6.5 0 1 1 .7-.71zM6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11z"></path></defs><g fill="none" fill-rule="evenodd" transform="translate(4 4)"><mask id="sm1/search/b" fill="#fff"><use xlink:href="#sm1/search/a"></use></mask><g mask="url(#sm1/search/b)"><path fill="currentColor" d="M-3-4h24v24H-4z"></path></g></g></svg>
+            </span>
+            <input type="text" class="input nav__input" placeholder="Quick Find">	
+            
+            <div class="nav__links">
+              <span class="icon nav__menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24" data-svgs-path="sm1/plus_m.svg" class="nav__link-svg"><g fill="none" fill-rule="evenodd" transform="translate(4 3)"><mask id="jd4FBg" fill="#fff"><path d="M9 8h7a.5.5 0 1 1 0 1H9v7a.5.5 0 1 1-1 0V9H1a.5.5 0 0 1 0-1h7V1a.5.5 0 0 1 1 0v7z"></path></mask><g mask="url(#jd4FBg)"><path fill="currentColor" d="M-4-3h24v24H-4z"></path></g></g></svg>
+              </span>
+              
+              <div class="icon nav__menu-item nav__menu-item--completed">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="nav__link-svg nav__link-svg--completed"><defs></defs><g fill="none" fill-rule="evenodd" transform="translate(3 3)"><mask id="4ZtaWA" fill="#fff"><path id="a" d="M12.3 5L7 10.3 5.4 8.6a.5.5 0 0 0-.8 0l-3.9 4a9 9 0 1 1 .5.9L5 9.7l1.6 1.7a.5.5 0 0 0 .8 0L13 5.7v3.8a.5.5 0 1 0 1 0v-5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.8z"></path></mask><g mask="url(#4ZtaWA)"><path fill="#ffffff" d="M-3-3h24v24H-3z"></path></g></g></svg>
+                <span class="nav__karma">2019</span>
+              </div>
+              
+              <span class="icon nav__menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24" data-svgs-path="sm1/notifications.svg" class="nav__link-svg"><defs><path id="sm1/notifications/a" d="M10.8 16a3 3 0 0 1-5.6 0h5.6zM5 15h6-6zm-3.8 0a1 1 0 0 1-.8-1.5 16 16 0 0 0 2.1-8 5.5 5.5 0 0 1 11 0c0 2.8.7 5.5 2.1 8a1 1 0 0 1-.8 1.5H1.2z"></path></defs><g fill="none" fill-rule="evenodd" transform="translate(4 3)"><mask id="sm1/notifications/b" fill="#fff"><use xlink:href="#sm1/notifications/a"></use></mask><g mask="url(#sm1/notifications/b)"><path fill="currentColor" d="M-4-3h24v24H-4z"></path></g></g></svg>
+              </span>
+              <span class="icon nav__menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24" data-svgs-path="sm1/gear.svg" class="nav__link-svg"><defs><path id="sm1/gear/a" d="M5.7 2.8A7 7 0 0 1 7 2.3v-1l.1-.8a1 1 0 0 1 .4-.4l.8-.1h1.4l.8.1.4.4.1.8v1l1.3.5.7-.7.7-.4a1 1 0 0 1 .5 0l.7.4 1 1 .4.7a1 1 0 0 1 0 .5L16 5l-.7.7.5 1.3h1l.8.1.4.4.1.8v1.4l-.1.8a1 1 0 0 1-.4.4l-.8.1h-1a7 7 0 0 1-.5 1.3l.7.7.4.7a1 1 0 0 1 0 .5l-.4.7-1 1-.7.4a1 1 0 0 1-.5 0L13 16l-.7-.7a7 7 0 0 1-1.3.5v1l-.1.8a1 1 0 0 1-.4.4l-.8.1H8.3l-.8-.1a1 1 0 0 1-.4-.4l-.1-.8v-1a7 7 0 0 1-1.3-.5l-.7.7-.7.4a1 1 0 0 1-.5 0L3 16l-1-1-.4-.7a1 1 0 0 1 0-.5L2 13l.7-.7a7 7 0 0 1-.5-1.3h-1l-.8-.1a1 1 0 0 1-.4-.4L0 9.7V8.3l.1-.8a1 1 0 0 1 .4-.4l.8-.1h1l.5-1.3-.7-.7-.4-.7a1 1 0 0 1 0-.5L2 3l1-1 .7-.4a1 1 0 0 1 .5 0L5 2l.7.7zM9 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path></defs><g fill="none" fill-rule="evenodd" transform="translate(3 3)"><mask id="sm1/gear/b" fill="currentColor"><use xlink:href="#sm1/gear/a"></use></mask><use fill="currentColor" xlink:href="#sm1/gear/a"></use></g></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <main class="main">
+        <section class="menu">
+          <div class="menu__container">
+            <div class="menu__item">
+              <span class="menu__icon">
+                <svg width="24" height="24"><g fill="none" fill-rule="evenodd"><path fill="currentColor" d="M6 20h12a2 2 0 0 0 2-2v-4h-4.4l-.635 1.41a1 1 0 0 1-.912.59H9.947a1 1 0 0 1-.912-.59L8.4 14H4v4a2 2 0 0 0 2 2z"></path><path stroke="currentColor" d="M4.526 13.004a.5.5 0 0 0-.026.158V18A1.5 1.5 0 0 0 6 19.5h12a1.5 1.5 0 0 0 1.5-1.5v-4.838a.5.5 0 0 0-.026-.158l-2.16-6.478A1.5 1.5 0 0 0 15.893 5.5H8.108a1.5 1.5 0 0 0-1.423 1.026l-2.16 6.478z"></path></g></svg>	
+              </span>
+              <p class='menu__label'>Inbox</p>
+              <p class="menu__count">12</p>
+            </div>
+            <div class="menu__item">
+              <span class="menu__icon menu__icon--shift">
+                <svg width="24" height="24"><g fill="currentColor" fill-rule="evenodd"><path d="M20 8v9.436c0 .892-.093 1.215-.267 1.54a1.81 1.81 0 0 1-.756.757c-.326.174-.65.267-1.54.267H6.563c-.892 0-1.215-.093-1.54-.267a1.817 1.817 0 0 1-.757-.756c-.174-.326-.267-.65-.267-1.54V6a2 2 0 0 1 2-2h1V2.5a.5.5 0 0 1 1 0V4h8V2.5a.5.5 0 1 1 1 0V4h1a2 2 0 0 1 2 2v2zM6.564 8c-.662 0-.864.039-1.07.149a.818.818 0 0 0-.345.346C5.039 8.7 5 8.902 5 9.564v7.872c0 .662.039.864.149 1.07a.818.818 0 0 0 .346.345c.205.11.407.149 1.069.149h10.872c.662 0 .864-.039 1.07-.149a.818.818 0 0 0 .345-.346c.11-.205.149-.407.149-1.069V9.564c0-.662-.039-.864-.149-1.07a.818.818 0 0 0-.346-.345C18.3 8.039 18.098 8 17.436 8H6.564z"></path><text font-family="-apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'" font-size="9" transform="translate(4 2)"><tspan x="7.7" y="14.5" text-anchor="middle">2</tspan></text></g></svg>
+              </span>
+              <p class='menu__label'>Today</p>
+              <p class="menu__count">2</p>
+            </div>	
+            <div class="menu__item">
+              <span class="menu__icon menu__icon--shift">
+                <svg width="24" height="24"><path fill="currentColor" fill-rule="evenodd" d="M20 8v9.436c0 .892-.093 1.215-.267 1.54a1.81 1.81 0 0 1-.756.757c-.326.174-.65.267-1.54.267H6.563c-.892 0-1.215-.093-1.54-.267a1.817 1.817 0 0 1-.757-.756c-.174-.326-.267-.65-.267-1.54V6a2 2 0 0 1 2-2h1V2.5a.5.5 0 0 1 1 0V4h8V2.5a.5.5 0 1 1 1 0V4h1a2 2 0 0 1 2 2v2zM6.564 8c-.662 0-.864.039-1.07.149a.818.818 0 0 0-.345.346C5.039 8.7 5 8.902 5 9.564v7.872c0 .662.039.864.149 1.07a.818.818 0 0 0 .346.345c.205.11.407.149 1.069.149h10.872c.662 0 .864-.039 1.07-.149a.818.818 0 0 0 .345-.346c.11-.205.149-.407.149-1.069V9.564c0-.662-.039-.864-.149-1.07a.818.818 0 0 0-.346-.345C18.3 8.039 18.098 8 17.436 8H6.564zM8 13a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm-8 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm4 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"></path></svg>	
+              </span>
+              <p class='menu__label'>Next 7 days</p>
+              <p class="menu__count">20</p>
+            </div>
+            <div class="menu__item menu__item--category">
+              <span class="menu__icon menu__icon--chevron-right">
+                <svg width="12px" height="6px" viewBox="0 0 12 6"><g transform="translate(-396.000000, -235.000000)" fill="#777777"><g transform="translate(128.000000, 213.000000)"><path d="M280,22.7581818 L279.1564,22 L273.9922,26.506 L273.4414,26.0254545 L273.4444,26.0281818 L268.8562,22.0245455 L268,22.7712727 C269.2678,23.878 272.8084,26.9674545 273.9922,28 C274.8718,27.2330909 274.0144,27.9809091 280,22.7581818"></path></g></g></svg>
+              </span>
+              <p class='menu__label menu__label--bold'>Projects</p>
+              <span class="menu__adder">
+                <svg width="13" height="13" class="adder_icon" data-track="navigation|projects_quick_add"><path d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z" fill="currentColor" fill-rule="evenodd"></path></svg>
+              </span>
+            </div>			
+            <div class="menu__item menu__item--category">
+              <span class="menu__icon menu__icon--chevron-right">
+                <svg width="12px" height="6px" viewBox="0 0 12 6"><g transform="translate(-396.000000, -235.000000)" fill="#777777"><g transform="translate(128.000000, 213.000000)"><path d="M280,22.7581818 L279.1564,22 L273.9922,26.506 L273.4414,26.0254545 L273.4444,26.0281818 L268.8562,22.0245455 L268,22.7712727 C269.2678,23.878 272.8084,26.9674545 273.9922,28 C274.8718,27.2330909 274.0144,27.9809091 280,22.7581818"></path></g></g></svg>			
+              </span>
+              <p class='menu__label menu__label--bold'>Labels</p>
+              <span class="menu__adder">
+                <svg width="13" height="13" class="adder_icon" data-track="navigation|projects_quick_add"><path d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z" fill="currentColor" fill-rule="evenodd"></path></svg>
+              </span>
+            </div>	
+            <div class="menu__item menu__item--category">
+              <span class="menu__icon menu__icon--chevron-right">
+                <svg width="12px" height="6px" viewBox="0 0 12 6"><g transform="translate(-396.000000, -235.000000)" fill="#777777"><g transform="translate(128.000000, 213.000000)"><path d="M280,22.7581818 L279.1564,22 L273.9922,26.506 L273.4414,26.0254545 L273.4444,26.0281818 L268.8562,22.0245455 L268,22.7712727 C269.2678,23.878 272.8084,26.9674545 273.9922,28 C274.8718,27.2330909 274.0144,27.9809091 280,22.7581818"></path></g></g></svg>
+              </span>
+              <p class='menu__label menu__label--bold'>Filters</p>
+              <span class="menu__adder">
+                <svg width="13" height="13" class="adder_icon" data-track="navigation|projects_quick_add"><path d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z" fill="currentColor" fill-rule="evenodd"></path></svg>
+              </span>
+            </div>
+          </div>	
+        </section>
+        <section class="list">
+          <div class="list__header">
+            <h2 class="list__title">main</h2>
+            <h3 class="list__subtitle"><i class="fas fa-ellipsis-h"></i></h3>
+          </div>
+          <ul class="list__display">
+            <li class="list__item">
+              <span class="list__checkbox-container"><i class="far fa-circle"></i></span>
+              <p class="text">Pick up the dogs</p>
+            </li>
+            <li class="list__item">
+              <span class="main__checkbox-container"><i class="far fa-circle"></i></span>
+              <p class="text">Go to work</p>
+            </li>
+            <li class="list__item">
+              <span class="list__checkbox-container"><i class="far fa-circle"></i></span>
+              <p class="text">Finish this project</p>
+            </li>
+            <li class="list__item">
+              <span class="list__checkbox-container"><i class="far fa-check-circle"></i></span>
+              <p class="text">Clean the house</p>
+            </li>
+          </ul>	
+        </section>
+        </div>
+      </main> 
+    
+    
+    /*
+.nav{
+	height: 38px;
+	padding-bottom: 1px;
+	width: 100%;
+	background-color: #DB4C3F;
+	display: flex;
+	justify-content: center;
+}
+.nav__container{
+	width: 100%;
+	max-width: 950px;
+	display: flex;
+	align-items: center;
+	position: relative;
+	top: 1px;
+}
+.nav__logo-container {
+	display: flex;
+	height: 100%;
+	align-items: center;
+}
+.nav__logo{
+	margin-left: 36px;
+	margin-bottom: 3px;
+	display: none;
+	width: 28px;
+	height: 28px;
+	border-radius: 2px;
+}
+.nav__logo:hover {
+	background: rgba(255, 255, 255, 0.2);
+}
+.nav__menu-toggle {
+	box-sizing: border-box;
+	padding: 5px 5px 5px 10px;
+	width: 43px;
+	height: 100%;
+}
+.nav__menu-toggle-icon {
+	padding: 0 2px;
+}
+.nav__menu{
+	flex: 1;
+	display: flex;
+	height: 100%;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+}
+.nav__search-icon{
+	position: absolute;
+	z-index: 2;
+	display: none;
+	top: 7px;
+	left: -1px;
+
+}
+.nav__input{
+	position: relative;
+	z-index: 1;
+	left: 7px;
+	bottom: 1px;
+	height: 30px;
+	width: 300px;
+	padding: 5px 5px 5px 6px;
+	box-sizing: border-box;
+	background: #DB4C3F;
+	text-decoration: none solid rgb(255, 255, 255);
+	border: 1px solid transparent;
+	border-radius: 3px;
+}
+.nav__input:hover {
+	background: rgba(255, 255, 255, 0.2);	
+}
+.nav__input::placeholder{
+	color: #F6D2BA;
+	font-size: 13px;
+}
+.nav__links{
+	display: flex;
+	width: 208px;
+	padding-right: 12px;
+	height: 100%;
+	align-items: center;
+	justify-content: flex-end;
+	position: relative;
+}
+.nav__link-svg {
+	padding: 2px 4px;
+}
+.nav__link-svg--completed {
+	position: relative;
+	padding: 0;
+	right: 3px;
+}
+.nav__menu-item{
+	margin-left: 10px;
+	width: 32px;
+
+	height: 28px;
+	border-radius: 3px;
+	position: relative;
+	bottom: 1px;
+	
+}
+.nav__menu-item:hover {
+	background: rgba(255, 255, 255, 0.2);
+}
+.nav__menu-item--completed{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 62px;
+	position: relative;
+	top: -2px;
+	height: 28px;
+}
+.nav__karma{
+	color: #fff;
+	font-size: 11px;
+	font-weight: bold;
+	position: relative;
+	top: 1px;
+	left: 1px;
+}
+
+@media (min-width: 750px) {
+	.nav {
+		height: 43px;
+	}
+	.nav__logo-container{
+		width: 321px;
+	}
+	.nav__logo{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.nav__search-icon {
+		display: inline;
+		left: 5px;
+	}
+	.nav__input {
+		padding-left: 30px;
+	}
+	.nav__menu-toggle{
+		display: none;
+	}
+	.nav__links {
+		width: 234px;
+	}
+
+}
+
+@media (max-width: 870px){
+	.nav__input {
+		width: 160px;
+	}
+}
+
+/*
+	Main
+*/
+.main {
+	max-width: 950px;
+	display: flex;
+}
+
+/*
+	Icon	
+*/
+.icon {
+	color: #FFF;
+}
+
+/*
+	 Menu
+*/
+.menu {
+	width: 265px;
+	padding-left: 30px;
+	padding-top: 30px;
+	color: #555555;
+}
+.menu__container {
+
+}
+.menu__item {
+	display: flex;
+	align-items: center;
+	padding: 9px 16px 9px 5px;
+	line-height: 1.25;
+}
+.menu__item--category {
+	height: 13.6px;
+	padding: 12.5px 16px 12.5px 5px;
+	border-bottom: 1px solid #f1f1f1;
+}
+.menu__icon {
+	position: relative;
+	width: 28px;
+	margin-right: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.menu__icon--shift {
+	top: 1px;
+}
+.menu__icon--chevron-right {
+	transform: rotate(-90deg);
+}
+.menu__label {
+	font-size: 14px;
+}
+.menu__label--bold {
+	color: #333;
+	font-weight: bold;
+}
+.menu__count {
+	position: relative;
+	top: 1px;
+	font-size: 11px;
+	margin-left: 5px;
+
+}
+.menu__adder {
+	position: absolute;
+	left: 253px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 13px;
+	padding: 8px 5px;
+	color: rgba(0,0,0,0.3);
+} */-->

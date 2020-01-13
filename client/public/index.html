@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Josefin+Sans:400,400i|Montserrat:400,400i&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="519892535529-b643q6ciuc6adl9ga3i3vr05f9mk6ifm.apps.googleusercontent.com">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <title>Fancy To-do</title>
+</head>
+
+<body>
+  
+  <!-- LOGIN -->
+  <div class="container mx-auto component" id="login-box">
+      <div class="flex justify-center px-6 my-12">
+        <!-- Row -->
+        <div class="w-full xl:w-3/4 lg:w-11/12 flex">
+          <!-- Col -->
+          <div
+            class="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg"
+            style="background-image: url('https://source.unsplash.com/K4mSJ7kc0As/600x800')"
+          ></div>
+          <!-- Col -->
+          <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+            <h3 class="pt-4 text-2xl text-center">Welcome Back!</h3>
+            <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded" id="login-form">
+              <div class="mb-4">
+                <label class="block mb-2 text-sm font-bold text-gray-700" for="email">
+                  Email
+                </label>
+                <input
+                  class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                  id="login-email"
+                  type="email"
+                  placeholder="Email"
+                />
+              </div>
+              <div class="mb-4">
+                <label class="block mb-2 text-sm font-bold text-gray-700" for="password">
+                  Password
+                </label>
+                <input
+                  class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                  id="login-password"
+                  type="password"
+                  placeholder="******************"
+                />
+              </div>
+              <div class="mb-4">
+                <input class="mr-2 leading-tight" type="checkbox" id="checkbox_id" />
+                <label class="text-sm" for="checkbox_id">
+                  Remember Me
+                </label>
+              </div>
+              <div class="mb-6 text-center">
+                <button
+                  class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                  type="button"
+                  id="login-button"
+                >
+                  Sign In
+                </button>
+              </div>
+              <hr class="mb-6 border-t" />
+              <div class="text-center">
+                <a
+                  class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                  href="#"
+                  id="to-register"
+                >
+                  Create an Account!
+                </a>
+              </div>
+              <div class="g-signin2" data-onsuccess="onSignIn"></div>
+              <div class="text-center">
+                <a
+                  class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                  href="./forgot-password.html"
+                >
+                  Forgot Password?
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REGISTER -->
+  <div class="container mx-auto component" id="register-box">
+      <div class="flex justify-center px-6 my-12">
+        <!-- Row -->
+        <div class="w-full xl:w-3/4 lg:w-11/12 flex">
+          <!-- Col -->
+          <div
+            class="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg"
+            style="background-image: url('https://source.unsplash.com/Mv9hjnEUHR4/600x800')"
+          ></div>
+          <!-- Col -->
+          <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+            <h3 class="pt-4 text-2xl text-center">Create an Account!</h3>
+            <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded" id="register-form">
+              <div class="mb-4">
+                  <label class="block mb-2 text-sm font-bold text-gray-700" for="name">
+                    Name
+                  </label>
+                  <input
+                    class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                    id="name"
+                    type="text"
+                    placeholder="Name"
+                  />
+              </div>
+              <div class="mb-4">
+                <label class="block mb-2 text-sm font-bold text-gray-700" for="email">
+                  Email
+                </label>
+                <input
+                  class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                  id="register-email"
+                  type="email"
+                  placeholder="Email"
+                />
+              </div>
+              <div class="mb-4 md:flex md:justify-between">
+                <div class="mb-4 md:mr-2 md:mb-0">
+                  <label class="block mb-2 text-sm font-bold text-gray-700" for="password">
+                    Password
+                  </label>
+                  <input
+                    class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                    id="register-password"
+                    type="password"
+                    placeholder="******************"
+                  />
+                </div>
+                <div class="md:ml-2">
+                  <label class="block mb-2 text-sm font-bold text-gray-700" for="c_password">
+                    Confirm Password
+                  </label>
+                  <input
+                    class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                    id="confirm-password"
+                    type="password"
+                    placeholder="******************"
+                  />
+                </div>
+              </div>
+              <div class="mb-6 text-center">
+                <button
+                  class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                  type="button"
+                  id="register-button"
+                >
+                  Register Account
+                </button>
+              </div>
+              <hr class="mb-6 border-t" />
+              <div class="text-center">
+                <a
+                  class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                  href="#"
+                  id="to-login"
+                >
+                  Already have an account? Login!
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOME -->
+    <div class="chrome-context -col -fixed h-screen component" id="home-page">
+        <header class="chrome z-10">
+          <nav class="flex items-center justify-between flex-wrap bg-purple-800 px-2 py-1">
+            <div class="flex items-center flex-shrink-0 text-white mr-6">
+              <!-- <svg width="24" height="24" id="tanuki-logo" class="fill-current mr-2" viewBox="0 0 36 36">
+                <path class="tanuki-shape tanuki-left-ear" fill="#e24329" d="M2 14l9.38 9v-9l-4-12.28c-.205-.632-1.176-.632-1.38 0z"></path>
+                <path class="tanuki-shape tanuki-right-ear" fill="#e24329" d="M34 14l-9.38 9v-9l4-12.28c.205-.632 1.176-.632 1.38 0z"></path>
+                <path class="tanuki-shape tanuki-nose" fill="#e24329" d="M18,34.38 3,14 33,14 Z"></path>
+                <path class="tanuki-shape tanuki-left-eye" fill="#fc6d26" d="M18,34.38 11.38,14 2,14 6,25Z"></path>
+                <path class="tanuki-shape tanuki-right-eye" fill="#fc6d26" d="M18,34.38 24.62,14 34,14 30,25Z"></path>
+                <path class="tanuki-shape tanuki-left-cheek" fill="#fca326" d="M2 14L.1 20.16c-.18.565 0 1.2.5 1.56l17.42 12.66z"></path>
+                <path class="tanuki-shape tanuki-right-cheek" fill="#fca326" d="M34 14l1.9 6.16c.18.565 0 1.2-.5 1.56L18 34.38z"></path>
+              </svg> -->
+              <span class="font-semibold text-xl tracking-tight">Fancy To-do</span>
+            </div>
+            <!-- <div class="block lg:hidden">
+              <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+                <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+              </button>
+            </div> -->
+            <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+              
+              <!-- <div>
+                <div class="none sm:block relative text-gray-100">
+                  <input class="shadow appearance-none rounded py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-purple-600 focus:bg-white focus:text-gray-600" type="search" placeholder="Search or jump to...">
+                  <div class="absolute right-0 top-0 mr-2 h-full flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" id="search" class="w-4 h-4 fill-current">
+                      <path d="M9.331 9.331a3.088 3.088 0 1 0-4.368-4.368 3.088 3.088 0 0 0 4.368 4.368zm.655 2.11a5.149 5.149 0 0 1-6.478-7.933 5.147 5.147 0 0 1 7.934 6.478l2.256 2.257a1.03 1.03 0 1 1-1.455 1.455l-2.257-2.256z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+
+            <!-- <a href="#"><li class="p-2 px-3 mr-1 bg-purple-500 rounded-full border border-white" id="calendar-btn">add to calendar</li></a> -->
+
+            <div class="flex w-full pt-2 content-center justify-between md:w-1/3 mr-3 md:justify-end">
+                  <div class="relative inline-block">
+                    <button class="drop-button text-white focus:outline-none" id="myDropdown-btn"> <span class="pr-2"><i class="em em-robot_face"></i></span></button>
+                        <div id="myDropdown" class="dropdownlist absolute bg-gray-900 text-white right-0 mt-3 p-3 overflow-auto z-30" style="display:none;">
+                            <a href="#" class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"><i class="fa fa-user fa-fw"></i> Profile</a>
+                            <div class="border border-gray-800"></div>
+                            <a href="#" class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block" id="logout-button"><i class="fas fa-sign-out-alt fa-fw"></i> Log Out</a>
+                        </div>
+                    </div>
+          </nav>
+        </header>
+        <main class="chrome-context -row -fixed z-0">
+          <aside class="chrome chrome-context -col -fixed min-w-48 bg-gray-200 border-r border-gray-400">
+            <div class="chrome-context border-t border-b border-gray-400">
+              <div class="scroll-shadow--"
+                   data-controller="scroll-shadow">
+                <ul class="scrollable scrollbar-none"
+                    data-target="scroll-shadow.scrollable"
+                    data-action="scroll->scroll-shadow#observe
+                                 resize@window->scroll-shadow#observe">
+                <li>
+                    <a href="#" class="block p-2 hover:bg-purple-500 hover:text-white" id="projects-btn">
+                      <span>Projects</span>
+                      <span class="rounded-full px-2 py-0 text-xs font-bold bg-purple-300" id=projects-num></span>
+                    </a>
+                  </li>
+                    <div id="projects-menu">
+                      <div id="projects-navbar"></div>
+                      <a href="#" class="block p-2 pl-4 hover:bg-orange-500 hover:text-white project-toggle">Add Project</a>
+                          <div class="flex items-center" id=project-modal style="display:none;">
+                          <div class="flex mt-2">
+                          <input class="shadow appearance-none border rounded text-grey-darker text-base" placeholder="Enter project's name" id="project-name">
+                          <button class="flex-no-shrink p-2 border-2 rounded text-base text-teal border-teal hover:text-white hover:bg-teal" onclick="submitProject()">Add Project</button>
+                      </div>
+                          </div>
+                    </div>
+
+                <li>
+                    <a href="#" class="block p-2 hover:bg-purple-500 hover:text-white" id="tasks-btn">Tasks</a>
+                  </li>
+                    <div id="tasks-navbar">
+                      <a href="#" class="block p-2 pl-4 hover:bg-purple-500 hover:text-white" id="today-btn">Today</a>
+                      <a href="#" class="block p-2 pl-4 hover:bg-purple-500 hover:text-white" id="week-btn">This Week</a>
+                      <a href="#" class="block p-2 pl-4 hover:bg-purple-500 hover:text-white" id="all-btn">All</a>
+                    </div>
+                  <li class="active">
+                    <a href="#" class="block p-2 hover:bg-purple-500 hover:text-white" id="completed-btn">Completed</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- <div class="chrome">
+              <button type="button"
+                  id="AppNavToggleButton"
+                  class="flex items-center h-10 w-full p-2 hover:bg-gray-300 font-mono text-sm italic"
+                  aria-controls="AppNav"
+                  aria-expanded="<%= get_app_navigation_expanded ? 'true' : 'false' %>"
+                  aria-label="<%= get_app_navigation_expanded ? 'Collapse navigation' : 'Expand navigation' %>"
+                  data-target="app-navigation.button"
+                  data-action="app-navigation#toggleNavigation">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" id="angle-double-left" class="h-4 w-4">
+                  <path d="M9.828 8.064l4.243 4.243a1 1 0 1 1-1.414 1.414l-4.95-4.95a1 1 0 0 1 0-1.414l4.95-4.95a1 1 0 0 1 1.414 1.414L9.828 8.064zm-6 0l4.243 4.243a1 1 0 1 1-1.414 1.414l-4.95-4.95a1 1 0 0 1 0-1.414l4.95-4.95A1 1 0 0 1 8.07 3.821L3.828 8.064z" fill-rule="evenodd"/>
+                </svg>
+                <span class="ml-2 whitespace-no-wrap">Collapse navigation</span>
+              </button>
+            </div> -->
+          </aside>
+
+          <article class="px-4">
+            <div style="height:200vh" class="flex flex-col justify-between text-3xl" id="main-container">
+              <!-- <div class="flex-1 flex justify-center items-center">MIDDLE</div>
+              <div class="flex-1 flex justify-center items-end">BOTTOM</div> -->
+
+            
+              <!--Project Modal-->
+              <!-- <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center" id="project-modal">
+                <div class="project-toggle absolute w-full h-full bg-gray-900 opacity-50"></div>
+                <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                  <div class="project-toggle absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
+                  </div>
+                  <div class="modal-content py-4 text-left px-6">
+                    <div class="flex justify-between items-center pb-3">
+                      <p class="text-2xl font-bold">Create new project</p>
+                      <div class="project-toggle cursor-pointer z-50">
+                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                          <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+                        </svg>
+                      </div>
+                    </div>
+                    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" id="project-form">
+                      <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                          Project's name
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="project-name" type="text" placeholder="Project's name">
+                      </div>
+                      <div class="flex items-center justify-between">
+                      </div>
+                      <div class="flex justify-end pt-2">
+                        <button class="px-4 bg-purple-800 p-3 rounded-lg text-white hover:bg-purple-500" id="project-button">Submit</button>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+              </div> -->
+
+            </div>
+          </article>
+
+          <aside class="chrome chrome-context -col -fixed min-w-48 bg-gray-200 border-r border-gray-400">
+            <div class="border-b">
+              TIMER CLOCK
+            </div>
+            <!-- <div class="chrome">
+              <button type="button"
+                  id="AppSidebarToggleButton"
+                  class="flex items-center justify-end h-10 w-full p-2 hover:bg-gray-300 font-mono text-sm italic"
+                  aria-controls="AppSidebar"
+                  aria-expanded="<%= get_app_sidebar_expanded ? 'true' : 'false' %>"
+                  aria-label="<%= get_app_sidebar_expanded ? 'Collapse sidebar' : 'Expand sidebar' %>"
+                  data-target="app-sidebar.button"
+                  data-action="app-sidebar#toggleNavigation">
+                <span class="mr-2 whitespace-no-wrap">Collapse sidebar</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" id="angle-double-right" class="h-4 w-4">
+                  <path d="M5.95 8.064L1.707 3.821a1 1 0 0 1 1.414-1.414l4.95 4.95a1 1 0 0 1 0 1.414l-4.95 4.95a1 1 0 0 1-1.414-1.414L5.95 8.064zm6 0L7.707 3.821a1 1 0 0 1 1.414-1.414l4.95 4.95a1 1 0 0 1 0 1.414l-4.95 4.95a1 1 0 0 1-1.414-1.414l4.243-4.243z" fill-rule="evenodd"/>
+                </svg>
+              </button>
+            </div> -->
+          </aside>
+
+        </main>
+      </div>
+      <!-- <div class="w-full items-center justify-center"></div> -->
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript"
+  src="https://static-cdn.kloudless.com/p/platform/sdk/kloudless.authenticator.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <script src="../src/main.js"></script>
+</body>
+</html>
