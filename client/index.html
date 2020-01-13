@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <link rel="stylesheet" href="./css/tailwind.css">
+   <link rel="stylesheet" href="./css//style.css">
+   <title>A bit fancier todo</title>
+</head>
+<body>
+   <div id="auth-page">
+      <div id="login">
+         <form method="post" id="login-form">
+            <label>Email</label>
+            <input type="email" id="login-email"/>
+
+            <label>Password</label>
+            <input type="password" id="login-password"/>
+
+            <input type="submit" value="Submit" id="login-submit">
+         </form>
+      </div>
+
+      <div id="register">
+         <form method="post" id="register-form">
+            <label>Username</label>
+            <input type="text" id="register-username"/>
+
+            <label>Email</label>
+            <input type="email" id="register-email"/>
+
+            <label>Password</label>
+            <input type="password" id="register-password"/>
+
+            <input type="submit" value="Submit" id="register-submit">
+         </form>
+      </div>
+   </div>
+
+   <div id="main-page">
+      <div id="navbar">
+         <a href="" id="brand"></a>
+
+         <div>
+            <span id="nav-username"></span>
+            <a href="#" id="logout">logout</a>
+         </div>
+      </div>
+
+      <div id="content">
+         <div id="content-navbar">
+            <div id="content-navbar-todo">
+               <a href="" id="to-todo">Todo</a>
+            </div>
+
+            <div id="content-navbar-project">
+               <a href="" id="to-project">Project</a>
+            </div>
+         </div>
+
+         <div id="content-todo" class="flex">
+            <div id="todo-create" class="flex justify-center">
+               <form id="todo-create-form" class="flex flex-col">
+                  <label>Name</label>
+                  <input type="text" name="" id="todo-create-name" class="rounded">
+
+                  <label>Description</label>
+                  <textarea name="" id="todo-create-description" cols="20" rows="5" class="rounded"></textarea>
+
+                  <label>Due Date</label>
+                  <input type="date" id="todo-create-due_date">
+
+                  <input type="submit" value="Submit">
+               </form>
+            </div>
+
+            <div id="todo-edit">
+               <div id="todo-edit" class="flex justify-center">
+                  <form id="todo-edit-form" class="flex flex-col">
+                     <input type="hidden" id="todo-edit-id">
+
+                     <label>Name</label>
+                     <input type="text" name="" id="todo-edit-name" class="rounded">
+   
+                     <label>Description</label>
+                     <textarea name="" id="todo-edit-description" cols="20" rows="5" class="rounded"></textarea>
+   
+                     <label>Due Date</label>
+                     <input type="date" id="todo-edit-due_date">
+
+                     <label>Status</label>
+                     <select id="todo-edit-status">
+                        <option value="unfinished">Unfinished</option>
+                        <option value="finished">Finished</option>
+                     </select>
+   
+                     <input type="submit" value="Submit">
+                  </form>
+               </div>
+            </div>
+
+            <div id="todo-show">
+            </div>
+         </div>
+
+         <div id="content-project">
+            <div id="project-list">
+               <div id="project-create-update-form">
+                  <form id="project-form">
+                     <h5 id="project-form-label"></h5>
+                     <input type="hidden" id="project-form-id" value="">
+   
+                     <label>Name</label>
+                     <input type="text" id="project-form-name">
+   
+                     <input type="submit" value="Submit">
+                  </form>
+                  <button id="project-form-cancel">Cancel</button>
+               </div>
+
+               <div id="join-project">
+                  <form id="join-project-form">
+                     <p>Paste here the token you have to join a project you have got invited into:</p>
+                     <textarea id="join-project-token" cols="30" rows="10"></textarea>
+
+                     <input type="submit" value="Join project">
+                  </form>
+               </div>
+   
+               <div id="project-show">
+               </div>
+            </div> 
+
+            <div id="project-detail">
+               <div id="project-token">
+                  <form id="generate-project-token">
+                     <input type="hidden" value="" id="generate-project-token-id">
+
+                     <label>Invitee email:</label>
+                     <input type="email" id="generate-project-token-email">
+   
+                     <input type="submit" value="Generate project token">
+                  </form>
+
+                  <div id="project-token-result">
+                     <p>Give this token to the person you want to invite to this project:</p>
+                     <p id="project-token-show"></p>
+                  </div>
+               </div>
+               
+               <div id="project-detail-content">
+                  <div id="free-todos">
+                     <h5>Free Todos</h5>
+                  </div>
+
+                  <div id="inside">
+                     <h5 id="inside-name"></h5>
+                     <div id="inside-todos"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+   <script src="./node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+   <script src="./js/main.js"></script>
+</body>
+</html>

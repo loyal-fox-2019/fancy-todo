@@ -1,0 +1,17 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tailwind-build": "npx tailwind build ./css/prebuild-tailwind.css -o ./css/tailwind.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sweetalert2": "^9.5.4",
+    "tailwindcss": "^1.1.4"
+  }
+}
