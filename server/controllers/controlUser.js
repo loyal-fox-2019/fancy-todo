@@ -95,8 +95,12 @@ class ControlUser {
             })
             .then(user => {
                 console.log(user, "ini usernya")
+                const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET)
+                console.log(token, "ini token, user logged in")
+
+                req.headers.token = token
                 // res.send(user)
-                res.status(200).json(user)
+                res.status(200).json({ user, token })
             })
             .catch(err => {
                 console.log(err)

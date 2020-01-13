@@ -213,7 +213,7 @@ $(document).ready(function () {
                 userId: localStorage.getItem("userId")
             },
             success: function (hasilTodos) {
-                // console.log(hasilTodos)
+                console.log(hasilTodos, "ini hasil todo di client")
                 $(".todos").empty()
                 let kontenTodos = ` <div class="card" >
                             <table class="table">

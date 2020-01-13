@@ -7,7 +7,7 @@ function toCreate(req, res, next) {
     modelUser.findById(req.payload.id)
         .then(ketemu => {
             if (ketemu) {
-                // console.log(ketemu, "ini ketemu dari authorization")
+                console.log(ketemu, "ini ketemu dari authorization")
                 next()
             } else {
                 res.status(403).json({ message: "You are forbidden to this" })

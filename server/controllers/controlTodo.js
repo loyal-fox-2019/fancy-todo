@@ -12,9 +12,9 @@ class ControlTodo {
 
         modelUser.findById(req.payload.id)
             .then(idFound => {
-                console.log(idFound, "oke sudah ada")
+                // console.log(idFound, "oke sudah ada")
                 if (idFound) {
-                    // console.log(idFound._id)
+                    console.log(idFound._id, "ini idnya")
                     return modelTodo.create({
                         userId: idFound._id,
                         name: req.body.name,
@@ -28,6 +28,7 @@ class ControlTodo {
                 }
             })
             .then(todoCreated => {
+                // console.log("halo dari todocreated, udah berhasil")
                 res.status(200).json({ todoCreated, message: "Your todo list has been successfully created" })
             })
             .catch(err => {
@@ -39,15 +40,18 @@ class ControlTodo {
     static findAllMyTodo(req, res, next) {
         // console.log("halo dari read all")
         let milikUser = []
+        // console.log(req.headers, "ini header")
         // console.log(req.headers, "in headers dari readAll")
         //req.headers.userid => userIdnya
         modelTodo.find().populate(['userId'])
             .then(semuaTodo => {
+                // console.log(semuaTodo, "ini semua todonya")
                 // console.log(semuaTodo[semuaTodo.length - 1])
                 // console.log(semuaTodo[semuaTodo.length - 1].userId.id, "ini idnya")
                 if (!semuaTodo[0]) {
                     res.status(200).json({ semuaTodo, message: "User has no to do" })
                 } else {
+                    console.log(req.headers.userid, "ini useridnya")
                     for (let perTodo of semuaTodo) {
                         if (perTodo.userId) {
 
