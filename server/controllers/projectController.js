@@ -36,7 +36,6 @@ class ProjectController {
       .populate('todos')
       .populate('owner')
       .then(projects => {
-        console.log(projects, req.decoded.id, '')
         res.status(200).json(projects)
       })
       .catch(next)
@@ -48,7 +47,6 @@ class ProjectController {
       .populate('pendingMembers')
       .populate({ path: 'todos', populate: { path: 'user_id' } })
       .then(project => {
-        // console.log(project)
         res.status(200).json(project)
       })
       .catch(next)
@@ -76,7 +74,6 @@ class ProjectController {
 // -------------------- End of Project basic CRUD -------------------- //
 
   static inviteMember(req, res, next) {
-    console.log('masuk')
     let targetMember;
     const { email, inviter } = req.body
     User.findOne({ email })
@@ -120,7 +117,6 @@ class ProjectController {
         if (!isInvited) {
           throw createError(400, 'You are not invited')
         } else {
-          console.log(project.pendingMembers, '------------')
           project.pendingMembers.pull(req.decoded.id)
           project.members.push(req.decoded.id)
           return project.save()
@@ -139,7 +135,6 @@ class ProjectController {
       $pull: { pendingMembers: req.decoded.id }
     })
       .then(project => {
-        console.log(project, '!@#$%^&*()(*&^%$#@!@#$%^&*')
         res.status(200).json({
           message: 'You have rejected the invitation'
         })

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="google-signin-client_id" content="762236887318-93784jfu3ufu1j93cbodnpfe59gmshml.apps.googleusercontent.com">
-  <title>Document</title>
+  <title>Fancy Todo</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="./css/tailwind.css" rel="stylesheet">
 </head>
@@ -300,6 +300,7 @@
           <!-- Col -->
           <div class="w-full bg-white p-5 rounded-lg">
             <h3 class="pt-4 text-2xl text-center">Create New Project</h3>
+            <h6 onclick="toMyProjects(event)" class="text-sm text-center text-blue-500 hover:text-blue-800 cursor-pointer">My Projects</h6>
             <form id="project-form" onsubmit="createProject(event)" class="px-8 pt-6 pb-8 mb-4 bg-white rounded">
               <div class="mb-4">
                 <label class="block mb-2 text-sm font-bold text-gray-700" for="project-name-post">
@@ -393,6 +394,7 @@
       <div class="flex justify-center px-6 my-12">
         <!-- Row -->
         <div class="w-full xl:w-3/4 lg:w-11/12 flex">
+
           <!-- Col -->
           <div id="member-list" class="w-full bg-white p-5 rounded-lg">
             

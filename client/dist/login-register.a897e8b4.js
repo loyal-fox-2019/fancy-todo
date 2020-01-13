@@ -118,8 +118,111 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"js/login-register.js":[function(require,module,exports) {
+function toRegister() {
+  $('.all').hide();
+  $('#the-navbar').hide();
+  $('#register').show();
+}
 
-},{}],"../../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+function toLogin() {
+  $('.all').hide();
+  $('#the-navbar').hide();
+  $('#login').show();
+}
+
+function login(e) {
+  e.preventDefault();
+  $.ajax({
+    method: 'post',
+    url: "".concat(baseUrl, "/user/login"),
+    data: {
+      email: $('#login-email').val(),
+      password: $('#login-password').val()
+    }
+  }).done(function (user) {
+    localStorage.setItem('access_token', user.access_token);
+    localStorage.setItem('userId', user.userId);
+    $('.all').hide();
+    $('#the-navbar').show();
+    $('#big-buttons').show();
+  }).fail(function (err) {
+    var errMsg = err.responseJSON.errors.message;
+    Swal.fire({
+      icon: 'error',
+      text: errMsg
+    });
+  });
+}
+
+function logout() {
+  Swal.fire({
+    title: 'Are you sure?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, log me out'
+  }).then(function (result) {
+    if (result.value) {
+      if (gapi.auth2) {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+          localStorage.clear();
+          toLogin();
+        });
+      }
+    }
+  });
+}
+
+function onSignIn(googleUser) {
+  var id_token = googleUser.getAuthResponse().id_token;
+  $.ajax({
+    type: 'post',
+    url: "".concat(baseUrl, "/user/login/google"),
+    data: {
+      id_token: id_token
+    }
+  }).done(function (user) {
+    localStorage.setItem('access_token', user.access_token);
+    localStorage.setItem('userId', user.userId);
+    $('.all').hide();
+    $('#the-navbar').show();
+    $('#big-buttons').show();
+  }).fail(function (err) {
+    Swal.fire({
+      icon: 'error',
+      text: err.responseJSON.errors.message
+    });
+  });
+}
+
+function register(e) {
+  e.preventDefault();
+  $.ajax({
+    method: 'post',
+    url: "".concat(baseUrl, "/user/register"),
+    data: {
+      username: $('#register-username').val(),
+      email: $('#register-email').val(),
+      password: $('#register-password').val()
+    }
+  }).done(function (user) {
+    Swal.fire({
+      icon: 'success',
+      text: 'Successfully registered!'
+    });
+    $('.all').hide();
+    $('#login').show();
+  }).fail(function (err) {
+    var errMsg = err.responseJSON.errors.message;
+    Swal.fire({
+      icon: 'error',
+      text: errMsg
+    });
+  });
+}
+},{}],"../../../../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -147,7 +250,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36395" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42875" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -323,5 +426,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/login-register.js"], null)
+},{}]},{},["../../../../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/login-register.js"], null)
 //# sourceMappingURL=/login-register.a897e8b4.js.map

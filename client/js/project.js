@@ -109,7 +109,7 @@ function submitInvitation(e, projectId, projectName, inviter) {
   })
     .done(response => {
       Swal.fire({
-        icon: 'succes',
+        icon: 'success',
         text: 'Invitation sent'
       })
       fetchProjects()
@@ -143,6 +143,13 @@ function fetchTodosProject(projectId, projectName, ownerId) {
         `
         <h3 class="pt-4 text-2xl text-center">${projectName}</h3>
         <div class="text-center">
+          <span
+            class="text-center text-sm text-blue-500 hover:text-blue-800 cursor-pointer"
+            href=""
+            onclick="openMyProject()"
+          >
+            My Project
+          </span> |
           <span
             class="text-center text-sm text-blue-500 hover:text-blue-800 cursor-pointer"
             href=""
@@ -248,6 +255,10 @@ function fetchTodosProject(projectId, projectName, ownerId) {
           </tr>
           `
         )
+        if (todo.user_id._id !== localStorage.getItem('userId')) {
+          $(`#check-${todo._id}-p`).hide()
+          $(`#action-btn-${todo._id}`).hide()
+        }
         if ($(`#status-${todo._id}-p`).text() === 'queued') {
           $(`#check-${todo._id}-p`).text('Check')
           $(`#check-${todo._id}-p`).removeClass("bg-gray-700 hover:bg-gray-900").addClass("bg-green-500 hover:bg-green-700")
@@ -404,6 +415,7 @@ function fetchProjectMembers(projectId, projectName) {
       $('#member-list').append(
         `
         <h3 class="pt-4 text-2xl text-center">${projectName}</h3>
+        <h6 onclick="openMyProject(event)" class="text-sm text-center text-blue-500 hover:text-blue-800 cursor-pointer">My Project</h6>
         <h6 class="pt-4 text-sm pl-4">Members</h6>
         <div class="text-gray-900">
           <div class="px-3 py-4 flex justify-center">
@@ -545,7 +557,7 @@ function openNewTodoProject(projectId, projectName) {
       <hr class="mb-2 border-t" />
       <div class="text-center">
         <a
-          onclick="toTodosProject(event)"
+          onclick="openMyProject(event)"
           class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
           href="#"
         >
@@ -703,6 +715,7 @@ function acceptInv(projectId) {
         icon: 'success',
         text: response.message
       })
+      fetchProjects()
     })
     .fail(err => {
       Swal.fire({
@@ -733,4 +746,10 @@ function rejectInv(projectId) {
         text: err
       })
     })
+}
+
+function openMyProject() {
+  $('.all').hide()
+  $('#my-projects').show()
+  fetchProjects()
 }
