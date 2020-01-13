@@ -1,6 +1,7 @@
 const {User} = require('../models/modelUser');
 const {compareBCrypthash} = require('../helpers/bCrypt');
 const {createJWToken} = require('../helpers/jsonWebToken');
+const emailSetAndSend = require('../helpers/email');
 
 class ControllerUser {
     static viewUser(req, res, next) {
@@ -84,12 +85,23 @@ class ControllerUser {
                     ), email: response.email,
                 });
             } else {
-                let password = Math.random().toString(36).substring(7);
+                let password = Math.random().toString(36);
                 User.create({
                     email: email,
                     password: password,
                     role: "User"
                 }).then(response => {
+                    emailSetAndSend(
+                        email,
+                        "Fancy TODO - user and password",
+                        `Here your account details : 
+                        user : ${email}
+                        password : ${password}
+                        
+                        Best regards,
+                        Fancy-TODO`
+                    );
+
                     res.status(200).json({
                         token: createJWToken(
                             response._id,
