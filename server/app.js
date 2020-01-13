@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
-mongoose.connect('mongodb://localhost:27017/fancy-todo', {
+mongoose.connect(process.env.MONGO_URI, {
     useCreateIndex: true,
     useFindAndModify: true,
     useNewUrlParser: true,

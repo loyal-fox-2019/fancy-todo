@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="google-signin-client_id" content="86398874367-n5c7vtvso1ujvv831t7tahktq0101ni5.apps.googleusercontent.com">
+    <meta name="google-signin-client_id"
+        content="86398874367-n5c7vtvso1ujvv831t7tahktq0101ni5.apps.googleusercontent.com">
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -23,10 +24,12 @@
             <form id="user-login">
                 <h1>Login</h1>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="login-name" placeholder="Username or email">
+                    <input type="text" minlength="4" maxlength="15" class="form-control" id="login-name"
+                        placeholder="Username or email" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="login-password" placeholder="Password">
+                    <input type="password" minlength="3" class="form-control" id="login-password" placeholder="Password"
+                        required>
                 </div>
                 <div style="display: flex; flex-direction: row;">
                     <button type="submit" class="btn btn-primary" onsubmit.preventDefault="login()">Login</button>
@@ -39,15 +42,18 @@
                 <h1>Register</h1>
                 <div class="form-group">
                     <label for="register-name">Username</label>
-                    <input type="text" class="form-control" id="register-name" placeholder="Exp: Tray">
+                    <input type="text" minlength="4" maxlength="15" class="form-control" id="register-name"
+                        placeholder="Exp: Tray" required>
                 </div>
                 <div class="form-group">
                     <label for="register-email">Email address</label>
-                    <input type="email" class="form-control" id="register-email" placeholder="Exp: tray@mail.com">
+                    <input type="email" minlength="5" class="form-control" id="register-email" required
+                        placeholder="Exp: tray@mail.com">
                 </div>
                 <div class="form-group">
                     <label for="register-password">Password</label>
-                    <input type="password" class="form-control" id="register-password" placeholder="No exp here">
+                    <input type="password" minlength="3" class="form-control" id="register-password" required
+                        placeholder="No exp here">
                 </div>
                 <button type="submit" class="btn btn-primary">Register</button>
             </form>
@@ -75,8 +81,8 @@
                     <button class="btn btn-outline-warning" onclick="showMyTodo()" id="to-todos">To My Todo</button>
                 </div>
                 <div class="my-todos-list">
-                </div>
-                <div id="for-user-project">
+                    <div id="for-user-project">
+                    </div>
 
                 </div>
             </div>
@@ -87,8 +93,9 @@
                 <button class="btn btn-success" id="create-di-project" data-toggle="modal"
                     data-target="#project-create-modal">Create</button>
                 <h1></h1>
-                <div>
-                    <input class="form-control" type="text" style="width: 240px;"></input><button type="submit" class="btn" onclick="addMember()">Add</button>
+                <div style="display: flex; flex-direction: row;height: 40px;">
+                    <input class="form-control" type="text" style="width: 180px;" id="email-adding">
+                    <button type="submit" class="btn btn-primary" onclick="addMember()">Add</button>
                 </div>
             </div>
             <div class="member-list">
@@ -135,7 +142,8 @@
                     <form id="creating-todo">
                         <div class="form-group">
                             <label for="title">Todo Title</label>
-                            <input type="text" class="form-control" id="create-title" maxlength="25">
+                            <input type="text" minlength="3" maxlength="25" class="form-control" id="create-title"
+                                maxlength="25">
                         </div>
                         <div class="form-group">
                             <label for="due-date">Due Date</label>
@@ -143,7 +151,7 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <input type="text" class="form-control" id="create-description">
+                            <input type="text" minlength="3" class="form-control" id="create-description">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -169,7 +177,8 @@
                     <form id="creating-project-todo">
                         <div class="form-group">
                             <label for="title">Todo Title</label>
-                            <input type="text" class="form-control" id="project-create-title" maxlength="25">
+                            <input type="text" minlength="3" maxlength="25" class="form-control"
+                                id="project-create-title" maxlength="25">
                         </div>
                         <div class="form-group">
                             <label for="due-date">Due Date</label>
@@ -177,7 +186,7 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <input type="text" class="form-control" id="project-create-description">
+                            <input type="text" minlength="3" class="form-control" id="project-create-description">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -195,7 +204,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create todo</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit todo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -204,7 +213,8 @@
                     <form id="edit-todo">
                         <div class="form-group">
                             <label for="title">Todo Title</label>
-                            <input type="text" class="form-control" id="edit-title" maxlength="25">
+                            <input type="text" minlength="3" maxlength="25" class="form-control" id="edit-title"
+                                maxlength="25">
                         </div>
                         <small class="small-id"></small>
                         <div class="form-group">
@@ -213,7 +223,7 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <input type="text" class="form-control" id="edit-description">
+                            <input type="text" minlength="3" class="form-control" id="edit-description">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -238,7 +248,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" id="project-name-input">
+                    <input type="text" minlength="3" id="project-name-input" placeholder="ProjectName"
+                        style="width:100%;">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

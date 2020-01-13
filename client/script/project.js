@@ -21,15 +21,17 @@ function openProject(id) {
                 </div>
             `)
             });
+            $('#the-todo').hide()
+            $('#the-project').show()
         }).catch((err) => {
             console.log(err)
+            $('#the-todo').show()
+            $('#the-project').hide()
             swal.fire(err.responseJSON.message)
         })
 
     fetchProjectTodo(id)
 
-    $('#the-todo').hide()
-    $('#the-project').show()
 }
 
 function setProjectId(id) {
@@ -98,6 +100,7 @@ function createProject() {
 }
 
 function removeMember(id) {
+    // confirm('remove this user?')
     $.ajax({
         type: "patch",
         url: baseURL + 'projects/' + localStorage.getItem('thisProject'),
@@ -112,17 +115,20 @@ function removeMember(id) {
         },
         error: function (err) {
             console.log(err.responseJSON)
+            swal.fire(err.responseJSON)
         }
     });
 }
 
-function addMember(email) {
+function addMember() {
+    let email = $('#email-adding').val()
     $.ajax({
         type: "post",
-        url: baseURL + '/invite/' + localStorage.getItem('thisProject') + `?email=${email}`,
+        url: baseURL + 'invite/' + localStorage.getItem('thisProject') + `?email=${email}`,
         headers: ajaxHead,
         success: function (response) {
             swal.fire('invitation sended')
+            $('#email-adding').val('')
         },
         error: function (error) {
             swal.fire('user not found :(')

@@ -11,7 +11,7 @@ $(document).ready(function () {
     // fetchMyProject()
 })
 
-let ajaxHead = { token: localStorage.getItem('token') }
+let ajaxHead;
 let baseURL = 'http://localhost:3000/'
 
 function showMyTodo(e) {
@@ -38,6 +38,7 @@ function todoDone(id) {
             // fetchProjectTodo()
         }).catch((err) => {
             console.log(err.responseJSON.message)
+            swal.fire(err.responseJSON.message)
         });
 }
 
@@ -53,6 +54,7 @@ function todoDelete(id) {
             // fetchProjectTodo()
         }).catch((err) => {
             console.log(err.responseJSON.message)
+            swal.fire(err.responseJSON.message)
         });
 }
 
@@ -67,6 +69,7 @@ function todoCreate() {
             fetchMyTodo()
         }).catch((err) => {
             console.log(err.responseJSON.message)
+            swal.fire(err.responseJSON.message)
         });
 }
 
@@ -81,7 +84,8 @@ function summonModal(id) {
             $('.small-id').hide()
             $('#edit-modal').modal('show')
         }).catch((err) => {
-            console.log(err.responseJSON);
+            console.log(err.responseJSON)
+            swal.fire(err.responseJSON.message)
         });
 }
 
@@ -120,5 +124,8 @@ function fetchMyTodo() {
                 `)
             });
         })
-        .catch((err) => console.log(err.responseJSON.message))
+        .catch((err) => {
+            console.log(err.responseJSON.message)
+            swal.fire(err.responseJSON.message)
+        })
 }

@@ -33,12 +33,12 @@ class Controller {
     }
 
     static showTodoFromUserProject(req, res, next) {
-        Todo.find({ project: { $in: req.body.projectList } })
-            .populate('creator')
-            .populate('project')
-            .then((todos) => {
-                res.status(200).json(todos)
-            }).catch(next);
+        // console.log(req.body.projectList,'<=====ini')
+        Todo.find({$or: req.body.projectList})
+        .then((todos) => {
+            console.log(todos);
+            res.status(200).json(todos)
+        }).catch(next);
     }
 
     // checked for user and project

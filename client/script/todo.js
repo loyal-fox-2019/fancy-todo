@@ -46,6 +46,7 @@ $(document).ready(function () {
                 $('#project-create-title').val(''),
                 $('#project-create-description').val(''),
                 $('#project-create-due-date').val('')
+                fetchUserProjectTodo()
             },
             error: function (error) {
                 console.log(error.responseJSON)
