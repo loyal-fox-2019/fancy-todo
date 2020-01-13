@@ -1,5 +1,5 @@
-const serverURL = 'http://localhost:80'
-// const serverURL = 'https://fancyserver.amilhasbala.com'
+// const serverURL = 'http://localhost:80'
+const serverURL = 'https://fancyserver.amilhasbala.com'
 
 $(document).ready(function () {
   hideAll()
