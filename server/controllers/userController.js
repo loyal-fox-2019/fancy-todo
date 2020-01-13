@@ -87,7 +87,7 @@ class UserController {
       })
       .then(user => {
         access_token = generateToken(gpayload)
-        res.status(200).json({ access_token: `token ${access_token}` })
+        res.status(200).json({ access_token: `token ${access_token}`, email: user.email, userId: user._id })
       })
       .catch(next)
     }

@@ -64,7 +64,9 @@ function onSignIn(googleUser) {
     url: `${baseUrl}/user/login/google`,
     data: { id_token }
   }).done(user => {
-      localStorage.setItem('access_token', user.access_token);
+      console.log(user, '<<')
+      localStorage.setItem('access_token', user.access_token)
+      localStorage.setItem('userId', user.userId)
       $('.all').hide()
       $('#the-navbar').show()
       $('#big-buttons').show()
