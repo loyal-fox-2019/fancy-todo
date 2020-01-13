@@ -22,7 +22,6 @@ function authenticate(req, res, next) {
                 })
             } else {
                 req.headers.user = user
-                console.log(req.headers.user);
                 next()
             }
         })

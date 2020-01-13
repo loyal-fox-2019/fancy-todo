@@ -28,6 +28,12 @@ todoSchema.pre('save', function (next) {
     if (this.todoname == '') this.todoname = '(No Title)';
     this.status = false
     this.created_at = new Date()
+    if (this.due_date == 'Invalid Date' || !this.due_date) {
+        let date = new Date().getDate() + 1
+        let month = new Date().getMonth() + 1
+        let year = new Date().getFullYear()
+        this.due_date = new Date(`${year}-${month}-${date}`)
+    }
     next()
 })
 

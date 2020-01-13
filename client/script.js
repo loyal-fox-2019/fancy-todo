@@ -146,14 +146,6 @@ $(document).ready(function () {
         let year = $('#year').val()
         let dueDate = new Date(`${year}-${month}-${date}`)
 
-        // if date input is invalid, set default due_date to tomorrow
-        if (String(dueDate) == 'Invalid Date') {
-            date = new Date().getDate() + 1
-            month = new Date().getMonth() + 1
-            year = new Date().getFullYear()
-            dueDate = new Date(`${year}-${month}-${date}`)
-        }
-
         let todoData = {
             todoname: $('#todoname').val(),
             description: $('#description').val(),
