@@ -98,7 +98,7 @@ function login(email, password) {
         localStorage.token = data.token;
         localStorage.email = data.email;
         localStorage.userId = data.userId;
-        window.location.replace('http://localhost:8080');
+        window.location.replace(client);
     }).fail(err => {
         console.log(err);
         $('#login-message').html(err.responseJSON.errMsg);
