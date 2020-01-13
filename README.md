@@ -1,7 +1,12 @@
 # FANCY TODO LIST
 #### A Fancy Way To Write Down Your List
+
+# DEPLOY LINK
+http://fancy-todo-nuel.s3-website-ap-southeast-1.amazonaws.com/
 ---
 **BASE URL**
+> http://ec2-18-141-25-178.ap-southeast-1.compute.amazonaws.com
+or
 > http://localhost:3000
 
 **END POINTS**
