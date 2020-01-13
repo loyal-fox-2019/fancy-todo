@@ -149,7 +149,31 @@ function listProject() {
                 "</a> " +
                 "</li>"
             )
-        })
+        });
+
+        if (projects.data.length > 0) {
+            $('#todo-menu-container').html(
+            `<button type="button"
+                     class="btn btn-primary"
+                     name="newTodo"
+                     id="newTodo"
+                     data-toggle="modal"
+                     data-target="#newTask-container">
+                <i class="fa fa-plus"></i>
+                New Todo
+            </button>
+            <button type="button"
+                    class="btn btn-success"
+                    name="newMember"
+                    id="newMember"
+                    data-toggle="modal"
+                    data-target="#newMember-container">
+                <i class="fa fa-user"></i>
+                New Member
+            </button>`
+            )
+        }
+
         $('#project0').click()
     }).fail(err => {
         console.log(err)
@@ -256,7 +280,11 @@ function addNewMember(memberEmail) {
         if (err.responseJSON.code === 401) {
             $('#member-message').html(err.responseJSON.errMsg)
         } else {
-            $('#member-message').html(err.responseJSON.errMsg.errMsg)
+            if (err.responseJSON.code === 404){
+                $('#member-message').html(err.responseJSON.errMsg)
+            } else {
+                $('#member-message').html(err.responseJSON.errMsg.errMsg)
+            }
         }
     })
 }

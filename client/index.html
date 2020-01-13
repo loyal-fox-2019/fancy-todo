@@ -190,24 +190,7 @@
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <h2 id="project-title"></h2>
                         <div id="todo-container">
-                            <button type="button"
-                                    class="btn btn-primary"
-                                    name="newTodo"
-                                    id="newTodo"
-                                    data-toggle="modal"
-                                    data-target="#newTask-container">
-                                <i class="fa fa-plus"></i>
-                                New Todo
-                            </button>
-                            <button type="button"
-                                    class="btn btn-success"
-                                    name="newMember"
-                                    id="newMember"
-                                    data-toggle="modal"
-                                    data-target="#newMember-container">
-                                <i class="fa fa-user"></i>
-                                New Member
-                            </button>
+                            <div id="todo-menu-container"></div>
                             <p>
                                 <card class="row"></card>
                             </p>
@@ -316,13 +299,18 @@
                                    required>
                         </div>
 
-                        <div class="form-group">
-                            <label for="taskDue">Due date</label>
+                        <label for="taskDue">Due date
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
                             <input type="date"
                                    class="form-control"
                                    data-date-format="mm/dd/yyyy"
-                                   id="taskDue"
                                    name="taskDue"
+                                   id="taskDue"
                                    required>
                         </div>
                     </div>
@@ -359,11 +347,15 @@
                 <form id="form-newMember">
                     <div class="message" id="member-message"></div>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label for="taskName">Email</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                            </div>
                             <input type="email"
                                    class="form-control"
-                                   placeholder="member email..."
+                                   placeholder="email member here ..."
                                    name="memberEmail"
                                    id="memberEmail"
                                    required>
@@ -372,7 +364,8 @@
 
                     <div class="modal-footer">
                         <button type="submit"
-                                class="btn btn-primary">Save
+                                class="btn btn-primary">
+                            <i class="fa fa-user"></i> Add
                         </button>
                         <button type="button"
                                 class="btn btn-danger"
