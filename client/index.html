@@ -19,7 +19,7 @@
          <h5>Login</h5>
          <form method="post" id="login-form" class="flex flex-col">
             <label class="my-2">Email</label>
-            <input type="email" id="login-email" class="my-2 border-gray-300"/>
+            <input type="email" id="login-email"/>
 
             <label>Password</label>
             <input type="password" id="login-password"/>
@@ -30,7 +30,7 @@
 
       <div id="register">
          <h5>Register</h5>
-         <form method="post" id="register-form">
+         <form method="post" id="register-form" class="flex flex-col">
             <label>Username</label>
             <input type="text" id="register-username"/>
 
@@ -46,68 +46,66 @@
    </div>
 
    <div id="main-page">
-      <div id="navbar">
-         <a href="" id="brand"></a>
-
-         <div>
-            <span id="nav-username"></span>
-            <a href="#" id="logout">logout</a>
-         </div>
-      </div>
-
       <div id="content">
-         <div id="content-navbar">
-            <div id="content-navbar-todo">
+         <div id="content-navbar" class="flex justify-center">
+            <div id="content-navbar-todo" class="mx-6">
                <a href="" id="to-todo">Todo</a>
             </div>
 
-            <div id="content-navbar-project">
+            <div id="content-navbar-project" class="mx-6">
                <a href="" id="to-project">Project</a>
             </div>
          </div>
 
-         <div id="content-todo" class="flex">
-            <div id="todo-create" class="flex justify-center">
-               <form id="todo-create-form" class="flex flex-col">
-                  <label>Name</label>
-                  <input type="text" name="" id="todo-create-name" class="rounded">
+         <div id="content-todo" class="flex justify-center mt-6 justify-center border">
+            <div id="todo-form-wrapper mx-10">
+               <div id="todo-tab" class="flex justify-center">
+                  <button id="select-todo-create" class="mx-3">Create</button>
+                  <button id="select-todo-update" class="mx-3">Update</button>
+               </div>
 
-                  <label>Description</label>
-                  <textarea name="" id="todo-create-description" cols="20" rows="5" class="rounded"></textarea>
-
-                  <label>Due Date</label>
-                  <input type="date" id="todo-create-due_date">
-
-                  <input type="submit" value="Submit">
-               </form>
-            </div>
-
-            <div id="todo-edit">
-               <div id="todo-edit" class="flex justify-center">
-                  <form id="todo-edit-form" class="flex flex-col">
-                     <input type="hidden" id="todo-edit-id">
-
+               <div id="todo-create" class="flex justify-center">
+                  <form id="todo-create-form" class="flex flex-col">
                      <label>Name</label>
-                     <input type="text" name="" id="todo-edit-name" class="rounded">
+                     <input type="text" name="" id="todo-create-name" class="rounded">
    
                      <label>Description</label>
-                     <textarea name="" id="todo-edit-description" cols="20" rows="5" class="rounded"></textarea>
+                     <textarea name="" id="todo-create-description" cols="20" rows="5" class="rounded"></textarea>
    
                      <label>Due Date</label>
-                     <input type="date" id="todo-edit-due_date">
-
-                     <label>Status</label>
-                     <select id="todo-edit-status">
-                        <option value="unfinished">Unfinished</option>
-                        <option value="finished">Finished</option>
-                     </select>
+                     <input type="date" id="todo-create-due_date">
    
                      <input type="submit" value="Submit">
                   </form>
                </div>
+
+               <div id="todo-edit">
+                  <div id="todo-edit" class="flex justify-center">
+                     <form id="todo-edit-form" class="flex flex-col">
+                        <input type="hidden" id="todo-edit-id">
+   
+                        <label>Name</label>
+                        <input type="text" name="" id="todo-edit-name" class="rounded">
+      
+                        <label>Description</label>
+                        <textarea name="" id="todo-edit-description" cols="20" rows="5" class="rounded"></textarea>
+      
+                        <label>Due Date</label>
+                        <input type="date" id="todo-edit-due_date">
+   
+                        <label>Status</label>
+                        <select id="todo-edit-status">
+                           <option value="unfinished">Unfinished</option>
+                           <option value="finished">Finished</option>
+                        </select>
+      
+                        <input type="submit" value="Submit">
+                     </form>
+                  </div>
+               </div>
             </div>
 
-            <div id="todo-show">
+            <div id="todo-show" class="mx-10">
             </div>
          </div>
 

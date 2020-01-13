@@ -1,6 +1,26 @@
 const port = 3000
 const baseUrl = `http://localhost:${port}`
 
+$('#selectLogin').click(function() {
+   $('#register').hide()
+   $('#login').show()
+})
+
+$('#selectRegister').click(function() {
+   $('#login').hide()
+   $('#register').show()
+})
+
+$('#select-todo-create').click(function() {
+   $('#todo-edit').hide()
+   $('#todo-create').show()
+})
+
+$('#select-todo-edit').click(function() {
+   $('#todo-create').hide()
+   $('#todo-edit').show()
+})
+
 function pageInit() {
    if(!localStorage.token) {
       authPageInit()
@@ -21,7 +41,7 @@ function authPageInit() {
 
 function contentPageInit() {
    fetchTodos()
-   // $('#todo-edit').hide()
+   $('#todo-edit').hide()
    $('#content-project').hide()
 }
 
