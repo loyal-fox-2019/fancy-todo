@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Google Sign in -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="908956639288-glsr33q15kme39f1auf3646svh6ut44h.apps.googleusercontent.com">
+    <title>Fancy Todo</title>
+  </head>
+  <body>
+    <div class="section">
+        <div class="container" id="loginForm" style="display: none;">
+            <div class="row">
+                <div class="col" style="margin-top: 10%;">
+                    <h1 class="text-center" style="color: black;">Log In with</h1>
+                </div>
+            </div>
+            <div class="row justify-content-center" >
+                <div class="col-4 " style="background-color: black; border-radius: 10px; padding-top: 20px; padding-bottom: 20px;">
+                    <form id="login">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1" style="color: white;">Email address</label>
+                          <input type="email" class="form-control" id="email_login" aria-describedby="emailHelp">
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1" style="color: white";>Password</label>
+                          <input type="password" class="form-control" id="password_login">
+                        </div>
+                        <button type="submit" class="btn btn-primary text-center" style="margin-left: 40%;">Submit</button>
+                    </form>
+                    <div class="cotainer">
+                      <div class="row mt-2">
+                        <div class="col text-center">
+                          <button onclick="register()" type="button" class="btn btn-light" style="margin-left: 60px;">Register</button>
+                        </div>
+                        <div class="col text-center">
+                          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container" id="registerForm">
+            <div class="row">
+                <div class="col" style="margin-top: 10%;">
+                    <h1 class="text-center" style="color: black;">Sign Up with</h1>
+                </div>
+            </div>
+            <div class="row justify-content-center" >
+                <div class="col-4 " style="background-color: black; border-radius: 10px; padding-top: 20px; padding-bottom: 20px;">
+                    <form id="register">
+                        <div class="form-group">
+                            <label for="username" style="color: white;">Username</label>
+                            <input type="text" class="form-control" id="username" aria-describedby="emailHelp">
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1" style="color: white;">Email address</label>
+                          <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1" style="color: white";>Password</label>
+                          <input type="password" class="form-control" id="password">
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="margin-left: 30px;">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="home-page" class="container" style="background-color: blue; overflow: scroll; height: max-content">
+            <ul class="nav justify-content-end nav-dark bg-dark">
+                <li class="nav-item">
+                  <!-- <button onclick="register()" type="button" class="btn btn-light" id="logout >Register</button> -->
+                    <a class="nav-link" href="" tabindex="-1" aria-disabled="true" id="logout">Sign Out</a>
+                </li>
+            </ul>
+            <div class="container">
+              <button type="button" class="btn btn-primary mt-5" data-toggle="modal" data-target="#modal-todo" id="todo-button-create" style="margin-left: 44%;">
+                  Add new To Do
+              </button>            
+            </div>
+              <div class="modal fade" id="modal-todo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">New To Do</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="new-todo">
+                            <div class="form-group">
+                                <label for="username" style="color: Black;">Name</label>
+                                <input type="text" class="form-control" id="todo-name" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1" style="color: Black";>Due Date</label>
+                                <input type="date" class="form-control" id="todo-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1" style="color: Black;">Description</label>
+                                <textarea class="form-control" id="todo-description" rows="3"></textarea>
+                            </div>     
+                            <div class="modal-footer">
+                              <button  data-dismiss="modal" onclick="home()" type="submit" class="btn btn-primary" style="margin-left: 30px;">Submit</button>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>                       
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class="container" >
+                <div class="row text-center mt-5">
+                    <div class="col mr-2" style="background-color: coral; border-radius: 10px;">
+                        <h3 class="border mt-2" style="width: 200px; margin-left: 30%; border-radius: 10px; background-color: crimson;">Not Completed</h3>
+                        <div id="myTodo" style="margin-left: 20%; margin-bottom: 10px; margin-top: 10px;"></div>
+                    </div>
+                    <div class="col" style="background-color: coral; border-radius: 10px;">
+                        <h3 class="border mt-2" style="width: 200px; margin-left: 30%; border-radius: 10px; background-color: crimson;" >Completed</h3>
+                        <div id='completedTodo' style="margin-left: 20%; margin-bottom: 10px; margin-top: 10px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+<!-- 908956639288-glsr33q15kme39f1auf3646svh6ut44h.apps.googleusercontent.com 
+ULvHbB0iLNGBYXL5DS533QKi  -->
