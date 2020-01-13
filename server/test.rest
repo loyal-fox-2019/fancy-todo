@@ -1,0 +1,37 @@
+@baseUrl = http://localhost:3001
+@currToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMWJhMzJmMzcxMGY5Mjg4YTA5Yzg0NyIsImlhdCI6MTU3ODg2OTU1MX0.bmo9mstA9NZQ0JN2MUrFfH7Zlhrn60Y8aZCSBlv_KT8
+
+
+### CREATE TODO
+POST {{baseUrl}}/todos HTTP/1.1
+token: {{currToken}}
+Content-Type: application/json
+
+{
+  "name": "belajar",
+  "description": "materi - matematika"
+}
+
+### READ ALL TODOS
+
+GET {{baseUrl}}/todos/ HTTP/1.1
+token: {{currToken}}
+
+###  READ ONE TODO
+GET {{baseUrl}}/todos/5e1bac1787a14209b9d85325 HTTP/1.1
+token: {{currToken}}
+
+### UPDATE TODO
+
+PUT {{baseUrl}}/todos/5e1bac1787a14209b9d85325 HTTP/1.1
+token: {{currToken}}
+Content-Type: application/json
+
+{
+  "name": "laundry baju",
+  "description": "ada di lemari pakaian"
+}
+
+### DELETE TODO
+DELETE {{baseUrl}}/todos/5e1bad1a43f7550f795bf1de HTTP/1.1
+token: {{currToken}}

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+
+    <!-- font awesome! -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      crossorigin="anonymous"
+    />
+
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- google oauth -->
+    <script src="https://apis.google.com/js/api:client.js"></script>
+
+    <!-- trigger google oauth -->
+    <script src="./scripts/google.js"></script>
+
+    <!-- style untuk login -->
+    <link rel="stylesheet" href="./css/login.css" />
+
+    <title>HacktivGit</title>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <!-- Navbar text-->
+      <span class="navbar-text mx-auto form-inline">
+        HacktivGit
+      </span>
+      <button
+        class="btn btn-outline-success my-2 my-sm-0"
+        onclick="signOut();"
+        id="logOut"
+        type="submit"
+      >
+        Sign Out
+      </button>
+    </nav>
+
+    <div class="container signInPage">
+      <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div class="card card-signin my-5">
+            <div class="card-body">
+              <h5 class="card-title text-center">Sign In</h5>
+              <div class="form-signin">
+                <div class="form-label-group">
+                  <input
+                    type="email"
+                    id="inputEmail"
+                    class="form-control"
+                    placeholder="Email address"
+                    required
+                    autofocus
+                  />
+                  <label for="inputEmail">Email address</label>
+                </div>
+
+                <div class="form-label-group">
+                  <input
+                    type="password"
+                    id="inputPassword"
+                    class="form-control"
+                    placeholder="Password"
+                    required
+                  />
+                  <label for="inputPassword">Password</label>
+                </div>
+
+                <div class="custom-control custom-checkbox mb-3">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="customCheck1"
+                  />
+                </div>
+
+                <button
+                  class="btn btn-lg btn-google btn-block text-uppercase g-signin2"
+                  data-onsuccess="onSignIn"
+                  type="submit"
+                  id="googleSignIn"
+                >
+                  <i class="fab fa-google mr-2"></i> Sign in with Google
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container hacktivGitPage">
+      <div class="row gap">
+        <section class="col-3 gap one">
+          <ul class="list-group list-user">
+            <li class="list-group-item"><b>Users</b></li>
+          </ul>
+        </section>
+        <section class="col-4 gap two">
+          <ul class="list-group" id="starred-repos">
+            <!-- <li class="list-group-item"><b>Starred Repos</b></li> -->
+            <li class="list-group-item">
+              <div class="form-inline active-cyan-4">
+                <input
+                  class="form-control form-control-sm mr-3 w-75"
+                  type="text"
+                  placeholder="Search"
+                  id="search-bar"
+                  aria-label="Search"
+                />
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="form-inline active-cyan-4">
+                <input
+                  class="form-control form-control-sm mr-3 w-75"
+                  type="text"
+                  placeholder="Add Todo"
+                  id="add-bar"
+                  aria-label="Add"
+                />
+                <button id="addTodo">+</button>
+              </div>
+            </li>
+          </ul>
+        </section>
+        <section class="col-5 gap three"></section>
+      </div>
+    </div>
+    <script>
+      // setup
+      const HOST = `http://localhost:3001`;
+      let currUser = null;
+      let currToken = null;
+
+      function getAllTodos() {
+        // currToken = localStorage.getItem('token');
+        // currName = localStorage.getItem('name');
+        const url = `${HOST}/todos`;
+        $.ajax({
+          type: 'GET',
+          url,
+          headers: {
+            token: currToken
+          },
+          dataType: 'json',
+          success: todos => {
+            todos.forEach((todo, ix) => {
+              const { name, _id } = todo;
+              $('#starred-repos').append(`
+                  <li class="list-group-item todo-item" todoItem="${_id}">
+                    ${name}
+                  </li>
+                `);
+            });
+          }
+        });
+      }
+
+      $(document).ready(() => {
+        // hide hacktivGitPage
+        $('.hacktivGitPage').toggle();
+        // ambil token yg ada di local storage
+        currToken = localStorage.getItem('token');
+        currName = localStorage.getItem('name');
+
+        if (!currToken) {
+          startApp();
+          // getAllTodos();
+          // $('.list-user').append(`
+          // <li class="list-group-item user-item" id="${
+          //   currName.toLowerCase().split()[0]
+          // }">${currName}</li>
+          // `);
+        } else {
+          startApp();
+          $('.list-user').append(`
+          <li class="list-group-item user-item" id="${
+            currName.toLowerCase().split()[0]
+          }">${currName}</li>
+          `);
+          // show hacktivGitPage
+          $('.hacktivGitPage').toggle();
+
+          // hide signInPage
+          $('.signInPage').toggle();
+          getAllTodos();
+        }
+
+        $(document).on('click', '#addTodo', () => {
+          console.log('OK');
+
+          const name = $('#add-bar').val() || '';
+          const url = `${HOST}/todos`;
+
+          $.ajax({
+            type: 'POST',
+            url,
+            headers: {
+              token: currToken
+            },
+            dataType: 'json',
+            data: { name },
+            success: todo => {
+              $('.todo-item').remove();
+              getAllTodos();
+            }
+          });
+        });
+
+        // $(document).on('click', '#user-1', () => {
+        //   const username = $('#user-1').attr('user');
+
+        //   if (currUser !== username && currUser === null) {
+        //     currUser = username;
+        //   }
+
+        //   const url = `${HOST}/${currUser}/starred-repos`;
+        //   $.ajax({
+        //     type: 'GET',
+        //     url,
+        //     success: repos => {
+        //       repos.forEach((repo, ix) => {
+        //         const { html_url, full_name, stargazers_count } = repo;
+        //         $('#starred-repos').append(`
+        //           <li class="list-group-item starred-repo-item" id="repo-${ix}" url="${html_url}">
+        //             <a href="${html_url}" target="_blank">${full_name}</a>
+        //             <p>⭐ ${stargazers_count}</p>
+        //           </li>
+        //         `);
+        //       });
+        //     }
+        //   });
+        // });
+
+        // $('#search-bar').keypress(e => {
+        //   if (e.which != '13') {
+        //     return;
+        //   }
+
+        //   $('.starred-repo-item').remove();
+
+        //   const name = $('#search-bar').val();
+        //   const url = `${HOST}/${currUser}/starred-repos?name=${name}`;
+
+        //   console.log(name);
+        //   console.log(url);
+
+        //   $.ajax({
+        //     type: 'GET',
+        //     url,
+        //     success: repos => {
+        //       repos.forEach((repo, ix) => {
+        //         const { html_url, full_name, stargazers_count } = repo;
+        //         $('#starred-repos').append(`
+        //       <li class="list-group-item starred-repo-item" id="repo-${ix}" url="${html_url}">
+        //         <a href="${html_url}" target="_blank">${full_name}</a>
+        //         <p>⭐ ${stargazers_count}</p>
+        //       </li>
+        //       `);
+        //       });
+        //     }
+        //   });
+        // });
+      });
+    </script>
+  </body>
+</html>
