@@ -191,20 +191,20 @@ function searchOneTodo(){
         }
     })
     .then(data=>{
-        // console.log(data)
+        console.log(data.data)
         $('.todoCard').empty()
-        $('.todoCardContainer').empty()
+        // $('.todoCardContainer').empty()
         $('.todoCard').append(`
                 <div class="col-sm">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                        <h5 class="card-title">${data.title}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">${data.subtitle}</h6>
-                        <p class="card-text">${data.description}</p>
-                        <p class="card-text">Weather Forecast: ${data.weather}</p>
-                        <p class="card-text">Due Date: ${data.due_date}</p>
-                        <a href="#" class="card-link" onclick="forUpdate('${data._id}')">Update</a>
-                        <a href="#" class="card-link" onclick="forDelete('${data._id}')">Delete</a>
+                        <h5 class="card-title">${data.data.title}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">${data.data.subtitle}</h6>
+                        <p class="card-text">${data.data.description}</p>
+                        <p class="card-text">Weather Forecast: ${data.data.weather}</p>
+                        <p class="card-text">Due Date: ${data.data.due_date}</p>
+                        <a href="#" class="card-link" onclick="forUpdate('${data.data._id}')">Update</a>
+                        <a href="#" class="card-link" onclick="forDelete('${data.data._id}')">Delete</a>
                         </div>
                     </div>
                 </div>
