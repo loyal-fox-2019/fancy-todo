@@ -1,3 +1,4 @@
+// const serverURL = 'http://35.239.217.58'
 const serverURL = 'http://localhost:80'
 
 $(document).ready(function () {
