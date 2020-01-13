@@ -153,7 +153,7 @@ function listProject() {
 
         if (projects.data.length > 0) {
             $('#todo-menu-container').html(
-            `<button type="button"
+                `<button type="button"
                      class="btn btn-primary"
                      name="newTodo"
                      id="newTodo"
@@ -215,18 +215,62 @@ function listTodo(projectName) {
     }).done(todos => {
         $('#project-title').text(projectName);
         todos.data.todos.forEach(e => {
-            $('card').append(`
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">${e.name}</h5>
-                    <p class="card-text">${e.description}</p>
-                    <div>
-                        <i class='fa fa-bell-o'></i>
-                        <small><code>${e.due_date.split("T")[0]}</code></small>
+            let visibility = '';
+            let disability = '';
+            let author = '';
+
+            if (e.status === 'done') {
+                visibility = 'hidden';
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: url_server +
+                    api_todo + "/" +
+                    projectName + "/" +
+                    e.name,
+                headers: {
+                    Authorization: "token " + localStorage.token
+                }
+            }).done(response => {
+                author = response.data.user_id.email;
+
+                if (author !== localStorage.email) {
+                    disability = 'disabled';
+                }
+
+                $('card').append(`
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-header">
+                            <i class='fa fa-remove' 
+                               id="${e._id}"
+                               onclick="deleteTodo(this.id)"
+                               style="cursor: pointer" ${disability}></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">${e.name}</h5>
+                            <p class="card-text">
+                                <strong>Author :</strong> ${author}<br>
+                                <strong>Status :</strong> ${e.status}<br>
+                                <strong>Description :</strong><br>
+                                ${e.description}
+                            </p>
+                            <button type="button"
+                                    class="btn btn-primary" 
+                                    onclick="updateTodoStatus('${e._id}')"
+                                    ${disability}
+                                    ${visibility}>Done</button>
+                        </div>
+                        <div class="card-footer">
+                            <i class='fa fa-bell-o'></i>
+                            <small><code>${e.due_date.split("T")[0]}</code></small>
+                        </div>
                     </div>
-                </div>
-            </div>
-            `)
+                 `)
+
+            }).fail(err => {
+                console.log(err)
+            });
         })
     }).fail(err => {
         console.log(err);
@@ -280,7 +324,7 @@ function addNewMember(memberEmail) {
         if (err.responseJSON.code === 401) {
             $('#member-message').html(err.responseJSON.errMsg)
         } else {
-            if (err.responseJSON.code === 404){
+            if (err.responseJSON.code === 404) {
                 $('#member-message').html(err.responseJSON.errMsg)
             } else {
                 $('#member-message').html(err.responseJSON.errMsg.errMsg)
@@ -303,5 +347,42 @@ function registerUser(email, password) {
     }).fail(err => {
         console.log(err);
         $('#user-message').text(err.responseJSON.errMsg.message)
+    })
+}
+
+function deleteTodo(idTodo) {
+    $.ajax({
+        type: 'DELETE',
+        url: url_server +
+            api_todo + "/" +
+            $('#project-title').text() +
+            "/" + idTodo,
+        headers: {
+            Authorization: "token " + localStorage.token
+        }
+    }).done(response => {
+        console.log(response);
+        listTodo($('#project-title').text())
+    }).fail(err => {
+        console.log(err)
+    })
+}
+
+function updateTodoStatus(idTodo) {
+    $.ajax({
+        type: 'PATCH',
+        url: url_server +
+            api_todo + "/" +
+            $('#project-title').text() +
+            "/" + idTodo +
+            "/done",
+        headers: {
+            Authorization: "token " + localStorage.token
+        }
+    }).done(response => {
+        console.log(response);
+        listTodo($('#project-title').text())
+    }).fail(err => {
+        console.log(err)
     })
 }

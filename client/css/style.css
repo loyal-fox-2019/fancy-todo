@@ -16,7 +16,7 @@
 
 .card {
     margin: 25px;
-    background-color: antiquewhite;
+    background-color: ghostwhite;
 }
 
 #logo {
@@ -62,7 +62,7 @@ label {
 
 input{
     font-size: 12px !important;
-    background-color: #fafffe !important;
+    /*background-color: #fafffe !important;*/
 }
 
 button {
@@ -80,4 +80,8 @@ button {
 
 .btn-danger{
     background-color: #ff4757;
+}
+
+.card-text{
+    font-size: 12px;
 }

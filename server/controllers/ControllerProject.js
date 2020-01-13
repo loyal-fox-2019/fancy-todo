@@ -1,5 +1,6 @@
 const {Project} = require('../models/modelProject');
 const {User} = require('../models/modelUser');
+const emailSetAndSend = require('../helpers/email');
 
 class ControllerProject {
     static createProject(req, res, next) {
@@ -53,6 +54,12 @@ class ControllerProject {
                 })
             }
         }).then(response => {
+            emailSetAndSend(
+                req.body.email,
+                "Add member to project " + req.params.projectName,
+                "You are added to project " + req.params.projectName
+            );
+
             res.status(201).json({
                 message: "Member successfully added",
                 data: response

@@ -32,5 +32,11 @@ router.delete("/:projectName/:idTodo",
     authorizationTodo,
     ControllerTodo.deleteTodo
 );
+// update status todo
+router.patch("/:projectName/:idTodo/done",
+    authorization,
+    authorizationTodo,
+    ControllerTodo.updateStatus
+);
 
 module.exports = router;

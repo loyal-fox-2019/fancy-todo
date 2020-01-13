@@ -74,6 +74,19 @@ class ControllerTodo {
             });
         }).catch(next)
     }
+
+    static updateStatus(req, res, next) {
+        Todo.updateOne({
+            _id: req.params.idTodo
+        },{
+            status: 'done'
+        }).then(response => {
+            res.status(200).json({
+                message: "Todo status successfully updated",
+                data: response
+            });
+        }).catch(next)
+    }
 }
 
 module.exports = ControllerTodo;
