@@ -21,8 +21,6 @@ function chat (groupId,groupName) {
     //     })
     // }
     if(rooms.includes(groupName)){
-        console.log(rooms)
-        console.log('udah ada')
     } else {
         rooms.push(groupName)
         if( oldroom ) {
@@ -33,7 +31,6 @@ function chat (groupId,groupName) {
             oldroom = groupName
         }
         socket.on('message', function(msg){
-            console.log(msg)
             $('#messages').append(`
                 <li>
                     <span style="display: inline-block; vertical-align=top;">
@@ -128,7 +125,6 @@ function detail (id) {
         headers:{ token: localStorage.getItem('token') }
     })
     .done( data => {
-        console.log(data)
         $('#member-list').empty()
         $('#group-todos').empty()
         for( let member of data.members ){
