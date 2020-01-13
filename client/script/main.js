@@ -36,7 +36,6 @@ $(document).ready(function () {
     $("#checkTodo").on("click", function (e) {
         e.preventDefault()
         const id = $("#checkTodo").val()
-        console.log(id, "ini id")
         updateTodo(id)
     })
 
