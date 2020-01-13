@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const MONGO_URI = process.env.MONGO_URI;
 
-mongoose.connect('mongodb+srv://michaelwp:michaelwp@cluster0-sjji7.gcp.mongodb.net/fancytodo?retryWrites=true&w=majority', {
+mongoose.connect(MONGO_URI, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useFindAndModify: false,
