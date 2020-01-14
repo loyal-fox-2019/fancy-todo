@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
-mongoose.connect('mongodb+srv://patradyn:p3tzkn1ght@cluster0-bxx6s.mongodb.net/test?retryWrites=true&w=majority', {
+mongoose.connect(process.env.MONGO_URI, {
     useCreateIndex: true,
     useFindAndModify: true,
     useNewUrlParser: true,
