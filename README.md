@@ -1,6 +1,6 @@
 # fancy-todo
 ### base URL server:
-http://localhost:80
+https://fancyserver.amilhasbala.com
 
 **Register User**
 ----
