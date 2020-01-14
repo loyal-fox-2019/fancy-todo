@@ -172,12 +172,42 @@ http://localhost:3000/<route>
     }
     ```
 
-### Update todo by id
+### Update specific todo data by id
 * Route: `/todo/:id`
 * Method: `PUT`
 * Headers: `{token: <user token>}`
 * Params: `{id: <todo id>}`
 * Body: (any of database keys below)
+    ```
+        {
+            name: <todo name>,
+            description: <todo description>,
+            status: <status Id>,
+            project: <project Id>,
+            due_date: <due_date in date format>
+        }
+    ```
+* Output:
+    * Status: **200**
+    ```
+    {
+        "updatedTodo": <updated todo info>
+    }
+    ```
+* Error Handler:
+    * Status: **404**
+    ```
+        {
+            "msg": "Todo not found"
+        }
+    ```
+
+### Update entire todo data by id
+* Route: `/todo/:id`
+* Method: `PATCH`
+* Headers: `{token: <user token>}`
+* Params: `{id: <todo id>}`
+* Body: (please provide all data here)
     ```
         {
             name: <todo name>,
