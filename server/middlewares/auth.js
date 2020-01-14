@@ -69,4 +69,26 @@ function authorizeProject(req, res, next) {
   }
 }
 
-module.exports = { authenticate, authorize, authorizeProject }
+function authorizeMember(req, res, next) {
+  try{
+    Project.findById(req.params.id)
+      .then(project => {
+        if(!project) {
+          next({status: 404, message: 'id not found'})
+        } else if(project.author == req.user._id){
+          next()
+        } else if(project.members.some(function (user) {
+          return user.equals(req.user._id);
+        })){
+          next()
+        } else {
+          next({status: 401, message: 'Authorization failed'})
+        }
+      })
+  }
+  catch (err) {
+    next(err)
+  }
+}
+
+module.exports = { authenticate, authorize, authorizeProject, authorizeMember }
