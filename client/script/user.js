@@ -7,7 +7,6 @@ $(document).ready(function () {
 
     if (localStorage.getItem('token')) {
         ajaxHead = { token: localStorage.getItem('token') }
-        baseURL = 'http://localhost:3000/'
         $('#off-login').hide()
         $('#on-login').show()
         runLogin()

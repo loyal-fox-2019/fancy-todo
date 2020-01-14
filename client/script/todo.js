@@ -17,12 +17,12 @@ $(document).ready(function () {
                 fetchMyTodo()
                 $('#user-create-modal').modal('hide')
                 $('#create-title').val(''),
-                $('#create-description').val(''),
-                $('#create-due-date').val('')
+                    $('#create-description').val(''),
+                    $('#create-due-date').val('')
             },
             error: function (error) {
                 console.log(error.responseJSON)
-                swal.fire(error.responseJSON.message)
+                swal.fire(error.responseJSON.message[0])
             }
         });
     })
@@ -44,13 +44,13 @@ $(document).ready(function () {
                 fetchProjectTodo(localStorage.getItem('thisProject'))
                 $('#project-create-modal').modal('hide')
                 $('#project-create-title').val(''),
-                $('#project-create-description').val(''),
-                $('#project-create-due-date').val('')
+                    $('#project-create-description').val(''),
+                    $('#project-create-due-date').val('')
                 fetchUserProjectTodo()
             },
             error: function (error) {
                 console.log(error.responseJSON)
-                swal.fire(error.responseJSON.message)
+                swal.fire(error.responseJSON.message[0])
             }
         });
     })
@@ -68,17 +68,17 @@ $(document).ready(function () {
             },
             headers: ajaxHead,
             success: function (response) {
-                fetchProjectTodo(localStorage.getItem('thisProject'))
+                if (localStorage.getItem('thisProject')) fetchProjectTodo(localStorage.getItem('thisProject'))
                 $('#edit-modal').modal('hide')
                 $('#edit-title').val(''),
-                $('#edit-description').val('')
+                    $('#edit-description').val('')
                 $('#edit-due-date').val('')
                 $('.small-id').html('')
                 fetchMyTodo()
             },
             error: function (error) {
                 console.log(error.responseJSON)
-                swal.fire(error.responseJSON.message)
+                swal.fire(error.responseJSON.message[0])
             }
         });
     })

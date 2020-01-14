@@ -2,6 +2,10 @@
 
 ------
 
+## API DOCUMENTATION POSTMAN : 
+
+https://documenter.getpostman.com/view/9979303/SWLiZmDV?version=latest
+
 ## BaseURL : http://localhost:3000
 
 ## User Routes:

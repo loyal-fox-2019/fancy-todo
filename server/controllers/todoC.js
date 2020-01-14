@@ -34,11 +34,11 @@ class Controller {
 
     static showTodoFromUserProject(req, res, next) {
         // console.log(req.body.projectList,'<=====ini')
-        Todo.find({$or: req.body.projectList})
-        .then((todos) => {
-            console.log(todos);
-            res.status(200).json(todos)
-        }).catch(next);
+        Todo.find({ $or: req.body.projectList })
+            .then((todos) => {
+                console.log(todos);
+                res.status(200).json(todos)
+            }).catch(next);
     }
 
     // checked for user and project

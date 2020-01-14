@@ -30,7 +30,7 @@ class Controller {
 
         User.findOne(query).populate('invitation', 'name')
             .then((user) => {
-                if (!user) next({ status: 404, msg: 'User tidak ditemukan' })
+                if (!user) throw ({ status: 404, msg: 'User tidak ditemukan' })
 
                 let isPassword = dehash(password, user.password)
                 if (isPassword) {
@@ -39,7 +39,7 @@ class Controller {
                     res.status(200).json({ token, name: user.name, invitation: user.invitation })
                 }
                 else {
-                    next({ status: 400, msg: 'Password salah' })
+                    throw ({ status: 400, msg: 'Password salah' })
                 }
             })
             .catch(next);

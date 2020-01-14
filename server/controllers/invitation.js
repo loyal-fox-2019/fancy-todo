@@ -38,7 +38,7 @@ class Controller {
             $push: { invitation: req.params.projectId }
         })
             .then((user) => {
-                if(!user) next({status: 404, msg: 'User not found'})
+                if (!user) throw ({ status: 404, msg: 'User not found' })
                 else res.status(200).json(user.name)
             }).catch(next);
     }

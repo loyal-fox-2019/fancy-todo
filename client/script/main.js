@@ -10,9 +10,10 @@ $(document).ready(function () {
     // alert('masuk main js')
     // fetchMyProject()
 })
+let baseURL = 'http://13.250.37.151:3000/'
+// let baseURL = 'http://localhost:3000/'
 
 let ajaxHead;
-let baseURL = 'http://localhost:3000/'
 
 function showMyTodo(e) {
     // e.preventDefault()
