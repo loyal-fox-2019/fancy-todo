@@ -9,8 +9,7 @@ $(document).ready(function () {
 
     $('#new-board').click(function (e) { 
         e.preventDefault();
-        $('#add-new-board').show();
-        $('#user-page').hide();
+        showAddEditForm();
     });
 
     $('#confirm-delete').on('show.bs.modal', function (event) {
@@ -30,6 +29,34 @@ $(document).ready(function () {
         initNewBoarStatuses();
     }
 });
+
+function showAddEditForm(todoId) {
+    if (todoId) {
+        axios({
+            method: 'GET',
+            url: `http://localhost:3000/todo/${todoId}`,
+            headers: {
+                token: localStorage.getItem('token')
+            }
+        })
+            .then(({data}) => {
+                $('#form-board-title').html('Edit This? Really?');
+                $('#name').val(data.todo.name);
+                $('#description').val(data.todo.description);
+                $('#status').val(data.todo.status._id);
+                $('#add-new-board').show();
+                $('#board-action').attr('onclick', `editBoard('${data.todo._id}')`);
+                $('#user-page').hide();
+            }).catch((err) => {
+                customAlert(err);
+            });
+    } else {
+        $('#form-board-title').html('Add Awesome Thing To Do');
+        $('#add-new-board').show();
+        $('#user-page').hide();
+        $('#board-action').attr('onclick', 'addNewBoard()');
+    }
+}
 
 function checkDeleteInput(element) {
     let confirmation = $(element).val();
@@ -52,23 +79,17 @@ function customAlert(msg) {
 }
 
 function deleteTodo(todoId) {
-    console.log({todoId});
-    
     axios({
         method: 'DELETE',
-        url: 'http://localhost:3000/todo/',
+        url: `http://localhost:3000/todo/${todoId}`,
         headers: {
             token: localStorage.getItem('token')
-        },
-        data: {
-            id: todoId
         }
     })
         .then(({data}) => {
-            console.log(data);
             location.reload();
         }).catch((err) => {
-            
+            customAlert(err);
         });
 }
 
@@ -85,7 +106,7 @@ function initNewBoarStatuses() {
             });
             
         }).catch((err) => {
-            console.log(err);
+            customAlert(err);
         });
 }
 
@@ -116,7 +137,7 @@ function initBoardStatuses() {
                 initBoards(status._id, data.statuses);
             });
         }).catch((err) => {
-            console.log('INI ERROR=', err);
+            customAlert(err);
         });
 }
 
@@ -158,7 +179,7 @@ function initBoards(statusId, statusList) {
                                                     ${insertStatus(statusList, statusId)}
                                                 </select>
                                                 <div class="input-group-prepend">
-                                                    <button type="button" class="btn btn-light" onclick="customAlert('This feature is under construction')"><i class="fas fa-edit m-1 text-warning"></i></button>
+                                                    <button type="button" class="btn btn-light" onclick="showAddEditForm('${todo._id}')"><i class="fas fa-edit m-1 text-warning"></i></button>
                                                     <button type="button" class="btn btn-light" data-function="deleteTodo('${todo._id}')" data-toggle="modal" data-target="#confirm-delete"><i class="fas fa-trash-alt m-1 text-danger"></i></button>
                                                 </div>
                                             </div>
@@ -171,7 +192,7 @@ function initBoards(statusId, statusList) {
                 `);
             });
         }).catch((err) => {
-            console.log('INI ERROR=', err);
+            customAlert(err);
         });
 }
 
@@ -190,7 +211,7 @@ function insertStatus(statusList, currentStatusId) {
 }
 
 function updateStatus(board) {
-    let newStatusId = $(board).find(":selected").val();
+    let newStatusId = $(board).val();
     let boardId = $(board).data('id');
 
     axios({
@@ -207,7 +228,34 @@ function updateStatus(board) {
             console.log(data);
             location.reload();
         }).catch((err) => {
-            console.log(err);
+            customAlert(err);
+        });
+}
+
+function editBoard(todoId) {
+    let name = $('#name').val();
+    let description = $('#description').val();
+    let status = $('#status').val();
+
+    axios({
+        method: 'PATCH',
+        url: `http://localhost:3000/todo/${todoId}`,
+        headers: {
+            token: localStorage.getItem('token')
+        },
+        data: {
+            name, description, status,
+            // masih hardcore project personal
+            project: '5e1a33242e5e6961fbb2642c',
+            // masih hardcode due_date
+            due_date: new Date()
+        }
+    })
+        .then(({data}) => {
+            console.log(data);
+            location.reload();
+        }).catch((err) => {
+            customAlert(err);
         });
 }
 
@@ -234,6 +282,6 @@ function addNewBoard() {
             console.log(data);
             location.reload();
         }).catch((err) => {
-            console.log(err);
+            customAlert(err);
         });
 }

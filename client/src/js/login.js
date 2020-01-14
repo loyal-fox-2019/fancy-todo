@@ -17,14 +17,16 @@ function nullifyForm() {
     $('#password').val('');
 }
 
-function setToken(token){
+function setLocalStorage(token, name){
     if (!localStorage.getItem('token')) {
-        localStorage.setItem('token',token);
+        localStorage.setItem('token', token);
+        localStorage.setItem('name', name)
     }
 }
 
-function removeToken() {
+function removeLocalStorage() {
     localStorage.removeItem('token');
+    localStorage.removeItem('name');
 }
 
 function login() {
@@ -39,10 +41,7 @@ function login() {
         }
     })
         .then(({data}) => {
-            setToken(data.token);
-            $('#user-name').html(`
-                Hi, <b>${username}</b>
-            `);
+            setLocalStorage(data.token, data.name);
             switchPage();
         }).catch((err) => {
             customAlert('Incorrect username or password');
@@ -131,6 +130,9 @@ function switchPage() {
         initBoardStatuses();
         initNewBoarStatuses();
         $('#user-page').show();
+        $('#user-name').html(`
+            Hi, <b>${localStorage.getItem('name')}</b>
+        `);
         $('#login-page').hide();
     } else {
         $('#status-list').html('');
@@ -141,6 +143,8 @@ function switchPage() {
 }
 
 function onSuccess(googleUser) {
+    console.log('masuk nih');
+    
     const profile = googleUser.getBasicProfile();
     const idToken = googleUser.getAuthResponse().id_token;
     axios({
@@ -151,10 +155,7 @@ function onSuccess(googleUser) {
         }
     })
         .then(({data}) => {
-            setToken(data.token);
-            $('#user-name').html(`
-                Hi, <b>${profile.getName()}</b>
-            `);
+            setLocalStorage(data.token, profile.getName());
             switchPage();
         }).catch((err) => {
             customAlert(err);
@@ -165,7 +166,7 @@ function onSuccess(googleUser) {
 function signOut() {
     const auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
-        removeToken();
+        removeLocalStorage();
         // showLogin();
         // switchPage();
         location.reload();

@@ -32,12 +32,11 @@ class UserController {
                     } else {
                         const token = jwt.sign({
                             id: user._id,
-                            name: user.name,
-                            email: user.email,
-                            avatar: user.picture
+                            name: user.username,
+                            email: user.email
                         }, process.env.CLIENT_SECRET);
-                    
-                        res.status(200).json({token});
+
+                        res.status(200).json({token, name: user.username});
                     }
                 }
             }).catch(next);

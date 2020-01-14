@@ -38,7 +38,7 @@ class TodoController {
     static getTodoById(req, res, next) {
         todoModel.findOne({
             _id: ObjectId(req.params.id)
-        })
+        }).populate(['owner','status'])
             .then((todo) => {
                 res.status(200).json({todo});
             }).catch(next);
@@ -66,7 +66,7 @@ class TodoController {
     static deleteTodoById(req, res, next) {
         todoModel.deleteOne({
             owner: req.userLogin.id,
-            _id: ObjectId(req.body.id)
+            _id: ObjectId(req.params.id)
         })
             .then((deleteResult) => {
                 res.status(200).json(deleteResult);
