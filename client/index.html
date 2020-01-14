@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <!-- Google sign-in -->
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="880121603668-gbkmbb19rs99n5leoibm73catq7l2gh0.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -26,6 +32,9 @@
         <a class="btn btn-block btn-social btn-github">
             <span class="fa fa-github"></span> Sign in with GitHub 
         </a>
+
+        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+
         <a class="btn btn-block switch-signinup">
             Sign up 
         </a>

@@ -44,14 +44,15 @@ $(document).ready(function() {
             method: "POST",
             data: {
                 username: $("#inputUsername2").val(),
-                password: $("#inputPassword2").val()
+                password: $("#inputPassword2").val(),
+                login_type: "standard"
             },
             success: function(res) {
                 $('#form-signin').toggle();
                 $('#form-signup').toggle();
             },
             error: function(xhr){
-                $("#error-msg-signup").html(xhr.responseJSON.error);
+                $("#error-msg-signup").html("Choose another username");
             }
         })
     })
@@ -155,7 +156,7 @@ function showTodosTable()
                     <th>Actions</th>
                 </tr>`;
 
-    $('table.todos-list').html(head);
+    
     $.ajax({
         url: "http://localhost:3000/api/todos/",
         type: "GET",
@@ -163,6 +164,7 @@ function showTodosTable()
             token: sessionStorage.getItem('token')
         },
         success: function(res){
+            $('table.todos-list').html(head);
             for(let i=0;i<res.length;i++)
             {
                 $('table.todos-list').append(`
@@ -193,4 +195,37 @@ function showTodosTable()
     })
 
     
+}
+
+//Google sign in
+function onSignIn(googleUser) {
+    // Useful data for your client-side scripts:
+    const profile = googleUser.getBasicProfile();
+    //console.log('Full Name: ' + profile.getName());
+    //console.log("Email: " + profile.getEmail());
+
+    // The ID token you need to pass to your backend:
+    const id_token = googleUser.getAuthResponse().id_token;
+    console.log("ID Token: " + id_token);
+
+    $.ajax({
+        url: "http://localhost:3000/api/gsignin",
+        method: "POST",
+        data: {
+            username: profile.getEmail(),
+            id_token: id_token
+        },
+        success: function(res) {
+            $("#error-msg").html('');
+            sessionStorage.setItem("token", res.token);
+            $('#form-signin').hide();
+            $('.home').fadeIn();
+            $('#std-signout').fadeIn();
+            showTodosTable();
+        },
+        error: function(xhr){
+            console.log('here')
+            $("#error-msg").html(xhr.responseJSON.error);
+        }
+    })
 }

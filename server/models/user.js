@@ -12,7 +12,9 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
+        required: function() {
+            return this.login_type == "standard";
+        }
     },
     login_type: {
         type: String
@@ -20,7 +22,11 @@ const userSchema = new Schema({
 });
 
 userSchema.pre('save',function(next) {
-    this.password = hashPassword(this.password);
+    if(this.login_type == "standard")
+    {
+        this.password = hashPassword(this.password);
+    }
+    
     User.countDocuments({
         username: this.username,
         _id: {
