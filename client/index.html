@@ -135,8 +135,6 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 login-sec">
-                        <a href="#" onclick="signOut();">Sign out</a>
-
                         <div class="text-center pb-3"><img src="./assets/images/logo.png"></div>
                         <div id="register-form-wrapper" style="display: none;" class="animated fadeInLeft">
                             <form class="register-form" id="register-form">
@@ -228,25 +226,28 @@
                             <a class="nav-link" href="#">Profile</a>
                         </li>
                     </ul>
-                    <button class="btn btn-primary my-2 my-sm-0">Logout</button>
+                    <button class="btn btn-primary my-2 my-sm-0" onclick="signOut()">Logout</button>
                 </div>
             </nav>
 
             <main role="main" class="container">
-
-                <div class="starter-template">
-                    <h1>Bootstrap starter template</h1>
-                    <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this
-                        text and a mostly barebones HTML document.</p>
+                <div class="starter-template" id="container-my-todo">
+                    <h1>My Todo</h1>
                 </div>
-
-            </main><!-- /.container -->
+                <div class="starter-template" id="container-project">
+                    <h1>Project</h1>
+                </div>
+                <div class="starter-template" id="container-profile">
+                    <h1>My profile</h1>
+                </div>
+            </main>
         </section>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script src="./assets/js/login.js"></script>
+    <script src="./assets/js/mainApps.js"></script>
 </body>
 
 </html>
