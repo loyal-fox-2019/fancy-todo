@@ -419,7 +419,7 @@ function toAddProject() {
     }
   })
     .done(users => {
-      // $("#list-user").empty()
+      $("#list-user").empty()
       users.forEach(user => {
         $('#list-user').append(`
           <div class="form-check m-1">
