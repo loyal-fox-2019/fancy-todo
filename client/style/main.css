@@ -1,0 +1,140 @@
+body {
+    overflow-x: hidden;
+}
+
+#on-login {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.owner {
+    width: auto;
+}
+
+/* main body */
+#the-todo, #the-project {
+    width: 80vw;
+}
+
+#my-todos-div, #project-todos-list {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-flow: column nowrap;
+    height: 100vh;
+    background-color: rebeccapurple;
+    padding: 15px;
+    
+}
+
+#project-todos-list {
+    background-color: rosybrown;
+}
+
+.my-todos-list {
+    margin-top: 10px;
+    width: 95%;
+    background-color: saddlebrown;
+    height: 90%;
+    padding: 10px;
+}
+
+/* collapse button */
+#menus {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 5px;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+#project-list-here, #for-invitation{
+    width: 100%;
+    background-color: seagreen;
+    height: auto;
+}
+
+/* box */
+#for-user, #for-user-project, #for-project{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    /* height: 100%; */
+    overflow-y: auto;
+}
+
+/* card */
+.todos p{
+    height: 70px;
+    margin-top: 5px;
+    border-top: 0.3px solid black;
+}
+
+.the-project{
+    height: 100vh;
+    background-color: chocolate;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    padding: 15px;
+}
+
+.member-list {
+    width: 100%;
+    background-color: cornsilk;
+    height: 60px;
+    padding: 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+}
+
+.member-name {
+    width: auto;
+    height: auto;
+    margin: 1px;
+    padding: 0 5px;
+    border: 1px solid black;
+}
+
+.todos-in-project {
+    margin-top: 10px;
+    width: 95%;
+    background-color: saddlebrown;
+    height: 80%;
+    padding: 10px;
+}
+
+/* modal */
+#description {
+    height: 150px;
+}
+
+#for-invitation {
+    min-height: 150px;
+    margin-top: 10px;
+    height: 230px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    padding: 5px;
+    overflow-y: scroll;
+}
+
+/* invite-card */
+.invite-card {
+    background: rgba(11, 211, 161, 0.753);
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    border-top: 1px solid black;
+    margin-top: 1px;
+    margin-right: 5px;
+}
+
+.invite-card h5 {
+    text-shadow: 1px 1px rgb(6, 181, 235);
+}
