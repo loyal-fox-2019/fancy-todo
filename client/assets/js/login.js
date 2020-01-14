@@ -52,7 +52,7 @@ $(document).ready(function () {
                 swal("Login Success!", '', "success")
                 $('.login-block').hide()
                 $('#main-application').show()
-                document.body.style.paddingTop = "5rem"
+                // document.body.style.paddingTop = "5rem"
             }).fail(err => {
                 swal("Login Failed!", err.responseJSON.message, "error")
             })
@@ -61,11 +61,11 @@ $(document).ready(function () {
 
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile()
-    console.log('ID: ' + profile.getId()) // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName())
-    console.log('Image URL: ' + profile.getImageUrl())
-    console.log('Email: ' + profile.getEmail()) // This is null if the 'email' scope is not present.
-    console.log(googleUser.getAuthResponse().id_token)
+    // console.log('ID: ' + profile.getId()) // Do not send to your backend! Use an ID token instead.
+    // console.log('Name: ' + profile.getName())
+    // console.log('Image URL: ' + profile.getImageUrl())
+    // console.log('Email: ' + profile.getEmail()) // This is null if the 'email' scope is not present.
+    // console.log(googleUser.getAuthResponse().id_token)
     $.ajax({
         type: "POST",
         url: serverUrl + 'users/googleSignin',
@@ -77,7 +77,7 @@ function onSignIn(googleUser) {
             localStorage.setItem('access_token', result.access_token)
             $('.login-block').hide()
             $('#main-application').show()
-            document.body.style.paddingTop = "5rem"
+            // document.body.style.paddingTop = "5rem"
         })
 }
 
@@ -93,11 +93,11 @@ function checkLogin() {
     if (localStorage.getItem("access_token") === null) {
         $('.login-block').show()
         $('#main-application').hide()
-        document.body.style.paddingTop = ""
+        // document.body.style.paddingTop = ""
     }
     else {
         $('.login-block').hide()
         $('#main-application').show()
-        document.body.style.paddingTop = "5rem"
+        // document.body.style.paddingTop = "5rem"
     }
 }
