@@ -30,6 +30,7 @@ class Controller {
 
         User.findOne(query).populate('invitation', 'name')
             .then((user) => {
+		console.log(user)
                 if (!user) next({ status: 404, msg: 'User tidak ditemukan' })
 
                 let isPassword = dehash(password, user.password)

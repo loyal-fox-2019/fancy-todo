@@ -1,6 +1,6 @@
 "use strict"
 
-if (process.env.NODE_ENV === "production") require('dotenv').config();
+require('dotenv').config();
 
 const express = require('express')
 const app = express()
@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect('mongodb+srv://patradyn:p3tzkn1ght@cluster0-bxx6s.mongodb.net/test?retryWrites=true&w=majority', {
     useCreateIndex: true,
     useFindAndModify: true,
     useNewUrlParser: true,
