@@ -8,7 +8,7 @@ https://fancyserver.amilhasbala.com
 
 * **URL**
 
-  /user/register
+  /register
 
 * **Method:**
 
@@ -24,7 +24,6 @@ https://fancyserver.amilhasbala.com
   * **Code:** 201 <br />
     ```javascript
         {
-            "isGoogle": false,
             "_id": "5de0ae689fab012045e0948e",
             "email": "bbb@mail.com",
             "password": "$2b$10$6wmSQU41NW7iC1AvWmNhtO4atYb1QX5oTUDy0QdvWNFBStTVWQIIq",
@@ -50,7 +49,7 @@ https://fancyserver.amilhasbala.com
   ```javascript
         axios({
           method: 'POST',
-          url: `/user/register`,
+          url: `/register`,
           data: {
             email: user@mail.com,
             password: password
@@ -74,7 +73,7 @@ https://fancyserver.amilhasbala.com
 
 * **URL**
 
-  /users/login
+  /login
 
 * **Method:**
 
