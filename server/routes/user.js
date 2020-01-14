@@ -4,10 +4,8 @@ const { UserController } = require('../controllers');
 
 userRouter.post('/register', UserController.registrate)
 
-const authenticate = require('../middlewares/authenticate');
-
-userRouter.use(authenticate)
-
 userRouter.post('/login', UserController.login)
+
+userRouter.post('/g_auth', UserController.gSignIn)
 
 module.exports = userRouter

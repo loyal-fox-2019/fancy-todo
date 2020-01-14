@@ -1,15 +1,46 @@
 const localhost = 'http://localhost:3000'
 const token = localStorage.getItem('token')
 
-if (!token) {
-    $('.login').fadeIn('slow');
-    $('.home').hide();
-} else {
-    $('.home').fadeIn('slow');
-    $('.login').hide();
+// Google onSignIn
+function onSignIn(googleUser) {
+    const id_token = googleUser.getAuthResponse().id_token;
+    $.ajax({
+        type: "post",
+        url: `${localhost}/users/g_auth`,
+        data: {
+            idToken: id_token
+        },
+        success: function (res) {
+            if (res.hasOwnProperty('token')) {
+                $('.login').fadeOut(0, () => {
+                    $('footer').fadeOut(0, () => {
+                        $('main').append(loading());
+                        $('.login').hide();
+                        setTimeout(() => {
+                            $('.loading').fadeOut(400, () => {
+                                $('.home').fadeIn('fast', () => {
+                                    localStorage.setItem('token', res.token)
+                                    initHome()
+                                    $('footer').fadeIn()
+                                });
+                            })
+                        }, 1000);
+                    });
+                });
+            }
+        }
+    });
 }
 
 $(document).ready(function () {
+    if (!token) {
+        $('.login').fadeIn('slow');
+        $('.home').hide();
+    } else {
+        initHome()
+        $('.home').fadeIn('slow');
+        $('.login').hide();
+    }
     /* LOGIN PAGE */
 
     // register
@@ -82,8 +113,9 @@ $(document).ready(function () {
                             setTimeout(() => {
                                 $('.loading').fadeOut(400, () => {
                                     $('.home').fadeIn('fast', () => {
-                                        $('footer').fadeIn()
                                         localStorage.setItem('token', res.token)
+                                        initHome()
+                                        $('footer').fadeIn()
                                     });
                                 })
                             }, 1000);
@@ -109,32 +141,6 @@ $(document).ready(function () {
     /* ==== END OF LOGIN PAGE ==== */
 
     /* HOME PAGE */
-
-    // Get All Todos
-    $.ajax({
-        type: "get",
-        headers: {
-            token: token
-        },
-        url: `${localhost}/todos/`,
-        success: function (todos) {
-            initCreateSelect()
-            if (todos.length == 0) {
-                $('#todo-list').empty();
-                $('#todo-list').append(`
-                        <div class="jumbotron bg-green-300">
-                            <h2 class="text-6xl font-bold text text-center">No Todo</h2>
-                        </div>
-                    `);
-            } else {
-                $('#todo-list').empty();
-                $('#todo-list').append(initTodoTable());
-                todos.forEach((todo, no) => {
-                    $('#todos').append(getUserTodo(todo, no + 1));
-                });
-            }
-        }
-    });
 
     // Add Todo
     $(document).on('submit', '#createTodo', function (event) {
@@ -183,7 +189,7 @@ $(document).ready(function () {
         })
     });
 
-    // edit todo
+    // button edit todo onclick
     $(document).on('click', '.edit-todo', function (event) {
         event.preventDefault()
         let todoId = $(this).val()
@@ -302,6 +308,10 @@ $(document).ready(function () {
                             $('.loading').fadeOut(400, () => {
                                 $('.login').fadeIn('fast', () => {
                                     $('footer').fadeIn()
+                                    const auth2 = gapi.auth2.getAuthInstance();
+                                    auth2.signOut().then(function () {
+                                        console.log('User signed out.');
+                                    });
                                     localStorage.removeItem('token')
                                 });
                             })
@@ -312,15 +322,50 @@ $(document).ready(function () {
         })
     });
 
-    // generate input date selection
-    function initCreateSelect() {
-        for (let date = 1; date <= 31; date++) {
-            $('#date').append(`
+    /* ==== END OF HOMEPAGE ==== */
+})
+
+/* ==== END OF DOCUMENT READY ==== */
+
+/* HOMAPAGE METHODS */
+
+// Get All Todos
+function initHome() {
+    $.ajax({
+        type: "get",
+        headers: {
+            token: token
+        },
+        url: `${localhost}/todos/`,
+        success: function (todos) {
+            initCreateSelect()
+            if (todos.length == 0) {
+                $('#todo-list').empty();
+                $('#todo-list').append(`
+                            <div class="jumbotron bg-green-300">
+                                <h2 class="text-6xl font-bold text text-center">No Todo</h2>
+                            </div>
+                        `);
+            } else {
+                $('#todo-list').empty();
+                $('#todo-list').append(initTodoTable());
+                todos.forEach((todo, no) => {
+                    $('#todos').append(getUserTodo(todo, no + 1));
+                });
+            }
+        }
+    });
+}
+
+// generate input date selection
+function initCreateSelect() {
+    for (let date = 1; date <= 31; date++) {
+        $('#date').append(`
                 <option value="${String(date)}">${String(date)}</option>
             `);
-        }
+    }
 
-        $('#month').append(`
+    $('#month').append(`
                 <option value="1">January</option>
                 <option value="2">February</option>
                 <option value="3">March</option>
@@ -335,17 +380,17 @@ $(document).ready(function () {
                 <option value="12">December</option>
         `);
 
-        let now = new Date().getFullYear()
-        for (let year = now; year <= now + 10; year++) {
-            $('#year').append(`
+    let now = new Date().getFullYear()
+    for (let year = now; year <= now + 10; year++) {
+        $('#year').append(`
                 <option value="${year}">${year}</option>
             `);
-        }
     }
+}
 
-    // generate user todo table
-    function initTodoTable() {
-        return `
+// generate user todo table
+function initTodoTable() {
+    return `
             <div class="bg-green-200 p-5 my-5 flex flex-col justify-center">
                 <h2 class="text-4xl text-center mb-4">Todo Lists</h2>
                 <table class="table-auto overflow-auto bg-green-300 rounded-lg">
@@ -364,16 +409,16 @@ $(document).ready(function () {
             </table>
           </div>
         `
-    }
+}
 
-    // generate user todo data
-    function getUserTodo(todo, no) {
-        if (todo.status == false) {
-            todo.status = "Undone"
-        } else {
-            todo.status = "Done"
-        }
-        return `
+// generate user todo data
+function getUserTodo(todo, no) {
+    if (todo.status == false) {
+        todo.status = "Undone"
+    } else {
+        todo.status = "Done"
+    }
+    return `
             <tr class="todo-data">
                 <td class="border px-4 py-2">${no}</td>
                 <td class="border px-4 py-2">${todo.todoname}</td>
@@ -389,17 +434,17 @@ $(document).ready(function () {
                 </td>
             </tr>
         `
-    }
+}
 
-    function getUserEditTodo(todo) {
-        let done = ''
-        let undone = ''
-        if (todo.status == false) {
-            undone = 'selected'
-        } else {
-            done = 'selected'
-        }
-        return `
+function getUserEditTodo(todo) {
+    let done = ''
+    let undone = ''
+    if (todo.status == false) {
+        undone = 'selected'
+    } else {
+        done = 'selected'
+    }
+    return `
             <form>
                 <label for="todonameEdit">Todoname</label>
                 <input id="todonameEdit" type="text" class="form-control" value="${todo.todoname}" required>
@@ -418,10 +463,8 @@ $(document).ready(function () {
                 <input type="hidden" id="todoId">
             </form>
         `
-    }
+}
 
-    /* ==== END OF HOMEPAGE ==== */
-})
 
 // generate loading elements
 function loading() {

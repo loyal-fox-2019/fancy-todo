@@ -1,33 +1,10 @@
-const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 
-function authenticate(req, res, next) {
-    const password = req.body.password
-    let user
-    User.findOne({
-        $or: [
-            { username: req.body.username },
-            { email: req.body.email }
-        ]
-    })
-        .then((userData) => {
-            const bcrypt = require('bcrypt');
-            user = userData
-            return bcrypt.compare(password, user.password)
-        })
-        .then((result) => {
-            if (!result) {
-                res.status(401).json({
-                    status: 401,
-                    msg: 'Incorrect email/username or password'
-                })
-            } else {
-                req.headers.user = user
-                next()
-            }
-        })
-        .catch((err) => {
-            next(err)
-        });
+module.exports = (req, res, next) => {
+    try {
+        req.userInfo = jwt.verify(req.headers.token, process.env.JWT_SECRET);
+        next()
+    } catch (err) {
+        next(err)
+    }
 }
-
-module.exports = authenticate
