@@ -63,7 +63,7 @@ class ProjectController {
   }
   static destroy (req, res, next) {
     const id = req.params.id
-    Project.deleteOne({ id })
+    Project.deleteOne({ _id: id })
       .then(result => {
         res.send(result)
       })
