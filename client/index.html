@@ -24,6 +24,9 @@
                     <h4 class="center amber-text darken-2-text">Todo List!</h4>
                     <div id="login-form">
                         <div class="row">
+                            <div id="validator-msg">
+                                
+                            </div>
                             <form class="col s12">
                                 <div class="input-field col s12">
                                   <input id="email" type="email" class="validate">
@@ -164,7 +167,7 @@
                         localStorage.setItem('token', data.token)
                         showAll()
                         $('#login-page').hide()
-                        $('#main-page').show()
+                        $('#main-page').fadeIn()
                     }
                 })
             }
@@ -184,7 +187,7 @@
             }
 
             function showAll(){
-                console.log()
+                console.log('Masuk')
                 $.ajax({
                     url: 'http://localhost:3000/todo',
                     type: 'get',

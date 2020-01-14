@@ -10,11 +10,11 @@ $(document).ready(function(){
 
     // hide halaman todo
     if(localStorage.getItem("token") === null){
-        $('#login-page').show()
-        $('#main-page').hide()
+        $('#login-page').fadeIn()
+        $('#main-page').fadeOut()
     }else{
-        $('#login-page').hide()
-        $('#main-page').show()
+        $('#login-page').fadeOut()
+        $('#main-page').fadeIn()
     }
 
     if(localStorage.getItem('id') !== null){
@@ -36,6 +36,7 @@ $(document).ready(function(){
     })
 
     $(document).on('click', '#login-btn', function(event){
+        console.log('Masuk')
         $.ajax({
             url: 'http://localhost:3000/user/login',
             type: 'post',
@@ -50,7 +51,16 @@ $(document).ready(function(){
                 console.log(data.id)
                 refresh()
                 $('#login-page').hide()
-                $('#main-page').show()
+                $('#main-page').fadeIn()
+            }
+        })
+        .fail(res => {
+            if(res.status === 404){
+                $('#validator-msg').append(
+                    `
+                    <div class="card-panel red lighten-1 white-text">Wrong email/password</div>
+                    `
+                )
             }
         })
         event.preventDefault()
