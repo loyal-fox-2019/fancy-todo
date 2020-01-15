@@ -41,7 +41,6 @@ const userSchema = new Schema({
 })
 
 userSchema.pre('save', function (next) {
-    // do stuff
     if (this.password) {
         this.password = hashPassword(this.password)
     }

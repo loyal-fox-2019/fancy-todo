@@ -21,7 +21,6 @@ $(document).ready(function () {
         const fullname = $("#fullnameRegis").val()
         const email = $("#emailRegis").val()
         const password = $("#passwordRegis").val()
-        // console.log(fullname, email, password, "ini dari on submit")
         registerForm(fullname, email, password)
     })
 
@@ -32,6 +31,11 @@ $(document).ready(function () {
             description = $('#description').val()
         createTodo(name, dueDate, description)
     })
+
+    $("#addNewTodo").on("click", function (e) {
+        $('#modalTodo').modal('hide')
+    })
+
 
     $("#checkTodo").on("click", function (e) {
         e.preventDefault()
@@ -79,6 +83,11 @@ function onSignIn(googleUser) {
             localStorage.setItem('login', 'google')
             checkLogin()
             imageUser(response.user)
+            Swal.fire(
+                'Welcome Back',
+                'Success Login ' + response.user.fullname,
+                'success'
+            )
         })
         .fail(err => {
             console.log(err)
@@ -133,9 +142,18 @@ function loginForm(email, password) {
             localStorage.setItem('fullname', fullname)
             localStorage.setItem('email', email)
             checkLogin()
+            Swal.fire(
+                'Welcome Back',
+                'Success Login ' + response.fullname,
+                'success'
+            )
         })
         .fail(err => {
-            console.log(err)
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err.responseJSON.message
+            })
         })
         .always(() => {
             console.log("completed")
@@ -163,7 +181,11 @@ function registerForm(fullname, email, password) {
             checkLogin()
         })
         .fail(err => {
-            console.log(err)
+            Swal.fire({
+                icon: 'error',
+                title: 'Status : ' + err.status,
+                text: err.statusText
+            })
         })
         .always(() => {
             console.log("completed")

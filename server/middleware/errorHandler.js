@@ -15,5 +15,9 @@ module.exports = function (err, req, res, next) {
         res.status(err.status).json({
             message: err.message
         })
+    } else if (err.message === "User validation failed: email: Email address already registered") {
+        res.status(err.status).json({
+            message: "Email address already registered"
+        })
     }
 }
