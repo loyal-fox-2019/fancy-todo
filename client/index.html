@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Fancy Todo">
+    <meta name="google-signin-client_id"
+        content="207996428099-kl48h5f1798lthb5t350larru0bfveev.apps.googleusercontent.com">
+    <title>Fancy Todo</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link rel="stylesheet" href="./assets/css/login.css">
+    <link rel="stylesheet" href="./assets/css/mainApp.css">
+</head>
+
+<body>
+    <main>
+        <section class="login-block">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 login-sec">
+                        <div class="text-center pb-3"><img src="./assets/images/logo.png"></div>
+                        <div id="register-form-wrapper" style="display: none;" class="animated fadeInLeft">
+                            <form class="register-form" id="register-form">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Username" name="username"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Password" name="password"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-block btn-login">Register</button>
+                                </div>
+                            </form>
+                            <div class="text-center">
+                                <span>Already have an account? Let's <a href="#" id="login-link">login</a> now!</span>
+                            </div>
+                        </div>
+
+                        <div id="login-form-wrapper" class="animated fadeInRight">
+                            <form class="login-form" id="login-form">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Username / Email"
+                                        name="identity" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Password"
+                                        name="login-password" required>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-block btn-login">Login</button>
+                                </div>
+                            </form>
+                            <div class="text-center">
+                                <span>Don't have account? Let's <a href="#" id="register-link">Register</a> now!</span>
+                                <hr>
+                                <span>or login using Google account</span>
+                                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+                            </div>
+                        </div>
+
+                        <div class="copy-text">Fancy <i class="fa fa-heart"></i> Todo</div>
+                    </div>
+                    <div class="col-md-8 banner-sec">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+                            <div class="carousel-inner" role="listbox">
+                                <div class="carousel-item active">
+                                    <img class="d-block img-fluid"
+                                        src="https://images.unsplash.com/photo-1522199670076-2852f80289c3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=752&q=80"
+                                        alt="First slide">
+                                    <div class="carousel-caption d-none d-md-block">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <section id="main-application" style="display: none;">
+            <div class="page">
+                <div class="pageHeader">
+                    <div class="title">Fancy Todo</div>
+                </div>
+                <div class="main">
+                    <div class="nav">
+                        <div class="menu">
+                            <div class="title">Navigation</div>
+                            <ul>
+                                <li id="home-nav-list" class="active"> <i class="fa fa-home"></i>Dashboard</li>
+                                <li id="todo-nav-list"> <i class="fa fa-tasks"></i>My Todo</li>
+                                <li id="project-nav-list"> <i class="fa fa-rocket"></i>My Project</li>
+                                <li id="profile-nav-list"> <i class="fa fa-user"></i>Profile</li>
+                                <li onclick="signOut();"> <i class="fa fa-sign-out"></i>Sign out</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="view" id="content-dashboard-wrapper">
+                        <div class="viewHeader">
+                            <div class="title">Dashboard</div>
+                            <div class="functions">
+
+                            </div>
+                        </div>
+                        <div class="content">
+
+                        </div>
+                    </div>
+                    <div class="view" id="content-todo-wrapper">
+                        <div class="viewHeader">
+                            <div class="title">Todo List</div>
+                            <div class="functions">
+                                <div class="button active" data-toggle="modal" data-target="#modal-add-todo">Add
+                                    New Task</div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <!-- <div class="list">
+                                <ul>
+                                    <li class="checked"><i class="fa fa-check-square-o"></i><span>Update team
+                                            page</span>
+                                        <div class="info">
+                                            <div class="button green">In progress</div><span>Complete by
+                                                25/04/2014</span>
+                                        </div>
+                                    </li>
+                                    <li><i class="fa fa-square-o"></i><span>Design a new logo</span>
+                                        <div class="info">
+                                            <div class="button">Pending</div><span>Complete by 10/04/2014</span>
+                                        </div>
+                                    </li>
+                                    <li><i class="fa fa-square-o"></i><span>Find a front end developer</span>
+                                        <div class="info"></div>
+                                    </li>
+                                </ul>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="view" id="content-project-wrapper">
+                        <div class="viewHeader">
+                            <div class="title">Manage Project</div>
+                            <div class="functions">
+                                <div class="button active">Add New Task</div>
+                            </div>
+                        </div>
+                        <div class="content">
+
+                        </div>
+                    </div>
+                    <div class="view" id="content-profile-wrapper">
+                        <div class="viewHeader">
+                            <div class="title">Manage Profile</div>
+                            <div class="functions">
+
+                            </div>
+                        </div>
+                        <div class="content">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="modal fade" id="modal-add-todo" tabindex="-1" role="dialog" aria-labelledby="modal-add-todoTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-add-todoTitle">Add New Task Todo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-add-todo">
+                            <div class="form-group">
+                                <label for="add-todo-title">Title</label>
+                                <input type="text" class="form-control" id="add-todo-title"
+                                    placeholder="Task Todo Title" name="add-todo-title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-todo-description">description</label>
+                                <textarea class="form-control" id="add-todo-description" rows="3"
+                                    name="add-todo-description" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-todo-due-date">Due Date</label>
+                                <input type="date" class="form-control" id="add-todo-due-date"
+                                    placeholder="Task Todo Due Date" name="add-todo-due-date" required>
+                            </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" value="submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="./assets/js/mainApps.js"></script>
+    <script src="./assets/js/login.js"></script>
+</body>
+
+</html>
