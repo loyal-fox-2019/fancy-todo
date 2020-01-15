@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- google signIn -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="823089076899-97q16rugeouqo2c2pn0sn8htj365pmqd.apps.googleusercontent.com">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+     <!-- fontAwsome -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+     <!-- style css -->
+     <link rel="stylesheet" href="assets/css/style.css">
+
+     <!-- icon -->
+     <link rel='icon' href='./assets/images/logo.png' type='image/x-icon'/ >
+    
+    <title>Trello</title>
+</head>
+<body class="body">
+<div id="loginRegister" style="background-color: #F7F7F7">
+    <img alt="Trello" class="trello-main-logo" src="./assets/images/trellonew.png">
+    <!-- login and login withGoogle -->
+    <div class="container" id="loginForm">
+        <div class="row justify-content-center mt-5">
+            <article class="card-body mx-auto box border p-3 shadow" style="max-width: 400px;">
+                <h4 class="card-title mt-3 text-center">Login to Trello</h4>
+                    <!-- form login -->
+                <form id="login">            
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                        </div>
+                        <input name="" id="email_login" class="form-control" placeholder="Enter email" type="email">
+                    </div> <!-- form-group// -->          
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input id="password_login" class="form-control" placeholder="Enter password" type="password">
+                    </div> <!-- form-group// -->                                                 
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Log In  </button>
+                    </div> <!-- form-group// -->    
+                    <p class="divider-text text-center mt-3">
+                        OR
+                    </p>  
+                    <div id="google" class="g-signin2 pl-3 mr-3" data-onsuccess="onSignIn" style="margin-left: 13vh;margin-bottom: 15px;"></div>     
+                </form>
+                <hr />
+                <p  class="text-center">Can't log in ? <a id="toRegisterPage" href="">Sign up for account</a> </p>                                                           
+            </article>
+        </div>
+    </div> 
+
+    <!-- register and login withGoogle -->
+    <div class="container" id="registerForm" style="display: none;">
+        <div class="row justify-content-center mt-5">
+            <article class="card-body mx-auto box border p-3 shadow" style="max-width: 400px;">
+                <h4 class="card-title mt-3 text-center">Create Account</h4>
+                <p class="text-center">Get started with your free account</p>
+                <div id="google" class="g-signin2 pl-3 mr-3" data-onsuccess="onSignIn" style="margin-left: 100px;"></div>     
+                <p class="divider-text text-center mt-3">
+                    OR
+                </p>
+                    <!-- form register -->
+                <form id="register">            
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                        </div>
+                        <input name="" id="email" class="form-control" placeholder="Email address" type="email">
+                    </div> <!-- form-group// -->          
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input id="password" class="form-control" placeholder="Create password" type="password">
+                    </div> <!-- form-group// -->                                                 
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
+                    </div> <!-- form-group// -->      
+                    <p  class="text-center">Have an account? <a id="toLoginPage" href="">Log In</a> </p>                                                                 
+                </form>
+            </article>
+        </div>
+    </div> 
+    <img src="https://www.pngitem.com/pimgs/m/7-73515_web-design-vector-png-transparent-png.png" style="width: 350px;position: relative;">
+</div>
+
+<div id="main">
+    <!-- navbar -->
+    <div id="header" >
+        <nav class="navbar" >
+            <img  onclick="backHome()" style="cursor: pointer;" src="assets/images/rect3752-3.png" id="logo-bar">
+            
+            <form class="form-inline" >
+                <div class="d-flex justify-content-between">  
+                    <button id="logout-button" class="btn btn-light ml-3 mr-5 btn-sm">Logout</button>      
+                </div> 
+            </form>
+        </nav>
+    </div>
+    <!-- navbar -->
+
+    <!-- home -->
+    <div class="container" id="mainPage" style="margin-left:20px;">
+        <div class="row mt-4" >
+            <!-- Side bar -->
+            <div class="col-2 border" id="sideBar">
+               
+            </div>
+            <!-- Side bar -->
+
+            <!-- My Todo -->
+            <div class="col-5" id="myTodoHome" >
+                <br>
+                <button type="button" class="btn btn-outline-warning my-2 my-sm-0" data-toggle="modal" data-target="#createTodo">
+                   + Add Todo List
+                </button>
+                <br />
+                <br>
+                My TodoList :
+                <div class="list-group" id="myTodo"></div>
+            </div>
+            <!-- My Todo -->
+
+            <!-- my Project -->
+            <div class="col-5" id="myProjectHome" >
+                <br>
+                <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#createProject">
+                    + Add Project
+                </button>
+                <br />
+                <br>
+                My Project :
+                <div class="list-group" id="myProject">
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small class="text-muted">3 days ago</small>
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        <small class="text-muted">Donec id elit non mi porta.</small>
+                    </a>
+                </div>
+            </div>
+            <!-- my Project -->
+
+            <!-- project page -->
+            <div class="col-10 border" id="projectPage" style="display: none;">
+            </div>
+            <!-- project page -->
+        </div>
+    </div>
+    <!-- home -->
+
+    <!-- Modal Create Todo-->
+    <div class="modal fade" id="createTodo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <div class="modal-title" id="exampleModalCenterTitle">
+                        <label for="validationServer03">Title :</label>
+                        <input type="text" class="form-control" id="title" required>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="validationTextarea" onclick="deleteTodo()">Description : </label>
+                        <textarea class="form-control" id="description"></textarea> 
+                    </div>
+                        <label for="validationTextarea"><i class="fa fa-calendar-plus-o"></i>  Due Date : </label>
+                        <input type="date" id="dueDate">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addTodo()">Create Todo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Create Todo-->
+
+    <!-- Modal Update Todo-->
+    <div class="modal fade" id="updateTodo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <div class="modal-title" id="exampleModalCenterTitle">
+                        <label for="validationServer03">Title :</label>
+                        <input type="text" class="form-control" id="title_update" required>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="validationTextarea" onclick="deleteTodo()">Description : </label>
+                        <textarea class="form-control" id="description_update"></textarea> 
+                    </div>
+                        <label for="validationTextarea"><i class="fa fa-calendar-plus-o"></i>  Due Date : </label>
+                        <input type="date" id="dueDate_update">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="updateTodo()">Update Todo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Update Todo-->
+
+   <!-- Modal Create Project-->
+    <div class="modal fade" id="createProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Project Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="title_project" placeholder="Enter your project Title" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addProject()">Create Project</button>
+                </div>
+            </div>
+            </div>
+    </div>
+    <!-- Modal Create Project-->
+
+    <!-- Modal Update Project Todo-->
+    <div class="modal fade" id="updateProjectTodo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <div class="modal-title" id="exampleModalCenterTitle">
+                        <label for="validationServer03">Title :</label>
+                        <input type="text" class="form-control" id="title_update_project" required>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="validationTextarea" onclick="deleteTodo()">Description : </label>
+                        <textarea class="form-control" id="description_update_project"></textarea> 
+                    </div>
+                        <label for="validationTextarea"><i class="fa fa-calendar-plus-o"></i>  Due Date : </label>
+                        <input type="date" id="dueDate_update_project">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="updateTodoProject()">Update Todo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Create Project Todo-->
+
+   <!-- Modal Add Member-->
+   <div class="modal fade" id="addMember" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Invite To Board </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" id="email_member" placeholder="Email address" required>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addMember()">Invite</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Modal Add Member-->
+
+    <!-- Modal Create Todo Project-->
+    <div class="modal fade" id="createTodoProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <div class="modal-title" id="exampleModalCenterTitle">
+                        <label for="validationServer03">Title :</label>
+                        <input type="text" class="form-control" id="title_todo" required>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="validationTextarea" onclick="deleteTodo()">Description : </label>
+                        <textarea class="form-control" id="description_todo"></textarea> 
+                    </div>
+                        <label for="validationTextarea"><i class="fa fa-calendar-plus-o"></i>  Due Date : </label>
+                        <input type="date" id="dueDate_todo">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addTodoProject()">Create Todo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Create Todo Project-->
+
+</div>
+
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous">
+    </script>  
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src='./index.js'></script>
+</body>
+</html>
