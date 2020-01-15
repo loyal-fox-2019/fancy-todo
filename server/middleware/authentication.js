@@ -33,7 +33,7 @@ function auth(req, res, next) {
                     });
             }
         }
-        catch{
+        catch (err) {
             next({
                 status: 400,
                 message: "not found token"
