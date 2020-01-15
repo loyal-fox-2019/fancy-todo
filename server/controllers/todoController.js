@@ -72,8 +72,9 @@ class TodoController
 
     static addTodo(req,res)
     {
-        const data = _.pick(req.body,'name','description','due_date');
+        const data = _.pick(req.body,'name','description','due_date','location');
         data.user = req.userInfo.id;
+        data.status = false;
         
         Todo.create(data)
         .then((todo) => {            
@@ -88,7 +89,7 @@ class TodoController
 
     static updateTodo(req,res)
     {
-        const data = _.pick(req.body,'name','description','due_date','status'); //cannot change user
+        const data = _.pick(req.body,'name','description','due_date','status','location'); //cannot change user
 
         Todo.findById(req.params.id,(err,todo) => {
             if(err)
@@ -99,6 +100,17 @@ class TodoController
             }
             else if(todo)
             {
+                if(todo.status != data.status) // if status change
+                {
+                    if(data.status) // completed
+                    {
+                        data.completed_date = new Date();
+                    }
+                    else
+                    {
+                        todo.completed_date = undefined;
+                    }
+                }
                 for(let key in data)
                 {
                     if(data.hasOwnProperty(key))
@@ -107,6 +119,8 @@ class TodoController
                     }
                 }
 
+                
+                
                 todo.save((err,updated) => {
                     if(err)
                     {
@@ -163,10 +177,6 @@ class TodoController
         });
     }
 
-    static searchTodo(req,res)
-    {
-        
-    }
 }
 
 module.exports = TodoController;

@@ -2,39 +2,51 @@
 
 A web app to keep track of your to-dos.
 
+## Features
+* Search, add, update and delete todos
+* Sign in with your Google account - no password required!
+
 ## Models
 
 ### Todos
+Attribute | Type
+--- | ---
+`name` | String
+`description` | String
+`due_date` | Date
+`entered_date` | Date
+`user` | MongoDB ObjectId
 
 
 ### Users
-
+Attribute | Type
+--- | ---
+`username` | String
+`password` | String
+`login_type` | `"standard" | "google"`
 
 
 ## Server routes
 
 ### Todos
 
-- View all todos<br>
+- View all todos (Authentication required)<br>
     `GET /api/todos`
 
-- View one todo info<br>
+- View one todo info (Authentication required)<br>
     `GET /api/todos/:id`
 
-- Create new todo<br>
+- Create new todo (Authentication required)<br>
     `POST /api/todos`
 
-- Modify a todo<br>
+- Modify a todo (Authentication required)<br>
     `PUT /api/todos/:id`<br>
     `PATCH /api/todos/:id`<br>
 
-- Delete a todo<br>
+- Delete a todo (Authentication required)<br>
     `DELETE /api/todos/:id`
 
 ### Users
-
-- View all users<br>
-    `GET /api/users`
 
 - View one user info<br>
     `GET /api/users/:id`

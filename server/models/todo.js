@@ -11,7 +11,7 @@ const todoSchema = new Schema({
         required: true
     },
     status: {
-        type: String
+        type: Boolean
     },
     entered_date: {
         type: Date
@@ -21,6 +21,12 @@ const todoSchema = new Schema({
     },
     completed_date: {
         type: Date
+    },
+    location: {
+        type: [{type: Number}],
+        validate: function(locArr) {
+            return locArr.length == 2 || locArr.length == 0;
+        }
     },
     user: {
         type: Schema.Types.ObjectId,

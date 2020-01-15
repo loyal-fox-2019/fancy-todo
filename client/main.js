@@ -109,8 +109,9 @@ $(document).ready(function() {
             success: function(res) {
                 $('#edit-name').attr('value',res.name);
                 $('#edit-id').attr('value',res._id);
-                $('#edit-description').html(res.description);
-                $('#edit-status').attr('value',res.status || "");
+                $('#edit-description').val(res.description);
+                $('#edit-status').prop('checked',res.status);
+                $('#edit-due').val(res.due_date ? res.due_date.substr(0, 10) : undefined);
             },
 
         })
@@ -162,7 +163,7 @@ $(document).ready(function() {
             data: {
                 name: $("#edit-name").val(),
                 description: $("#edit-description").val(),
-                status: $("#edit-status").val(),
+                status: $("#edit-status").is(":checked"),
                 due_date: $("#edit-due").val()
             },
             success: function(res) {
@@ -181,6 +182,7 @@ function showTodosTable(str)
 {
     let head = `<tr>
                     <th>No.</th>
+                    <th>Created</th>
                     <th>Name</th>
                     <th>Description</th>
                     <th>Status</th>
@@ -202,9 +204,10 @@ function showTodosTable(str)
                 $('table.todos-list').append(`
                     <tr>
                         <td>${i+1}</td>
+                        <td>${res[i].entered_date}</td>
                         <td>${res[i].name}</td>
                         <td>${res[i].description}</td>
-                        <td>${res[i].status || "Pending"}</td>
+                        <td>${res[i].status ? `Done<br>${res[i].completed_date}` : "Pending"}</td>
                         <td>${res[i].due_date || "-"}</td>
                         <td><a class="btn btn-block edit-todo" id="${res[i]._id}" data-toggle="modal" data-target="#ModalEditForm">Edit</a></td>
                         <td><a class="btn btn-block delete-todo" id="${res[i]._id}">Delete</a></td>
@@ -214,6 +217,7 @@ function showTodosTable(str)
             
             $('table.todos-list').append(`
                 <tr>
+                    <td></td>
                     <td></td>
                     <td><input type="text" id="inputNewTodoName"></td>
                     <td><textarea type="text" id="inputNewTodoDesc"></textarea></td>
@@ -262,40 +266,3 @@ function onSignIn(googleUser) {
     })
 }
 
-/*
-const CLIENT_ID = '880121603668-gbkmbb19rs99n5leoibm73catq7l2gh0.apps.googleusercontent.com';
-const API_KEY = 'AIzaSyCJbhfS7zexrj9DqwiI72EM0eVhNTSkqAs';
-const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-
-// Authorization scopes required by the API; multiple scopes can be
-// included, separated by spaces.
-const SCOPES = "https://www.googleapis.com/auth/calendar";
-
-
-//On load, called to load the auth2 library and API client library.
-
-function handleClientLoad() {
-    gapi.load('client:auth2', initClient);
-}
-
-//Initializes the API client library and sets up sign-in state listeners.
-
-function initClient() {
-    gapi.client.init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        discoveryDocs: DISCOVERY_DOCS,
-        scope: SCOPES
-    })
-    .then(function () {
-        // Listen for sign-in state changes.
-        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-
-        // Handle the initial sign-in state.
-        gapi.auth2.getAuthInstance().signIn();
-    }, function(error) {
-        console.log(error)
-    });
-}
-
-*/
