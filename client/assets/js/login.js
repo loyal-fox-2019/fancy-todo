@@ -51,7 +51,10 @@ $(document).ready(function () {
                 localStorage.setItem('access_token', data.access_token)
                 swal("Login Success!", '', "success")
                 $('.login-block').hide()
-                $('#main-application').show()
+                hideAllContent()
+                $('#main-application, #content-dashboard-wrapper').show()
+                $('li').removeClass("active")
+                $("#home-nav-list").addClass('active')
                 // document.body.style.paddingTop = "5rem"
             }).fail(err => {
                 swal("Login Failed!", err.responseJSON.message, "error")
@@ -76,7 +79,10 @@ function onSignIn(googleUser) {
         .done(result => {
             localStorage.setItem('access_token', result.access_token)
             $('.login-block').hide()
-            $('#main-application').show()
+            hideAllContent()
+            $('#main-application, #content-dashboard-wrapper').show()
+            $('li').removeClass("active")
+            $("#home-nav-list").addClass('active')
             // document.body.style.paddingTop = "5rem"
         })
 }
@@ -84,6 +90,7 @@ function onSignIn(googleUser) {
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance()
     auth2.signOut().then(function () {
+        hideAllContent()
         localStorage.removeItem('access_token')
         checkLogin()
     })

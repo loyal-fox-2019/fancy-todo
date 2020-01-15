@@ -12,121 +12,7 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-    <style>
-        @import url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
-
-        section.login-block {
-            background: #DE6262;
-            /* fallback for old browsers */
-            background: -webkit-linear-gradient(to bottom, #FFB88C, #DE6262);
-            /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to bottom, #FFB88C, #DE6262);
-            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-            float: left;
-            width: 100%;
-            padding: 50px 0;
-            height: 100vh;
-        }
-
-        section.login-block .banner-sec {
-            background: url(https://static.pexels.com/photos/33972/pexels-photo.jpg) no-repeat left bottom;
-            background-size: cover;
-            min-height: 500px;
-            border-radius: 0 10px 10px 0;
-            padding: 0;
-        }
-
-        section.login-block .container {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 15px 20px 0px rgba(0, 0, 0, 0.1);
-        }
-
-        section.login-block .carousel-inner {
-            border-radius: 0 10px 10px 0;
-        }
-
-        section.login-block .carousel-caption {
-            text-align: left;
-            left: 5%;
-        }
-
-        section.login-block .login-sec {
-            padding: 50px 30px;
-            position: relative;
-        }
-
-        section.login-block .login-sec .copy-text {
-            position: absolute;
-            width: 80%;
-            bottom: 20px;
-            font-size: 13px;
-            text-align: center;
-        }
-
-        section.login-block .login-sec .copy-text i {
-            color: #FEB58A;
-        }
-
-        section.login-block .login-sec .copy-text a {
-            color: #E36262;
-        }
-
-        section.login-block .login-sec h2 {
-            margin-bottom: 30px;
-            font-weight: 800;
-            font-size: 30px;
-            color: #DE6262;
-        }
-
-        section.login-block .login-sec h2:after {
-            content: " ";
-            width: 100px;
-            height: 5px;
-            background: #FEB58A;
-            display: block;
-            margin-top: 20px;
-            border-radius: 3px;
-            margin-left: auto;
-            margin-right: auto
-        }
-
-        section.login-block .btn-login {
-            background: #DE6262;
-            color: #fff;
-            font-weight: 600;
-        }
-
-        section.login-block .banner-text {
-            width: 70%;
-            position: absolute;
-            bottom: 40px;
-            padding-left: 20px;
-        }
-
-        section.login-block .banner-text h2 {
-            color: #fff;
-            font-weight: 600;
-        }
-
-        section.login-block .banner-text h2:after {
-            content: " ";
-            width: 100px;
-            height: 5px;
-            background: #FFF;
-            display: block;
-            margin-top: 20px;
-            border-radius: 3px;
-        }
-
-        section.login-block .banner-text p {
-            color: #fff;
-        }
-
-        section.login-block .abcRioButton {
-            margin: 15px auto;
-        }
-    </style>
+    <link rel="stylesheet" href="./assets/css/login.css">
     <link rel="stylesheet" href="./assets/css/mainApp.css">
 </head>
 
@@ -206,7 +92,6 @@
                 </div>
         </section>
         <section id="main-application" style="display: none;">
-
             <div class="page">
                 <div class="pageHeader">
                     <div class="title">Fancy Todo</div>
@@ -216,7 +101,7 @@
                         <div class="menu">
                             <div class="title">Navigation</div>
                             <ul>
-                                <li id="home-nav-list" class="active"> <i class="fa fa-home"></i>Home</li>
+                                <li id="home-nav-list" class="active"> <i class="fa fa-home"></i>Dashboard</li>
                                 <li id="todo-nav-list"> <i class="fa fa-tasks"></i>My Todo</li>
                                 <li id="project-nav-list"> <i class="fa fa-rocket"></i>My Project</li>
                                 <li id="profile-nav-list"> <i class="fa fa-user"></i>Profile</li>
@@ -224,16 +109,27 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="view">
+                    <div class="view" id="content-dashboard-wrapper">
                         <div class="viewHeader">
-                            <div class="title">Manage Tasks</div>
+                            <div class="title">Dashboard</div>
                             <div class="functions">
-                                <div class="button active">Add New Task</div>
+
                             </div>
                         </div>
                         <div class="content">
-                            <div class="list">
-                                <div class="title">Today</div>
+
+                        </div>
+                    </div>
+                    <div class="view" id="content-todo-wrapper">
+                        <div class="viewHeader">
+                            <div class="title">Todo List</div>
+                            <div class="functions">
+                                <div class="button active" data-toggle="modal" data-target="#modal-add-todo">Add
+                                    New Task</div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <!-- <div class="list">
                                 <ul>
                                     <li class="checked"><i class="fa fa-check-square-o"></i><span>Update team
                                             page</span>
@@ -251,26 +147,78 @@
                                         <div class="info"></div>
                                     </li>
                                 </ul>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="view" id="content-project-wrapper">
+                        <div class="viewHeader">
+                            <div class="title">Manage Project</div>
+                            <div class="functions">
+                                <div class="button active">Add New Task</div>
                             </div>
-                            <div class="list">
-                                <div class="title">Tomorrow</div>
-                                <ul>
-                                    <li><i class="fa fa-square-o"></i><span>Find front end developer</span>
-                                        <div class="info"></div>
-                                    </li>
-                                </ul>
+                        </div>
+                        <div class="content">
+
+                        </div>
+                    </div>
+                    <div class="view" id="content-profile-wrapper">
+                        <div class="viewHeader">
+                            <div class="title">Manage Profile</div>
+                            <div class="functions">
+
                             </div>
+                        </div>
+                        <div class="content">
+
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <div class="modal fade" id="modal-add-todo" tabindex="-1" role="dialog" aria-labelledby="modal-add-todoTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-add-todoTitle">Add New Task Todo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-add-todo">
+                            <div class="form-group">
+                                <label for="add-todo-title">Title</label>
+                                <input type="text" class="form-control" id="add-todo-title"
+                                    placeholder="Task Todo Title" name="add-todo-title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-todo-description">description</label>
+                                <textarea class="form-control" id="add-todo-description" rows="3"
+                                    name="add-todo-description" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-todo-due-date">Due Date</label>
+                                <input type="date" class="form-control" id="add-todo-due-date"
+                                    placeholder="Task Todo Due Date" name="add-todo-due-date" required>
+                            </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" value="submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    <script src="./assets/js/login.js"></script>
     <script src="./assets/js/mainApps.js"></script>
+    <script src="./assets/js/login.js"></script>
 </body>
 
 </html>
