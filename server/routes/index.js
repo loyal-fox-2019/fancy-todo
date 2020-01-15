@@ -10,7 +10,6 @@ const projectTodoRouter = require('./projectTodo');
 const authentication = require('../middlewares/authentication')
 
 router.use('/users', userRouter)
-router.use(authentication)
 router.use('/userTodos', userTodoRouter)
 router.use('/projects', projectRouter)
 router.use('/projectTodos', projectTodoRouter)

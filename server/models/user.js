@@ -12,7 +12,7 @@ const userSchema = new Schema({
         lowercase: true,
         trim: true,
         minlength: 2,
-        maxlength: 30
+        maxlength: 100
     },
     username: {
         type: String,
@@ -20,7 +20,7 @@ const userSchema = new Schema({
         lowercase: true,
         trim: true,
         minlength: 2,
-        maxlength: 30,
+        maxlength: 100,
         validate: {
             validator: (value) => {
                 return users.findOne({ username: value })
@@ -40,7 +40,7 @@ const userSchema = new Schema({
         lowercase: true,
         trim: true,
         minlength: 5,
-        maxlength: 50,
+        maxlength: 100,
         match: /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
         validate: {
             validator: (value) => {
@@ -59,7 +59,7 @@ const userSchema = new Schema({
         type: String,
         required: true,
         minlength: 6,
-        maxlength: 15
+        maxlength: 100
     },
     about: {
         type: String,

@@ -35,7 +35,6 @@ class UserTodoController {
             dueDate: req.body.dueDate,
             status: req.body.status
         }
-        console.log(req.params.userTodoID)
         userTodoModel.findOneAndUpdate({ _id: req.params.userTodoID }, todoUpdateData, { runValidators: true, new: true })
             .then(todo => {
                 res.status(200).json({

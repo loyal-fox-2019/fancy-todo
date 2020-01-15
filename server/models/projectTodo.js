@@ -36,7 +36,7 @@ const projectTodoSchema = new Schema({
         trim: true,
         minlength: 2,
         maxlength: 15,
-        default: 'To Do'
+        default: 'Pending'
     },
 }, { versionKey: false, timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 

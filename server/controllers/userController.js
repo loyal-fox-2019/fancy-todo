@@ -3,6 +3,8 @@
 const userModel = require('../models/user')
 const bcrypt = require('../helpers/bcrypt')
 const jwt = require('../helpers/jwt')
+const { OAuth2Client } = require('google-auth-library')
+
 
 class UserController {
 
@@ -69,6 +71,63 @@ class UserController {
                 .catch(next)
         }
 
+    }
+
+    static googleSignin(req, res, next) {
+        let gPayload = ''
+        const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
+        async function verify() {
+            const ticket = await client.verifyIdToken({
+                idToken: req.body.idToken,
+                audience: process.env.GOOGLE_CLIENT_ID
+            })
+            const payload = ticket.getPayload()
+            const userid = payload['sub']
+            return payload
+        }
+        verify()
+            .then(payload => {
+                gPayload = payload
+                console.log(gPayload.email)
+                return userModel.findOne({ email: gPayload.email })
+            })
+            .then(user => {
+                console.log(user);
+                if (user) {
+                    const payload = {
+                        userID: user._id,
+                        name: user.name,
+                        email: user.email,
+                    }
+                    res.status(200).json({
+                        message: `Signin Success`,
+                        access_token: jwt.generateToken(payload)
+                    })
+                }
+                else {
+                    const userRegisterData = {
+                        name: gPayload.name,
+                        email: gPayload.email,
+                        username: gPayload.name + gPayload.sub,
+                        password: Math.random().toString(36).substring(2, 15)
+                    }
+                    userModel.create(userRegisterData)
+                        .then(user => {
+                            const payload = {
+                                userID: user._id,
+                                name: user.name,
+                                email: user.email,
+                            }
+                            res.status(200).json({
+                                message: `Signin Success`,
+                                access_token: jwt.generateToken(payload)
+                            })
+                        })
+                        .catch(next)
+
+                }
+            })
+            .catch(next)
     }
 
     static getProfile(req, res, next) {
