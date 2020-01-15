@@ -1,27 +1,26 @@
 const jwt = require('jsonwebtoken');
+const User = require("../models/user");
 
 function authenticate(req,res,next)
 {
-    if(req.headers.hasOwnProperty("token"))
-    {
-        try {
-            const payload = jwt.verify(req.headers.token,process.env.JWT_SECRET);
+    try {
+        const payload = jwt.verify(req.headers.token,process.env.JWT_SECRET);
+        User.findOne({username: req.body.username})
+        .then((user) => {
             req.userInfo = payload;
             next();
-        }
-        catch {
-            res.status(401).json({
-                error: "Please sign in first"
-            });
-        }
+        })
+        .catch(() => {
+            throw new Error;
+        });
+
+        
     }
-    else
-    {
+    catch {
         res.status(401).json({
             error: "Please sign in first"
         });
     }
-
     
 }
 

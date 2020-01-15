@@ -24,6 +24,8 @@ $(document).ready(function() {
                 password: $("#inputPassword").val()
             },
             success: function(res) {
+                $("#inputPassword").val('');
+                $("#inputPassword2").val('');
                 $("#error-msg").html('');
                 sessionStorage.setItem("token", res.token);
                 $('#form-signin').hide();
@@ -32,6 +34,8 @@ $(document).ready(function() {
                 showTodosTable();
             },
             error: function(xhr){
+                $("#inputPassword").val('');
+                $("#inputPassword2").val('');
                 $("#error-msg").html(xhr.responseJSON.error);
             }
         })
@@ -39,17 +43,41 @@ $(document).ready(function() {
 
     $('#form-signup').submit(function(e){
         e.preventDefault();
+        let newUsername = $("#inputUsername2").val();
+        let newPassword = $("#inputPassword2").val();
         $.ajax({
             url: "http://localhost:3000/api/users",
             method: "POST",
             data: {
-                username: $("#inputUsername2").val(),
-                password: $("#inputPassword2").val(),
+                username: newUsername,
+                password: newPassword,
                 login_type: "standard"
             },
             success: function(res) {
-                $('#form-signin').toggle();
-                $('#form-signup').toggle();
+                $.ajax({
+                    url: "http://localhost:3000/api/signin",
+                    method: "POST",
+                    data: {
+                        username: newUsername,
+                        password: newPassword
+                    },
+                    success: function(res) {
+                        $("#inputPassword").val('');
+                        $("#inputPassword2").val('');
+                        $("#error-msg").html('');
+                        sessionStorage.setItem("token", res.token);
+                        $('#form-signin').hide();
+                        $('#form-signup').hide();
+                        $('.home').fadeIn();
+                        $('#std-signout').fadeIn();
+                        showTodosTable();
+                    },
+                    error: function(xhr){
+                        $("#inputPassword").val('');
+                        $("#inputPassword2").val('');
+                        $("#error-msg").html(xhr.responseJSON.error);
+                    }
+                })
             },
             error: function(xhr){
                 $("#error-msg-signup").html("Choose another username");
