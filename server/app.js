@@ -9,7 +9,7 @@ const cors = require("cors");
 const routers = require('./routers');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/fancy-todo', {
+mongoose.connect(`mongodb+srv://dbHarfi:${process.env.MONGO_ATLAS}@hacktiv-ra2tp.mongodb.net/hacktiv?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
