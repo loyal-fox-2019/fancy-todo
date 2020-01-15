@@ -1,3 +1,5 @@
+const baseUrl = 'http://35.240.187.102:3000';
+
 $(document).ready(function () {
     $(document).on('mouseenter', '.todo-content', function () {
         $(this).find('.todo-menu').show();
@@ -34,7 +36,7 @@ function showAddEditForm(todoId) {
     if (todoId) {
         axios({
             method: 'GET',
-            url: `http://localhost:3000/todo/${todoId}`,
+            url: `${baseUrl}/todo/${todoId}`,
             headers: {
                 token: localStorage.getItem('token')
             }
@@ -81,7 +83,7 @@ function customAlert(msg) {
 function deleteTodo(todoId) {
     axios({
         method: 'DELETE',
-        url: `http://localhost:3000/todo/${todoId}`,
+        url: `${baseUrl}/todo/${todoId}`,
         headers: {
             token: localStorage.getItem('token')
         }
@@ -113,7 +115,7 @@ function initNewBoarStatuses() {
 function getAllStatuses() {
     return axios({
         method: 'GET',
-        url: 'http://localhost:3000/status/',
+        url: `${baseUrl}/status/`,
         headers: {
             token: localStorage.getItem('token')
         }
@@ -146,7 +148,7 @@ function initBoards(statusId, statusList) {
     
     axios({
         method: 'GET',
-        url: `http://localhost:3000/todo/status/${statusId}`,
+        url: `${baseUrl}/todo/status/${statusId}`,
         headers: {
             token: localStorage.getItem('token')
         }
@@ -216,7 +218,7 @@ function updateStatus(board) {
 
     axios({
         method: 'PUT',
-        url: `http://localhost:3000/todo/${boardId}`,
+        url: `${baseUrl}/todo/${boardId}`,
         headers: {
             token: localStorage.getItem('token')
         },
@@ -239,14 +241,14 @@ function editBoard(todoId) {
 
     axios({
         method: 'PATCH',
-        url: `http://localhost:3000/todo/${todoId}`,
+        url: `${baseUrl}/todo/${todoId}`,
         headers: {
             token: localStorage.getItem('token')
         },
         data: {
             name, description, status,
             // masih hardcore project personal
-            project: '5e1a33242e5e6961fbb2642c',
+            project: '5e1eb85bbe37aa56e0d6be5b',
             // masih hardcode due_date
             due_date: new Date()
         }
@@ -266,14 +268,14 @@ function addNewBoard() {
 
     axios({
         method: 'POST',
-        url: `http://localhost:3000/todo/`,
+        url: `${baseUrl}/todo/`,
         headers: {
             token: localStorage.getItem('token')
         },
         data: {
             name, description, status,
             // masih hardcore project personal
-            project: '5e1a33242e5e6961fbb2642c',
+            project: '5e1eb85bbe37aa56e0d6be5b',
             // masih hardcode due_date
             due_date: new Date()
         }

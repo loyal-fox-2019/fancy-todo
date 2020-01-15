@@ -22,7 +22,7 @@ function loadText(destination) {
 
     axios({
         method: 'POST',
-        url: 'http://localhost:3000/ocr/',
+        url: `${baseUrl}/ocr/`,
         headers: {
             token: localStorage.getItem('token')
         },

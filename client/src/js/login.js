@@ -35,7 +35,7 @@ function login() {
 
     axios({
         method: 'POST',
-        url: 'http://localhost:3000/user/login',
+        url: `${baseUrl}/user/login`,
         data: {
             username, password
         }
@@ -70,7 +70,7 @@ function register() {
     } else {
         axios({
             method: 'POST',
-            url: 'http://localhost:3000/user/register',
+            url: `${baseUrl}/user/register`,
             data: {
                 username, email, password
             }
@@ -149,7 +149,7 @@ function onSuccess(googleUser) {
     const idToken = googleUser.getAuthResponse().id_token;
     axios({
         method: 'POST',
-        url: 'http://localhost:3000/oauth/login',
+        url: `${baseUrl}/oauth/login`,
         data: {
           idToken
         }
