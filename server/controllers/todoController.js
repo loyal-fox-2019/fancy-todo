@@ -13,15 +13,36 @@ class TodoController
 {
     static showAllTodos(req,res)
     {
-        Todo.find({user: req.userInfo.id}).populate('user')
-        .then((todos) => {
-            res.status(200).json(todos);
-        })
-        .catch((err) => {
-            res.status(400).json({
-                msg: "invalid request"
+        if(!req.query.str)
+        {
+            Todo.find({user: req.userInfo.id}).populate('user')
+            .then((todos) => {
+                res.status(200).json(todos);
             })
-        })
+            .catch((err) => {
+                res.status(400).json({
+                    msg: "invalid request"
+                })
+            })
+        }
+        else
+        {
+            Todo.find({
+                $or: [
+                    {name: new RegExp(req.query.str, "i")},
+                    {description: new RegExp(req.query.str, "i")}
+                ],
+                user: req.userInfo.id
+            }).populate('user')
+            .then((todos) => {
+                res.status(200).json(todos);
+            })
+            .catch((err) => {
+                res.status(400).json({
+                    msg: "invalid request"
+                })
+            })
+        }
 
     }
 
@@ -140,6 +161,11 @@ class TodoController
                 });
             }
         });
+    }
+
+    static searchTodo(req,res)
+    {
+        
     }
 }
 

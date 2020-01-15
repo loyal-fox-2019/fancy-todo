@@ -143,9 +143,13 @@ $(document).ready(function() {
         })
         
     })
+
+    $('#search-bar').keyup(function() {
+        showTodosTable($('#search-bar').val())
+    })
 })
 
-function showTodosTable()
+function showTodosTable(str)
 {
     let head = `<tr>
                     <th>No.</th>
@@ -156,9 +160,9 @@ function showTodosTable()
                     <th>Actions</th>
                 </tr>`;
 
-    
+    let searchStr = str || "";
     $.ajax({
-        url: "http://localhost:3000/api/todos/",
+        url: `http://localhost:3000/api/todos/?str=${searchStr}`,
         type: "GET",
         headers: {
             token: sessionStorage.getItem('token')
@@ -229,3 +233,41 @@ function onSignIn(googleUser) {
         }
     })
 }
+
+/*
+const CLIENT_ID = '880121603668-gbkmbb19rs99n5leoibm73catq7l2gh0.apps.googleusercontent.com';
+const API_KEY = 'AIzaSyCJbhfS7zexrj9DqwiI72EM0eVhNTSkqAs';
+const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+
+// Authorization scopes required by the API; multiple scopes can be
+// included, separated by spaces.
+const SCOPES = "https://www.googleapis.com/auth/calendar";
+
+
+//On load, called to load the auth2 library and API client library.
+
+function handleClientLoad() {
+    gapi.load('client:auth2', initClient);
+}
+
+//Initializes the API client library and sets up sign-in state listeners.
+
+function initClient() {
+    gapi.client.init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        discoveryDocs: DISCOVERY_DOCS,
+        scope: SCOPES
+    })
+    .then(function () {
+        // Listen for sign-in state changes.
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+        // Handle the initial sign-in state.
+        gapi.auth2.getAuthInstance().signIn();
+    }, function(error) {
+        console.log(error)
+    });
+}
+
+*/
