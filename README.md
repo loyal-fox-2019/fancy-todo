@@ -13,9 +13,12 @@ Attribute | Type
 --- | ---
 `name` | String
 `description` | String
+`status` | Boolean
 `due_date` | Date
 `entered_date` | Date
+`completed_date` | Date
 `user` | MongoDB ObjectId
+`location` | Array[Number, Number]
 
 
 ### Users
@@ -60,3 +63,14 @@ Attribute | Type
 
 - Delete a user<br>
     `DELETE /api/users/:id`
+
+### Other
+
+- Sign in (standard)<br>
+    `POST /api/signin`
+
+- Sign in (Google)<br>
+    `POST /api/gsignin`
+
+- Get Google API Key (Authentication required)<br>
+    `GET /api/gapi_key`
