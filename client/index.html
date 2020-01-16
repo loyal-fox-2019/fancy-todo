@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Google sign-in -->
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="880121603668-gbkmbb19rs99n5leoibm73catq7l2gh0.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css" integrity="sha256-rFMLRbqAytD9ic/37Rnzr2Ycy/RlpxE5QH52h7VoIZo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
+    <title>Fancy Todo</title>
+
+    <script type="text/javascript"
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5Jrp9PtHe0WapppUzxbIpMDWMAcV3qE4"></script>
+    <script src="https://unpkg.com/location-picker/dist/location-picker.min.js"></script>
+</head>
+<body>
+    <!-- Sign in form -->
+    <form class="form-signin" id="form-signin" style="display: none;">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+        <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>       
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="std-signin">Sign in</button>
+        <div id="error-msg"></div><br>
+
+        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+
+        <a class="btn btn-block switch-signinup">
+            Sign up 
+        </a>
+    </form>
+
+    <!-- Sign up form -->
+    <form class="form-signin" id="form-signup" style="display: none;">
+        <h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
+
+        <input type="text" id="inputUsername2" class="form-control" placeholder="Username" pattern="^[a-zA-Z0-9_]*$" required autofocus>       
+        <input type="password" id="inputPassword2" class="form-control" placeholder="Password" required>
+        
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="std-signup">Sign up</button><br>
+        *Only alphanumeric and underscores allowed for username.
+        <div id="error-msg-signup"></div>
+        <a class="btn btn-block switch-signinup">
+            Sign in 
+        </a>
+    </form>
+
+    <!-- Home page -->
+    <div class="home" style="display: none;">
+
+        <!-- Navigation bar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Fancy Todo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                  
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Account</a>
+                    </li> 
+                </ul>
+                    
+                <div class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="search-bar">
+                    <div class="logout">
+                        <a class="btn btn-block btn-primary" id="std-signout" style="display: none;">Sign out</a>
+                    </div>
+                </div>
+                    
+            </div>
+        </nav>        
+
+        <!-- Todo list, can add, edit, delete -->
+        <div class="todos-list">
+            <table class="todos-list table">
+                <tr>
+                    <th>No.</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Due date</th>
+                    <th>Location</th>
+                    <th>Action</th>
+                </tr>
+            </table>
+        </div>
+
+        <div id="add-picker">
+            <div id="add-map" class="maps"></div>
+        </div>
+
+        <div id="ModalEditForm" class="modal fade">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title">Edit</h1>
+                    </div>
+                    <div class="modal-body">
+                        <div role="form">
+                            <input type="hidden" id="edit-id">
+                            <div class="form-group">
+                                <label class="control-label">Name</label>
+                                <div>
+                                    <input type="text" class="form-control input-lg" id="edit-name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Description</label>
+                                <div>
+                                    <textarea type="text" class="form-control input-lg" id="edit-description"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Due date</label>
+                                <div>
+                                    <input type="date" id="edit-due">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Status</label>
+                                <div>
+                                    <input type="checkbox" class="form-control input-lg" id="edit-status">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <button type="submit" class="btn btn-success" id="submit-edit"  data-dismiss="modal">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+    </div>
+    
+
+    <!-- jQuery, Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
+    <!-- Other scripts -->
+    <script src="main.js"></script>
+</body>
+</html>
