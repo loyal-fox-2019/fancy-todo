@@ -72,9 +72,15 @@ class TodoController
 
     static addTodo(req,res)
     {
-        const data = _.pick(req.body,'name','description','due_date','location');
+        const data = _.pick(req.body,'name','description','due_date','lat','lng');
         data.user = req.userInfo.id;
         data.status = false;
+        console.log(data);
+        
+        if(data.lat && data.lng)
+        {
+            data.location = [parseFloat(data.lat),parseFloat(data.lng)];
+        }
         
         Todo.create(data)
         .then((todo) => {            

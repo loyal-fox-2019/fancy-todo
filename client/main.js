@@ -32,6 +32,8 @@ $(document).ready(function() {
                 $('.home').fadeIn();
                 $('#std-signout').fadeIn();
                 showTodosTable();
+
+                //getApiKey();
             },
             error: function(xhr){
                 $("#inputPassword").val('');
@@ -71,6 +73,8 @@ $(document).ready(function() {
                         $('.home').fadeIn();
                         $('#std-signout').fadeIn();
                         showTodosTable();
+
+                        //getApiKey();
                     },
                     error: function(xhr){
                         $("#inputPassword").val('');
@@ -143,7 +147,9 @@ $(document).ready(function() {
             data: {
                 name: $("#inputNewTodoName").val(),
                 description: $("#inputNewTodoDesc").val(),
-                due_date: $("#inputNewTodoDue").val()
+                due_date: $("#inputNewTodoDue").val(),
+                lat: $("#addLat").val(),
+                lng: $("#addLng").val()
             },
             success: function(res) {
                 showTodosTable()
@@ -176,6 +182,14 @@ $(document).ready(function() {
     $('#search-bar').keyup(function() {
         showTodosTable($('#search-bar').val())
     })
+
+    $('table.todos-list').on('click','.add-loc',function() { 
+        //create event onclick for dynamically created links
+        initLocationPicker("add-map");
+        $("#add-picker").show();
+        
+    })
+
 })
 
 function showTodosTable(str)
@@ -187,6 +201,7 @@ function showTodosTable(str)
                     <th>Description</th>
                     <th>Status</th>
                     <th>Due date</th>
+                    <th>Location</th>
                     <th>Actions</th>
                 </tr>`;
 
@@ -209,6 +224,7 @@ function showTodosTable(str)
                         <td>${res[i].description}</td>
                         <td>${res[i].status ? `Done<br>${res[i].completed_date}` : "Pending"}</td>
                         <td>${res[i].due_date || "-"}</td>
+                        <td>${res[i].location.length ? `<a class='btn btn-block edit-loc' id='${res[i]._id}'>View map</a>` : "-"}</td>
                         <td><a class="btn btn-block edit-todo" id="${res[i]._id}" data-toggle="modal" data-target="#ModalEditForm">Edit</a></td>
                         <td><a class="btn btn-block delete-todo" id="${res[i]._id}">Delete</a></td>
                     </tr>
@@ -223,6 +239,11 @@ function showTodosTable(str)
                     <td><textarea type="text" id="inputNewTodoDesc"></textarea></td>
                     <td><input type="text" value="Pending" disabled></td>
                     <td><input type="date" id="inputNewTodoDue"></td>
+                    <td>
+                        <input type="text" value="" id="addLat" disabled><br>
+                        <input type="text" value="" id="addLng" disabled><br>
+                        <a class='btn btn-block add-loc'>Add Location</a>
+                    </td>
                     <td><a class="btn btn-block add-todo">Add</a></td>
                     <td></td>
                 </tr>
@@ -264,5 +285,46 @@ function onSignIn(googleUser) {
             $("#error-msg").html(xhr.responseJSON.error);
         }
     })
+}
+
+function getApiKey()
+{
+    $.ajax({
+        url: `http://localhost:3000/api/gapi_key`,
+        method: "GET",
+        headers: {
+            token: sessionStorage.getItem('token')
+        },
+        success: function(res) {
+                      
+            $('<script>').attr({
+                src: `https://maps.googleapis.com/maps/api/js?key=${res.key}`,
+                type: 'text/javascript'}).appendTo('head')
+            
+            $('<script>').attr({
+                src: `https://unpkg.com/location-picker/dist/location-picker.min.js`,
+                type: 'text/javascript'}).appendTo('head');
+        }
+
+    })
+}
+
+function initLocationPicker(selector,initLat,initLng)
+{
+    var map = document.getElementById(selector);
+    var lp = new locationPicker(map, {
+        setCurrentPosition: true,
+        //lat: initLat,
+        //lng: initLng
+    }, {
+        zoom: 15
+    });
+
+    google.maps.event.addListener(lp.map, 'idle', function (event) {
+        // Get current location and show it in HTML
+        var location = lp.getMarkerPosition();
+        $('#addLat').val(location.lat);
+        $('#addLng').val(location.lng);
+    });
 }
 

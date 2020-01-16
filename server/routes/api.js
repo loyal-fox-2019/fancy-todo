@@ -17,6 +17,11 @@ api.use('/users',usersRouter);
 
 api.use('/todos',authenticate);
 api.use('/todos',todosRouter);
+api.get('/gapi_key', (req,res) => {
+    res.status(200).json({
+        key: process.env.GOOGLE_MAPS_API_KEY
+    })
+})
 
 
 module.exports = api;

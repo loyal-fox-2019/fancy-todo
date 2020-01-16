@@ -17,6 +17,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css" integrity="sha256-rFMLRbqAytD9ic/37Rnzr2Ycy/RlpxE5QH52h7VoIZo=" crossorigin="anonymous" />
     <link rel="stylesheet" href="style.css">
     <title>Fancy Todo</title>
+
+    <script type="text/javascript"
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5Jrp9PtHe0WapppUzxbIpMDWMAcV3qE4"></script>
+    <script src="https://unpkg.com/location-picker/dist/location-picker.min.js"></script>
 </head>
 <body>
     <!-- Sign in form -->
@@ -67,7 +71,7 @@
                         <a class="nav-link" href="#">Home</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">User</a>
+                        <a class="nav-link" href="#">Account</a>
                     </li> 
                 </ul>
                     
@@ -90,9 +94,14 @@
                     <th>Description</th>
                     <th>Status</th>
                     <th>Due date</th>
+                    <th>Location</th>
                     <th>Action</th>
                 </tr>
             </table>
+        </div>
+
+        <div id="add-picker">
+            <div id="add-map" class="maps"></div>
         </div>
 
         <div id="ModalEditForm" class="modal fade">
