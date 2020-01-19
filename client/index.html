@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="google-signin-client_id" content="580264558982-219enrg7rg19soahu0suat3ng6bao3m7.apps.googleusercontent.com">
+    <title>Fancy Todo</title>
+  </head>
+  <body>
+    <div id="authentication-container" class="mt-5">
+      <div class="row">
+        <div class="col-md-6">
+          <img class="img-fluid" src="/assets/images/login.png">
+        </div>
+        <div class="col-md-6 row justify-content-center">
+          <p id="title" class="row">Welcome to Fancy Todo</p>
+          <form id="login-container" class="col-md-10 mt-5">
+            <div class="form-group">
+              <input type="text" class="form-control" id="user-login" placeholder="Email or username">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" id="password-login" placeholder="Password">
+            </div>
+            <input type="submit" id="login" class="btn btn-primary w-100" value="Login">
+            <p class="row mt-5">Don't have an account?&nbsp;<span class='make-link' id='show-register'>Register Here</span></p>
+            <p class="row">Or, use another account:</p>
+          </form>
+          <form id="register-container" class="col-md-10 mt-5">
+            <div class="form-group">
+              <input type="text" class="form-control" id="username-register" placeholder="Username">
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" id="email-register" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" id="password-register" placeholder="Password">
+            </div>
+            <input type="submit" id="register" class="btn btn-primary w-100" value="Register">
+            <p class="row mt-5">Have an account?&nbsp;<span class='make-link' id='show-login'>Login Here</span></p>
+            <p class="row">Or, use another account:</p>
+          </form>
+          <div class="g-signin2 row col-md-10" data-onsuccess="onSignIn"></div>
+        </div>
+      </div>
+    </div>
+    <div id="home-container">
+      <div class="d-flex">
+        <nav id="sidebar" class="nav flex-column col-md-2">
+          <img src="/assets/images/icon.svg" class="mt-3 mb-3" alt="Logo" id="logo">
+          <!-- Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a> -->
+          <div id="username" class="nav-link"><span class="ml-2"></span></div>
+          <div id="my-todos" class="nav-link"><i class="fas fa-tasks"></i><span class="ml-2">My Todos</span></div>
+          <div id="my-projects" class="nav-link"><i class="fas fa-users"></i><span class="ml-2">Projects</span></div>
+          <div id="project-list-container" class="ml-3">
+            <div id="new-project" class="nav-link pointer"><i class="fas fa-plus"></i><span class="ml-2">New Project</span></div>
+            <form id="new-project-form">
+              <input type="text" id="project-name" class="col-md-12">
+              <input type="submit" id="submit-new-project" class="col-md-12" value="Create Project">
+            </form>
+            <div id="project-list"></div>
+          </div>
+            <div id="logout" class="nav-link"><i class="fas fa-sign-out-alt"></i><span class="ml-2" onclick="signOut();">Sign out</span></div>
+        </nav>
+        <div class="col-md-9 m-3" id="todo-container">
+          <ul class="nav nav-tabs" id="todos-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">Active</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="completed-tab" data-toggle="tab" href="#completed" role="tab" aria-controls="completed" aria-selected="false">Completed</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="new-todo-tab" data-toggle="tab" href="#new-todo" role="tab" aria-controls="new-todo" aria-selected="false"><i class="fas fa-plus"></i></a>
+            </li>
+          </ul>
+          <div class="tab-content" id="todos-content">
+            <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="active-tab"></div>
+            <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab"></div>
+            <div class="tab-pane fade" id="new-todo" role="tabpanel" aria-labelledby="new-todo-tab">
+              <form id="new-todo-form" class="col-md-10 mt-5">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="new-todo-name" placeholder="Name">
+                </div>
+                <div class="form-group">
+                  <textarea type="text" class="form-control" id="new-todo-desc" placeholder="Description"></textarea>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="new-todo-due-date" placeholder="Due Date">
+                </div>
+                <input type="submit" id="new-todo-submit" class="btn btn-primary w-100" value="Create New Todo">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src='/js/jquery.js'></script>
+    <script src='/js/popper.js'></script>
+    <script src='/js/bootstrap.js'></script>
+    <script src='/js/sweetalert.js'></script>
+    <script src='/js/main.js'></script>
+  </body>
+</html>
