@@ -69,6 +69,10 @@ $(document).ready(function() {
     e.preventDefault();
     addMember();
   })
+  $('#postregister').on('click', function(e) {
+    e.preventDefault();
+    postRegister();
+  })
 })
 
 
@@ -186,6 +190,33 @@ function onSignIn(googleUser) {
       );
     })
     .always();
+}
+
+function postRegister() {
+  const fullname = $('#fullname-register').val();
+  const email = $('#email-register').val();
+  const password = $('#password-register').val();
+  console.log(fullname, email, password)
+  $.ajax({
+    method: 'post',
+    url: `${BASE_URL}/user`,
+    data: {
+      fullname,
+      email,
+      password,
+    },
+  })
+  .then((result) => {
+    const { name, token } = result;
+    localStorage.setItem('name', name);
+    localStorage.setItem('token', token);
+    checkLogin();
+  })
+  .fail((err) => {
+    const errors = err.responseJSON.errors.join(', ')
+    Swal.fire(errors)
+  })
+  .always()
 }
 
 function signOut() {
