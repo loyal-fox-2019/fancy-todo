@@ -1,4 +1,4 @@
-const BASE_URL = `http://localhost:3000`
+const BASE_URL = `http://130.211.118.134`
 
 
 
@@ -201,7 +201,7 @@ function postRegister() {
     method: 'post',
     url: `${BASE_URL}/user`,
     data: {
-      fullname,
+      name: fullname,
       email,
       password,
     },
