@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen"/>
+      <link rel="stylesheet" href="./css/style.css">
+
+      <!--Let browser know website is optimized for mobile-->
+      <script src="https://apis.google.com/js/platform.js" async defer></script>
+      <meta name="google-signin-client_id" content="544953722655-cb9c6urmepsou27lvctsgqgsvefs94oj.apps.googleusercontent.com">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>Fancy | Todo</title>
+    </head>
+
+    <body>
+        <!-- LOGIN PAGE -->
+        <div class="container" id="login-page">
+            <div class="col lg3 m2 s2"></div>
+            <div class="col lg6 m8 s8">
+                <div class="section">
+                    <h2 class="center amber-text darken-2-text">Login</h2>
+                    <h4 class="center amber-text darken-2-text">Todo List!</h4>
+                    <div id="login-form">
+                        <div class="row">
+                            <div id="validator-msg">
+                                
+                            </div>
+                            <form class="col s12">
+                                <div class="input-field col s12">
+                                  <input id="email" type="email" class="validate">
+                                  <label for="email">Email</label>
+                                </div>
+                                <div class="input-field col s12">
+                                  <input id="password" type="password" class="validate">
+                                  <label for="password">Password</label>
+                                </div>
+                                <a class="waves-effect waves-light btn amber darken-2" id="login-btn">Login</a>
+                                <a href="#register-modal" class="waves-effect waves-light modal-trigger" id="register" style="margin-left: 10px;"> or Create an Account</a>
+                                <br>
+                                <h6 >or Sign in with Google Account</h6  >
+                                <div class="g-signin2" data-onsuccess="onSignIn" id="google-sign"></div>
+                            </form>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col lg3 m2 s2"></div>
+        </div>
+
+        <!-- MODAL REGISTER -->
+        <div id="register-modal" class="modal">
+            <div class="modal-content">
+                <h4 class="amber-text darken-2-text center">Register</h4>
+                <br>
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input placeholder="Name" id="reg-name" type="text" class="validate">
+                                <label for="reg-name">Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="reg-email" type="email" class="validate">
+                                <label for="reg-email">Email</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="reg-password" type="password" class="validate">
+                                <label for="reg-password">Password</label>
+                            </div>
+                        </div>
+                        <button class="btn waves-effect waves-light col s12 amber darken-2 modal-close" type="submit" id="register-user">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- MAIN PAGE -->
+        <div class="container" id="main-page">
+            <div class="row">
+                <div class="col lg3 m2 s2"></div>
+                <div class="col lg6 m8 s8">
+                    <!-- Add todo list -->
+                    <div class="section">
+                        <div id="title">
+                            <h2 class="center amber-text darken-2-text">Todo List</h2>
+                            <h4 class="center amber-text darken-2-text">Fancy!</h4>
+                            <h6 class="right amber-text darken-2-text"><a href="#" onclick="signOut();">Sign out</a></h6>
+                        </div>
+                        <div id="input">
+                            <div class="row">
+                                <form class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col m12">
+                                            <i class="material-icons prefix">create</i>
+                                            <textarea id="name" class="materialize-textarea" required></textarea>
+                                            <label for="name">What to do ...</label>
+                                        </div>
+                                        <div class="input-field col m6">
+                                            <i class="material-icons prefix">assignment</i>
+                                            <textarea id="description" class="materialize-textarea" required></textarea>
+                                            <label for="description">Description</label>
+                                        </div>
+                                        <div class="input-field col m6">
+                                            <i class="material-icons prefix">timer</i>
+                                            <input type="text" id="due_date" class="datepicker" required>
+                                            <label for="due_date">Due Date</label>
+                                        </div>
+                                        <button class="btn waves-effect waves-light col s12 amber darken-2" type="submit" id="add-todo">Add</button><br>
+                                        <a class="btn waves-effect waves-light col s12 amber darken-2 modal-trigger" id="schedule-btn" style="margin-top: 10px;" href="#modal-football">Football Schedule</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <!-- List todo-list -->
+                    <div class="section">
+                        <div id="todo-list">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col lg3 m2 s2"></div>
+            </div>
+        </div>
+
+        <!-- MODAL FOOTBALL SCHEDULE -->
+        <div id="modal-football" class="modal football">
+            <div class="modal-content" style="min-height: 80vh;">
+                <h4>Select League and Date</h4>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">timer</i>
+                    <input type="text" id="match-date" class="datepicker" required>
+                    <label for="due_date">Match Date</label>
+                </div>
+                <div class="row" id="league-list">
+
+                </div>
+            </div>
+        </div>
+
+      <!--JavaScript at end of body for optimized loading-->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="js/materialize.min.js"></script>
+        <script src="js/script.js"></script>
+        <script>
+            function onSignIn(googleUser) {
+                var id_token = googleUser.getAuthResponse().id_token
+                $.ajax({
+                    url: 'http://localhost:3000/user/google',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        id_token: id_token
+                    },
+                    success: function(data){
+                        console.log(data, 'masuk gan')
+                        localStorage.setItem('token', data.token)
+                        showAll()
+                        $('#login-page').hide()
+                        $('#main-page').fadeIn()
+                    }
+                })
+            }
+
+            function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                console.log('User signed out.');
+                })
+                localStorage.removeItem('token')
+                localStorage.removeItem('id')
+                $('#todo-list').html('')
+                $('#email').val('')
+                $('#password').val('')
+                $('#login-page').show()
+                $('#main-page').hide()
+            }
+
+            function showAll(){
+                console.log('Masuk')
+                $.ajax({
+                    url: 'http://localhost:3000/todo',
+                    type: 'get',
+                    headers: {
+                        token: localStorage.getItem('token')
+                    },
+                    dataType: 'json',
+                    success: function(results){
+                        $.each(results, (i,data)=>{
+                            let date = new Date(data.due_date).toDateString()
+                            if(!data.status){
+                                $('#todo-list').append(
+                                    `
+                                    <div class="col s12 m12" id="${data._id}">
+                                        <h5 class="header">${data.name}</h5>
+                                        <div class="card horizontal">
+                                            <div class="card-stacked">
+                                            <div class="card-content">
+                                                <h6 class="red-text">${date}</h6>
+                                                <p>${data.description}</p>
+                                            </div>
+                                            <div class="card-action">
+                                                <label class="orange-text">
+                                                    <input type="checkbox" class="check-status" data-id="${data._id}"/>
+                                                    <span></span>
+                                                </label>
+                                                <a href="#" class="delete-todo" data-id="${data._id}""><i class="material-icons prefix">delete</i></a>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    `
+                                )
+                            }else{
+                                $('#todo-list').append(
+                                    `
+                                    <div class="col s12 m12" id="${data._id}">
+                                        <h5 class="header">${data.name}</h5>
+                                        <div class="card horizontal">
+                                            <div class="card-stacked">
+                                            <div class="card-content">
+                                                <h6 class="red-text">${date}</h6>
+                                                <p>${data.description}</p>
+                                            </div>
+                                            <div class="card-action">
+                                                <label class="orange-text">
+                                                    <input type="checkbox" class="check-status" data-id="${data._id}" checked="checked"/>
+                                                    <span></span>
+                                                </label>
+                                                <a href="#" class="delete-todo" data-id="${data._id}""><i class="material-icons prefix">delete</i></a>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    `
+                                )
+                            }
+                        })    
+                    }
+                })
+            }
+        </script>
+    </body>
+  </html>
+        
