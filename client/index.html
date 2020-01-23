@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-signin-client_id" content="394051422038-0bhv925q9b0jsnuc02oqdjc24b7ndsf3.apps.googleusercontent.com">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- font-awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- custom css -->
+    <link rel="stylesheet" href="./src/css/custom-style.css">
+
+    <title>Fancy Todoose</title>
+</head>
+
+<body style="background-image: url('./src/img/bg-img')">
+    <!-- LOGIN PAGE -->
+    <div class="container-fluid" id="login-page" style="display: none;">
+        <div class="row">
+            <div class="col d-flex justify-content-center align-items-center flex-fill vh-100">
+                <div class="card shadow text-center p-5">
+                    <h5 class="card-title" id="login-title">Sign in to Todoose</h5>
+                    <input type="text" class="form-control mt-3" id="username" name="username" placeholder="Email or Username" required>
+                    <input type="email" class="form-control mt-3" id="email" name="email" placeholder="Email" required>
+                    <input type="password" class="form-control my-3" id="password" name="password" placeholder="Password" required>
+                    <button type="button" class="btn btn-success" id="login-btn">Sign In</button>
+                    <p class="my-3">OR</p>
+                    <div id="my-signin2"></div>
+                    <hr>
+                    <button type="button" class="btn btn-link" id="login" onclick="showLogin()">Already have an account? Sign In</button>
+                    <button type="button" class="btn btn-link" id="register" onclick="showRegister()" style="display: none;">Sign up for an account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- USER PAGE -->
+    <div class="container-fluid" id="user-page" style="display: none;">
+        <div class="row">
+            <div class="col">
+                <nav class="navbar navbar-expand-lg">
+                    <h3 class="mr-3">Todoose</h3>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarText">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                              <a class="nav-link" href="#" onclick="location.reload()">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="customAlert('This feature is under construction')">Projects</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="new-board" href="#">Add New Board</a>
+                            </li>
+                        </ul>
+                        <span class="navbar-text">
+                            <span id="user-name">&nbsp;</span>
+                            <button type="button" onclick="signOut();" id="glogout-btn" class="btn btn-sm btn-outline-dark ml-2">Sign Out</button>
+                        </span>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- projects dropdown -->
+        <div class="project-selector">
+            <div class="row mt-3 justify-content-center">
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="select-project">Project</label>
+                        </div>
+                        <select class="custom-select" id="select-project">
+                            <option selected>Personal</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5" id="status-list">
+            <!-- Board data from jquery user-page.js -->
+            &nbsp;
+        </div>
+    </div>
+
+    <!-- ADD EDIT BOARD PAGE -->
+    <div class="container-fluid" id="add-new-board" style="display: none;">
+        <div class="row">
+            <div class="col d-flex justify-content-center align-items-center flex-fill vh-100">
+                <div class="card shadow p-5 w-75">
+                    <h3 class="card-title text-center" id="form-board-title">&nbsp;</h3>
+                    <div class="text-right bg-light mt-3 type-mode">
+                        <button type="button" class="btn btn-link type-mode" onclick="switchModeTo('ocr-mode')">Lazy to type? Try our image to text feature here <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="bg-light mt-3 ocr-mode" style="display: none;">
+                        <button type="button" class="btn btn-link" onclick="switchModeTo('type-mode')"><i class="fas fa-chevron-left"></i> Type faster than the speed of light? Back to manual type</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Todo Name</label>
+                        <div class="input-group mb-3 ocr-mode mb-2" style="display: none;">
+                            <input type="text" class="form-control" id="ocr-name-link" placeholder="http://dl.a9t9.com/running-note/eng.png" aria-describedby="btn-ocr-name">
+                            <div class="input-group-append">
+                              <button class="btn btn-success" type="button" id="btn-ocr-name" onclick="loadText('name')">Load Image</button>
+                            </div>
+                        </div>
+                        <div class="text-center ocr-mode" id="uploaded-name-img">
+                            <!-- fill with uploaded image -->
+                        </div>
+                        <input type="text" class="form-control" id="name" placeholder="Run 10 Kilometers">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Todo Description</label>
+                        <div class="input-group mb-3 ocr-mode mb-2" style="display: none;">
+                            <input type="text" class="form-control" id="ocr-description-link" placeholder="http://i.imgur.com/cheetah.gif" aria-describedby="btn-ocr-description">
+                            <div class="input-group-append">
+                              <button class="btn btn-success" type="button" id="btn-ocr-description" onclick="loadText('description')">Load Image</button>
+                            </div>
+                        </div>
+                        <div class="text-center ocr-mode" id="uploaded-description-img">
+                            <!-- fill with uploaded image -->
+                        </div>
+                        <textarea class="form-control" id="description" rows="4" placeholder="Sending out cheetah to run with me and give reward to the winner"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Todo Status</label>
+                        <select class="form-control" id="status">
+                            <!-- status list from jquery -->
+                        </select>
+                    </div>
+                    <div class="form-group text-right">
+                        <button type="button" class="btn btn-success" id="board-action" onclick="addNewBoard()">Let's Do This</button>
+                        <button type="button" class="btn btn-outline-secondary" onclick="location.reload();">Think Again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="alert-modal" tabindex="-1" role="dialog" aria-labelledby="label-modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="label-modal">ALERT!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-danger text-center">
+                    &nbsp;
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- comfirm deletion modal -->
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="confirm-delete-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirm-delete-title">Are you absolutely sure?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" role="alert" style="font-size: 15px;">
+                        Read this carefully to make sure everything is good to continue.
+                    </div>
+                    <p>This action <b>cannot be undone</b>. This will permanently delete the board and you will not be able to say hello again to this awesome challenge.</p>
+                    <p>Please type <b>I will miss you forever</b> to let the board go.</p>
+                    <input type="text" class="form-control" onkeyup="checkDeleteInput(this)">
+                    <button type="button" class="btn btn-block btn-secondary mt-2" data-dismiss="modal">Close</button>
+                    <a href="#" class="btn btn-outline-danger btn-block disabled" tabindex="-1" role="button" aria-disabled="true">I understand the consequences, confirm delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+    <!-- ALL customs script -->
+    <script src="./src/js/user-page.js"></script>
+    <script src="./src/js/login.js"></script>
+    <script src="./src/js/navbar.js"></script>
+    <script src="./src/js/ocr-mode.js"></script>
+</bod>
+
+</html>
