@@ -3,7 +3,7 @@ function onSignIn(googleUser) {
     const id_token = googleUser.getAuthResponse().id_token;
     $.ajax({
         method: 'post',
-        url: 'http://localhost:3000/user/openAuth',
+        url: 'https://fancy-todo-server.dafitogroup.com/user/openAuth',
         data: {
             g_token: id_token
         }
@@ -49,7 +49,7 @@ function signOut() {
 function getTodoList() {
     $.ajax({
         method: 'get',
-        url: 'http://localhost:3000/todo',
+        url: 'https://fancy-todo-server.dafitogroup.com/todo',
         headers: {
             usertoken: localStorage.getItem('token')
         }
@@ -81,7 +81,7 @@ function getTodoList() {
 function updateTodo(id) {
     $.ajax({
         method: 'put',
-        url: 'http://localhost:3000/todo',
+        url: 'https://fancy-todo-server.dafitogroup.com/todo',
         data: {
             todo_id: id
         },
@@ -114,7 +114,7 @@ function updateTodo(id) {
 function deleteTodo(id) {
     $.ajax({
         method: 'delete',
-        url: 'http://localhost:3000/todo',
+        url: 'https://fancy-todo-server.dafitogroup.com/todo',
         data: {
             todo_id: id
         },
@@ -168,7 +168,7 @@ $(document).ready(function(e) {
         const registerEmail = $('#register-email').val()
         $.ajax({
             method: 'get',
-            url: 'http://apilayer.net/api/check?access_key=' + 'f27751f3bac5167e6e86d7d77949b18a' + '&email=' + registerEmail,   
+            url: 'https://apilayer.net/api/check?access_key=' + 'f27751f3bac5167e6e86d7d77949b18a' + '&email=' + registerEmail,   
             dataType: 'jsonp'     
         })
         .done(response => {
@@ -180,14 +180,13 @@ $(document).ready(function(e) {
             } else {
                 $.ajax({
                 method: 'post',
-                url: 'http://localhost:3000/user/register',
+                url: 'https://fancy-todo-server.dafitogroup.com/user/register',
                 data: {
                     email: $('#register-email').val(),
                     password: $('#register-password').val()
                     }
                 })
                 .done(user => {
-                    console.log(user)
                     $('#success-container').append(`
                     <div id="error-alert" class="row justify-content-center">
                         <div class="col-lg-10">
@@ -257,7 +256,7 @@ $(document).ready(function(e) {
         e.preventDefault();
         $.ajax({
             method: 'post',
-            url: 'http://localhost:3000/user/privateAuth',
+            url: 'https://fancy-todo-server.dafitogroup.com/user/privateAuth',
             data: {
                 email: $('#login-email').val(),
                 password: $('#login-password').val()
@@ -314,7 +313,7 @@ $(document).ready(function(e) {
         e.preventDefault();
         $.ajax({
             method: 'post',
-            url: 'http://localhost:3000/todo',
+            url: 'https://fancy-todo-server.dafitogroup.com/todo',
             data: {
                 name: $('#create-todo-name').val(),
                 description: $('#create-todo-description').val(),
