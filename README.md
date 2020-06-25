@@ -1,6 +1,16 @@
 # fancy-todo
 
-## Usage app
+
+## Usage app client
+1. Visit https://fancy-todo-ecc95.firebaseapp.com/
+2. Login or Register 
+
+   `note: if you want to login/register using github, you should allow Insecure content in your chrome browser`
+   `link allow: chrome://settings/content/siteDetails?site=https%3A%2F%2Ffancy-todo-ecc95.firebaseapp.com`
+3. welcome
+
+
+## Usage app server
 
 ### run in your computer
 ```
@@ -8,7 +18,7 @@ $ npm install
 $ npm start
 $ npm run dev    
 ```
-access the API via `http://localhost:8080/api`
+access the API via local `http://localhost:8080/api` or server `http://34.87.38.74:3300/api`
 
 ## doc api
 
