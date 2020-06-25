@@ -17,18 +17,10 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
               <a class="navbar-brand" href="#">Fancy Todo</a>
               <ul class="navbar-nav mr-auto mt-2 mt-lg-0 isLogin">
-                <li class="nav-item active">
-                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
+                
               </ul>
               <div class="form-inline my-2 my-lg-0 isLogin">
-                  <button class="btn btn-outline-warning my-2 my-sm-0" type="button" id="logout">Logout</button>
+                  <button class="btn  btn-outline-success my-2 my-sm-0" type="button" id="logout">Logout</button>
               </div>
             </div>
             
@@ -39,6 +31,16 @@
         </nav>
     </header>
     <main>
+        <section class="login">
+          <div class="container mt-3">
+            <div class="jumbotron">
+              <h1 class="display-4">What is Fancy Todo?</h1>
+              <p class="lead">Fancy Todo is a collaboration tool that organizes your projects into boards. In one glance, Fancy Todo tells you what's being worked on, who's working on what, and where something is in a process. </p>
+              <hr class="my-4">
+              <strong>Let's login to use app!</strong> 
+            </div>
+          </div>
+        </section>
         <section class="isLogin">
           <div class="container-fluid" id="todos" style="display: none;">
             <nav class="navbar navbar-expand navbar-light" style="padding: 0%;">
@@ -331,7 +333,7 @@
                           </div>
                           <button type="button" class="btn btn-primary form-control" id="register">Register</button>
                           <div class="form-group">
-                                <small id="emailHelp" class="form-text text-muted">Or</small>
+                                <small id="emailHelp" class="form-text text-muted text-center">Or</small>
                                 <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=c7ad8dd4b09cb2c4aa21" class="btn btn-info form-control">Github</a>
                           </div>
                     </form>
@@ -363,7 +365,7 @@
                             </div>
                             <button type="button" class="btn btn-primary form-control" id="login">Login</button>
                             <div class="form-group">
-                                  <small id="emailHelp" class="form-text text-muted">Or</small>
+                                  <small id="emailHelp" class="form-text text-muted text-center">Or</small>
                                   <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=c7ad8dd4b09cb2c4aa21" class="btn btn-info form-control">Github</a>
                             </div>
                       </form>
@@ -385,7 +387,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script>
-        const urlApi = 'http://localhost:8080'
+        const urlApi = 'http://localhost:3000'
     </script>
     <script src="assets/js/auth.js"></script>
     <script src="assets/js/user.js"></script>

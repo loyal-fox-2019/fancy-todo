@@ -4,7 +4,7 @@ const AuthRoutes = require('./AuthRoutes')
 const UserRoutes = require('./UserRoutes')
 const Projects = require('./ProjectRoutes')
 router.get('/', function (req, res) {  
-    res.send('hello world')
+    res.send('~~~~')
 })
 router.use('/auth', AuthRoutes)
 router.use(require('../middlewares/Authentication'))
